@@ -5,8 +5,8 @@
 // back to the login view whenever any API call returns 401 UNAUTHORIZED.
 
 import { useCallback, useEffect, useState } from "react";
-import { api, apiPost, setUnauthorizedHandler } from "@/lib/wedjat/client";
-import type { Principal } from "@/lib/wedjat/types";
+import { api, apiPost, setAuthToken, setUnauthorizedHandler } from "@/lib/wedjat/client";
+import type { LoginResponse, Principal } from "@/lib/wedjat/types";
 
 export type SessionStatus = "loading" | "authenticated" | "anonymous";
 
@@ -14,7 +14,8 @@ export function useSession() {
   const [principal, setPrincipal] = useState<Principal | null>(null);
   const [status, setStatus] = useState<SessionStatus>("loading");
 
-  // Restore session from the HttpOnly cookie.
+  // Restore session: HttpOnly cookie first, falling back to the persisted
+  // bearer token (embedded preview contexts where cookies are blocked).
   useEffect(() => {
     let cancelled = false;
     api<Principal>("/api/auth/me")
@@ -43,16 +44,20 @@ export function useSession() {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const p = await apiPost<Principal>("/api/auth/login", { email, password });
-    setPrincipal(p);
+    const r = await apiPost<LoginResponse>("/api/auth/login", { email, password });
+    // Persist the session token for the Bearer fallback path; the server keeps
+    // the principal authoritative.
+    setAuthToken(r.token);
+    setPrincipal(r.principal);
     setStatus("authenticated");
-    return p;
+    return r.principal;
   }, []);
 
   const logout = useCallback(async () => {
     try {
       await apiPost<true>("/api/auth/logout");
     } finally {
+      setAuthToken(null);
       setPrincipal(null);
       setStatus("anonymous");
     }

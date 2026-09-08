@@ -34,12 +34,43 @@ function notifyUnauthorized() {
   unauthorizedHandler?.();
 }
 
+// ── Bearer token persistence (embedded-context fallback) ──────────────────────
+// The HttpOnly session cookie is the primary transport. In cross-site preview
+// iframes browsers block those cookies, so the login response mirrors the
+// session token; we persist it here and echo it as `Authorization: Bearer`.
+// The server still resolves the principal from the token — never trusted.
+
+const TOKEN_KEY = "wedjat.token";
+
+export function setAuthToken(token: string | null) {
+  try {
+    if (token === null) window.localStorage.removeItem(TOKEN_KEY);
+    else window.localStorage.setItem(TOKEN_KEY, token);
+  } catch {
+    /* storage unavailable — cookie path still applies */
+  }
+}
+
+export function getAuthToken(): string | null {
+  try {
+    return window.localStorage.getItem(TOKEN_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function bearerHeaders(): Record<string, string> {
+  const token = getAuthToken();
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let res: Response;
   try {
     res = await fetch(path, {
       ...init,
       headers: {
+        ...bearerHeaders(),
         "Content-Type": "application/json",
         ...(init?.headers as Record<string, string> | undefined),
       },
@@ -67,7 +98,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     const error = (body as { error?: { code?: string; message?: string } })
       .error;
     const code = error?.code ?? "INTERNAL";
-    if (code === "UNAUTHORIZED") notifyUnauthorized();
+    if (code === "UNAUTHORIZED") {
+      setAuthToken(null);
+      notifyUnauthorized();
+    }
     throw new ApiError(
       code,
       error?.message ?? "The request failed without an error message.",
@@ -78,6 +112,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   // Non-envelope payload — endpoint missing (backend being built in parallel),
   // gateway 5xx HTML, etc.
   if (res.status === 401) {
+    setAuthToken(null);
     notifyUnauthorized();
     throw new ApiError("UNAUTHORIZED", "Session expired or missing.", 401);
   }

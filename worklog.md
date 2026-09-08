@@ -544,3 +544,49 @@ Stage Summary:
   falls back to rule-based evidence when the gateway is unavailable; drift
   RENAME heuristics are signature-based; SQL dump parsing is best-effort DDL
   regex (no live server connections in-sandbox).
+
+---
+Task ID: 11 (demo sign-in loop fix — second incident)
+Agent: orchestrator (main)
+Task: User report: "demo signing in gets back to signing in page again." Diagnose
+and fix the login loop that survived the previous password-normalization fix.
+
+Work Log:
+- DIAGNOSIS: dev.log showed login_ok + POST /api/auth/login 200 followed
+  immediately by GET /api/dashboard 401 → global 401 handler bounced the app
+  back to the login view. curl reproduction proved the SERVER was healthy
+  (login → cookie → dashboard 200), so the failure was client-side cookie
+  persistence: the preview panel renders the app in a cross-site/embedded
+  context where browsers drop SameSite=Lax session cookies (third-party
+  cookie blocking) — agent-browser/curl run first-party, which is why the
+  prior pass "verified" a fix that did not hold for the real user.
+- FIX (dual-track session auth, cookie + bearer):
+  * auth.ts — getPrincipal() now resolves the session from the HttpOnly
+    cookie OR an `Authorization: Bearer <token>` header (tries each
+    candidate token; server stays authoritative for principal/org/roles);
+    added resolveSessionToken() for logout.
+  * login route — mirrors the session token in the JSON body
+    (LoginResponse { principal, token, expiresAt }) and adapts the cookie:
+    SameSite=None;Secure when the request arrived via HTTPS (preview
+    gateway), SameSite=Lax over plain HTTP dev.
+  * logout route — terminates whichever transport carried the session.
+  * types.ts — LoginResponse DTO.
+  * client.ts — persists the token in localStorage (wedjat.token), attaches
+    `Authorization: Bearer` to every request, clears it on any 401.
+  * use-session.ts — login stores the token, logout clears it; /api/auth/me
+    restore now works in cookie-blocked contexts via the header.
+- VERIFICATION:
+  * curl bearer-only path: me/dashboard/intake 200, logout 200, me 401 after.
+  * curl cookie path regression (case+space password variants) still 200.
+  * agent-browser: fresh login → dashboard renders; **cleared all cookies +
+    reload → session restored via Bearer (the exact user bug scenario)**;
+    full logout → re-login cycle; Database Intake view with live data;
+    390px mobile no-overflow; zero console/page errors; dev.log now shows
+    login 200 → dashboard 200 (was 401); bun run lint 0 problems.
+
+Stage Summary:
+- Root cause: embedded-context cookie blocking, not credentials. Fix ships
+  both transports; first-party behavior unchanged. Screenshots:
+  tool-results/intake-after-login-fix.png, tool-results/login-fix-mobile.png.
+- No schema/DB changes. Auth invariant preserved: principal resolved
+  server-side from the token; client identity never trusted.

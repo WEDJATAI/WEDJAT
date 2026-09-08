@@ -2,11 +2,12 @@
 // WEDJAT DOMAIN AI — Server-side authentication & authorization (§53).
 //
 // WHY: the client is NEVER trusted with org/user/platform/blueprint ids.
-// The principal is resolved server-side from the session cookie; org scoping is
+// The principal is resolved server-side from the session cookie (or the
+// Bearer token in cookie-blocked embedded contexts); org scoping is
 // enforced on every query by orgId derived from the session, not the request.
 // ═══════════════════════════════════════════════════════════════════════════════
 
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { db } from '@/lib/db';
 import { sha256, safeEqual, newSessionToken } from '../ids';
 import { WedjatError } from '../errors';
@@ -36,14 +37,54 @@ function demoPasswordMatches(pw: string, storedHash: string): boolean {
 }
 
 /**
- * Resolves the current principal from the session cookie (server-side only).
- * Throws UNAUTHORIZED when no valid session exists.
+ * Session token from the `Authorization: Bearer <token>` header.
+ *
+ * WHY: the preview panel renders this app inside a cross-site iframe, where
+ * browsers drop `SameSite=Lax` session cookies (third-party cookie blocking).
+ * The login response therefore mirrors the session token in its JSON body;
+ * the client persists it and echoes it as a Bearer header. The principal is
+ * still resolved 100% server-side from that token — org scoping and role
+ * gates remain enforced exactly as with the cookie path.
+ */
+async function bearerToken(): Promise<string | null> {
+  const authz = (await headers()).get('authorization');
+  if (!authz || !authz.toLowerCase().startsWith('bearer ')) return null;
+  const token = authz.slice(7).trim();
+  return token || null;
+}
+
+/** All candidate session tokens for this request (cookie first, then bearer). */
+async function candidateSessionTokens(): Promise<string[]> {
+  const cookieToken = (await cookies()).get(SESSION_COOKIE)?.value;
+  const headerToken = await bearerToken();
+  const tokens = [cookieToken, headerToken].filter(
+    (t): t is string => typeof t === 'string' && t.length > 0
+  );
+  return [...new Set(tokens)];
+}
+
+/** Resolves the active session token (cookie or bearer) — used by logout. */
+export async function resolveSessionToken(): Promise<string | undefined> {
+  return (await candidateSessionTokens())[0];
+}
+
+/**
+ * Resolves the current principal from the session cookie OR the bearer
+ * header (server-side only). Tries each candidate token; throws
+ * UNAUTHORIZED when none maps to a live session.
  */
 export async function getPrincipal(): Promise<Principal> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE)?.value;
-  if (!token) throw new WedjatError('UNAUTHORIZED', 'No session');
-  return getPrincipalByToken(token);
+  const tokens = await candidateSessionTokens();
+  if (tokens.length === 0) throw new WedjatError('UNAUTHORIZED', 'No session');
+  let lastErr: unknown = null;
+  for (const token of tokens) {
+    try {
+      return await getPrincipalByToken(token);
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr ?? new WedjatError('UNAUTHORIZED', 'Session invalid or expired');
 }
 
 export async function getPrincipalByToken(token: string): Promise<Principal> {

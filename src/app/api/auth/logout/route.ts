@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { logout, SESSION_COOKIE } from '@/lib/wedjat/security/auth';
+import { logout, SESSION_COOKIE, resolveSessionToken } from '@/lib/wedjat/security/auth';
 import { ok, failFrom } from '@/lib/wedjat/api';
 
 export const runtime = 'nodejs';
 
-export async function POST(): Promise<NextResponse> {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const token = (await cookies()).get(SESSION_COOKIE)?.value;
-    await logout(token);
+    // Terminates the session whichever transport carried it (cookie or bearer).
+    await logout(await resolveSessionToken());
     const res = ok(true);
     res.cookies.set(SESSION_COOKIE, '', { httpOnly: true, path: '/', maxAge: 0 });
     return res;

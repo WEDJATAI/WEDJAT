@@ -26,6 +26,17 @@ export interface LoginUserOption {
   role: Principal['role'];
 }
 
+/**
+ * Login response — the session token is mirrored here so the client can send
+ * it as a Bearer header in contexts where cookies are blocked (embedded
+ * preview iframes with third-party cookie restrictions).
+ */
+export interface LoginResponse {
+  principal: Principal;
+  token: string;
+  expiresAt: string;
+}
+
 // ───────────────────────── knowledge graph ─────────────────────────
 
 export interface PlatformSummary {
