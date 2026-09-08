@@ -1,0 +1,811 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// WEDJAT DOMAIN AI — Prisma schema (transactional control plane)
+//
+// WHY THIS SHAPE: the master prompt (§5, §26) requires the hierarchy
+//   Organization > Platform > Blueprint > Blueprint Version > Document
+//   > Document Version > Section > Chunk > Knowledge Record
+// plus model registry / training / evaluation / observability planes.
+//
+// SQLite notes: no enums and no arrays are used — lifecycle values are validated
+// in the application layer (see src/lib/wedjat/types.ts). Vector payloads and
+// structured payloads are stored as JSON text (Turso/libSQL portable).
+// ═══════════════════════════════════════════════════════════════════════════════
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────────── IDENTITY / TENANCY ─────────────────────────────
+
+model Organization {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  status      String   @default("ACTIVE")
+  dataPolicy  String   @default("APPROVED_REMOTE_PROVIDER") // LOCAL_ONLY | APPROVED_REMOTE_PROVIDER | RESTRICTED_REMOTE | BLOCK_REMOTE
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users         User[]
+  platforms     Platform[]
+  conversations Conversation[]
+  datasets      TrainingDataset[]
+  evalSuites    EvaluationSuite[]
+  promptVersion PromptVersion[]
+  configVersion ConfigVersion[]
+  auditEvents   AuditEvent[]
+  failures      FailureMemory[]
+  trainingSrcs  TrainingSource[]
+  memberships   Membership[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  orgId        String
+  email        String   @unique
+  name         String
+  // OWNER | ADMIN | CURATOR | MEMBER | AUDITOR — validated in app layer
+  role         String   @default("MEMBER")
+  status       String   @default("ACTIVE")
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  org         Organization @relation(fields: [orgId], references: [id])
+  memberships Membership[]
+  sessions    Session[]
+  feedback    Feedback[]
+  reviews     HumanReview[]
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  userId    String
+  orgId     String
+  // PLATFORM scope membership stored as platform slug ("*" = org-wide)
+  scope     String   @default("*")
+  createdAt DateTime @default(now())
+
+  user User         @relation(fields: [userId], references: [id])
+  org  Organization @relation(fields: [orgId], references: [id])
+
+  @@unique([userId, orgId, scope])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  userId     String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// ─────────────────────────── KNOWLEDGE HIERARCHY ──────────────────────────────
+
+model Platform {
+  id          String   @id @default(cuid())
+  orgId       String
+  slug        String   @unique
+  name        String
+  description String?
+  // LOW | MEDIUM | HIGH | CRITICAL
+  criticality String   @default("MEDIUM")
+  // ACTIVE | DEPRECATED | ARCHIVED
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  org        Organization    @relation(fields: [orgId], references: [id])
+  blueprints Blueprint[]
+  versions   PlatformVersion[]
+
+  @@index([orgId])
+}
+
+model PlatformVersion {
+  id          String   @id @default(cuid())
+  platformId  String
+  version     String
+  notes       String?
+  // CURRENT | SUPERSEDED
+  status      String   @default("CURRENT")
+  checksum    String
+  releasedAt  DateTime @default(now())
+
+  platform Platform @relation(fields: [platformId], references: [id])
+
+  @@unique([platformId, version])
+}
+
+model Blueprint {
+  id              String  @id @default(cuid())
+  platformId      String
+  slug            String
+  title           String
+  // ARCHITECTURE | SECURITY | AUDIT | DECISION | SPEC | OPS | REFERENCE
+  blueprintType   String  @default("ARCHITECTURE")
+  // ACTIVE | DRAFT | ARCHIVED
+  status          String  @default("ACTIVE")
+  currentVersionId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  platform Platform         @relation(fields: [platformId], references: [id])
+  versions BlueprintVersion[]
+
+  @@unique([platformId, slug])
+  @@index([platformId])
+}
+
+// Immutable: a new blueprint revision is always a NEW version row (§29).
+model BlueprintVersion {
+  id            String    @id @default(cuid())
+  blueprintId   String
+  version       String
+  // DRAFT | REVIEW | APPROVED | CURRENT | SUPERSEDED
+  status        String    @default("DRAFT")
+  summary       String?
+  supersedesId  String?
+  checksum      String
+  approvedAt    DateTime?
+  effectiveFrom DateTime  @default(now())
+  effectiveUntil DateTime?
+  createdAt     DateTime  @default(now())
+
+  blueprint  Blueprint        @relation(fields: [blueprintId], references: [id])
+  documents  Document[]
+  knowledge  KnowledgeRecord[]
+
+  @@unique([blueprintId, version])
+  @@index([blueprintId])
+}
+
+model Document {
+  id                String  @id @default(cuid())
+  blueprintVersionId String
+  slug              String
+  title             String
+  // BLUEPRINT | ADR | SPEC | AUDIT | RUNBOOK | REVIEW | REFERENCE | PROMPT
+  docType           String  @default("BLUEPRINT")
+  language          String  @default("en")
+  // CONFIDENTIAL | INTERNAL | PUBLIC — feeds the data-sharing policy engine
+  classification    String  @default("INTERNAL")
+  // ACTIVE | SUPERSEDED | EXCLUDED
+  status            String  @default("ACTIVE")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  blueprintVersion BlueprintVersion @relation(fields: [blueprintVersionId], references: [id])
+  versions         DocumentVersion[]
+
+  @@unique([blueprintVersionId, slug])
+}
+
+model DocumentVersion {
+  id            String   @id @default(cuid())
+  documentId    String
+  version       String
+  // INGESTED | PENDING | FAILED | EXCLUDED
+  status        String   @default("PENDING")
+  sourcePath    String?
+  mimeType      String   @default("text/markdown")
+  rawText       String
+  checksum      String
+  byteSize      Int      @default(0)
+  ingestedAt    DateTime?
+  createdAt     DateTime @default(now())
+
+  document Document         @relation(fields: [documentId], references: [id])
+  sections DocumentSection[]
+  chunks   DocumentChunk[]
+  events   IngestionEvent[]
+
+  @@unique([documentId, version])
+}
+
+model DocumentSection {
+  id                String  @id @default(cuid())
+  documentVersionId String
+  ordinal           Int
+  heading           String
+  level             Int     @default(1)
+  content           String
+  // quality 0..100 computed by the pipeline
+  qualityScore      Float   @default(0)
+  createdAt         DateTime @default(now())
+
+  documentVersion DocumentVersion @relation(fields: [documentVersionId], references: [id])
+  chunks          DocumentChunk[]
+
+  @@index([documentVersionId])
+}
+
+model DocumentChunk {
+  id                String  @id @default(cuid())
+  documentVersionId String
+  sectionId         String?
+  ordinal           Int
+  content           String
+  tokenEstimate     Int     @default(0)
+  // 0..100 — chunks below threshold are excluded from retrieval (§8 quality scoring)
+  qualityScore      Float   @default(0)
+  // INDEXED | PENDING | EXCLUDED | SUPERSEDED
+  status            String  @default("PENDING")
+  checksum          String
+
+  documentVersion DocumentVersion  @relation(fields: [documentVersionId], references: [id])
+  section         DocumentSection? @relation(fields: [sectionId], references: [id])
+  embedding       EmbeddingRecord?
+  knowledge       KnowledgeRecord[]
+  lexicalPostings LexicalTerm[]
+
+  @@unique([documentVersionId, ordinal])
+  @@index([documentVersionId])
+}
+
+// Normalized, versioned facts extracted from chunks — the unit that carries
+// currentness (§7) and powers contradiction detection (§49).
+model KnowledgeRecord {
+  id                 String    @id @default(cuid())
+  chunkId            String
+  platformId         String
+  blueprintId        String
+  blueprintVersionId String
+  statement          String
+  // CURRENT | RECENT | HISTORICAL | SUPERSEDED | UNKNOWN
+  status             String    @default("CURRENT")
+  // FACT | DECISION | REQUIREMENT | RISK | COMPONENT | DEPENDENCY | RECOMMENDATION
+  recordType         String    @default("FACT")
+  topicKey           String?
+  // 1..9 — resolved from docType per §6 source priority
+  sourcePriority     Int       @default(5)
+  effectiveFrom      DateTime  @default(now())
+  effectiveUntil     DateTime?
+  lastVerifiedAt     DateTime  @default(now())
+  createdAt          DateTime  @default(now())
+
+  chunk            DocumentChunk    @relation(fields: [chunkId], references: [id])
+  blueprintVersion BlueprintVersion @relation(fields: [blueprintVersionId], references: [id])
+
+  @@index([platformId, topicKey])
+  @@index([blueprintVersionId])
+}
+
+// ────────────────────────────── RETRIEVAL PLANE ───────────────────────────────
+
+// Local deterministic embedding (256-d). Vector is JSON text — kept local so
+// proprietary text never leaves the org boundary to build indexes (§17).
+model EmbeddingRecord {
+  id        String   @id @default(cuid())
+  chunkId   String   @unique
+  model     String   @default("wedjat-local-embed-v1")
+  dimension Int      @default(256)
+  vector    String
+  norm      Float
+  createdAt DateTime @default(now())
+
+  chunk DocumentChunk @relation(fields: [chunkId], references: [id])
+}
+
+// Inverted-index postings for BM25 lexical retrieval.
+model LexicalTerm {
+  id      String @id @default(cuid())
+  term    String
+  chunkId String
+  tf      Float
+
+  chunk DocumentChunk @relation(fields: [chunkId], references: [id])
+
+  @@index([term])
+  @@index([chunkId])
+}
+
+model RetrievalEvent {
+  id              String   @id @default(cuid())
+  traceId         String
+  userId          String?
+  query           String
+  // HYBRID | LEXICAL | SEMANTIC
+  mode            String   @default("HYBRID")
+  filtersJson     String?
+  candidatesCount Int      @default(0)
+  resultCount     Int      @default(0)
+  latencyMs       Int      @default(0)
+  topScore        Float    @default(0)
+  scoresJson      String?
+  createdAt       DateTime @default(now())
+
+  @@index([traceId])
+  @@index([createdAt])
+}
+
+// ───────────────────────────── CONVERSATION / AI ──────────────────────────────
+
+model Conversation {
+  id        String   @id @default(cuid())
+  orgId     String
+  userId    String
+  title     String   @default("New conversation")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  org      Organization @relation(fields: [orgId], references: [id])
+  messages Message[]
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  // USER | ASSISTANT | SYSTEM
+  role           String
+  content        String
+  createdAt      DateTime @default(now())
+
+  conversation Conversation  @relation(fields: [conversationId], references: [id])
+  generations  AiGeneration[]
+
+  @@index([conversationId])
+}
+
+model AiGeneration {
+  id              String   @id @default(cuid())
+  messageId       String?
+  traceId         String
+  taskType        String   @default("chat")
+  provider        String
+  model           String
+  promptVersion   String   @default("unversioned")
+  retrieverVersion String  @default("hybrid-v1")
+  inputTokens     Int      @default(0)
+  outputTokens    Int      @default(0)
+  latencyMs       Int      @default(0)
+  retryCount      Int      @default(0)
+  fallbackCount   Int      @default(0)
+  // OK | DEGRADED | FAILED | BLOCKED_BY_POLICY | INSUFFICIENT_EVIDENCE
+  status          String   @default("OK")
+  confidence      Float?
+  groundedness    Float?
+  costEstimateUsd Float    @default(0)
+  flagsJson       String?
+  createdAt       DateTime @default(now())
+
+  message   Message?          @relation(fields: [messageId], references: [id])
+  sources   GenerationSource[]
+  feedback  Feedback[]
+
+  @@index([traceId])
+  @@index([createdAt])
+}
+
+model GenerationSource {
+  id                String @id @default(cuid())
+  generationId      String
+  chunkId           String
+  blueprintId       String?
+  blueprintVersionId String?
+  documentId        String?
+  sectionHeading    String?
+  score             Float
+  rank              Int
+  // FACT | INFERENCE | RECOMMENDATION | UNKNOWN classification support
+  evidenceType      String @default("FACT")
+
+  generation AiGeneration @relation(fields: [generationId], references: [id])
+
+  @@index([generationId])
+}
+
+// ───────────────────────────── MODEL GOVERNANCE ───────────────────────────────
+
+model ModelRegistry {
+  id                      String  @id @default(cuid())
+  provider                String
+  model                   String
+  modelVersion            String  @default("latest")
+  contextLimit            Int     @default(32768)
+  supportsStructuredOutput Boolean @default(true)
+  supportsToolUse         Boolean @default(false)
+  supportsEmbedding       Boolean @default(false)
+  supportsReranking       Boolean @default(false)
+  supportsFinetuning      Boolean @default(false)
+  supportsLocalInference  Boolean @default(false)
+  estimatedLatencyMs      Int     @default(1500)
+  // FAST | BALANCED | HIGH
+  qualityClass            String  @default("BALANCED")
+  // FREE | LOW | MEDIUM | HIGH
+  costClass               String  @default("LOW")
+  gpuRequirement          String  @default("none")
+  // EXPERIMENTAL | ACTIVE | STANDBY | DEPRECATED
+  status                  String  @default("EXPERIMENTAL")
+  notes                   String?
+  versions                ModelVersion[]
+}
+
+model ModelVersion {
+  id                String   @id @default(cuid())
+  registryId        String
+  version           String
+  baseModel         String
+  // NONE | LORA | QLORA | FULL_SFT | SIMULATED
+  trainingMethod    String   @default("NONE")
+  datasetVersionId  String?
+  trainingRunId     String?
+  codeVersion       String   @default("git:unknown")
+  evaluationVersion String?
+  artifactChecksum  String
+  // EXPERIMENTAL | TRAINING | EVALUATION | CANDIDATE | CANARY | PRODUCTION | DEPRECATED | REJECTED
+  status            String   @default("EXPERIMENTAL")
+  createdAt         DateTime @default(now())
+
+  registry    ModelRegistry      @relation(fields: [registryId], references: [id])
+  deployments ModelDeployment[]
+  baseForRuns        TrainingRun[] @relation("runBaseModel")
+  candidateForRuns  TrainingRun[] @relation("runCandidateModel")
+
+  @@unique([registryId, version])
+}
+
+model ModelDeployment {
+  id            String   @id @default(cuid())
+  modelVersionId String
+  // DEV | STAGING | PRODUCTION
+  environment    String   @default("PRODUCTION")
+  // CANDIDATE | CANARY | PRODUCTION | ROLLED_BACK
+  stage          String   @default("CANDIDATE")
+  canaryPercent  Int      @default(0)
+  rollbackToId   String?
+  // ACTIVE | INACTIVE
+  status         String   @default("ACTIVE")
+  deployedAt     DateTime @default(now())
+  note           String?
+
+  modelVersion ModelVersion @relation(fields: [modelVersionId], references: [id])
+
+  @@index([modelVersionId])
+}
+
+// ─────────────────────────── TRAINING DATA GOVERNANCE ─────────────────────────
+
+model TrainingSource {
+  id        String   @id @default(cuid())
+  orgId     String
+  // FEEDBACK | SYNTHETIC | CORRECTION | DOCUMENT
+  kind      String
+  refId     String
+  // ELIGIBLE | CURATED | EXCLUDED | CONSUMED
+  status    String   @default("ELIGIBLE")
+  reason    String?
+  examples  TrainingExample[]
+  createdAt DateTime @default(now())
+
+  org    Organization     @relation(fields: [orgId], references: [id])
+
+  @@unique([orgId, kind, refId])
+}
+
+model TrainingExample {
+  id             String   @id @default(cuid())
+  sourceId       String
+  datasetVersionId String?
+  // BLUEPRINT_QA | ARCHITECTURE_ANALYSIS | RESILIENCE_ANALYSIS | RISK_ANALYSIS |
+  // SECURITY_ANALYSIS | SUMMARIZATION | CTO_SUMMARY | CLASSIFICATION | PREFERENCE
+  exampleType    String   @default("BLUEPRINT_QA")
+  prompt         String
+  completion     String
+  qualityScore   Float    @default(0)
+  dedupeHash     String
+  // PENDING | PASSED | FAILED | EXCLUDED
+  status         String   @default("PENDING")
+  validationNotes String?
+  isSynthetic    Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  source         TrainingSource       @relation(fields: [sourceId], references: [id])
+  datasetVersion TrainingDatasetVersion? @relation(fields: [datasetVersionId], references: [id])
+  reviews        HumanReview[]
+
+  @@index([datasetVersionId])
+  @@index([status])
+}
+
+model TrainingDataset {
+  id          String   @id @default(cuid())
+  orgId       String
+  name        String
+  slug        String   @unique
+  description String?
+  // DRAFT | ACTIVE | RETIRED
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  org         Organization           @relation(fields: [orgId], references: [id])
+  versions    TrainingDatasetVersion[]
+  currentVersionId String?
+}
+
+model TrainingDatasetVersion {
+  id           String   @id @default(cuid())
+  datasetId    String
+  version      String
+  exampleCount Int      @default(0)
+  // DRAFT | LOCKED | RETIRED
+  status       String  @default("DRAFT")
+  checksum     String
+  lockedAt     DateTime?
+  createdAt    DateTime @default(now())
+
+  dataset TrainingDataset  @relation(fields: [datasetId], references: [id])
+  examples TrainingExample[]
+  runs    TrainingRun[]
+
+  @@unique([datasetId, version])
+}
+
+// Lifecycle: QUEUED → VALIDATING → TRAINING → EVALUATING → CANDIDATE → CANARY →
+// PRODUCTION (with FAILED / REJECTED / ROLLED_BACK terminal or recovery states).
+// Training NEVER auto-deploys (§41): every promotion is an explicit, audited action.
+model TrainingRun {
+  id                String   @id @default(cuid())
+  datasetVersionId  String
+  baseModelVersionId String?
+  // LORA | QLORA | FULL_SFT | SIMULATED
+  method            String   @default("LORA")
+  status            String   @default("QUEUED")
+  progress          Int      @default(0)
+  currentStep       String   @default("queued")
+  stepsJson         String?
+  notes             String?
+  // Honest hardware record — no GPU present in this environment → SIMULATED only.
+  gpuProfile        String   @default("none-detected")
+  candidateModelVersionId String?
+  evaluationSummaryJson String?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime @default(now())
+
+  datasetVersion TrainingDatasetVersion @relation(fields: [datasetVersionId], references: [id])
+  baseModel      ModelVersion?           @relation("runBaseModel", fields: [baseModelVersionId], references: [id])
+  candidateModel ModelVersion?           @relation("runCandidateModel", fields: [candidateModelVersionId], references: [id])
+  metrics        TrainingMetric[]
+
+  @@index([status])
+}
+
+model TrainingMetric {
+  id        String   @id @default(cuid())
+  runId     String
+  step      Int
+  loss      Float?
+  evalScore Float?
+  createdAt DateTime @default(now())
+
+  run TrainingRun @relation(fields: [runId], references: [id])
+}
+
+// ───────────────────────────────── EVALUATION ────────────────────────────────
+
+model EvaluationSuite {
+  id          String   @id @default(cuid())
+  orgId       String
+  slug        String   @unique
+  name        String
+  description String?
+  version     String   @default("1")
+  createdAt   DateTime @default(now())
+
+  org    Organization     @relation(fields: [orgId], references: [id])
+  cases  EvaluationCase[]
+  results EvaluationResult[]
+}
+
+model EvaluationCase {
+  id                  String  @id @default(cuid())
+  suiteId             String
+  // RETRIEVAL | GROUNDED_CHAT | CONTRADICTION | CHANGE_DETECT | CTO_SUMMARY
+  task                String  @default("RETRIEVAL")
+  query               String
+  expectedKeywordsJson String
+  expectedPlatformSlug String?
+  expectedBlueprintSlug String?
+  expectedSourcesMin  Int     @default(1)
+  llmJudged           Boolean @default(false)
+  notes               String?
+  results             EvaluationResult[]
+  suite               EvaluationSuite @relation(fields: [suiteId], references: [id])
+}
+
+model EvaluationResult {
+  id            String   @id @default(cuid())
+  suiteId       String
+  caseId        String
+  runLabel      String
+  retrievedCount Int     @default(0)
+  recallAtK     Float    @default(0)
+  precisionAtK  Float    @default(0)
+  keywordCoverage Float  @default(0)
+  groundedness  Float?
+  latencyMs     Int      @default(0)
+  passed        Boolean  @default(false)
+  detailsJson   String?
+  createdAt     DateTime @default(now())
+
+  suite EvaluationSuite @relation(fields: [suiteId], references: [id])
+  case  EvaluationCase  @relation(fields: [caseId], references: [id])
+
+  @@index([suiteId, runLabel])
+}
+
+// ────────────────────────── FEEDBACK / HUMAN REVIEW ───────────────────────────
+
+model Feedback {
+  id          String   @id @default(cuid())
+  generationId String
+  userId      String
+  // CORRECT | PARTIALLY_CORRECT | INCORRECT | UNSUPPORTED | HALLUCINATION |
+  // OUTDATED | HIGH_VALUE | LOW_VALUE
+  label       String
+  comment     String?
+  createdAt   DateTime @default(now())
+
+  generation AiGeneration  @relation(fields: [generationId], references: [id])
+  user       User          @relation(fields: [userId], references: [id])
+  reviews    HumanReview[]
+
+  @@index([generationId])
+}
+
+model HumanReview {
+  id        String   @id @default(cuid())
+  feedbackId String?
+  trainingExampleId String?
+  reviewerId String
+  // APPROVED | REJECTED | NEEDS_EDIT
+  verdict   String
+  notes     String?
+  createdAt DateTime @default(now())
+
+  reviewer       User             @relation(fields: [reviewerId], references: [id])
+  feedback       Feedback?        @relation(fields: [feedbackId], references: [id])
+  trainingExample TrainingExample? @relation(fields: [trainingExampleId], references: [id])
+}
+
+// Failure knowledge repository (§72) — future training/evaluation signal.
+model FailureMemory {
+  id               String   @id @default(cuid())
+  orgId            String
+  question         String
+  // RETRIEVAL_FAILURE | INCORRECT_ANSWER | HALLUCINATION | LOW_CONFIDENCE | ONGOING
+  failureType      String
+  reason           String?
+  correctAnswer    String?
+  source           String?
+  humanCorrection  String?
+  resolution       String?
+  modelVersion     String?
+  createdAt        DateTime @default(now())
+
+  org Organization @relation(fields: [orgId], references: [id])
+}
+
+// ─────────────────────────── OBSERVABILITY / CONTROL ─────────────────────────
+
+model ProviderHealth {
+  id             String   @id @default(cuid())
+  provider       String
+  model          String   @default("*")
+  // CLOSED | OPEN | HALF_OPEN
+  circuitState   String   @default("CLOSED")
+  requests       Int      @default(0)
+  successes      Int      @default(0)
+  failures       Int      @default(0)
+  rateLimited429 Int      @default(0)
+  serverErrors5xx Int     @default(0)
+  timeouts       Int      @default(0)
+  avgLatencyMs   Int      @default(0)
+  windowStart    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([provider, model])
+}
+
+model AuditEvent {
+  id         String   @id @default(cuid())
+  orgId      String?
+  actorType  String   @default("system") // user | system | job | router
+  actorId    String?
+  action     String
+  targetType String?
+  targetId   String?
+  // INFO | WARN | ERROR | CRITICAL
+  severity   String   @default("INFO")
+  detailsJson String?
+  traceId    String?
+  createdAt  DateTime @default(now())
+
+  org Organization? @relation(fields: [orgId], references: [id])
+
+  @@index([createdAt])
+  @@index([orgId])
+}
+
+model IngestionEvent {
+  id               String   @id @default(cuid())
+  documentVersionId String
+  // DISCOVERED | VALIDATED | NORMALIZED | CLASSIFIED | VERSIONED | SECTIONED |
+  // CHUNKED | ENRICHED | DEDUPLICATED | QUALITY_SCORED | EMBEDDED | INDEXED |
+  // READY_FOR_RAG | FAILED | REJECTED
+  stage            String
+  status           String   @default("OK") // OK | WARN | FAILED | SKIPPED
+  detail           String?
+  latencyMs        Int      @default(0)
+  traceId          String?
+  createdAt        DateTime @default(now())
+
+  documentVersion DocumentVersion @relation(fields: [documentVersionId], references: [id])
+
+  @@index([documentVersionId])
+}
+
+// Durable async job system (§62) — ingestion / embedding / eval / training.
+model Job {
+  id             String   @id @default(cuid())
+  type           String
+  // QUEUED | RUNNING | RETRYING | FAILED | CANCELLED | COMPLETED
+  status         String   @default("QUEUED")
+  payloadJson    String
+  resultJson     String?
+  attempts       Int      @default(0)
+  maxAttempts    Int      @default(3)
+  lastError      String?
+  idempotencyKey String?  @unique
+  traceId        String?
+  progress       Int      @default(0)
+  createdAt      DateTime @default(now())
+  startedAt      DateTime?
+  completedAt    DateTime?
+
+  @@index([status])
+  @@index([type])
+}
+
+model PromptVersion {
+  id         String   @id @default(cuid())
+  orgId      String
+  promptId   String
+  version    String
+  task       String
+  template   String
+  // DRAFT | APPROVED | ARCHIVED
+  status     String   @default("DRAFT")
+  author     String   @default("system")
+  approvedAt DateTime?
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  org Organization @relation(fields: [orgId], references: [id])
+
+  @@unique([promptId, version])
+}
+
+model ConfigVersion {
+  id        String   @id @default(cuid())
+  orgId     String
+  key       String
+  version   String
+  valueJson String
+  status    String   @default("ACTIVE")
+  createdAt DateTime @default(now())
+
+  org Organization @relation(fields: [orgId], references: [id])
+
+  @@unique([key, version])
+}

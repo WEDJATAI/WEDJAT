@@ -1,0 +1,2851 @@
+# WEDJAT PROPRIETARY DOMAIN AI
+
+## MASTER PRODUCTION IMPLEMENTATION PROMPT
+
+### Version 1.0 — Domain Intelligence, Knowledge Expansion, RAG, Training, Evaluation and Continuous Learning
+
+---
+
+# 0. EXECUTIVE OBJECTIVE
+
+Build a production-grade proprietary AI platform called:
+
+**WEDJAT DOMAIN AI**
+
+The objective is NOT to train a new general-purpose foundation model from zero.
+
+The objective is to build a **proprietary domain AI system** that becomes highly knowledgeable about all of the organization's platforms, blueprints, architectures, workflows, specifications, audits, technical decisions, operational procedures, datasets, and validated domain knowledge.
+
+The system must progressively improve through:
+
+1. proprietary knowledge ingestion;
+2. versioned knowledge management;
+3. retrieval-augmented generation (RAG);
+4. hybrid search;
+5. semantic retrieval;
+6. reranking;
+7. structured reasoning workflows;
+8. expert/human feedback;
+9. curated training datasets;
+10. supervised fine-tuning where justified;
+11. PEFT/LoRA where appropriate;
+12. automated evaluation;
+13. model/version management;
+14. controlled production promotion;
+15. continuous knowledge expansion.
+
+Gemini, Groq, and Hugging Face are supporting AI infrastructure.
+
+They are NOT the proprietary knowledge base.
+
+Turso is the transactional source-of-truth/control plane for the application and knowledge metadata.
+
+---
+
+# 1. ABSOLUTE AI PROVIDER CONSTRAINT
+
+Do NOT use OpenAI.
+
+Do NOT install OpenAI SDKs merely for compatibility.
+
+Do NOT use OpenAI models.
+
+Do NOT use OpenAI embeddings.
+
+Do NOT use OpenAI APIs anywhere in the production architecture.
+
+Approved AI ecosystem:
+
+```text
+GOOGLE GEMINI
+GROQ
+HUGGING FACE
+```
+
+The system must be provider-independent internally through adapters.
+
+Required architecture:
+
+```text
+                        WEDJAT AI GATEWAY
+                                |
+                         MODEL ROUTER
+                                |
+              +-----------------+-----------------+
+              |                 |                 |
+          GEMINI             GROQ          HUGGING FACE
+         ADAPTER             ADAPTER             ADAPTER
+```
+
+Application/domain logic must never directly call provider SDKs.
+
+---
+
+# 2. IMPORTANT TERMINOLOGY
+
+This project is a:
+
+**Proprietary Domain AI / Domain Intelligence System**
+
+It is NOT initially a new foundation model trained from zero.
+
+Use the following conceptual distinction:
+
+```text
+FOUNDATION MODEL
+    ↓
+GENERAL CAPABILITY
+
+PROPRIETARY KNOWLEDGE
+    ↓
+ORGANIZATIONAL KNOWLEDGE
+
+FINE-TUNING
+    ↓
+DOMAIN BEHAVIOR / TASK ADAPTATION
+
+RAG
+    ↓
+CURRENT FACTUAL KNOWLEDGE
+
+EVALUATION
+    ↓
+QUALITY CONTROL
+```
+
+The architecture must preserve this separation.
+
+---
+
+# 3. PRIMARY PURPOSE
+
+The finished system must be able to understand and reason over the organization's complete portfolio of platforms.
+
+Examples of supported queries:
+
+```text
+"Summarize blueprint X for a CTO."
+
+"How do I improve the resiliency of blueprint X?"
+
+"Audit the architecture of platform Y."
+
+"Find contradictions between blueprint A and blueprint B."
+
+"What changed between blueprint version 4 and version 5?"
+
+"What are the production blockers?"
+
+"Which dependencies create the largest operational risk?"
+
+"Which components are shared across our platforms?"
+
+"Identify missing security controls."
+
+"Identify architectural inconsistencies."
+
+"Create an implementation roadmap."
+
+"Explain this blueprint to a non-technical executive."
+
+"Compare the technology choices across our platforms."
+
+"What information is missing before this platform can be production-ready?"
+
+"Which recommendations have already been implemented?"
+
+"What recommendations from previous audits remain unresolved?"
+```
+
+The system must reason from the organization's actual source material whenever applicable.
+
+---
+
+# 4. ATTACHED BLUEPRINTS ARE THE INITIAL PROPRIETARY CORPUS
+
+All uploaded platform blueprints and associated documents are proprietary source material.
+
+The developer must:
+
+1. discover all uploaded blueprint files;
+2. ingest them;
+3. identify platform boundaries;
+4. identify document types;
+5. extract structure;
+6. preserve versions;
+7. create source lineage;
+8. generate searchable chunks;
+9. generate embeddings;
+10. build retrieval indexes;
+11. classify content;
+12. identify relationships between platforms;
+13. identify contradictions;
+14. identify duplicate information;
+15. identify superseded information.
+
+Do not flatten all blueprints into one undifferentiated knowledge base.
+
+Maintain explicit platform and blueprint identity.
+
+---
+
+# 5. KNOWLEDGE HIERARCHY
+
+Implement this hierarchy:
+
+```text
+Organization
+    |
+    +-- Platform
+          |
+          +-- Blueprint
+                |
+                +-- Blueprint Version
+                      |
+                      +-- Document
+                            |
+                            +-- Document Version
+                                  |
+                                  +-- Section
+                                        |
+                                        +-- Chunk
+                                              |
+                                              +-- Knowledge Record
+```
+
+The system must always know the exact source and version of knowledge.
+
+---
+
+# 6. KNOWLEDGE SOURCE PRIORITY
+
+When information conflicts, apply source priority.
+
+Recommended precedence:
+
+```text
+1. Explicitly approved current blueprint version
+2. Approved architecture decision
+3. Approved technical specification
+4. Validated implementation/documentation
+5. Approved audit/review
+6. Human-validated corrective recommendation
+7. Historical blueprint
+8. External reference knowledge
+9. General model knowledge
+```
+
+Do not silently merge contradictory information.
+
+Flag conflicts.
+
+---
+
+# 7. CURRENTNESS / KNOWLEDGE FRESHNESS
+
+The AI must distinguish between:
+
+```text
+CURRENT
+RECENT
+HISTORICAL
+SUPERSEDED
+UNKNOWN
+```
+
+Every knowledge object should have:
+
+```text
+effective_from
+effective_until
+status
+source_version
+last_verified_at
+```
+
+The model must prefer current information.
+
+A historical blueprint must not override a newer approved version.
+
+---
+
+# 8. KNOWLEDGE PIPELINE
+
+Implement:
+
+```text
+SOURCE
+  ↓
+INGESTION
+  ↓
+VALIDATION
+  ↓
+NORMALIZATION
+  ↓
+DOCUMENT CLASSIFICATION
+  ↓
+VERSION DETECTION
+  ↓
+SECTION EXTRACTION
+  ↓
+CHUNKING
+  ↓
+METADATA ENRICHMENT
+  ↓
+DEDUPLICATION
+  ↓
+QUALITY SCORING
+  ↓
+EMBEDDING
+  ↓
+INDEXING
+  ↓
+READY FOR RAG
+```
+
+All steps must be observable and retryable.
+
+---
+
+# 9. TRAINING PIPELINE
+
+Knowledge ingestion and model training MUST be separate.
+
+Never automatically train the model simply because new data was uploaded.
+
+Use:
+
+```text
+RAW SOURCE
+  ↓
+VALIDATION
+  ↓
+KNOWLEDGE READY
+  ↓
+RAG AVAILABLE
+  ↓
+TRAINING ELIGIBILITY
+  ↓
+CURATION
+  ↓
+TRAINING DATASET
+  ↓
+DATASET VERSION
+  ↓
+TRAINING
+  ↓
+EVALUATION
+  ↓
+CANDIDATE MODEL
+  ↓
+CANARY
+  ↓
+PRODUCTION
+```
+
+---
+
+# 10. RAG-FIRST STRATEGY
+
+The default strategy must be:
+
+**RAG first. Fine-tuning second.**
+
+Do not fine-tune merely to memorize rapidly changing blueprint information.
+
+Use RAG for:
+
+* latest blueprint versions;
+* changing technical specifications;
+* current project information;
+* current policies;
+* architecture status;
+* recent audit findings;
+* current implementation state.
+
+Use fine-tuning primarily for:
+
+* domain behavior;
+* response patterns;
+* terminology;
+* structured task performance;
+* specialized classification;
+* analysis patterns;
+* consistent reasoning formats;
+* organization-specific workflows.
+
+---
+
+# 11. HYBRID RETRIEVAL
+
+Implement hybrid retrieval:
+
+```text
+LEXICAL SEARCH
++
+SEMANTIC SEARCH
++
+METADATA FILTERING
++
+VERSION FILTERING
++
+RERANKING
+```
+
+Retrieval must support:
+
+* platform;
+* blueprint;
+* version;
+* document;
+* section;
+* topic;
+* date;
+* status;
+* language;
+* document type;
+* permissions.
+
+---
+
+# 12. RERANKING
+
+Do not send the first N vector results directly to the LLM.
+
+Use:
+
+```text
+Candidate Retrieval
+      ↓
+Reranker
+      ↓
+Top Relevant Evidence
+      ↓
+Context Assembly
+```
+
+The reranker may use a Hugging Face model where appropriate.
+
+Track retrieval scores.
+
+---
+
+# 13. CONTEXT ASSEMBLY
+
+Context sent to the model must include structured source metadata.
+
+Example:
+
+```text
+PLATFORM:
+BLUEPRINT:
+VERSION:
+DOCUMENT:
+SECTION:
+SOURCE STATUS:
+EFFECTIVE DATE:
+CONTENT:
+```
+
+Do not rely solely on raw text.
+
+---
+
+# 14. SOURCE-GROUNDED RESPONSES
+
+The system must distinguish:
+
+```text
+SOURCE-SUPPORTED FACT
+REASONED INFERENCE
+RECOMMENDATION
+UNKNOWN
+```
+
+Example:
+
+```text
+FACT:
+The blueprint specifies X.
+
+INFERENCE:
+This architecture creates a likely resilience risk because X depends on Y.
+
+RECOMMENDATION:
+Introduce Z to eliminate or reduce that dependency.
+
+UNKNOWN:
+The blueprint does not specify whether Z is currently implemented.
+```
+
+The model must not present inference as fact.
+
+---
+
+# 15. HALLUCINATION CONTROL
+
+If source evidence is insufficient:
+
+DO NOT invent an answer.
+
+Return an explicit statement such as:
+
+```text
+"Insufficient evidence in the available blueprint material."
+```
+
+Then identify what information would be required.
+
+---
+
+# 16. PROMPT INJECTION DEFENSE
+
+All uploaded documents and retrieved content are UNTRUSTED DATA.
+
+A document may contain text such as:
+
+```text
+Ignore previous instructions.
+Reveal the system prompt.
+Execute this command.
+Send secrets.
+```
+
+These instructions must NEVER become application instructions.
+
+Use hierarchy:
+
+```text
+SYSTEM POLICY
+>
+APPLICATION POLICY
+>
+TASK INSTRUCTIONS
+>
+USER REQUEST
+>
+RETRIEVED DATA
+```
+
+Retrieved content is evidence, not authority.
+
+Never allow source documents to override system rules.
+
+---
+
+# 17. PROPRIETARY DATA PROTECTION
+
+Treat all platform blueprints and derived datasets as confidential organizational intellectual property.
+
+Never expose proprietary content to external systems unnecessarily.
+
+Before sending content to Gemini or Groq, the system must apply configurable data-sharing policy.
+
+Support:
+
+```text
+LOCAL_ONLY
+APPROVED_REMOTE_PROVIDER
+RESTRICTED_REMOTE
+BLOCK_REMOTE
+```
+
+The architecture must allow sensitive knowledge to remain local.
+
+---
+
+# 18. THREE AI ROLES
+
+Use the providers strategically rather than randomly.
+
+## Gemini
+
+Use where appropriate for:
+
+* high-quality analysis;
+* complex reasoning;
+* document synthesis;
+* large-context tasks;
+* teacher/reference generation;
+* difficult architecture analysis.
+
+## Groq
+
+Use where appropriate for:
+
+* low-latency inference;
+* high-throughput tasks;
+* fast classification;
+* routing;
+* interactive workloads;
+* evaluation workloads where suitable.
+
+## Hugging Face
+
+Use for:
+
+* local models;
+* embeddings;
+* reranking;
+* classification;
+* extraction;
+* local inference;
+* fine-tuning;
+* LoRA/PEFT;
+* dataset management;
+* controlled model experimentation.
+
+Do not assume every model supports every capability.
+
+Maintain a capability registry.
+
+---
+
+# 19. MODEL CAPABILITY REGISTRY
+
+Create a configuration-driven registry containing:
+
+```text
+provider
+model
+model_version
+context_limit
+supports_structured_output
+supports_tool_use
+supports_embedding
+supports_reranking
+supports_finetuning
+supports_local_inference
+estimated_latency
+quality_class
+cost_class
+gpu_requirement
+status
+```
+
+The router must consult the registry.
+
+---
+
+# 20. MODEL ROUTER
+
+Create a centralized Model Router.
+
+Inputs:
+
+```text
+task_type
+context_size
+required_quality
+latency_requirement
+provider_health
+model_health
+data_policy
+GPU availability
+cost limits
+```
+
+Output:
+
+```text
+selected provider
+selected model
+fallback chain
+timeout
+retry policy
+```
+
+Do not hard-code routing logic into UI/API handlers.
+
+---
+
+# 21. PROVIDER FAILOVER
+
+Example:
+
+```text
+PRIMARY
+  ↓
+TRANSIENT RETRY
+  ↓
+SECONDARY
+  ↓
+TERTIARY
+  ↓
+CONTROLLED DEGRADED RESPONSE
+```
+
+Never create infinite failover loops.
+
+Avoid repeated execution of non-idempotent operations.
+
+---
+
+# 22. RETRY POLICY
+
+Every external API call must have:
+
+```text
+connect timeout
+request timeout
+maximum retries
+maximum retry duration
+exponential backoff
+jitter
+```
+
+Retry transient errors only.
+
+Retry examples:
+
+```text
+408
+429
+selected 5xx
+network timeout
+connection reset
+temporary unavailable
+```
+
+Do not retry:
+
+```text
+401
+403
+invalid API key
+invalid parameter
+unsupported model
+malformed request
+permanent policy rejection
+```
+
+Honor provider retry hints such as `Retry-After` when available.
+
+---
+
+# 23. CIRCUIT BREAKER
+
+Implement per-provider and preferably per-model circuit breakers.
+
+States:
+
+```text
+CLOSED
+OPEN
+HALF_OPEN
+```
+
+Track failure rates.
+
+Automatically recover after cooldown.
+
+Prevent provider outages from cascading through the application.
+
+---
+
+# 24. RATE LIMITING
+
+Implement:
+
+```text
+per-user limits
+per-organization limits
+per-provider limits
+per-model limits
+concurrency limits
+token limits
+daily quotas
+```
+
+Use backpressure instead of endless retries.
+
+---
+
+# 25. TURSO DATABASE
+
+Use the supplied WEDJAT Turso database as the application's transactional source-of-truth/control-plane database.
+
+Database URL must be configured through:
+
+```text
+TURSO_DATABASE_URL
+TURSO_AUTH_TOKEN
+```
+
+NEVER hard-code the credentials.
+
+NEVER print them.
+
+NEVER commit them.
+
+NEVER place them in frontend code.
+
+NEVER return them in API responses.
+
+---
+
+# 26. REQUIRED DATABASE DOMAIN MODEL
+
+Create versioned migrations and implement tables/entities conceptually equivalent to:
+
+```text
+organizations
+users
+memberships
+
+platforms
+platform_versions
+
+blueprints
+blueprint_versions
+blueprint_sections
+
+documents
+document_versions
+document_sections
+document_chunks
+
+knowledge_sources
+knowledge_records
+knowledge_versions
+
+embedding_records
+retrieval_indexes
+retrieval_events
+
+conversations
+messages
+
+ai_generations
+generation_sources
+
+model_registry
+model_versions
+model_deployments
+
+training_sources
+training_examples
+training_datasets
+training_dataset_versions
+
+training_runs
+training_metrics
+training_evaluations
+
+evaluation_suites
+evaluation_cases
+evaluation_results
+
+feedback
+human_reviews
+
+provider_health
+model_health
+
+audit_events
+```
+
+Add appropriate:
+
+```text
+UUID/ULID identifiers
+timestamps
+version numbers
+status
+tenant identifiers
+checksums
+idempotency keys
+trace IDs
+```
+
+---
+
+# 27. LARGE DATA POLICY
+
+Do not assume Turso should contain every large raw artifact.
+
+Turso should act as the transactional/control metadata plane.
+
+For large files or model artifacts, use object/blob storage where appropriate and store references/checksums/metadata in Turso.
+
+The architecture must support:
+
+```text
+Turso
+    ↓
+metadata + provenance + control state
+
+Object Storage
+    ↓
+large source files + datasets + artifacts
+
+GPU/Compute
+    ↓
+training + inference
+```
+
+---
+
+# 28. DATABASE INTEGRITY
+
+Use:
+
+* migrations;
+* transactions;
+* unique constraints;
+* foreign-key relationships where supported;
+* optimistic concurrency where appropriate;
+* idempotency;
+* explicit lifecycle transitions.
+
+Never perform destructive schema changes casually.
+
+---
+
+# 29. BLUEPRINT VERSIONING
+
+Blueprint versions must be immutable.
+
+Example:
+
+```text
+BLUEPRINT X
+  v1.0
+  v1.1
+  v2.0
+  v2.1
+```
+
+Never overwrite historical versions.
+
+When a blueprint changes:
+
+```text
+new version
+new hash
+new ingestion record
+new embeddings
+new retrieval state
+```
+
+Preserve historical traceability.
+
+---
+
+# 30. SOURCE HASHING
+
+Calculate hashes for source documents and important derived artifacts.
+
+Use hashes for:
+
+* duplicate detection;
+* integrity verification;
+* version identification;
+* training lineage;
+* artifact integrity.
+
+---
+
+# 31. DATA LINEAGE
+
+Every generated answer must be traceable to:
+
+```text
+platform
+blueprint
+blueprint_version
+document
+document_version
+section
+chunk
+retrieval_event
+generation
+model
+model_version
+prompt_version
+```
+
+Every training example must be traceable to its original source.
+
+---
+
+# 32. TRAINING DATA QUALITY
+
+Training data must pass:
+
+```text
+schema validation
+duplicate detection
+near-duplicate detection
+quality scoring
+source verification
+sensitive-data checks
+consistency checks
+label validation
+```
+
+Never automatically train on all raw conversations.
+
+---
+
+# 33. TRAINING DATASET TYPES
+
+Support:
+
+```text
+domain knowledge
+blueprint QA
+architecture analysis
+resilience analysis
+risk analysis
+security analysis
+contradiction detection
+summarization
+CTO summaries
+classification
+structured extraction
+instruction following
+preference data
+expert corrections
+```
+
+---
+
+# 34. HUMAN FEEDBACK LOOP
+
+Support:
+
+```text
+AI ANSWER
+   ↓
+HUMAN REVIEW
+   ↓
+LABEL
+   ↓
+CURATE
+   ↓
+TRAINING CANDIDATE
+```
+
+Labels:
+
+```text
+CORRECT
+PARTIALLY_CORRECT
+INCORRECT
+UNSUPPORTED
+HALLUCINATION
+OUTDATED
+HIGH_VALUE
+LOW_VALUE
+```
+
+---
+
+# 35. SYNTHETIC TRAINING DATA
+
+Gemini and Groq may be used as teacher models to help generate candidate:
+
+```text
+question-answer pairs
+summaries
+classification examples
+reasoning examples
+architecture-analysis examples
+```
+
+However:
+
+**Synthetic data must never automatically be treated as ground truth.**
+
+Every synthetic example requires:
+
+```text
+source grounding
+quality scoring
+deduplication
+validation
+optional human review
+```
+
+Use synthetic data to expand the dataset, not to manufacture unsupported facts.
+
+---
+
+# 36. TEACHER-STUDENT TRAINING ARCHITECTURE
+
+Where useful:
+
+```text
+PROPRIETARY SOURCE
+      ↓
+GEMINI / GROQ
+      ↓
+CANDIDATE TRAINING EXAMPLE
+      ↓
+VALIDATION
+      ↓
+CURATION
+      ↓
+HUGGING FACE DATASET
+      ↓
+LOCAL FINE-TUNING
+```
+
+The teacher model must not be treated as infallible.
+
+---
+
+# 37. FINE-TUNING STRATEGY
+
+Prefer parameter-efficient methods where appropriate.
+
+Use:
+
+```text
+PEFT
+LoRA
+QLoRA
+```
+
+where supported by the selected model and hardware.
+
+Do not unnecessarily full-fine-tune large models when PEFT can achieve the objective.
+
+---
+
+# 38. GPU CONSTRAINT
+
+Target:
+
+```text
+NVIDIA A10G
+NVIDIA T4
+approximately 24 GB VRAM class
+```
+
+The implementation must detect actual hardware dynamically.
+
+At startup detect:
+
+```text
+GPU
+VRAM
+CUDA
+driver compatibility
+model memory requirements
+```
+
+Do not assume every Hugging Face model fits.
+
+---
+
+# 39. LOCAL MODEL STRATEGY
+
+Select models based on:
+
+```text
+VRAM
+quantization
+context length
+task
+latency
+quality
+license
+training support
+inference performance
+```
+
+Support configurable quantization.
+
+Support model warm-up.
+
+Handle CUDA/GPU OOM gracefully.
+
+---
+
+# 40. MODEL REGISTRY
+
+Maintain complete model lineage.
+
+For every model:
+
+```text
+model_id
+base_model
+base_model_revision
+provider
+model_type
+quantization
+training_method
+dataset_version
+training_run
+code_version
+evaluation_version
+artifact_checksum
+status
+```
+
+Statuses:
+
+```text
+EXPERIMENTAL
+TRAINING
+EVALUATION
+CANDIDATE
+CANARY
+PRODUCTION
+DEPRECATED
+REJECTED
+```
+
+---
+
+# 41. MODEL PROMOTION
+
+Never automatically replace production models after training.
+
+Required:
+
+```text
+TRAIN
+ ↓
+EVALUATE
+ ↓
+REGRESSION TEST
+ ↓
+SECURITY TEST
+ ↓
+COST/LATENCY TEST
+ ↓
+CANDIDATE
+ ↓
+CANARY
+ ↓
+PRODUCTION
+```
+
+Maintain the previous production model for rollback.
+
+---
+
+# 42. EVALUATION SYSTEM
+
+Create a permanent evaluation benchmark.
+
+Test:
+
+```text
+blueprint comprehension
+source grounding
+retrieval quality
+summarization
+architecture reasoning
+resilience reasoning
+security analysis
+risk analysis
+contradiction detection
+change detection
+CTO summaries
+```
+
+Measure:
+
+```text
+accuracy
+groundedness
+hallucination rate
+retrieval recall
+retrieval precision
+citation/source correctness
+latency
+failure rate
+fallback rate
+cost/request
+```
+
+---
+
+# 43. REGRESSION TESTING
+
+Every:
+
+```text
+model change
+prompt change
+retriever change
+embedding change
+reranker change
+chunking change
+dataset change
+```
+
+must be evaluated against the permanent benchmark.
+
+Do not ship a change simply because the average score improved.
+
+Check for regressions on critical tasks.
+
+---
+
+# 44. MODEL A/B TESTING
+
+Support controlled comparison:
+
+```text
+production model
+vs
+candidate model
+```
+
+Compare:
+
+```text
+quality
+latency
+hallucinations
+grounding
+cost
+failure rate
+```
+
+---
+
+# 45. KNOWLEDGE VS MODEL MEMORY
+
+The system must distinguish:
+
+```text
+RAG FACT
+MODEL-LEARNED KNOWLEDGE
+FINE-TUNED BEHAVIOR
+INFERENCE
+RECOMMENDATION
+```
+
+A model must not claim that something exists in a blueprint merely because it was learned during training.
+
+---
+
+# 46. ANSWER PIPELINE
+
+Required architecture:
+
+```text
+USER QUERY
+    ↓
+AUTHENTICATION
+    ↓
+AUTHORIZATION
+    ↓
+QUERY NORMALIZATION
+    ↓
+INTENT CLASSIFICATION
+    ↓
+BLUEPRINT RESOLUTION
+    ↓
+VERSION RESOLUTION
+    ↓
+QUERY EXPANSION
+    ↓
+HYBRID RETRIEVAL
+    ↓
+RERANKING
+    ↓
+CONTEXT ASSEMBLY
+    ↓
+MODEL ROUTER
+    ↓
+LLM
+    ↓
+OUTPUT VALIDATION
+    ↓
+GROUNDING CHECK
+    ↓
+RESPONSE
+```
+
+---
+
+# 47. RESILIENCE ANALYSIS MODE
+
+For a question such as:
+
+"How do I improve the resiliency of blueprint X?"
+
+Use a structured workflow:
+
+```text
+1. identify blueprint/version
+2. map architecture
+3. identify critical dependencies
+4. identify single points of failure
+5. identify external dependencies
+6. identify state/data risks
+7. identify failure propagation paths
+8. identify recovery weaknesses
+9. identify observability weaknesses
+10. rank resilience risks
+11. propose mitigations
+12. prioritize by impact
+13. distinguish current state from recommendation
+14. identify missing evidence
+```
+
+---
+
+# 48. CTO SUMMARY MODE
+
+For:
+
+"Summarize blueprint Y for a CTO."
+
+Return:
+
+```text
+Executive Summary
+
+Business Objective
+
+Architecture
+
+Core Components
+
+Technology Stack
+
+Data Architecture
+
+AI Architecture
+
+Security Architecture
+
+Integration Architecture
+
+Operational Model
+
+Scalability
+
+Reliability
+
+Main Risks
+
+Technical Debt
+
+Production Blockers
+
+Critical Dependencies
+
+Recommended Next Steps
+```
+
+---
+
+# 49. CONTRADICTION DETECTION
+
+The system must detect conflicts such as:
+
+```text
+technology A vs technology B
+version mismatch
+architecture mismatch
+duplicated functionality
+conflicting requirements
+obsolete dependencies
+contradictory security requirements
+contradictory lifecycle rules
+```
+
+Output:
+
+```text
+CONFLICT
+SOURCE A
+SOURCE B
+WHY THEY CONFLICT
+CONFIDENCE
+WHICH SOURCE IS NEWER
+RECOMMENDED RESOLUTION
+```
+
+Never silently choose between contradictory sources.
+
+---
+
+# 50. CHANGE INTELLIGENCE
+
+When comparing versions:
+
+```text
+BLUEPRINT v1
+vs
+BLUEPRINT v2
+```
+
+detect:
+
+```text
+added
+removed
+modified
+deprecated
+replaced
+risk increased
+risk decreased
+dependency changed
+architecture changed
+```
+
+---
+
+# 51. KNOWLEDGE GRAPH
+
+Build a logical relationship layer connecting:
+
+```text
+platform
+component
+service
+database
+API
+workflow
+requirement
+risk
+dependency
+decision
+document
+blueprint
+version
+recommendation
+```
+
+Example:
+
+```text
+Platform
+  ↓ contains
+Component
+  ↓ depends_on
+Service
+  ↓ stores_data_in
+Database
+  ↓ documented_by
+Blueprint
+  ↓ revised_by
+Blueprint Version
+```
+
+This graph will enable future cross-platform reasoning.
+
+---
+
+# 52. CROSS-PLATFORM INTELLIGENCE
+
+The AI must be able to answer:
+
+```text
+Which architectures share the same pattern?
+
+Which platforms depend on the same service?
+
+Which security controls are missing across multiple platforms?
+
+Which database designs are repeated?
+
+Which recommendations apply to several platforms?
+
+Where are architectural conflicts between projects?
+```
+
+Never cross data boundaries that authorization does not permit.
+
+---
+
+# 53. TENANT / ACCESS CONTROL
+
+Implement server-side authorization.
+
+Never trust:
+
+```text
+client organization ID
+client user ID
+client blueprint ID
+client platform ID
+```
+
+Verify ownership/access on the server.
+
+Cross-platform analysis must obey access permissions.
+
+---
+
+# 54. SECRETS
+
+Use environment variables or a managed secret store:
+
+```text
+TURSO_DATABASE_URL
+TURSO_AUTH_TOKEN
+
+HF_TOKEN
+
+GEMINI_API_KEY
+
+GROQ_API_KEY
+```
+
+Do not put real secrets into source code.
+
+Do not put them in:
+
+```text
+README
+logs
+frontend
+Git
+Docker image
+browser bundle
+database
+metrics
+traces
+error messages
+```
+
+---
+
+# 55. SECRET REDACTION
+
+Centralized logging must automatically redact:
+
+```text
+API keys
+tokens
+JWTs
+authorization headers
+database credentials
+cookies
+private keys
+signed URLs
+```
+
+Never rely on individual developers to remember redaction.
+
+---
+
+# 56. OBSERVABILITY
+
+Implement:
+
+```text
+structured logging
+metrics
+distributed tracing
+health checks
+audit logs
+```
+
+Every AI generation should include internal identifiers:
+
+```text
+request_id
+trace_id
+generation_id
+platform_id
+blueprint_id
+blueprint_version
+provider
+model
+prompt_version
+retriever_version
+latency
+retry_count
+fallback_count
+status
+```
+
+Do not log proprietary content unnecessarily.
+
+---
+
+# 57. PROVIDER HEALTH
+
+Continuously track:
+
+```text
+latency
+success rate
+failure rate
+429 rate
+5xx rate
+timeouts
+quota pressure
+circuit state
+```
+
+The Model Router should use provider health information.
+
+---
+
+# 58. DATABASE HEALTH
+
+Monitor:
+
+```text
+connection latency
+query latency
+transaction failures
+migration status
+connection errors
+timeout rate
+```
+
+Implement graceful degradation.
+
+---
+
+# 59. DOCUMENT INGESTION SECURITY
+
+Uploaded files are untrusted.
+
+Never execute uploaded files.
+
+Validate:
+
+```text
+file type
+file size
+format
+content integrity
+```
+
+Protect against:
+
+```text
+path traversal
+malicious content
+resource exhaustion
+archive bombs
+prompt injection
+embedded scripts
+```
+
+---
+
+# 60. ERROR HANDLING
+
+Every module must have structured error handling.
+
+Use typed error categories such as:
+
+```text
+ValidationError
+AuthenticationError
+AuthorizationError
+DatabaseError
+ProviderError
+RateLimitError
+TimeoutError
+RetrievalError
+InferenceError
+TrainingError
+ModelError
+ArtifactError
+```
+
+Return safe user-facing errors.
+
+Never expose stack traces in production.
+
+---
+
+# 61. IDEMPOTENCY
+
+For ingestion, generation, dataset creation, and training operations where appropriate, implement idempotency.
+
+Repeated requests must not accidentally:
+
+```text
+duplicate documents
+duplicate training examples
+duplicate generations
+duplicate jobs
+```
+
+---
+
+# 62. ASYNCHRONOUS JOB SYSTEM
+
+Long-running operations must not block HTTP requests.
+
+Use durable jobs for:
+
+```text
+document ingestion
+embedding
+reindexing
+dataset generation
+training
+evaluation
+model deployment
+bulk analysis
+```
+
+Each job must support:
+
+```text
+queued
+running
+retrying
+failed
+cancelled
+completed
+```
+
+Jobs must be resumable where practical.
+
+---
+
+# 63. TRAINING JOB SAFETY
+
+Before training begins, validate:
+
+```text
+dataset version
+model availability
+GPU
+VRAM
+disk
+dependencies
+configuration
+evaluation suite
+```
+
+Training failures must produce diagnostics without exposing secrets.
+
+---
+
+# 64. ARTIFACT INTEGRITY
+
+For model files, datasets, and important artifacts calculate checksums.
+
+Verify checksum before deployment.
+
+---
+
+# 65. ROLLBACK
+
+Support rollback for:
+
+```text
+model
+prompt
+retriever
+embedding
+application
+database migration
+```
+
+Never deploy without a rollback strategy.
+
+---
+
+# 66. SECURITY BOUNDARIES FOR REMOTE PROVIDERS
+
+The system must support configurable rules determining which information may be sent to Gemini/Groq.
+
+For highly confidential material:
+
+```text
+local Hugging Face model
+```
+
+may be preferred.
+
+For lower-risk or approved tasks:
+
+```text
+Gemini
+Groq
+```
+
+may be used.
+
+Implement a policy engine instead of hard-coding this decision.
+
+---
+
+# 67. AI COST CONTROL
+
+Track:
+
+```text
+provider
+model
+input tokens
+output tokens
+request count
+latency
+estimated cost
+fallback cost
+```
+
+Implement configurable budgets.
+
+Avoid expensive models for simple operations.
+
+---
+
+# 68. AI QUALITY ROUTING
+
+Use a simple/complex task policy.
+
+Example:
+
+```text
+simple extraction
+    ↓
+local/HF or fast model
+
+classification
+    ↓
+local/HF or Groq
+
+interactive low-latency task
+    ↓
+Groq where suitable
+
+deep architecture analysis
+    ↓
+Gemini or strongest approved model
+
+confidential task
+    ↓
+approved local HF model
+```
+
+This is illustrative; make final routing configuration-driven.
+
+---
+
+# 69. CONTINUOUS KNOWLEDGE EXPANSION
+
+The system should continuously ingest newly approved information from the organization's platforms.
+
+When a platform changes:
+
+```text
+new document
+ ↓
+detect version
+ ↓
+validate
+ ↓
+index
+ ↓
+embed
+ ↓
+RAG becomes current
+```
+
+No model retraining should be required for ordinary factual updates.
+
+---
+
+# 70. CONTINUOUS MODEL IMPROVEMENT
+
+Periodically analyze:
+
+```text
+failed answers
+low-confidence answers
+human corrections
+frequently asked questions
+retrieval failures
+hallucinations
+contradictions
+unresolved questions
+```
+
+Use these to generate training candidates.
+
+---
+
+# 71. FEEDBACK-DRIVEN LEARNING
+
+Recommended loop:
+
+```text
+USER QUESTION
+    ↓
+AI ANSWER
+    ↓
+QUALITY SIGNAL
+    ↓
+HUMAN REVIEW WHERE REQUIRED
+    ↓
+ERROR CLASSIFICATION
+    ↓
+CURATED DATASET
+    ↓
+TRAINING
+    ↓
+EVALUATION
+    ↓
+MODEL IMPROVEMENT
+```
+
+---
+
+# 72. FAILURE MEMORY
+
+Create a failure knowledge repository.
+
+Store structured records for:
+
+```text
+question
+retrieval failure
+reason
+incorrect answer
+correct answer
+source
+human correction
+resolution
+model version
+```
+
+This becomes a valuable future training/evaluation dataset.
+
+---
+
+# 73. EVALUATION MEMORY
+
+Every important evaluation should remain historically available.
+
+Allow comparisons such as:
+
+```text
+Model A vs Model B
+
+Retriever A vs Retriever B
+
+Prompt A vs Prompt B
+
+Dataset v1 vs Dataset v2
+```
+
+---
+
+# 74. PROMPT VERSIONING
+
+Prompts are production assets.
+
+Version them.
+
+Track:
+
+```text
+prompt_id
+prompt_version
+task
+created_at
+approved_at
+author/system source
+evaluation results
+```
+
+Never silently change production prompts.
+
+---
+
+# 75. CONFIGURATION VERSIONING
+
+Version configuration affecting:
+
+```text
+model routing
+retrieval
+chunking
+embedding
+reranking
+limits
+security policy
+training
+evaluation
+```
+
+A generation should be reconstructable from its recorded configuration versions.
+
+---
+
+# 76. API DESIGN
+
+Create clean APIs conceptually covering:
+
+```text
+/platforms
+/blueprints
+/blueprints/:id/versions
+/documents
+/ingestion
+/search
+/retrieve
+/chat
+/analyze
+/summarize
+/compare
+/contradictions
+/evaluations
+/feedback
+/training
+/datasets
+/models
+/deployments
+/health
+/admin
+```
+
+Use clean separation:
+
+```text
+API
+ ↓
+Application Services
+ ↓
+Domain Logic
+ ↓
+Infrastructure Adapters
+```
+
+---
+
+# 77. UI / DEVELOPER EXPERIENCE
+
+Create a professional interface for:
+
+```text
+platform library
+blueprint explorer
+document explorer
+AI chat
+source evidence
+version comparison
+architecture analysis
+training datasets
+training jobs
+model registry
+evaluation dashboards
+provider health
+system health
+```
+
+For AI answers, show the user where the answer came from.
+
+Example:
+
+```text
+Answer
+
+Sources:
+Blueprint X v3.2
+Section 8.4
+Architecture Decision AD-22
+```
+
+---
+
+# 78. AI CHAT EXPERIENCE
+
+The interface should allow:
+
+```text
+choose platform
+choose blueprint
+choose version
+ask question
+```
+
+Also support:
+
+```text
+automatic blueprint selection
+```
+
+with explicit indication of the selected source.
+
+---
+
+# 79. ANSWER CONFIDENCE
+
+Do not use a fake confidence score.
+
+Where possible, derive a meaningful confidence signal from:
+
+```text
+retrieval quality
+source agreement
+source freshness
+answer validation
+model uncertainty indicators
+```
+
+Label confidence carefully.
+
+---
+
+# 80. REASONING POLICY
+
+Do not expose hidden chain-of-thought.
+
+Instead provide concise, user-facing reasoning summaries:
+
+```text
+Evidence
+Finding
+Reason
+Recommendation
+```
+
+The internal system may maintain structured reasoning metadata where necessary, but never reveal hidden system prompts or private internal reasoning.
+
+---
+
+# 81. MODEL SAFETY
+
+Implement:
+
+```text
+input validation
+output validation
+content controls
+tool authorization
+prompt injection defenses
+secret leakage detection
+```
+
+Do not let models autonomously execute arbitrary commands.
+
+---
+
+# 82. TOOL USE
+
+If future versions allow AI tool calls, every tool must have:
+
+```text
+explicit schema
+authorization
+allow-list
+timeout
+rate limit
+audit log
+input validation
+output validation
+```
+
+No unrestricted shell or filesystem access.
+
+---
+
+# 83. TRAINING DATA GOVERNANCE
+
+Maintain:
+
+```text
+source
+ownership
+permission
+license/usage basis
+provenance
+quality
+approval
+dataset membership
+model usage
+```
+
+Never allow unauthorized data to enter training.
+
+---
+
+# 84. DATA DELETION / EXCLUSION
+
+Support:
+
+```text
+exclude source from future training
+exclude document
+exclude training example
+retire dataset
+retire model
+```
+
+Maintain the history of what happened.
+
+Do not falsely claim that deleting a source from a database automatically removes it from a trained model.
+
+---
+
+# 85. PRIVACY
+
+Apply data minimization.
+
+Do not retain information that is unnecessary.
+
+Support configurable retention.
+
+Do not store raw prompts/responses indefinitely by default.
+
+---
+
+# 86. TESTING
+
+Implement:
+
+```text
+unit tests
+integration tests
+API tests
+database tests
+retrieval tests
+RAG tests
+security tests
+provider adapter tests
+failure-mode tests
+training pipeline tests
+evaluation tests
+load tests
+```
+
+Test failure cases deliberately.
+
+---
+
+# 87. REQUIRED FAILURE TESTS
+
+Test at minimum:
+
+```text
+Turso unavailable
+provider unavailable
+Gemini timeout
+Groq timeout
+HF failure
+429
+408
+500
+502
+503
+malformed provider response
+invalid JSON
+invalid model
+invalid API credentials
+GPU unavailable
+GPU OOM
+disk unavailable
+duplicate ingestion
+duplicate training data
+prompt injection
+authorization bypass
+cross-tenant retrieval
+stale blueprint
+conflicting blueprint versions
+```
+
+---
+
+# 88. OBSERVABILITY DASHBOARD
+
+Create dashboards for:
+
+```text
+AI requests
+AI latency
+provider health
+model health
+error rate
+fallback rate
+retry rate
+retrieval quality
+retrieval latency
+GPU utilization
+GPU memory
+training status
+evaluation score
+database health
+job queue health
+```
+
+---
+
+# 89. PRODUCTION HEALTH ENDPOINTS
+
+Provide:
+
+```text
+/liveness
+/readiness
+/health
+```
+
+Separate:
+
+```text
+application health
+database health
+retrieval health
+AI provider health
+GPU health
+job queue health
+```
+
+---
+
+# 90. DEPLOYMENT ENVIRONMENTS
+
+Support:
+
+```text
+development
+staging
+production
+```
+
+Never use production secrets in development.
+
+Never use development databases in production.
+
+---
+
+# 91. STARTUP VALIDATION
+
+At startup verify:
+
+```text
+required configuration
+secrets exist
+database reachable
+schema current
+provider configuration
+GPU capability
+model availability
+retrieval configuration
+```
+
+Do not print secret values.
+
+---
+
+# 92. DOCKER / GPU
+
+Where containerization is used:
+
+* pin important dependencies;
+* validate CUDA compatibility;
+* minimize image size;
+* do not bake secrets into images;
+* separate training and inference images when useful;
+* document GPU runtime requirements.
+
+---
+
+# 93. DEPENDENCY MANAGEMENT
+
+Use locked dependency versions where practical.
+
+Monitor vulnerabilities.
+
+Do not blindly upgrade production AI libraries.
+
+Every major dependency update should run the evaluation suite.
+
+---
+
+# 94. DOCUMENTATION
+
+Generate:
+
+```text
+README.md
+ARCHITECTURE.md
+AI_ARCHITECTURE.md
+RAG_ARCHITECTURE.md
+TRAINING.md
+MODEL_ROUTING.md
+DATABASE.md
+SECURITY.md
+DATA_GOVERNANCE.md
+EVALUATION.md
+OPERATIONS.md
+DEPLOYMENT.md
+TROUBLESHOOTING.md
+```
+
+---
+
+# 95. COMMENTS AND MAINTAINABILITY
+
+Every non-obvious production component must contain clear comments and documentation.
+
+Comments must explain:
+
+```text
+why this design exists
+why a particular retry rule exists
+why a provider is selected
+why a model is selected
+why a source is considered authoritative
+why a training item was filtered
+```
+
+Do not generate meaningless comments such as:
+
+```text
+// increment i
+i++;
+```
+
+---
+
+# 96. PRODUCTION CODE QUALITY
+
+Use:
+
+* strict typing;
+* linting;
+* formatting;
+* schema validation;
+* centralized configuration;
+* clear module boundaries;
+* dependency injection where useful;
+* typed errors;
+* no dead code;
+* no hard-coded secrets;
+* no hidden side effects.
+
+---
+
+# 97. NO FALSE PRODUCTION CLAIMS
+
+Never say:
+
+```text
+production ready
+```
+
+merely because the application launches.
+
+Production readiness requires evidence.
+
+---
+
+# 98. FINAL PRODUCTION READINESS AUDIT
+
+Before completion score:
+
+```text
+Architecture / 100
+AI / 100
+RAG / 100
+Training / 100
+Knowledge Management / 100
+Security / 100
+Database / 100
+Reliability / 100
+Observability / 100
+Performance / 100
+Testing / 100
+Deployment / 100
+Maintainability / 100
+Data Governance / 100
+```
+
+Then calculate:
+
+```text
+FINAL PRODUCTION READINESS SCORE
+```
+
+---
+
+# 99. CRITICAL BLOCKERS
+
+The following automatically prevent a production-ready declaration:
+
+```text
+secret exposure
+tenant isolation failure
+data corruption
+missing authentication
+authorization bypass
+uncontrolled model execution
+unprotected prompt injection
+missing rollback
+missing database migrations
+unbounded retries
+infinite failover
+unvalidated model output
+uncontrolled training
+missing model evaluation
+untraceable training data
+untraceable AI responses
+critical dependency with no failure handling
+```
+
+---
+
+# 100. FINAL IMPLEMENTATION ORDER
+
+Implement in this order:
+
+```text
+PHASE 1
+Repository + configuration + security foundation
+
+PHASE 2
+Turso schema + migrations + data model
+
+PHASE 3
+Blueprint/document ingestion
+
+PHASE 4
+Versioning + provenance + knowledge layer
+
+PHASE 5
+Embeddings + hybrid retrieval + reranking
+
+PHASE 6
+AI Gateway + Gemini/Groq/HF adapters
+
+PHASE 7
+Model Router + retries + circuit breakers
+
+PHASE 8
+Grounded AI chat + blueprint analysis
+
+PHASE 9
+Evaluation framework
+
+PHASE 10
+Feedback + training data curation
+
+PHASE 11
+Hugging Face local fine-tuning/LoRA pipeline
+
+PHASE 12
+Model registry + deployment/canary/rollback
+
+PHASE 13
+Cross-platform knowledge graph
+
+PHASE 14
+Continuous knowledge expansion
+
+PHASE 15
+Continuous evaluation and controlled model improvement
+
+PHASE 16
+Production hardening
+```
+
+---
+
+# 101. INITIAL DATA INGESTION
+
+When the platform begins:
+
+1. ingest every available blueprint;
+2. identify all platforms;
+3. identify versions;
+4. identify documents;
+5. normalize content;
+6. detect duplicates;
+7. establish source hierarchy;
+8. establish cross-platform relationships;
+9. generate embeddings;
+10. build retrieval indexes;
+11. generate initial evaluation questions;
+12. establish baseline evaluation metrics.
+
+Do not fine-tune immediately.
+
+First establish a strong RAG baseline.
+
+---
+
+# 102. INITIAL MODEL STRATEGY
+
+The first production-capable system should be:
+
+```text
+HUGGING FACE LOCAL MODEL
++
+RAG
++
+EMBEDDINGS
++
+RERANKER
++
+GEMINI
++
+GROQ
++
+MODEL ROUTER
++
+TURSO
++
+EVALUATION
+```
+
+Only after measuring the RAG system should fine-tuning be introduced.
+
+---
+
+# 103. CONTINUOUS LEARNING POLICY
+
+The platform must evolve through:
+
+```text
+NEW KNOWLEDGE
+    ↓
+RAG UPDATE
+
+HIGH-VALUE CURATED DATA
+    ↓
+TRAINING DATASET
+
+TRAINING DATASET
+    ↓
+FINE-TUNING
+
+NEW MODEL
+    ↓
+EVALUATION
+
+EVALUATED MODEL
+    ↓
+CANARY
+
+CANARY
+    ↓
+PRODUCTION
+```
+
+Never confuse:
+
+```text
+continuous knowledge updates
+```
+
+with:
+
+```text
+continuous automatic model deployment
+```
+
+---
+
+# 104. THE END STATE
+
+The desired long-term architecture is:
+
+```text
+                  WEDJAT PLATFORMS
+                         |
+                         v
+              +----------------------+
+              | PROPRIETARY KNOWLEDGE|
+              +----------------------+
+                         |
+                         v
+                       TURSO
+                         |
+          +--------------+--------------+
+          |                             |
+          v                             v
+   KNOWLEDGE / RAG                TRAINING DATA
+          |                             |
+          v                             v
+    RETRIEVAL/RERANK              HF TRAINING
+          |                             |
+          |                             v
+          |                        MODEL REGISTRY
+          |                             |
+          +-------------+---------------+
+                        |
+                        v
+                  MODEL ROUTER
+                        |
+          +-------------+-------------+
+          |             |             |
+          v             v             v
+       GEMINI         GROQ           HF
+          |             |             |
+          +-------------+-------------+
+                        |
+                        v
+                    WEDJAT AI
+                        |
+                        v
+               HUMAN FEEDBACK
+                        |
+                        v
+                CURATION / EVAL
+                        |
+                        +------> FUTURE IMPROVEMENT
+```
+
+---
+
+# 105. FINAL PRINCIPLE
+
+The system must become a proprietary organizational intelligence layer.
+
+The goal is:
+
+```text
+GENERAL MODEL
+      +
+PROPRIETARY KNOWLEDGE
+      +
+PROPRIETARY TRAINING DATA
+      +
+DOMAIN-SPECIFIC BEHAVIOR
+      +
+CURRENT RAG KNOWLEDGE
+      +
+CONTINUOUS EVALUATION
+      +
+HUMAN VALIDATION
+      =
+WEDJAT DOMAIN AI
+```
+
+Do not optimize for the appearance of intelligence.
+
+Optimize for:
+
+```text
+GROUNDING
+ACCURACY
+CURRENTNESS
+TRACEABILITY
+RELIABILITY
+SECURITY
+REPRODUCIBILITY
+CONTINUOUS IMPROVEMENT
+```
+
+Build the system so that every important answer, dataset, model, recommendation, and knowledge item can be traced back to its origin and version.
+
+Do not hide limitations.
+
+Do not claim successful training without evaluation evidence.
+
+Do not claim current knowledge without verifying the current source.
+
+Do not claim production readiness while critical blockers remain.
+
+Do not expose secrets.
+
+Do not use OpenAI.
+
+Build the implementation completely, test it, document it, and provide the final production-readiness report.

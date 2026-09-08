@@ -1,0 +1,812 @@
+     1→// ═══════════════════════════════════════════════════════════════════════════════
+     2→// WEDJAT DOMAIN AI — Prisma schema (transactional control plane)
+     3→//
+     4→// WHY THIS SHAPE: the master prompt (§5, §26) requires the hierarchy
+     5→//   Organization > Platform > Blueprint > Blueprint Version > Document
+     6→//   > Document Version > Section > Chunk > Knowledge Record
+     7→// plus model registry / training / evaluation / observability planes.
+     8→//
+     9→// SQLite notes: no enums and no arrays are used — lifecycle values are validated
+    10→// in the application layer (see src/lib/wedjat/types.ts). Vector payloads and
+    11→// structured payloads are stored as JSON text (Turso/libSQL portable).
+    12→// ═══════════════════════════════════════════════════════════════════════════════
+    13→
+    14→generator client {
+    15→  provider = "prisma-client-js"
+    16→}
+    17→
+    18→datasource db {
+    19→  provider = "sqlite"
+    20→  url      = env("DATABASE_URL")
+    21→}
+    22→
+    23→// ───────────────────────────── IDENTITY / TENANCY ─────────────────────────────
+    24→
+    25→model Organization {
+    26→  id          String   @id @default(cuid())
+    27→  slug        String   @unique
+    28→  name        String
+    29→  status      String   @default("ACTIVE")
+    30→  dataPolicy  String   @default("APPROVED_REMOTE_PROVIDER") // LOCAL_ONLY | APPROVED_REMOTE_PROVIDER | RESTRICTED_REMOTE | BLOCK_REMOTE
+    31→  createdAt   DateTime @default(now())
+    32→  updatedAt   DateTime @updatedAt
+    33→
+    34→  users         User[]
+    35→  platforms     Platform[]
+    36→  conversations Conversation[]
+    37→  datasets      TrainingDataset[]
+    38→  evalSuites    EvaluationSuite[]
+    39→  promptVersion PromptVersion[]
+    40→  configVersion ConfigVersion[]
+    41→  auditEvents   AuditEvent[]
+    42→  failures      FailureMemory[]
+    43→  trainingSrcs  TrainingSource[]
+    44→  memberships   Membership[]
+    45→}
+    46→
+    47→model User {
+    48→  id           String   @id @default(cuid())
+    49→  orgId        String
+    50→  email        String   @unique
+    51→  name         String
+    52→  // OWNER | ADMIN | CURATOR | MEMBER | AUDITOR — validated in app layer
+    53→  role         String   @default("MEMBER")
+    54→  status       String   @default("ACTIVE")
+    55→  passwordHash String
+    56→  createdAt    DateTime @default(now())
+    57→  updatedAt    DateTime @updatedAt
+    58→
+    59→  org         Organization @relation(fields: [orgId], references: [id])
+    60→  memberships Membership[]
+    61→  sessions    Session[]
+    62→  feedback    Feedback[]
+    63→  reviews     HumanReview[]
+    64→}
+    65→
+    66→model Membership {
+    67→  id        String   @id @default(cuid())
+    68→  userId    String
+    69→  orgId     String
+    70→  // PLATFORM scope membership stored as platform slug ("*" = org-wide)
+    71→  scope     String   @default("*")
+    72→  createdAt DateTime @default(now())
+    73→
+    74→  user User         @relation(fields: [userId], references: [id])
+    75→  org  Organization @relation(fields: [orgId], references: [id])
+    76→
+    77→  @@unique([userId, orgId, scope])
+    78→}
+    79→
+    80→model Session {
+    81→  id         String   @id @default(cuid())
+    82→  token      String   @unique
+    83→  userId     String
+    84→  expiresAt  DateTime
+    85→  createdAt  DateTime @default(now())
+    86→  lastSeenAt DateTime @updatedAt
+    87→
+    88→  user User @relation(fields: [userId], references: [id])
+    89→}
+    90→
+    91→// ─────────────────────────── KNOWLEDGE HIERARCHY ──────────────────────────────
+    92→
+    93→model Platform {
+    94→  id          String   @id @default(cuid())
+    95→  orgId       String
+    96→  slug        String   @unique
+    97→  name        String
+    98→  description String?
+    99→  // LOW | MEDIUM | HIGH | CRITICAL
+   100→  criticality String   @default("MEDIUM")
+   101→  // ACTIVE | DEPRECATED | ARCHIVED
+   102→  status      String   @default("ACTIVE")
+   103→  createdAt   DateTime @default(now())
+   104→  updatedAt   DateTime @updatedAt
+   105→
+   106→  org        Organization    @relation(fields: [orgId], references: [id])
+   107→  blueprints Blueprint[]
+   108→  versions   PlatformVersion[]
+   109→
+   110→  @@index([orgId])
+   111→}
+   112→
+   113→model PlatformVersion {
+   114→  id          String   @id @default(cuid())
+   115→  platformId  String
+   116→  version     String
+   117→  notes       String?
+   118→  // CURRENT | SUPERSEDED
+   119→  status      String   @default("CURRENT")
+   120→  checksum    String
+   121→  releasedAt  DateTime @default(now())
+   122→
+   123→  platform Platform @relation(fields: [platformId], references: [id])
+   124→
+   125→  @@unique([platformId, version])
+   126→}
+   127→
+   128→model Blueprint {
+   129→  id              String  @id @default(cuid())
+   130→  platformId      String
+   131→  slug            String
+   132→  title           String
+   133→  // ARCHITECTURE | SECURITY | AUDIT | DECISION | SPEC | OPS | REFERENCE
+   134→  blueprintType   String  @default("ARCHITECTURE")
+   135→  // ACTIVE | DRAFT | ARCHIVED
+   136→  status          String  @default("ACTIVE")
+   137→  currentVersionId String?
+   138→  createdAt       DateTime @default(now())
+   139→  updatedAt       DateTime @updatedAt
+   140→
+   141→  platform Platform         @relation(fields: [platformId], references: [id])
+   142→  versions BlueprintVersion[]
+   143→
+   144→  @@unique([platformId, slug])
+   145→  @@index([platformId])
+   146→}
+   147→
+   148→// Immutable: a new blueprint revision is always a NEW version row (§29).
+   149→model BlueprintVersion {
+   150→  id            String    @id @default(cuid())
+   151→  blueprintId   String
+   152→  version       String
+   153→  // DRAFT | REVIEW | APPROVED | CURRENT | SUPERSEDED
+   154→  status        String    @default("DRAFT")
+   155→  summary       String?
+   156→  supersedesId  String?
+   157→  checksum      String
+   158→  approvedAt    DateTime?
+   159→  effectiveFrom DateTime  @default(now())
+   160→  effectiveUntil DateTime?
+   161→  createdAt     DateTime  @default(now())
+   162→
+   163→  blueprint  Blueprint        @relation(fields: [blueprintId], references: [id])
+   164→  documents  Document[]
+   165→  knowledge  KnowledgeRecord[]
+   166→
+   167→  @@unique([blueprintId, version])
+   168→  @@index([blueprintId])
+   169→}
+   170→
+   171→model Document {
+   172→  id                String  @id @default(cuid())
+   173→  blueprintVersionId String
+   174→  slug              String
+   175→  title             String
+   176→  // BLUEPRINT | ADR | SPEC | AUDIT | RUNBOOK | REVIEW | REFERENCE | PROMPT
+   177→  docType           String  @default("BLUEPRINT")
+   178→  language          String  @default("en")
+   179→  // CONFIDENTIAL | INTERNAL | PUBLIC — feeds the data-sharing policy engine
+   180→  classification    String  @default("INTERNAL")
+   181→  // ACTIVE | SUPERSEDED | EXCLUDED
+   182→  status            String  @default("ACTIVE")
+   183→  createdAt         DateTime @default(now())
+   184→  updatedAt         DateTime @updatedAt
+   185→
+   186→  blueprintVersion BlueprintVersion @relation(fields: [blueprintVersionId], references: [id])
+   187→  versions         DocumentVersion[]
+   188→
+   189→  @@unique([blueprintVersionId, slug])
+   190→}
+   191→
+   192→model DocumentVersion {
+   193→  id            String   @id @default(cuid())
+   194→  documentId    String
+   195→  version       String
+   196→  // INGESTED | PENDING | FAILED | EXCLUDED
+   197→  status        String   @default("PENDING")
+   198→  sourcePath    String?
+   199→  mimeType      String   @default("text/markdown")
+   200→  rawText       String
+   201→  checksum      String
+   202→  byteSize      Int      @default(0)
+   203→  ingestedAt    DateTime?
+   204→  createdAt     DateTime @default(now())
+   205→
+   206→  document Document         @relation(fields: [documentId], references: [id])
+   207→  sections DocumentSection[]
+   208→  chunks   DocumentChunk[]
+   209→  events   IngestionEvent[]
+   210→
+   211→  @@unique([documentId, version])
+   212→}
+   213→
+   214→model DocumentSection {
+   215→  id                String  @id @default(cuid())
+   216→  documentVersionId String
+   217→  ordinal           Int
+   218→  heading           String
+   219→  level             Int     @default(1)
+   220→  content           String
+   221→  // quality 0..100 computed by the pipeline
+   222→  qualityScore      Float   @default(0)
+   223→  createdAt         DateTime @default(now())
+   224→
+   225→  documentVersion DocumentVersion @relation(fields: [documentVersionId], references: [id])
+   226→  chunks          DocumentChunk[]
+   227→
+   228→  @@index([documentVersionId])
+   229→}
+   230→
+   231→model DocumentChunk {
+   232→  id                String  @id @default(cuid())
+   233→  documentVersionId String
+   234→  sectionId         String?
+   235→  ordinal           Int
+   236→  content           String
+   237→  tokenEstimate     Int     @default(0)
+   238→  // 0..100 — chunks below threshold are excluded from retrieval (§8 quality scoring)
+   239→  qualityScore      Float   @default(0)
+   240→  // INDEXED | PENDING | EXCLUDED | SUPERSEDED
+   241→  status            String  @default("PENDING")
+   242→  checksum          String
+   243→
+   244→  documentVersion DocumentVersion  @relation(fields: [documentVersionId], references: [id])
+   245→  section         DocumentSection? @relation(fields: [sectionId], references: [id])
+   246→  embedding       EmbeddingRecord?
+   247→  knowledge       KnowledgeRecord[]
+   248→  lexicalPostings LexicalTerm[]
+   249→
+   250→  @@unique([documentVersionId, ordinal])
+   251→  @@index([documentVersionId])
+   252→}
+   253→
+   254→// Normalized, versioned facts extracted from chunks — the unit that carries
+   255→// currentness (§7) and powers contradiction detection (§49).
+   256→model KnowledgeRecord {
+   257→  id                 String    @id @default(cuid())
+   258→  chunkId            String
+   259→  platformId         String
+   260→  blueprintId        String
+   261→  blueprintVersionId String
+   262→  statement          String
+   263→  // CURRENT | RECENT | HISTORICAL | SUPERSEDED | UNKNOWN
+   264→  status             String    @default("CURRENT")
+   265→  // FACT | DECISION | REQUIREMENT | RISK | COMPONENT | DEPENDENCY | RECOMMENDATION
+   266→  recordType         String    @default("FACT")
+   267→  topicKey           String?
+   268→  // 1..9 — resolved from docType per §6 source priority
+   269→  sourcePriority     Int       @default(5)
+   270→  effectiveFrom      DateTime  @default(now())
+   271→  effectiveUntil     DateTime?
+   272→  lastVerifiedAt     DateTime  @default(now())
+   273→  createdAt          DateTime  @default(now())
+   274→
+   275→  chunk            DocumentChunk    @relation(fields: [chunkId], references: [id])
+   276→  blueprintVersion BlueprintVersion @relation(fields: [blueprintVersionId], references: [id])
+   277→
+   278→  @@index([platformId, topicKey])
+   279→  @@index([blueprintVersionId])
+   280→}
+   281→
+   282→// ────────────────────────────── RETRIEVAL PLANE ───────────────────────────────
+   283→
+   284→// Local deterministic embedding (256-d). Vector is JSON text — kept local so
+   285→// proprietary text never leaves the org boundary to build indexes (§17).
+   286→model EmbeddingRecord {
+   287→  id        String   @id @default(cuid())
+   288→  chunkId   String   @unique
+   289→  model     String   @default("wedjat-local-embed-v1")
+   290→  dimension Int      @default(256)
+   291→  vector    String
+   292→  norm      Float
+   293→  createdAt DateTime @default(now())
+   294→
+   295→  chunk DocumentChunk @relation(fields: [chunkId], references: [id])
+   296→}
+   297→
+   298→// Inverted-index postings for BM25 lexical retrieval.
+   299→model LexicalTerm {
+   300→  id      String @id @default(cuid())
+   301→  term    String
+   302→  chunkId String
+   303→  tf      Float
+   304→
+   305→  chunk DocumentChunk @relation(fields: [chunkId], references: [id])
+   306→
+   307→  @@index([term])
+   308→  @@index([chunkId])
+   309→}
+   310→
+   311→model RetrievalEvent {
+   312→  id              String   @id @default(cuid())
+   313→  traceId         String
+   314→  userId          String?
+   315→  query           String
+   316→  // HYBRID | LEXICAL | SEMANTIC
+   317→  mode            String   @default("HYBRID")
+   318→  filtersJson     String?
+   319→  candidatesCount Int      @default(0)
+   320→  resultCount     Int      @default(0)
+   321→  latencyMs       Int      @default(0)
+   322→  topScore        Float    @default(0)
+   323→  scoresJson      String?
+   324→  createdAt       DateTime @default(now())
+   325→
+   326→  @@index([traceId])
+   327→  @@index([createdAt])
+   328→}
+   329→
+   330→// ───────────────────────────── CONVERSATION / AI ──────────────────────────────
+   331→
+   332→model Conversation {
+   333→  id        String   @id @default(cuid())
+   334→  orgId     String
+   335→  userId    String
+   336→  title     String   @default("New conversation")
+   337→  createdAt DateTime @default(now())
+   338→  updatedAt DateTime @updatedAt
+   339→
+   340→  org      Organization @relation(fields: [orgId], references: [id])
+   341→  messages Message[]
+   342→}
+   343→
+   344→model Message {
+   345→  id             String   @id @default(cuid())
+   346→  conversationId String
+   347→  // USER | ASSISTANT | SYSTEM
+   348→  role           String
+   349→  content        String
+   350→  createdAt      DateTime @default(now())
+   351→
+   352→  conversation Conversation  @relation(fields: [conversationId], references: [id])
+   353→  generations  AiGeneration[]
+   354→
+   355→  @@index([conversationId])
+   356→}
+   357→
+   358→model AiGeneration {
+   359→  id              String   @id @default(cuid())
+   360→  messageId       String?
+   361→  traceId         String
+   362→  taskType        String   @default("chat")
+   363→  provider        String
+   364→  model           String
+   365→  promptVersion   String   @default("unversioned")
+   366→  retrieverVersion String  @default("hybrid-v1")
+   367→  inputTokens     Int      @default(0)
+   368→  outputTokens    Int      @default(0)
+   369→  latencyMs       Int      @default(0)
+   370→  retryCount      Int      @default(0)
+   371→  fallbackCount   Int      @default(0)
+   372→  // OK | DEGRADED | FAILED | BLOCKED_BY_POLICY | INSUFFICIENT_EVIDENCE
+   373→  status          String   @default("OK")
+   374→  confidence      Float?
+   375→  groundedness    Float?
+   376→  costEstimateUsd Float    @default(0)
+   377→  flagsJson       String?
+   378→  createdAt       DateTime @default(now())
+   379→
+   380→  message   Message?          @relation(fields: [messageId], references: [id])
+   381→  sources   GenerationSource[]
+   382→  feedback  Feedback[]
+   383→
+   384→  @@index([traceId])
+   385→  @@index([createdAt])
+   386→}
+   387→
+   388→model GenerationSource {
+   389→  id                String @id @default(cuid())
+   390→  generationId      String
+   391→  chunkId           String
+   392→  blueprintId       String?
+   393→  blueprintVersionId String?
+   394→  documentId        String?
+   395→  sectionHeading    String?
+   396→  score             Float
+   397→  rank              Int
+   398→  // FACT | INFERENCE | RECOMMENDATION | UNKNOWN classification support
+   399→  evidenceType      String @default("FACT")
+   400→
+   401→  generation AiGeneration @relation(fields: [generationId], references: [id])
+   402→
+   403→  @@index([generationId])
+   404→}
+   405→
+   406→// ───────────────────────────── MODEL GOVERNANCE ───────────────────────────────
+   407→
+   408→model ModelRegistry {
+   409→  id                      String  @id @default(cuid())
+   410→  provider                String
+   411→  model                   String
+   412→  modelVersion            String  @default("latest")
+   413→  contextLimit            Int     @default(32768)
+   414→  supportsStructuredOutput Boolean @default(true)
+   415→  supportsToolUse         Boolean @default(false)
+   416→  supportsEmbedding       Boolean @default(false)
+   417→  supportsReranking       Boolean @default(false)
+   418→  supportsFinetuning      Boolean @default(false)
+   419→  supportsLocalInference  Boolean @default(false)
+   420→  estimatedLatencyMs      Int     @default(1500)
+   421→  // FAST | BALANCED | HIGH
+   422→  qualityClass            String  @default("BALANCED")
+   423→  // FREE | LOW | MEDIUM | HIGH
+   424→  costClass               String  @default("LOW")
+   425→  gpuRequirement          String  @default("none")
+   426→  // EXPERIMENTAL | ACTIVE | STANDBY | DEPRECATED
+   427→  status                  String  @default("EXPERIMENTAL")
+   428→  notes                   String?
+   429→  versions                ModelVersion[]
+   430→}
+   431→
+   432→model ModelVersion {
+   433→  id                String   @id @default(cuid())
+   434→  registryId        String
+   435→  version           String
+   436→  baseModel         String
+   437→  // NONE | LORA | QLORA | FULL_SFT | SIMULATED
+   438→  trainingMethod    String   @default("NONE")
+   439→  datasetVersionId  String?
+   440→  trainingRunId     String?
+   441→  codeVersion       String   @default("git:unknown")
+   442→  evaluationVersion String?
+   443→  artifactChecksum  String
+   444→  // EXPERIMENTAL | TRAINING | EVALUATION | CANDIDATE | CANARY | PRODUCTION | DEPRECATED | REJECTED
+   445→  status            String   @default("EXPERIMENTAL")
+   446→  createdAt         DateTime @default(now())
+   447→
+   448→  registry    ModelRegistry      @relation(fields: [registryId], references: [id])
+   449→  deployments ModelDeployment[]
+   450→  baseForRuns        TrainingRun[] @relation("runBaseModel")
+   451→  candidateForRuns  TrainingRun[] @relation("runCandidateModel")
+   452→
+   453→  @@unique([registryId, version])
+   454→}
+   455→
+   456→model ModelDeployment {
+   457→  id            String   @id @default(cuid())
+   458→  modelVersionId String
+   459→  // DEV | STAGING | PRODUCTION
+   460→  environment    String   @default("PRODUCTION")
+   461→  // CANDIDATE | CANARY | PRODUCTION | ROLLED_BACK
+   462→  stage          String   @default("CANDIDATE")
+   463→  canaryPercent  Int      @default(0)
+   464→  rollbackToId   String?
+   465→  // ACTIVE | INACTIVE
+   466→  status         String   @default("ACTIVE")
+   467→  deployedAt     DateTime @default(now())
+   468→  note           String?
+   469→
+   470→  modelVersion ModelVersion @relation(fields: [modelVersionId], references: [id])
+   471→
+   472→  @@index([modelVersionId])
+   473→}
+   474→
+   475→// ─────────────────────────── TRAINING DATA GOVERNANCE ─────────────────────────
+   476→
+   477→model TrainingSource {
+   478→  id        String   @id @default(cuid())
+   479→  orgId     String
+   480→  // FEEDBACK | SYNTHETIC | CORRECTION | DOCUMENT
+   481→  kind      String
+   482→  refId     String
+   483→  // ELIGIBLE | CURATED | EXCLUDED | CONSUMED
+   484→  status    String   @default("ELIGIBLE")
+   485→  reason    String?
+   486→  examples  TrainingExample[]
+   487→  createdAt DateTime @default(now())
+   488→
+   489→  org    Organization     @relation(fields: [orgId], references: [id])
+   490→
+   491→  @@unique([orgId, kind, refId])
+   492→}
+   493→
+   494→model TrainingExample {
+   495→  id             String   @id @default(cuid())
+   496→  sourceId       String
+   497→  datasetVersionId String?
+   498→  // BLUEPRINT_QA | ARCHITECTURE_ANALYSIS | RESILIENCE_ANALYSIS | RISK_ANALYSIS |
+   499→  // SECURITY_ANALYSIS | SUMMARIZATION | CTO_SUMMARY | CLASSIFICATION | PREFERENCE
+   500→  exampleType    String   @default("BLUEPRINT_QA")
+   501→  prompt         String
+   502→  completion     String
+   503→  qualityScore   Float    @default(0)
+   504→  dedupeHash     String
+   505→  // PENDING | PASSED | FAILED | EXCLUDED
+   506→  status         String   @default("PENDING")
+   507→  validationNotes String?
+   508→  isSynthetic    Boolean  @default(false)
+   509→  createdAt      DateTime @default(now())
+   510→
+   511→  source         TrainingSource       @relation(fields: [sourceId], references: [id])
+   512→  datasetVersion TrainingDatasetVersion? @relation(fields: [datasetVersionId], references: [id])
+   513→  reviews        HumanReview[]
+   514→
+   515→  @@index([datasetVersionId])
+   516→  @@index([status])
+   517→}
+   518→
+   519→model TrainingDataset {
+   520→  id          String   @id @default(cuid())
+   521→  orgId       String
+   522→  name        String
+   523→  slug        String   @unique
+   524→  description String?
+   525→  // DRAFT | ACTIVE | RETIRED
+   526→  status      String   @default("ACTIVE")
+   527→  createdAt   DateTime @default(now())
+   528→  updatedAt   DateTime @updatedAt
+   529→
+   530→  org         Organization           @relation(fields: [orgId], references: [id])
+   531→  versions    TrainingDatasetVersion[]
+   532→  currentVersionId String?
+   533→}
+   534→
+   535→model TrainingDatasetVersion {
+   536→  id           String   @id @default(cuid())
+   537→  datasetId    String
+   538→  version      String
+   539→  exampleCount Int      @default(0)
+   540→  // DRAFT | LOCKED | RETIRED
+   541→  status       String  @default("DRAFT")
+   542→  checksum     String
+   543→  lockedAt     DateTime?
+   544→  createdAt    DateTime @default(now())
+   545→
+   546→  dataset TrainingDataset  @relation(fields: [datasetId], references: [id])
+   547→  examples TrainingExample[]
+   548→  runs    TrainingRun[]
+   549→
+   550→  @@unique([datasetId, version])
+   551→}
+   552→
+   553→// Lifecycle: QUEUED → VALIDATING → TRAINING → EVALUATING → CANDIDATE → CANARY →
+   554→// PRODUCTION (with FAILED / REJECTED / ROLLED_BACK terminal or recovery states).
+   555→// Training NEVER auto-deploys (§41): every promotion is an explicit, audited action.
+   556→model TrainingRun {
+   557→  id                String   @id @default(cuid())
+   558→  datasetVersionId  String
+   559→  baseModelVersionId String?
+   560→  // LORA | QLORA | FULL_SFT | SIMULATED
+   561→  method            String   @default("LORA")
+   562→  status            String   @default("QUEUED")
+   563→  progress          Int      @default(0)
+   564→  currentStep       String   @default("queued")
+   565→  stepsJson         String?
+   566→  notes             String?
+   567→  // Honest hardware record — no GPU present in this environment → SIMULATED only.
+   568→  gpuProfile        String   @default("none-detected")
+   569→  candidateModelVersionId String?
+   570→  evaluationSummaryJson String?
+   571→  startedAt         DateTime?
+   572→  completedAt       DateTime?
+   573→  createdAt         DateTime @default(now())
+   574→
+   575→  datasetVersion TrainingDatasetVersion @relation(fields: [datasetVersionId], references: [id])
+   576→  baseModel      ModelVersion?           @relation("runBaseModel", fields: [baseModelVersionId], references: [id])
+   577→  candidateModel ModelVersion?           @relation("runCandidateModel", fields: [candidateModelVersionId], references: [id])
+   578→  metrics        TrainingMetric[]
+   579→
+   580→  @@index([status])
+   581→}
+   582→
+   583→model TrainingMetric {
+   584→  id        String   @id @default(cuid())
+   585→  runId     String
+   586→  step      Int
+   587→  loss      Float?
+   588→  evalScore Float?
+   589→  createdAt DateTime @default(now())
+   590→
+   591→  run TrainingRun @relation(fields: [runId], references: [id])
+   592→}
+   593→
+   594→// ───────────────────────────────── EVALUATION ────────────────────────────────
+   595→
+   596→model EvaluationSuite {
+   597→  id          String   @id @default(cuid())
+   598→  orgId       String
+   599→  slug        String   @unique
+   600→  name        String
+   601→  description String?
+   602→  version     String   @default("1")
+   603→  createdAt   DateTime @default(now())
+   604→
+   605→  org    Organization     @relation(fields: [orgId], references: [id])
+   606→  cases  EvaluationCase[]
+   607→  results EvaluationResult[]
+   608→}
+   609→
+   610→model EvaluationCase {
+   611→  id                  String  @id @default(cuid())
+   612→  suiteId             String
+   613→  // RETRIEVAL | GROUNDED_CHAT | CONTRADICTION | CHANGE_DETECT | CTO_SUMMARY
+   614→  task                String  @default("RETRIEVAL")
+   615→  query               String
+   616→  expectedKeywordsJson String
+   617→  expectedPlatformSlug String?
+   618→  expectedBlueprintSlug String?
+   619→  expectedSourcesMin  Int     @default(1)
+   620→  llmJudged           Boolean @default(false)
+   621→  notes               String?
+   622→  results             EvaluationResult[]
+   623→  suite               EvaluationSuite @relation(fields: [suiteId], references: [id])
+   624→}
+   625→
+   626→model EvaluationResult {
+   627→  id            String   @id @default(cuid())
+   628→  suiteId       String
+   629→  caseId        String
+   630→  runLabel      String
+   631→  retrievedCount Int     @default(0)
+   632→  recallAtK     Float    @default(0)
+   633→  precisionAtK  Float    @default(0)
+   634→  keywordCoverage Float  @default(0)
+   635→  groundedness  Float?
+   636→  latencyMs     Int      @default(0)
+   637→  passed        Boolean  @default(false)
+   638→  detailsJson   String?
+   639→  createdAt     DateTime @default(now())
+   640→
+   641→  suite EvaluationSuite @relation(fields: [suiteId], references: [id])
+   642→  case  EvaluationCase  @relation(fields: [caseId], references: [id])
+   643→
+   644→  @@index([suiteId, runLabel])
+   645→}
+   646→
+   647→// ────────────────────────── FEEDBACK / HUMAN REVIEW ───────────────────────────
+   648→
+   649→model Feedback {
+   650→  id          String   @id @default(cuid())
+   651→  generationId String
+   652→  userId      String
+   653→  // CORRECT | PARTIALLY_CORRECT | INCORRECT | UNSUPPORTED | HALLUCINATION |
+   654→  // OUTDATED | HIGH_VALUE | LOW_VALUE
+   655→  label       String
+   656→  comment     String?
+   657→  createdAt   DateTime @default(now())
+   658→
+   659→  generation AiGeneration  @relation(fields: [generationId], references: [id])
+   660→  user       User          @relation(fields: [userId], references: [id])
+   661→  reviews    HumanReview[]
+   662→
+   663→  @@index([generationId])
+   664→}
+   665→
+   666→model HumanReview {
+   667→  id        String   @id @default(cuid())
+   668→  feedbackId String?
+   669→  trainingExampleId String?
+   670→  reviewerId String
+   671→  // APPROVED | REJECTED | NEEDS_EDIT
+   672→  verdict   String
+   673→  notes     String?
+   674→  createdAt DateTime @default(now())
+   675→
+   676→  reviewer       User             @relation(fields: [reviewerId], references: [id])
+   677→  feedback       Feedback?        @relation(fields: [feedbackId], references: [id])
+   678→  trainingExample TrainingExample? @relation(fields: [trainingExampleId], references: [id])
+   679→}
+   680→
+   681→// Failure knowledge repository (§72) — future training/evaluation signal.
+   682→model FailureMemory {
+   683→  id               String   @id @default(cuid())
+   684→  orgId            String
+   685→  question         String
+   686→  // RETRIEVAL_FAILURE | INCORRECT_ANSWER | HALLUCINATION | LOW_CONFIDENCE | ONGOING
+   687→  failureType      String
+   688→  reason           String?
+   689→  correctAnswer    String?
+   690→  source           String?
+   691→  humanCorrection  String?
+   692→  resolution       String?
+   693→  modelVersion     String?
+   694→  createdAt        DateTime @default(now())
+   695→
+   696→  org Organization @relation(fields: [orgId], references: [id])
+   697→}
+   698→
+   699→// ─────────────────────────── OBSERVABILITY / CONTROL ─────────────────────────
+   700→
+   701→model ProviderHealth {
+   702→  id             String   @id @default(cuid())
+   703→  provider       String
+   704→  model          String   @default("*")
+   705→  // CLOSED | OPEN | HALF_OPEN
+   706→  circuitState   String   @default("CLOSED")
+   707→  requests       Int      @default(0)
+   708→  successes      Int      @default(0)
+   709→  failures       Int      @default(0)
+   710→  rateLimited429 Int      @default(0)
+   711→  serverErrors5xx Int     @default(0)
+   712→  timeouts       Int      @default(0)
+   713→  avgLatencyMs   Int      @default(0)
+   714→  windowStart    DateTime @default(now())
+   715→  updatedAt      DateTime @updatedAt
+   716→
+   717→  @@unique([provider, model])
+   718→}
+   719→
+   720→model AuditEvent {
+   721→  id         String   @id @default(cuid())
+   722→  orgId      String?
+   723→  actorType  String   @default("system") // user | system | job | router
+   724→  actorId    String?
+   725→  action     String
+   726→  targetType String?
+   727→  targetId   String?
+   728→  // INFO | WARN | ERROR | CRITICAL
+   729→  severity   String   @default("INFO")
+   730→  detailsJson String?
+   731→  traceId    String?
+   732→  createdAt  DateTime @default(now())
+   733→
+   734→  org Organization? @relation(fields: [orgId], references: [id])
+   735→
+   736→  @@index([createdAt])
+   737→  @@index([orgId])
+   738→}
+   739→
+   740→model IngestionEvent {
+   741→  id               String   @id @default(cuid())
+   742→  documentVersionId String
+   743→  // DISCOVERED | VALIDATED | NORMALIZED | CLASSIFIED | VERSIONED | SECTIONED |
+   744→  // CHUNKED | ENRICHED | DEDUPLICATED | QUALITY_SCORED | EMBEDDED | INDEXED |
+   745→  // READY_FOR_RAG | FAILED | REJECTED
+   746→  stage            String
+   747→  status           String   @default("OK") // OK | WARN | FAILED | SKIPPED
+   748→  detail           String?
+   749→  latencyMs        Int      @default(0)
+   750→  traceId          String?
+   751→  createdAt        DateTime @default(now())
+   752→
+   753→  documentVersion DocumentVersion @relation(fields: [documentVersionId], references: [id])
+   754→
+   755→  @@index([documentVersionId])
+   756→}
+   757→
+   758→// Durable async job system (§62) — ingestion / embedding / eval / training.
+   759→model Job {
+   760→  id             String   @id @default(cuid())
+   761→  type           String
+   762→  // QUEUED | RUNNING | RETRYING | FAILED | CANCELLED | COMPLETED
+   763→  status         String   @default("QUEUED")
+   764→  payloadJson    String
+   765→  resultJson     String?
+   766→  attempts       Int      @default(0)
+   767→  maxAttempts    Int      @default(3)
+   768→  lastError      String?
+   769→  idempotencyKey String?  @unique
+   770→  traceId        String?
+   771→  progress       Int      @default(0)
+   772→  createdAt      DateTime @default(now())
+   773→  startedAt      DateTime?
+   774→  completedAt    DateTime?
+   775→
+   776→  @@index([status])
+   777→  @@index([type])
+   778→}
+   779→
+   780→model PromptVersion {
+   781→  id         String   @id @default(cuid())
+   782→  orgId      String
+   783→  promptId   String
+   784→  version    String
+   785→  task       String
+   786→  template   String
+   787→  // DRAFT | APPROVED | ARCHIVED
+   788→  status     String   @default("DRAFT")
+   789→  author     String   @default("system")
+   790→  approvedAt DateTime?
+   791→  notes      String?
+   792→  createdAt  DateTime @default(now())
+   793→
+   794→  org Organization @relation(fields: [orgId], references: [id])
+   795→
+   796→  @@unique([promptId, version])
+   797→}
+   798→
+   799→model ConfigVersion {
+   800→  id        String   @id @default(cuid())
+   801→  orgId     String
+   802→  key       String
+   803→  version   String
+   804→  valueJson String
+   805→  status    String   @default("ACTIVE")
+   806→  createdAt DateTime @default(now())
+   807→
+   808→  org Organization @relation(fields: [orgId], references: [id])
+   809→
+   810→  @@unique([key, version])
+   811→}
+   812→
