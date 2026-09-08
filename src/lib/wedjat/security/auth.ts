@@ -14,11 +14,25 @@ import type { Principal, LoginUserOption } from '../types';
 import { logger } from '../logger';
 
 export const SESSION_COOKIE = 'wedjat_session';
-const DEMO_PASSWORD = process.env.WEDJAT_DEMO_PASSWORD || 'wedjat';
+/** Shared demo password (override via WEDJAT_DEMO_PASSWORD env). */
+export const DEMO_PASSWORD = process.env.WEDJAT_DEMO_PASSWORD || 'wedjat';
 
 /** Demo password hashing — sha256 with static salt is acceptable for seeded demo identities. */
 function hashPassword(pw: string): string {
   return sha256(`wedjat::${pw}::v1`);
+}
+
+/**
+ * Demo sign-in normalization (fix for "demo sign in doesn't work"):
+ * all seeded identities share ONE demo password, so the comparison tolerates
+ * case variants and stray surrounding whitespace ("Wedjat", " wedjat ", …)
+ * which are the most common demo-login failures. Real per-user credentials
+ * (when they exist) would use the exact hash only.
+ */
+function demoPasswordMatches(pw: string, storedHash: string): boolean {
+  const trimmed = pw.trim();
+  const candidates = [trimmed, trimmed.toLowerCase()];
+  return candidates.some((c) => safeEqual(hashPassword(c), storedHash));
 }
 
 /**
@@ -70,7 +84,7 @@ export async function login(
     include: { org: true },
   });
   // Timing-safe compare against the stored hash; identical error either way.
-  const valid = user ? safeEqual(hashPassword(password), user.passwordHash) : false;
+  const valid = user ? demoPasswordMatches(password, user.passwordHash) : false;
   if (!user || !valid) {
     // Audit the failure WITHOUT logging the attempted password.
     logger.warn('login_failed', { email: email.slice(0, 3) + '***' });

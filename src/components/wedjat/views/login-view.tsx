@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Sparkles,
   UserRound,
+  Wand2,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -241,13 +242,25 @@ export function LoginView({
                       required
                     />
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    All demo accounts share the password{" "}
-                    <code className="rounded bg-muted px-1 py-0.5 font-mono text-[11px]">
-                      wedjat
-                    </code>
-                    .
-                  </p>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-xs text-muted-foreground">
+                      All demo accounts share the password{" "}
+                      <code className="rounded bg-muted px-1 py-0.5 font-mono text-[11px]">
+                        wedjat
+                      </code>
+                      .
+                    </p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-8 gap-1.5 text-xs"
+                      onClick={() => setPassword("wedjat")}
+                    >
+                      <Wand2 className="size-3.5" aria-hidden="true" />
+                      Fill demo password
+                    </Button>
+                  </div>
                 </div>
 
                 {error ? (

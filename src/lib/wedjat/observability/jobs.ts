@@ -15,12 +15,15 @@ import { runIngestion } from '../knowledge/ingestion';
 import { advanceTrainingRun, registerSyntheticSources } from '../training/lifecycle';
 import { runEvaluationSuite } from '../evaluation/runner';
 import { metrics } from './metrics';
-
+import { runIntake } from '../intake/engine';
+import { runHealthCheck } from '../intake/health';
+import { getAutonomyState, autonomyAllows } from '../intake/autonomy';
 export type JobType =
   | 'ingestion'
   | 'training-run-step'
   | 'evaluation-run'
-  | 'synthetic-registration';
+  | 'synthetic-registration'
+  | 'database-intake';
 
 interface JobPayloadBase {
   orgId: string;
@@ -63,11 +66,17 @@ export interface SyntheticJobPayload extends JobPayloadBase {
   maxChunks?: number;
 }
 
+export interface DatabaseIntakeJobPayload extends JobPayloadBase {
+  kind: 'database-intake';
+  runId: string;
+}
+
 export type JobPayload =
   | IngestJobPayload
   | TrainingRunJobPayload
   | EvaluationJobPayload
-  | SyntheticJobPayload;
+  | SyntheticJobPayload
+  | DatabaseIntakeJobPayload;
 
 /** Enqueue a job (idempotent via idempotencyKey §61). */
 export async function enqueueJob(
@@ -97,6 +106,7 @@ export async function enqueueJob(
 // ── Worker loop ───────────────────────────────────────────────────────────────
 
 let workerRunning = false;
+let healthCheckRunning = false;
 
 export function startJobWorker(): void {
   if (workerRunning) return;
@@ -110,6 +120,26 @@ export function startJobWorker(): void {
     }
   };
   setInterval(tick, 1500);
+
+  // §156: continuous health check every 5 minutes (first run after 30s warmup).
+  const healthTick = async () => {
+    if (healthCheckRunning) return;
+    healthCheckRunning = true;
+    try {
+      const orgs = await db.organization.findMany({ where: { status: 'ACTIVE' }, select: { id: true } });
+      for (const org of orgs) {
+        await runHealthCheck(org.id);
+      }
+    } catch (err) {
+      logger.warn('health_check_failed', { error: err instanceof Error ? err.message : String(err) });
+    } finally {
+      healthCheckRunning = false;
+    }
+  };
+  setTimeout(() => {
+    void healthTick();
+    setInterval(() => void healthTick(), 5 * 60_000);
+  }, 30_000);
 }
 
 /** Claims ONE queued job (status → RUNNING) and executes it. */
@@ -158,6 +188,23 @@ async function executeJob(jobId: string, type: string, payload: unknown): Promis
         if (['VALIDATING', 'TRAINING', 'EVALUATING'].includes(status)) {
           await enqueueJob({ kind: 'training-run-step', orgId: p.orgId, userId: p.userId, runId: p.runId });
         }
+        // §151 LEVEL 5: controlled auto-deployment — when evaluation + regression
+        // gates pass, the candidate auto-advances to CANARY. PRODUCTION promotion
+        // is NEVER automatic (§127/§152 governance override).
+        if (status === 'CANDIDATE') {
+          try {
+            const autonomy = await getAutonomyState(p.orgId);
+            if (autonomyAllows(autonomy.level, 'AUTO_CANARY')) {
+              const next = await advanceTrainingRun(p.runId, 'core-benchmark', {
+                orgId: p.orgId,
+                userId: p.userId ?? 'job-worker',
+              });
+              result = { runId: p.runId, status: next, note: 'auto-canary (§151 LEVEL 5; production promotion remains human-controlled)' };
+            }
+          } catch (err) {
+            logger.warn('auto_canary_failed', { runId: p.runId, error: err instanceof Error ? err.message : String(err) });
+          }
+        }
         break;
       }
       case 'evaluation-run': {
@@ -182,6 +229,19 @@ async function executeJob(jobId: string, type: string, payload: unknown): Promis
         const p = payload as SyntheticJobPayload;
         const created = await registerSyntheticSources(p.orgId, p.maxChunks ?? 40);
         result = { created };
+        break;
+      }
+      case 'database-intake': {
+        const p = payload as DatabaseIntakeJobPayload;
+        const outcome = await runIntake(p.runId, p.userId ?? 'intake-job');
+        result = {
+          status: outcome.status,
+          tables: outcome.tables,
+          rows: outcome.rows,
+          knowledgeRecords: outcome.knowledgeRecords,
+          trainingCandidates: outcome.trainingCandidates,
+          narrative: outcome.narrative,
+        };
         break;
       }
       default:

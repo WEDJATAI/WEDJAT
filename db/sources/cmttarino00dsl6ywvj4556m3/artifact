@@ -1,0 +1,4 @@
+id,sku,name,description,price,created_at
+1,BR-1,Browser Row Widget,Uploaded via browser E2E test,12.50,2026-09-08
+2,BR-2,Browser Row Gadget,Second browser test row,8.25,2026-09-08
+3,BR-3,Browser Row Gizmo,Third browser test row,15.00,2026-09-08

@@ -6,7 +6,7 @@
 // the system provider-independent.
 // ═══════════════════════════════════════════════════════════════════════════════
 
-import type { ProviderClass } from './registry';
+import type { ProviderClass } from '../registry';
 
 export interface GatewayMessage {
   role: 'system' | 'user' | 'assistant';

@@ -9,6 +9,7 @@ import {
   Activity,
   Boxes,
   ClipboardCheck,
+  DatabaseZap,
   Eye,
   GraduationCap,
   LayoutDashboard,
@@ -49,6 +50,7 @@ export type ViewId =
   | "dashboard"
   | "chat"
   | "knowledge"
+  | "intake"
   | "analysis"
   | "search"
   | "training"
@@ -67,6 +69,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "dashboard", label: "Dashboard", hint: "Fleet overview", icon: LayoutDashboard },
   { id: "chat", label: "Domain Chat", hint: "Grounded RAG Q&A", icon: MessagesSquare },
   { id: "knowledge", label: "Knowledge Base", hint: "Blueprints & ingestion", icon: Library },
+  { id: "intake", label: "Database Intake", hint: "Auto platform ingestion", icon: DatabaseZap },
   { id: "analysis", label: "Analysis", hint: "CTO workflows", icon: Microscope },
   { id: "search", label: "Search Lab", hint: "Retrieval tuning", icon: Search },
   { id: "training", label: "Training", hint: "Datasets & runs", icon: GraduationCap },

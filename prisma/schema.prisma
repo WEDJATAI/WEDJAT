@@ -809,3 +809,257 @@ model ConfigVersion {
 
   @@unique([key, version])
 }
+
+// ───────────────────── DATABASE INTAKE PLANE (§106–§160) ───────────────────────
+//
+// Automatic platform-database intake: uploaded external databases/exports are
+// format-detected, parsed, staged RAW→STAGED→ANALYZED→MAPPED→VALIDATED→IMPORTED
+// (§114), semantically mapped into the WEDJAT canonical model with confidence
+// labels and evidence (§110–§113), and distilled into knowledge records, KG
+// edges and training candidates — with immutable source preservation (§108,
+// §143), zero data loss, and autonomy-level-gated automation (§151). Cross
+// references use plain string ids so the plane stays Turso-portable; JSON
+// payloads are app-layer validated (see src/lib/wedjat/types.ts).
+
+// Immutable source record (§108) — the raw artifact NEVER changes.
+model SourceDatabase {
+  id            String   @id @default(cuid())
+  orgId         String
+  name          String // source_database
+  platform      String // source_platform namespace (§123)
+  engine        String   @default("UNKNOWN") // detected engine/dialect (§106)
+  versionLabel  String   @default("v1") // source_database_version
+  checksum      String // sha256 of raw artifact bytes
+  byteSize      Int      @default(0)
+  artifactPath  String // immutable raw bytes location
+  originalName  String?
+  // UPLOADED | PROCESSING | IMPORTED | AWAITING_REVIEW | FAILED | SUPERSEDED
+  status        String   @default("UPLOADED")
+  tablesTotal   Int      @default(0)
+  rowsTotal     Int      @default(0)
+  dqScore       Float?
+  // Latest-run mapping confidence distribution (§112)
+  mappedHigh     Int     @default(0)
+  mappedMedium   Int     @default(0)
+  mappedLow      Int     @default(0)
+  mappedUnresolved Int   @default(0)
+  knowledgeRecordsCount Int @default(0)
+  chunksCount   Int      @default(0)
+  trainingCandidatesCount Int @default(0)
+  latestRunId   String?
+  uploadedById  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([orgId])
+  @@unique([orgId, platform, name, versionLabel])
+}
+
+// One pipeline execution per upload/reprocess (§114, §145).
+model IntakeRun {
+  id               String    @id @default(cuid())
+  sourceDatabaseId String
+  orgId            String
+  jobId            String?
+  // RAW | STAGED | ANALYZED | MAPPED | VALIDATED | IMPORTED | FAILED | CANCELLED
+  status           String    @default("RAW")
+  // UPLOAD | REPROCESS (§145)
+  trigger          String    @default("UPLOAD")
+  autonomyLevel    Int       @default(4)
+  engineVersion    String
+  snapshotId       String?
+  stageEventsJson  String    @default("[]")
+  mappingsJson     String? // §112 confidence distribution summary
+  reportJson       String? // import validation report (§115)
+  dqJson           String? // data quality report (§117)
+  driftJson        String? // schema drift report (§142)
+  duplicatesJson   String? // duplicate markers (§141)
+  narrativeJson    String? // §160 pipeline narrative lines
+  knowledgeJson    String? // extracted doc/record lineage (§118–§124)
+  candidatesJson   String? // training candidate gate summary (§126)
+  trainingJson     String? // dataset/training trigger outcome (§127–§130)
+  errorsJson       String    @default("[]")
+  warningsJson     String    @default("[]")
+  startedAt        DateTime?
+  finishedAt       DateTime?
+  createdAt        DateTime  @default(now())
+
+  @@index([sourceDatabaseId])
+  @@index([status])
+}
+
+// Versioned, immutable schema snapshot (§108 source_schema_snapshot).
+model SchemaSnapshot {
+  id               String   @id @default(cuid())
+  sourceDatabaseId String
+  version          Int      @default(1)
+  engine           String
+  snapshotJson     String // full normalized schema (§106/§109)
+  tablesCount      Int      @default(0)
+  columnsCount     Int      @default(0)
+  fksCount         Int      @default(0)
+  indexesCount     Int      @default(0)
+  viewsCount       Int      @default(0)
+  checksum         String
+  createdAt        DateTime @default(now())
+
+  @@index([sourceDatabaseId])
+}
+
+// Canonical mapping decision per source table (§111–§113, §116).
+model CanonicalMapping {
+  id                  String    @id @default(cuid())
+  intakeRunId         String
+  sourceDatabaseId    String
+  orgId               String
+  sourceTable         String
+  tablePurpose        String // discovered purpose (§109)
+  entityType          String
+  canonicalEntity     String? // §111
+  // HIGH_CONFIDENCE | MEDIUM_CONFIDENCE | LOW_CONFIDENCE | UNRESOLVED (§112)
+  confidenceLabel     String    @default("UNRESOLVED")
+  confidence          Float     @default(0)
+  reason              String
+  evidenceJson        String    @default("[]") // §110 evidence list
+  columnMappingsJson  String    @default("[]") // §116 transformation records
+  // AUTO_APPLIED | PENDING_REVIEW | APPROVED | REJECTED | PRESERVED_SOURCE (§113)
+  decision            String    @default("PENDING_REVIEW")
+  rowCount            Int       @default(0)
+  reviewedById        String?
+  reviewedAt          DateTime?
+  reviewNote          String?
+  createdAt           DateTime  @default(now())
+
+  @@index([intakeRunId])
+  @@index([orgId, decision])
+}
+
+// Zero-data-loss preservation layer (§143) — unknown/unmapped fields.
+model PreservedField {
+  id               String   @id @default(cuid())
+  sourceDatabaseId String
+  intakeRunId      String
+  orgId            String
+  tableName        String
+  columnName       String
+  columnType       String
+  reason           String
+  sampleJson       String?
+  createdAt        DateTime @default(now())
+
+  @@index([sourceDatabaseId])
+}
+
+// Inferred/derived knowledge graph (§139) with inference-vs-fact classes (§140).
+model KnowledgeGraphEdge {
+  id             String   @id @default(cuid())
+  orgId          String
+  intakeRunId    String?
+  subject        String // "platform:legacy-crm" | "table:customers" | "entity:Party"
+  predicate      String // uses|contains|depends_on|stores_data_in|specifies|identifies|mitigates|maps_to
+  object         String
+  // EXPLICIT_SOURCE_FACT | HIGH_CONFIDENCE_INFERENCE | MEDIUM_CONFIDENCE_INFERENCE | LOW_CONFIDENCE_INFERENCE (§140)
+  classification String   @default("HIGH_CONFIDENCE_INFERENCE")
+  evidence       String
+  provenanceJson String
+  createdAt      DateTime @default(now())
+
+  @@index([orgId, predicate])
+}
+
+// Training-data candidates generated from imported knowledge (§125, §126, §148).
+model TrainingCandidate {
+  id                String    @id @default(cuid())
+  orgId             String
+  intakeRunId       String
+  sourceDatabaseId  String
+  kind              String // QA|SUMMARY|CLASSIFICATION|ARCHITECTURE_ANALYSIS|RISK_ANALYSIS|COMPARISON|CONTRADICTION|WORKFLOW
+  prompt            String
+  completion        String
+  qualityScore      Float     @default(0)
+  dedupeHash        String
+  // TRAINING_CANDIDATE | TRAINING_APPROVED | TRAINING_REJECTED | QUARANTINED (§126/§149)
+  status            String    @default("TRAINING_CANDIDATE")
+  gatesJson         String    @default("[]") // §126 gate results
+  lineageJson       String // §148 mandatory lineage
+  trainingExampleId String?
+  reviewedById      String?
+  reviewNote        String?
+  reviewedAt        DateTime?
+  createdAt         DateTime  @default(now())
+
+  @@index([orgId, status])
+  @@index([sourceDatabaseId])
+}
+
+// Schema drift between two snapshots of the same source database (§142).
+model DriftReport {
+  id               String   @id @default(cuid())
+  sourceDatabaseId String
+  orgId            String
+  intakeRunId      String
+  fromSnapshotId   String
+  toSnapshotId     String
+  changesJson      String   @default("[]") // ADDED|REMOVED|MODIFIED|RENAMED|DEPRECATED
+  summary          String
+  createdAt        DateTime @default(now())
+
+  @@index([sourceDatabaseId])
+}
+
+// Duplicate markers across sources — NEVER deleted (§141).
+model DuplicateMarker {
+  id           String   @id @default(cuid())
+  orgId        String
+  intakeRunId  String
+  kind         String // EXACT | NEAR | SEMANTIC
+  leftRef      String // "source:<id>|table:<name>"
+  rightRef     String
+  // DUPLICATE | POSSIBLE_DUPLICATE | RELATED
+  status       String   @default("POSSIBLE_DUPLICATE")
+  evidenceJson String
+  createdAt    DateTime @default(now())
+
+  @@index([orgId])
+}
+
+// Configurable autonomy LEVEL 0..5 (§151); governance overrides are code-level (§152).
+model AutonomyConfig {
+  id          String   @id @default(cuid())
+  orgId       String   @unique
+  level       Int      @default(4)
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+}
+
+// Periodic autonomous health checks (§156).
+model HealthCheckReport {
+  id          String   @id @default(cuid())
+  orgId       String
+  ranAt       DateTime @default(now())
+  issuesFound Int      @default(0)
+  durationMs  Int      @default(0)
+  checksJson  String   @default("[]")
+  summaryJson String?
+
+  @@index([orgId, ranAt])
+}
+
+// Internal AI improvement queue fed by auto-learning signals (§135–§138, §156).
+model ImprovementQueueItem {
+  id             String    @id @default(cuid())
+  orgId          String
+  kind           String // RETRIEVAL_MISS|UNANSWERED_QUESTION|HALLUCINATION|CORRECTION|STALE_KNOWLEDGE|CONFLICTING_SOURCES|FAILED_INGESTION|FAILED_TRAINING|MODEL_REGRESSION|PROVIDER_DEGRADATION
+  description    String
+  evidenceJson   String
+  priority       String    @default("P2") // P0..P3
+  proposedAction String
+  // OPEN | ACKNOWLEDGED | RESOLVED
+  status         String    @default("OPEN")
+  createdAt      DateTime  @default(now())
+  resolvedAt     DateTime?
+  resolvedById   String?
+
+  @@index([orgId, status])
+}

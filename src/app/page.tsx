@@ -12,6 +12,7 @@ import { LoginView } from "@/components/wedjat/views/login-view";
 import { DashboardView } from "@/components/wedjat/views/dashboard-view";
 import { ChatView } from "@/components/wedjat/views/chat-view";
 import { KnowledgeView } from "@/components/wedjat/views/knowledge-view";
+import { IntakeView } from "@/components/wedjat/intake/intake-view";
 import { AnalysisView } from "@/components/wedjat/views/analysis-view";
 import { SearchView } from "@/components/wedjat/views/search-view";
 import { TrainingView } from "@/components/wedjat/views/training-view";
@@ -26,6 +27,7 @@ const VALID_VIEWS: ViewId[] = [
   "dashboard",
   "chat",
   "knowledge",
+  "intake",
   "analysis",
   "search",
   "training",
@@ -130,6 +132,7 @@ export default function Page() {
         {view === "dashboard" ? <DashboardView onNavigate={changeView} /> : null}
         {view === "chat" ? <ChatView /> : null}
         {view === "knowledge" ? <KnowledgeView /> : null}
+        {view === "intake" ? <IntakeView role={principal.role} /> : null}
         {view === "analysis" ? <AnalysisView /> : null}
         {view === "search" ? <SearchView /> : null}
         {view === "training" ? <TrainingView role={principal.role} /> : null}

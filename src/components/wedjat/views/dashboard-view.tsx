@@ -10,6 +10,7 @@ import {
   Blocks,
   Brain,
   Database,
+  DatabaseZap,
   FileText,
   GaugeCircle,
   Layers3,
@@ -244,7 +245,7 @@ export function DashboardView({
         <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Quick actions
         </h3>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Button
             variant="outline"
             className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
@@ -265,6 +266,17 @@ export function DashboardView({
             <span className="text-sm font-medium">Ingest a document</span>
             <span className="text-xs font-normal text-muted-foreground">
               Version, section, chunk and index knowledge
+            </span>
+          </Button>
+          <Button
+            variant="outline"
+            className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
+            onClick={() => onNavigate("intake")}
+          >
+            <DatabaseZap className="size-5 text-primary" aria-hidden="true" />
+            <span className="text-sm font-medium">Ingest a database</span>
+            <span className="text-xs font-normal text-muted-foreground">
+              Auto-detected SQLite / SQL / CSV / JSON intake
             </span>
           </Button>
           <Button

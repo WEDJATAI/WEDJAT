@@ -1,0 +1,937 @@
+     1→"use client";
+     2→
+     3→// Training & evaluation lifecycle: eligible sources, dataset creation with
+     4→// quality gating, run lifecycle stepper (QUEUED→…→PRODUCTION) with explicit
+     5→// human promotion gates, metrics chart, and honest SIMULATION labeling.
+     6→
+     7→import { useEffect, useRef, useState } from "react";
+     8→import {
+     9→  ArrowRight,
+    10→  CheckCircle2,
+    11→  Database,
+    12→  GaugeCircle,
+    13→  GraduationCap,
+    14→  LoaderCircle,
+    15→  Lock,
+    16→  Play,
+    17→  RotateCcw,
+    18→  Sparkles,
+    19→  TriangleAlert,
+    20→} from "lucide-react";
+    21→import { motion } from "framer-motion";
+    22→import { toast } from "sonner";
+    23→import {
+    24→  CartesianGrid,
+    25→  Line,
+    26→  LineChart,
+    27→  XAxis,
+    28→  YAxis,
+    29→} from "recharts";
+    30→import {
+    31→  AlertDialog,
+    32→  AlertDialogAction,
+    33→  AlertDialogCancel,
+    34→  AlertDialogContent,
+    35→  AlertDialogDescription,
+    36→  AlertDialogFooter,
+    37→  AlertDialogHeader,
+    38→  AlertDialogTitle,
+    39→  AlertDialogTrigger,
+    40→} from "@/components/ui/alert-dialog";
+    41→import { Badge } from "@/components/ui/badge";
+    42→import { Button } from "@/components/ui/button";
+    43→import { Card, CardContent } from "@/components/ui/card";
+    44→import { Checkbox } from "@/components/ui/checkbox";
+    45→import { Input } from "@/components/ui/input";
+    46→import { Label } from "@/components/ui/label";
+    47→import { Progress } from "@/components/ui/progress";
+    48→import {
+    49→  Select,
+    50→  SelectContent,
+    51→  SelectItem,
+    52→  SelectTrigger,
+    53→  SelectValue,
+    54→} from "@/components/ui/select";
+    55→import { Slider } from "@/components/ui/slider";
+    56→import { Textarea } from "@/components/ui/textarea";
+    57→import {
+    58→  ChartContainer,
+    59→  ChartTooltip,
+    60→  ChartTooltipContent,
+    61→  type ChartConfig,
+    62→} from "@/components/ui/chart";
+    63→import {
+    64→  EmptyState,
+    65→  ErrorState,
+    66→  SkeletonRows,
+    67→} from "@/components/wedjat/shared/empty-state";
+    68→import { SectionHeading } from "@/components/wedjat/shared/section-heading";
+    69→import {
+    70→  FeedbackLabelBadge,
+    71→  StatusBadge,
+    72→} from "@/components/wedjat/shared/status-badge";
+    73→import { api, apiPost, errMessage, formatWhen } from "@/lib/wedjat/client";
+    74→import { cn } from "@/lib/utils";
+    75→import type {
+    76→  TrainingDatasetDto,
+    77→  TrainingPayload,
+    78→  TrainingRunDto,
+    79→} from "@/lib/wedjat/types";
+    80→
+    81→const LIFECYCLE = [
+    82→  "QUEUED",
+    83→  "VALIDATING",
+    84→  "TRAINING",
+    85→  "EVALUATING",
+    86→  "CANDIDATE",
+    87→  "CANARY",
+    88→  "PRODUCTION",
+    89→] as const;
+    90→
+    91→const ACTIVE_RUN_STATUSES = new Set([
+    92→  "QUEUED",
+    93→  "VALIDATING",
+    94→  "TRAINING",
+    95→  "EVALUATING",
+    96→]);
+    97→
+    98→const TRAINING_KINDS = ["FEEDBACK", "SYNTHETIC", "CORRECTION"] as const;
+    99→const METHODS = ["SIMULATED", "LORA", "QLORA"] as const;
+   100→
+   101→const chartConfig = {
+   102→  loss: { label: "Loss", color: "var(--chart-1)" },
+   103→  evalScore: { label: "Eval score", color: "var(--chart-3)" },
+   104→} satisfies ChartConfig;
+   105→
+   106→function canManageTraining(role: string) {
+   107→  return role === "CURATOR" || role === "OWNER" || role === "ADMIN";
+   108→}
+   109→
+   110→function LifecycleStepper({ status }: { status: string }) {
+   111→  const cur = LIFECYCLE.indexOf(status as (typeof LIFECYCLE)[number]);
+   112→  const terminal = cur === -1;
+   113→  return (
+   114→    <div
+   115→      className="wedjat-scroll flex items-center gap-1 overflow-x-auto py-1"
+   116→      aria-label={`Run lifecycle, current status ${status}`}
+   117→    >
+   118→      {LIFECYCLE.map((step, i) => {
+   119→        const state = terminal
+   120→          ? "pending"
+   121→          : i < cur
+   122→            ? "done"
+   123→            : i === cur
+   124→              ? "current"
+   125→              : "pending";
+   126→        return (
+   127→          <div key={step} className="flex shrink-0 items-center gap-1">
+   128→            {i > 0 ? (
+   129→              <span
+   130→                aria-hidden="true"
+   131→                className={cn(
+   132→                  "h-px w-5",
+   133→                  state === "pending" ? "bg-border" : "bg-primary/40",
+   134→                )}
+   135→              />
+   136→            ) : null}
+   137→            <span
+   138→              className={cn(
+   139→                "flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium",
+   140→                state === "done" &&
+   141→                  "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+   142→                state === "current" &&
+   143→                  "wedjat-pulse border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-400",
+   144→                state === "pending" &&
+   145→                  "border-border text-muted-foreground/70",
+   146→              )}
+   147→            >
+   148→              {state === "done" ? (
+   149→                <CheckCircle2 aria-hidden="true" className="size-3" />
+   150→              ) : null}
+   151→              {step}
+   152→            </span>
+   153→          </div>
+   154→        );
+   155→      })}
+   156→      {terminal ? <StatusBadge status={status} /> : null}
+   157→    </div>
+   158→  );
+   159→}
+   160→
+   161→function RunMetrics({ run }: { run: TrainingRunDto }) {
+   162→  const points = run.metrics.filter((m) => m.loss !== null);
+   163→  if (points.length < 2) {
+   164→    return (
+   165→      <p className="text-xs text-muted-foreground">
+   166→        Metrics stream once training steps begin.
+   167→      </p>
+   168→    );
+   169→  }
+   170→  return (
+   171→    <ChartContainer config={chartConfig} className="h-40 w-full">
+   172→      <LineChart data={run.metrics}>
+   173→        <CartesianGrid vertical={false} strokeDasharray="3 3" />
+   174→        <XAxis dataKey="step" tickLine={false} axisLine={false} tickMargin={8} />
+   175→        <YAxis
+   176→          tickLine={false}
+   177→          axisLine={false}
+   178→          tickMargin={8}
+   179→          domain={["auto", "auto"]}
+   180→        />
+   181→        <ChartTooltip content={<ChartTooltipContent />} />
+   182→        <Line
+   183→          dataKey="loss"
+   184→          type="monotone"
+   185→          stroke="var(--color-loss)"
+   186→          strokeWidth={2}
+   187→          dot={false}
+   188→          connectNulls
+   189→        />
+   190→      </LineChart>
+   191→    </ChartContainer>
+   192→  );
+   193→}
+   194→
+   195→function RunCard({
+   196→  run,
+   197→  canManage,
+   198→  onChanged,
+   199→}: {
+   200→  run: TrainingRunDto;
+   201→  canManage: boolean;
+   202→  onChanged: () => void;
+   203→}) {
+   204→  const [busy, setBusy] = useState(false);
+   205→
+   206→  const advanceTarget =
+   207→    run.status === "EVALUATING" || run.status === "TRAINING" || run.status === "VALIDATING"
+   208→      ? "candidate"
+   209→      : run.status === "CANDIDATE"
+   210→        ? "canary"
+   211→        : run.status === "CANARY"
+   212→          ? "production"
+   213→          : null;
+   214→
+   215→  const doAction = async (
+   216→    action: "advance-run" | "rollback",
+   217→    to?: string,
+   218→  ) => {
+   219→    if (busy) return;
+   220→    setBusy(true);
+   221→    try {
+   222→      const res = await apiPost<{ runId: string; status: string; note?: string }>(
+   223→        "/api/training",
+   224→        { action, runId: run.id, ...(to ? { to } : {}) },
+   225→      );
+   226→      toast.success(
+   227→        action === "advance-run"
+   228→          ? `Run advanced to ${to}`
+   229→          : "Run rolled back",
+   230→        {
+   231→          description:
+   232→            res.note ??
+   233→            `Run ${res.runId.slice(0, 8)}… is now ${res.status}. Training is simulated in this environment.`,
+   234→        },
+   235→      );
+   236→      onChanged();
+   237→    } catch (e) {
+   238→      toast.error("Training action failed", { description: errMessage(e) });
+   239→    } finally {
+   240→      setBusy(false);
+   241→    }
+   242→  };
+   243→
+   244→  return (
+   245→    <Card className="rounded-xl">
+   246→      <CardContent className="space-y-4 p-4 sm:p-5">
+   247→        <div className="flex flex-wrap items-center gap-2">
+   248→          <span className="font-mono text-xs text-muted-foreground">
+   249→            run {run.id.slice(0, 8)}…
+   250→          </span>
+   251→          <StatusBadge status={run.status} />
+   252→          <Badge variant="secondary" className="font-mono text-[10px]">
+   253→            {run.method}
+   254→          </Badge>
+   255→          <Badge variant="outline" className="font-mono text-[10px]">
+   256→            dataset v{run.datasetVersion}
+   257→          </Badge>
+   258→          <span className="ml-auto font-mono text-[10px] text-muted-foreground">
+   259→            {formatWhen(run.createdAt)}
+   260→          </span>
+   261→        </div>
+   262→
+   263→        <LifecycleStepper status={run.status} />
+   264→
+   265→        <div className="flex items-center gap-3">
+   266→          <Progress value={run.progress * 100} className="h-1.5 flex-1" />
+   267→          <span className="font-mono text-xs tabular-nums text-muted-foreground">
+   268→            {Math.round(run.progress * 100)}%
+   269→          </span>
+   270→        </div>
+   271→        {run.currentStep ? (
+   272→          <p className="text-xs text-muted-foreground">
+   273→            current step: <span className="font-mono">{run.currentStep}</span>
+   274→          </p>
+   275→        ) : null}
+   276→
+   277→        <div className="grid gap-2 text-xs text-muted-foreground sm:grid-cols-2">
+   278→          <p>
+   279→            base model:{" "}
+   280→            <span className="font-mono text-foreground">
+   281→              {run.baseModel ?? "—"}
+   282→            </span>
+   283→          </p>
+   284→          <p>
+   285→            candidate model:{" "}
+   286→            <span className="font-mono text-foreground">
+   287→              {run.candidateModel ?? "—"}
+   288→            </span>
+   289→          </p>
+   290→          <p>
+   291→            gpu profile:{" "}
+   292→            <span className="font-mono text-foreground">{run.gpuProfile}</span>
+   293→          </p>
+   294→          <p>
+   295→            completed:{" "}
+   296→            <span className="font-mono text-foreground">
+   297→              {formatWhen(run.completedAt)}
+   298→            </span>
+   299→          </p>
+   300→        </div>
+   301→        {run.notes ? (
+   302→          <p className="rounded-lg bg-muted/50 p-2.5 text-xs text-muted-foreground">
+   303→            {run.notes}
+   304→          </p>
+   305→        ) : null}
+   306→
+   307→        <RunMetrics run={run} />
+   308→
+   309→        {run.evaluationSummary ? (
+   310→          <div className="flex flex-wrap items-center gap-2 rounded-lg border p-3">
+   311→            <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+   312→              evaluation gate
+   313→            </span>
+   314→            <StatusBadge status={run.evaluationSummary.gate} pulse={false} />
+   315→            <span className="font-mono text-xs tabular-nums text-muted-foreground">
+   316→              pass rate {Math.round(run.evaluationSummary.passRate * 100)}%
+   317→            </span>
+   318→            {run.evaluationSummary.regression ? (
+   319→              <Badge
+   320→                variant="outline"
+   321→                className="border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400"
+   322→              >
+   323→                regression detected
+   324→              </Badge>
+   325→            ) : null}
+   326→          </div>
+   327→        ) : null}
+   328→
+   329→        {canManage &&
+   330→        (advanceTarget || ["CANDIDATE", "CANARY", "PRODUCTION"].includes(run.status)) ? (
+   331→          <div className="flex flex-wrap gap-2">
+   332→            {advanceTarget ? (
+   333→              <AlertDialog>
+   334→                <AlertDialogTrigger asChild>
+   335→                  <Button size="sm" className="h-9" disabled={busy}>
+   336→                    <ArrowRight className="size-3.5" aria-hidden="true" />
+   337→                    Advance to {advanceTarget}
+   338→                  </Button>
+   339→                </AlertDialogTrigger>
+   340→                <AlertDialogContent>
+   341→                  <AlertDialogHeader>
+   342→                    <AlertDialogTitle>
+   343→                      Advance run to {advanceTarget}?
+   344→                    </AlertDialogTitle>
+   345→                    <AlertDialogDescription>
+   346→                      This is an explicit promotion gate — it is never
+   347→                      automatic. In this environment the transition is
+   348→                      simulated (no GPU workloads run).
+   349→                    </AlertDialogDescription>
+   350→                  </AlertDialogHeader>
+   351→                  <AlertDialogFooter>
+   352→                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+   353→                    <AlertDialogAction
+   354→                      onClick={() => doAction("advance-run", advanceTarget)}
+   355→                    >
+   356→                      Advance
+   357→                    </AlertDialogAction>
+   358→                  </AlertDialogFooter>
+   359→                </AlertDialogContent>
+   360→              </AlertDialog>
+   361→            ) : null}
+   362→            {["CANDIDATE", "CANARY", "PRODUCTION"].includes(run.status) ? (
+   363→              <AlertDialog>
+   364→                <AlertDialogTrigger asChild>
+   365→                  <Button
+   366→                    size="sm"
+   367→                    variant="outline"
+   368→                    className="h-9"
+   369→                    disabled={busy}
+   370→                  >
+   371→                    <RotateCcw className="size-3.5" aria-hidden="true" />
+   372→                    Rollback
+   373→                  </Button>
+   374→                </AlertDialogTrigger>
+   375→                <AlertDialogContent>
+   376→                  <AlertDialogHeader>
+   377→                    <AlertDialogTitle>Roll back this run?</AlertDialogTitle>
+   378→                    <AlertDialogDescription>
+   379→                      The candidate will be withdrawn and the previous model
+   380→                      version restored. Simulated in this environment.
+   381→                    </AlertDialogDescription>
+   382→                  </AlertDialogHeader>
+   383→                  <AlertDialogFooter>
+   384→                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+   385→                    <AlertDialogAction onClick={() => doAction("rollback")}>
+   386→                      Roll back
+   387→                    </AlertDialogAction>
+   388→                  </AlertDialogFooter>
+   389→                </AlertDialogContent>
+   390→              </AlertDialog>
+   391→            ) : null}
+   392→          </div>
+   393→        ) : null}
+   394→        {!canManage ? (
+   395→          <p className="text-xs text-muted-foreground">
+   396→            Read-only: promotion gates require CURATOR, OWNER or ADMIN role.
+   397→          </p>
+   398→        ) : null}
+   399→      </CardContent>
+   400→    </Card>
+   401→  );
+   402→}
+   403→
+   404→function DatasetCard({ dataset }: { dataset: TrainingDatasetDto }) {
+   405→  const v = dataset.currentVersion;
+   406→  return (
+   407→    <Card className="rounded-xl">
+   408→      <CardContent className="space-y-2 p-4">
+   409→        <div className="flex flex-wrap items-center gap-2">
+   410→          <p className="min-w-0 truncate text-sm font-semibold">
+   411→            {dataset.name}
+   412→          </p>
+   413→          <StatusBadge status={dataset.status} pulse={false} />
+   414→          {v?.lockedAt ? (
+   415→            <Badge variant="outline" className="gap-1 text-[10px]">
+   416→              <Lock aria-hidden="true" className="size-3" />
+   417→              LOCKED
+   418→            </Badge>
+   419→          ) : null}
+   420→        </div>
+   421→        {dataset.description ? (
+   422→          <p className="text-xs text-muted-foreground">{dataset.description}</p>
+   423→        ) : null}
+   424→        {v ? (
+   425→          <div className="space-y-1 text-xs text-muted-foreground">
+   426→            <p>
+   427→              version <span className="font-mono text-foreground">{v.version}</span>{" "}
+   428→              · status <StatusBadge status={v.status} pulse={false} />
+   429→            </p>
+   430→            <p className="font-mono text-[10px]">
+   431→              {v.exampleCount} examples · sha {v.checksum}
+   432→            </p>
+   433→          </div>
+   434→        ) : (
+   435→          <p className="text-xs text-muted-foreground">No version built yet.</p>
+   436→        )}
+   437→      </CardContent>
+   438→    </Card>
+   439→  );
+   440→}
+   441→
+   442→function CreateDatasetForm({
+   443→  eligibleKinds,
+   444→  onCreated,
+   445→}: {
+   446→  eligibleKinds: string[];
+   447→  onCreated: () => void;
+   448→}) {
+   449→  const [name, setName] = useState("");
+   450→  const [description, setDescription] = useState("");
+   451→  const [kinds, setKinds] = useState<string[]>([...TRAINING_KINDS]);
+   452→  const [minQuality, setMinQuality] = useState(0);
+   453→  const [submitting, setSubmitting] = useState(false);
+   454→  const [error, setError] = useState<string | null>(null);
+   455→
+   456→  const toggleKind = (k: string, checked: boolean) => {
+   457→    setKinds((cur) =>
+   458→      checked ? [...new Set([...cur, k])] : cur.filter((x) => x !== k),
+   459→    );
+   460→  };
+   461→
+   462→  const submit = async () => {
+   463→    if (!name.trim() || submitting) return;
+   464→    setSubmitting(true);
+   465→    setError(null);
+   466→    try {
+   467→      const res = await apiPost<{
+   468→        datasetId: string;
+   469→        datasetVersionId: string;
+   470→        exampleCount: number;
+   471→        excluded: number;
+   472→        reasons: string[];
+   473→      }>("/api/training", {
+   474→        action: "create-dataset",
+   475→        name: name.trim(),
+   476→        description: description.trim() || undefined,
+   477→        includeKinds: kinds,
+   478→        minQuality,
+   479→      });
+   480→      toast.success("Dataset created", {
+   481→        description: `${res.exampleCount} examples included, ${res.excluded} excluded${
+   482→          res.reasons.length > 0 ? ` — ${res.reasons.join("; ")}` : ""
+   483→        }.`,
+   484→      });
+   485→      setName("");
+   486→      setDescription("");
+   487→      onCreated();
+   488→    } catch (e) {
+   489→      setError(errMessage(e));
+   490→    } finally {
+   491→      setSubmitting(false);
+   492→    }
+   493→  };
+   494→
+   495→  return (
+   496→    <Card className="rounded-xl">
+   497→      <CardContent className="space-y-4 p-4 sm:p-6">
+   498→        <div className="space-y-1.5">
+   499→          <Label htmlFor="ds-name">Dataset name</Label>
+   500→          <Input
+   501→            id="ds-name"
+   502→            value={name}
+   503→            onChange={(e) => setName(e.target.value)}
+   504→            placeholder="e.g. checkout-domain-v1"
+   505→            className="h-9"
+   506→          />
+   507→        </div>
+   508→        <div className="space-y-1.5">
+   509→          <Label htmlFor="ds-desc">Description (optional)</Label>
+   510→          <Textarea
+   511→            id="ds-desc"
+   512→            value={description}
+   513→            onChange={(e) => setDescription(e.target.value)}
+   514→            placeholder="What this dataset trains or evaluates…"
+   515→            className="min-h-16 text-sm"
+   516→          />
+   517→        </div>
+   518→        <fieldset className="space-y-2">
+   519→          <legend className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   520→            Include kinds
+   521→          </legend>
+   522→          <div className="flex flex-wrap gap-4">
+   523→            {TRAINING_KINDS.map((k) => (
+   524→              <label
+   525→                key={k}
+   526→                className="flex min-h-11 items-center gap-2 text-sm"
+   527→              >
+   528→                <Checkbox
+   529→                  checked={kinds.includes(k)}
+   530→                  onCheckedChange={(c) => toggleKind(k, c === true)}
+   531→                  aria-label={`Include ${k} examples`}
+   532→                />
+   533→                {k}
+   534→                <span className="font-mono text-[10px] text-muted-foreground">
+   535→                  {eligibleKinds.includes(k) ? "" : "(none eligible yet)"}
+   536→                </span>
+   537→              </label>
+   538→            ))}
+   539→          </div>
+   540→        </fieldset>
+   541→        <div className="space-y-2">
+   542→          <div className="flex items-center justify-between">
+   543→            <Label htmlFor="ds-quality">Minimum quality score</Label>
+   544→            <span className="font-mono text-xs tabular-nums text-muted-foreground">
+   545→              {minQuality.toFixed(2)}
+   546→            </span>
+   547→          </div>
+   548→          <Slider
+   549→            id="ds-quality"
+   550→            value={[minQuality]}
+   551→            onValueChange={([v]) => setMinQuality(v)}
+   552→            min={0}
+   553→            max={1}
+   554→            step={0.05}
+   555→            aria-label="Minimum quality score"
+   556→          />
+   557→          <p className="text-xs text-muted-foreground">
+   558→            Examples below this score are excluded (with reasons reported back).
+   559→          </p>
+   560→        </div>
+   561→        {error ? (
+   562→          <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
+   563→        ) : null}
+   564→        <Button
+   565→          onClick={submit}
+   566→          disabled={!name.trim() || kinds.length === 0 || submitting}
+   567→        >
+   568→          {submitting ? (
+   569→            <>
+   570→              <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+   571→              Building…
+   572→            </>
+   573→          ) : (
+   574→            <>
+   575→              <Database className="size-4" aria-hidden="true" />
+   576→              Create dataset
+   577→            </>
+   578→          )}
+   579→        </Button>
+   580→      </CardContent>
+   581→    </Card>
+   582→  );
+   583→}
+   584→
+   585→function StartRunForm({
+   586→  datasets,
+   587→  onStarted,
+   588→}: {
+   589→  datasets: TrainingDatasetDto[];
+   590→  onStarted: () => void;
+   591→}) {
+   592→  const options = datasets.filter((d) => d.currentVersion);
+   593→  const [datasetVersionId, setDatasetVersionId] = useState("");
+   594→  const [method, setMethod] = useState<string>("SIMULATED");
+   595→  const [submitting, setSubmitting] = useState(false);
+   596→  const [error, setError] = useState<string | null>(null);
+   597→
+   598→  const submit = async () => {
+   599→    if (!datasetVersionId || submitting) return;
+   600→    setSubmitting(true);
+   601→    setError(null);
+   602→    try {
+   603→      const res = await apiPost<{ runId: string; jobId: string }>(
+   604→        "/api/training",
+   605→        { action: "start-run", datasetVersionId, method },
+   606→      );
+   607→      toast.success("Training run started", {
+   608→        description: `Run ${res.runId.slice(0, 8)}… (job ${res.jobId.slice(0, 8)}…). The worker auto-progresses to EVALUATING; promotion gates stay manual.`,
+   609→      });
+   610→      onStarted();
+   611→    } catch (e) {
+   612→      setError(errMessage(e));
+   613→    } finally {
+   614→      setSubmitting(false);
+   615→    }
+   616→  };
+   617→
+   618→  return (
+   619→    <Card className="rounded-xl">
+   620→      <CardContent className="space-y-4 p-4 sm:p-6">
+   621→        <div className="space-y-1.5">
+   622→          <Label htmlFor="sr-dataset">Dataset version</Label>
+   623→          <Select
+   624→            value={datasetVersionId || "none"}
+   625→            onValueChange={(v) => setDatasetVersionId(v === "none" ? "" : v)}
+   626→          >
+   627→            <SelectTrigger id="sr-dataset" className="h-9 w-full">
+   628→              <SelectValue placeholder="Select dataset version" />
+   629→            </SelectTrigger>
+   630→            <SelectContent>
+   631→              <SelectItem value="none">
+   632→                <span className="text-muted-foreground">Select…</span>
+   633→              </SelectItem>
+   634→              {options.map((d) => (
+   635→                <SelectItem key={d.currentVersion!.id} value={d.currentVersion!.id}>
+   636→                  {d.name} · v{d.currentVersion!.version} ·{" "}
+   637→                  {d.currentVersion!.exampleCount} examples
+   638→                </SelectItem>
+   639→              ))}
+   640→            </SelectContent>
+   641→          </Select>
+   642→        </div>
+   643→        <div className="space-y-1.5">
+   644→          <Label htmlFor="sr-method">Method</Label>
+   645→          <Select value={method} onValueChange={setMethod}>
+   646→            <SelectTrigger id="sr-method" className="h-9 w-full">
+   647→              <SelectValue />
+   648→            </SelectTrigger>
+   649→            <SelectContent>
+   650→              {METHODS.map((m) => (
+   651→                <SelectItem key={m} value={m}>
+   652→                  {m}
+   653→                </SelectItem>
+   654→              ))}
+   655→            </SelectContent>
+   656→          </Select>
+   657→        </div>
+   658→        <div className="flex gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-400">
+   659→          <TriangleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+   660→          <p>
+   661→            No GPU is present in this environment — LORA/QLORA requests fall
+   662→            back to the SIMULATED lifecycle worker. Everything past
+   663→            EVALUATING requires explicit human promotion.
+   664→          </p>
+   665→        </div>
+   666→        {error ? (
+   667→          <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
+   668→        ) : null}
+   669→        <Button
+   670→          onClick={submit}
+   671→          disabled={!datasetVersionId || submitting}
+   672→        >
+   673→          {submitting ? (
+   674→            <>
+   675→              <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+   676→              Starting…
+   677→            </>
+   678→          ) : (
+   679→            <>
+   680→              <Play className="size-4" aria-hidden="true" />
+   681→              Start run
+   682→            </>
+   683→          )}
+   684→        </Button>
+   685→      </CardContent>
+   686→    </Card>
+   687→  );
+   688→}
+   689→
+   690→export function TrainingView({ role }: { role: string }) {
+   691→  const [data, setData] = useState<TrainingPayload | null>(null);
+   692→  const [error, setError] = useState<string | null>(null);
+   693→  const [loading, setLoading] = useState(true);
+   694→  const pollRef = useRef<() => void>(() => {});
+   695→
+   696→  const load = async () => {
+   697→    try {
+   698→      const d = await api<TrainingPayload>("/api/training");
+   699→      setData(d);
+   700→      setError(null);
+   701→    } catch (e) {
+   702→      setError(errMessage(e));
+   703→    } finally {
+   704→      setLoading(false);
+   705→    }
+   706→  };
+   707→
+   708→  useEffect(() => {
+   709→    load();
+   710→  }, []);
+   711→
+   712→  // Poll every 3s while any run is in an active lifecycle stage.
+   713→  useEffect(() => {
+   714→    let interval: ReturnType<typeof setInterval> | undefined;
+   715→    let stopped = false;
+   716→    const tick = async () => {
+   717→      if (stopped) return;
+   718→      try {
+   719→        const d = await api<TrainingPayload>("/api/training");
+   720→        if (stopped) return;
+   721→        setData(d);
+   722→        setError(null);
+   723→        const active = d.runs.some((r) => ACTIVE_RUN_STATUSES.has(r.status));
+   724→        if (active && !interval) {
+   725→          interval = setInterval(tick, 3000);
+   726→        } else if (!active && interval) {
+   727→          clearInterval(interval);
+   728→          interval = undefined;
+   729→        }
+   730→      } catch {
+   731→        /* keep last state */
+   732→      }
+   733→    };
+   734→    pollRef.current = tick;
+   735→    // Initial check arms the interval if runs are already in flight
+   736→    // (e.g. the user navigated away and back).
+   737→    tick();
+   738→    return () => {
+   739→      stopped = true;
+   740→      if (interval) clearInterval(interval);
+   741→    };
+   742→  }, []);
+   743→
+   744→  const canManage = canManageTraining(role);
+   745→
+   746→  if (loading && !data) {
+   747→    return (
+   748→      <div className="space-y-6">
+   749→        <SectionHeading eyebrow="Lifecycle" title="Training" />
+   750→        <SkeletonRows rows={5} />
+   751→      </div>
+   752→    );
+   753→  }
+   754→
+   755→  if (error && !data) {
+   756→    return (
+   757→      <div className="space-y-6">
+   758→        <SectionHeading eyebrow="Lifecycle" title="Training" />
+   759→        <ErrorState message={error} onRetry={load} />
+   760→      </div>
+   761→    );
+   762→  }
+   763→
+   764→  const d = data;
+   765→  if (!d) return null;
+   766→
+   767→  return (
+   768→    <div className="space-y-6">
+   769→      <SectionHeading
+   770→        eyebrow="Lifecycle"
+   771→        title="Training"
+   772→        description="Datasets from feedback and synthetic sources, quality-gated; runs advance to EVALUATING automatically — promotion to CANDIDATE/CANARY/PRODUCTION is always an explicit human action."
+   773→        actions={
+   774→          <Button variant="outline" size="sm" className="h-9" onClick={load}>
+   775→            <Sparkles className="size-3.5" aria-hidden="true" />
+   776→            Refresh
+   777→          </Button>
+   778→        }
+   779→      />
+   780→
+   781→      <motion.div
+   782→        initial={{ opacity: 0, y: 6 }}
+   783→        animate={{ opacity: 1, y: 0 }}
+   784→        role="status"
+   785→        aria-label="Simulated lifecycle notice"
+   786→        className="flex items-start gap-3 rounded-xl border border-amber-500/50 bg-amber-500/10 p-4"
+   787→      >
+   788→        <TriangleAlert
+   789→          aria-hidden="true"
+   790→          className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-400"
+   791→        />
+   792→        <div>
+   793→          <p className="text-sm font-semibold text-amber-800 dark:text-amber-400">
+   794→            SIMULATED LIFECYCLE
+   795→          </p>
+   796→          <p className="mt-1 text-sm text-amber-800/80 dark:text-amber-400/80">
+   797→            This environment has no GPU. Training runs, metrics, evaluation
+   798→            gates and promotions are lifecycle simulations — data provenance
+   799→            (datasets, feedback labels, checksums) is real, but no model
+   800→            weights are ever trained or deployed. The UI labels this honestly
+   801→            everywhere.
+   802→          </p>
+   803→        </div>
+   804→      </motion.div>
+   805→
+   806→      {error ? (
+   807→        <ErrorState message={error} onRetry={load} compact />
+   808→      ) : null}
+   809→
+   810→      <div className="grid gap-6 lg:grid-cols-2">
+   811→        <section aria-label="Eligible sources" className="space-y-3">
+   812→          <h3 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   813→            <Database aria-hidden="true" className="size-3.5" />
+   814→            Eligible training sources
+   815→          </h3>
+   816→          <Card className="rounded-xl">
+   817→            <CardContent className="p-4">
+   818→              {d.eligibleSources.length === 0 ? (
+   819→                <p className="text-sm text-muted-foreground">
+   820→                  No eligible sources yet — leave chat feedback to seed
+   821→                  FEEDBACK examples.
+   822→                </p>
+   823→              ) : (
+   824→                <div className="space-y-2">
+   825→                  {d.eligibleSources.map((s) => (
+   826→                    <div
+   827→                      key={s.kind}
+   828→                      className="flex items-center justify-between gap-3 rounded-lg border bg-card px-3 py-2"
+   829→                    >
+   830→                      <StatusBadge status={s.kind} pulse={false} />
+   831→                      <span className="font-mono text-sm tabular-nums">
+   832→                        {s.count}
+   833→                      </span>
+   834→                    </div>
+   835→                  ))}
+   836→                </div>
+   837→              )}
+   838→            </CardContent>
+   839→          </Card>
+   840→        </section>
+   841→
+   842→        <section aria-label="Feedback stats" className="space-y-3">
+   843→          <h3 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   844→            <GaugeCircle aria-hidden="true" className="size-3.5" />
+   845→            Feedback by label
+   846→          </h3>
+   847→          <Card className="rounded-xl">
+   848→            <CardContent className="p-4">
+   849→              {d.feedbackStats.length === 0 ? (
+   850→                <p className="text-sm text-muted-foreground">
+   851→                  No feedback collected yet.
+   852→                </p>
+   853→              ) : (
+   854→                <div className="space-y-2">
+   855→                  {d.feedbackStats.map((f) => (
+   856→                    <div
+   857→                      key={f.label}
+   858→                      className="flex items-center justify-between gap-3 rounded-lg border bg-card px-3 py-2"
+   859→                    >
+   860→                      <FeedbackLabelBadge label={f.label} />
+   861→                      <span className="font-mono text-sm tabular-nums">
+   862→                        {f.count}
+   863→                      </span>
+   864→                    </div>
+   865→                  ))}
+   866→                </div>
+   867→              )}
+   868→            </CardContent>
+   869→          </Card>
+   870→        </section>
+   871→      </div>
+   872→
+   873→      <div className="grid gap-6 lg:grid-cols-2">
+   874→        <section aria-label="Create dataset" className="space-y-3">
+   875→          <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   876→            Create dataset
+   877→          </h3>
+   878→          <CreateDatasetForm
+   879→            eligibleKinds={d.eligibleSources.map((s) => s.kind)}
+   880→            onCreated={load}
+   881→          />
+   882→        </section>
+   883→        <section aria-label="Start run" className="space-y-3">
+   884→          <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   885→            Start run
+   886→          </h3>
+   887→          <StartRunForm datasets={d.datasets} onStarted={() => pollRef.current()} />
+   888→        </section>
+   889→      </div>
+   890→
+   891→      <section aria-label="Datasets" className="space-y-3">
+   892→        <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   893→          Datasets ({d.datasets.length})
+   894→        </h3>
+   895→        {d.datasets.length === 0 ? (
+   896→          <EmptyState
+   897→            icon={Database}
+   898→            title="No datasets yet"
+   899→            hint="Create one from feedback and synthetic sources on the left."
+   900→          />
+   901→        ) : (
+   902→          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+   903→            {d.datasets.map((ds) => (
+   904→              <DatasetCard key={ds.id} dataset={ds} />
+   905→            ))}
+   906→          </div>
+   907→        )}
+   908→      </section>
+   909→
+   910→      <section aria-label="Runs" className="space-y-3">
+   911→        <h3 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+   912→          <GraduationCap aria-hidden="true" className="size-3.5" />
+   913→          Runs ({d.runs.length})
+   914→        </h3>
+   915→        {d.runs.length === 0 ? (
+   916→          <EmptyState
+   917→            icon={GraduationCap}
+   918→            title="No runs yet"
+   919→            hint="Start a run from a locked dataset version — the lifecycle is simulated here, but every gate is real."
+   920→          />
+   921→        ) : (
+   922→          <div className="space-y-4">
+   923→            {d.runs.map((r) => (
+   924→              <RunCard
+   925→                key={r.id}
+   926→                run={r}
+   927→                canManage={canManage}
+   928→                onChanged={() => pollRef.current()}
+   929→              />
+   930→            ))}
+   931→          </div>
+   932→        )}
+   933→      </section>
+   934→    </div>
+   935→  );
+   936→}
+   937→

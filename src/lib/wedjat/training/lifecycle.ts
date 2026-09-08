@@ -227,6 +227,27 @@ async function buildExampleFor(source: {
   kind: string;
   refId: string;
 }): Promise<{ exampleType: string; prompt: string; completion: string } | null> {
+  if (source.kind === 'INTAKE') {
+    // Database-intake training candidate (§125/§126) — prompt/completion are
+    // pre-built by the intake engine with §148 lineage recorded on the source.
+    const candidate = await db.trainingCandidate.findUnique({ where: { id: source.refId } });
+    if (!candidate) return null;
+    const typeByKind: Record<string, string> = {
+      QA: 'BLUEPRINT_QA',
+      SUMMARY: 'SUMMARIZATION',
+      CLASSIFICATION: 'CLASSIFICATION',
+      ARCHITECTURE_ANALYSIS: 'ARCHITECTURE_ANALYSIS',
+      RISK_ANALYSIS: 'RISK_ANALYSIS',
+      COMPARISON: 'ARCHITECTURE_ANALYSIS',
+      CONTRADICTION: 'RISK_ANALYSIS',
+      WORKFLOW: 'BLUEPRINT_QA',
+    };
+    return {
+      exampleType: typeByKind[candidate.kind] ?? 'BLUEPRINT_QA',
+      prompt: candidate.prompt,
+      completion: candidate.completion,
+    };
+  }
   if (source.kind === 'SYNTHETIC') {
     const chunk = await db.documentChunk.findUnique({
       where: { id: source.refId },
