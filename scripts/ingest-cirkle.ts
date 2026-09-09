@@ -172,6 +172,40 @@ function wrapAsMarkdown(path: string, content: string): string {
   return `# Source: ${path}\n\nProvenance: \`${path}\` in the ${REPO} repository (branch ${BRANCH}).\n\n\`\`\`${lang}\n${content}\n\`\`\`\n`;
 }
 
+/**
+ * Split oversized markdown at heading boundaries so each ingestion job fits
+ * inside a serverless after()-window (~60s). Parts carry provenance headers;
+ * the §30 global chunk-checksum registry de-duplicates any overlap with a
+ * partially-ingested original, so no double knowledge is created.
+ */
+const SPLIT_THRESHOLD = 70_000; // bytes
+function splitMarkdown(title: string, markdown: string): string[] {
+  if (markdown.length <= SPLIT_THRESHOLD) return [markdown];
+  const lines = markdown.split('\n');
+  const parts: string[] = [];
+  let current: string[] = [];
+  let currentSize = 0;
+  const flush = () => {
+    if (current.length > 0 && currentSize > 800) parts.push(current.join('\n'));
+    current = [];
+    currentSize = 0;
+  };
+  for (const line of lines) {
+    if (/^#{1,2} \S/.test(line) && currentSize >= SPLIT_THRESHOLD) flush();
+    current.push(line);
+    currentSize += line.length + 1;
+  }
+  flush();
+  if (parts.length === 0) {
+    // No heading boundaries: hard split on line boundaries.
+    for (let i = 0; i < markdown.length; i += SPLIT_THRESHOLD) parts.push(markdown.slice(i, i + SPLIT_THRESHOLD));
+  }
+  const total = parts.length;
+  return parts.map((p, i) =>
+    total === 1 ? p : `# ${title} — Part ${i + 1} of ${total}\n\nContinuation of \`${title}\` (${REPO}@${BRANCH}).\n\n${p}`
+  );
+}
+
 async function main(): Promise<void> {
   console.log(`CIRKLE pull ingestion → ${APP}`);
   const tree = await gh<{ tree: { path: string; type: string; size?: number }[]; truncated: boolean }>(
@@ -194,33 +228,39 @@ async function main(): Promise<void> {
         continue;
       }
       const markdown = wrapAsMarkdown(sel.path, content);
-      const r = await apiPost<{ jobId: string; duplicate: boolean }>('/api/ingestion', {
-        platformSlug: 'cirkle',
-        blueprintSlug: sel.blueprintSlug,
-        blueprintTitle: sel.blueprintTitle,
-        title: sel.title,
-        docType: sel.docType,
-        content: markdown,
-        documentVersion: 'github-main',
-      });
-      results.push({ title: sel.title, jobId: r.jobId, duplicate: r.duplicate });
-      console.log(`  ${r.duplicate ? 'DUPLICATE' : 'QUEUED'}: ${sel.title} [${sel.docType}] (${Math.round(markdown.length / 1024)}KB)`);
-      if (!r.duplicate) {
-        // Wait for THIS job to finish before the next submission: keeps the
-        // pipeline serial (embeddings are CPU-bound; concurrent bursts can
-        // exhaust a single dev-server process).
-        const waitDeadline = Date.now() + 240_000;
-        for (;;) {
-          await sleep(3000);
-          const jobs = await listJobs();
-          const j = jobs.find((x) => x.id === r.jobId);
-          if (!j) continue;
-          if (j.status === 'COMPLETED') { console.log(`    ✓ completed`); break; }
-          if (j.status === 'FAILED') {
-            console.log(`    ✗ FAILED: ${(j.lastError ?? '').slice(0, 90)}`);
-            break;
+      const parts = splitMarkdown(sel.title, markdown);
+      for (let pi = 0; pi < parts.length; pi++) {
+        const partTitle = parts.length > 1 ? `${sel.title} — Part ${pi + 1}/${parts.length}` : sel.title;
+        const r = await apiPost<{ jobId: string; duplicate: boolean }>('/api/ingestion', {
+          platformSlug: 'cirkle',
+          blueprintSlug: sel.blueprintSlug,
+          blueprintTitle: sel.blueprintTitle,
+          title: partTitle,
+          docType: sel.docType,
+          content: parts[pi],
+          documentVersion: 'github-main',
+        });
+        results.push({ title: partTitle, jobId: r.jobId, duplicate: r.duplicate });
+        console.log(`  ${r.duplicate ? 'DUPLICATE' : 'QUEUED'}: ${partTitle} [${sel.docType}] (${Math.round(parts[pi].length / 1024)}KB)`);
+        if (!r.duplicate) {
+          // Wait for THIS job to finish before the next submission: keeps the
+          // pipeline serial (embeddings are CPU-bound; concurrent bursts can
+          // exhaust a single dev-server process). 75s ≈ the serverless
+          // after()-window cap — bigger docs checkpoint progress and are
+          // resumed by a later re-run (resume-safe pipeline §58).
+          const waitDeadline = Date.now() + 75_000;
+          for (;;) {
+            await sleep(3000);
+            const jobs = await listJobs();
+            const j = jobs.find((x) => x.id === r.jobId);
+            if (!j) continue;
+            if (j.status === 'COMPLETED') { console.log(`    ✓ completed`); break; }
+            if (j.status === 'FAILED') {
+              console.log(`    ✗ FAILED: ${(j.lastError ?? '').slice(0, 90)}`);
+              break;
+            }
+            if (Date.now() > waitDeadline) { console.log('    ⏱ window elapsed (job checkpoints progress; re-run resumes it)'); break; }
           }
-          if (Date.now() > waitDeadline) { console.log('    ⏱ wait timeout (job still running)'); break; }
         }
       }
     } catch (err) {
@@ -233,7 +273,7 @@ async function main(): Promise<void> {
 
   // Poll job completion (bounded wait).
   const ids = new Set(results.map((r) => r.jobId));
-  const deadline = Date.now() + 15 * 60 * 1000;
+  const deadline = Date.now() + 8 * 60 * 1000;
   let completed = 0;
   while (Date.now() < deadline && completed < ids.size) {
     await sleep(4000);
