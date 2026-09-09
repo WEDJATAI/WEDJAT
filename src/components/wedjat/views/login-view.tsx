@@ -1,86 +1,53 @@
 "use client";
 
-// Login gate: demo user picker (GET /api/auth/users) + password field.
-// The demo password is `wedjat`.
+// Login gate: real credential sign-in (username + password).
+// The WEDJAT brand logo ships as a static asset. No demo identities, no
+// password hints, no autofill — credentials are never displayed.
 
-import { useEffect, useState } from "react";
-import {
-  Eye,
-  KeyRound,
-  LoaderCircle,
-  LogIn,
-  Network,
-  ShieldCheck,
-  Sparkles,
-  UserRound,
-  Wand2,
-} from "lucide-react";
+import { useState } from "react";
+import { KeyRound, LoaderCircle, LogIn, ShieldCheck, UserRound } from "lucide-react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
-import { RoleBadge } from "@/components/wedjat/shared/status-badge";
-import { api, errMessage } from "@/lib/wedjat/client";
-import { cn } from "@/lib/utils";
-import type { LoginUserOption, Principal } from "@/lib/wedjat/types";
+import { errMessage } from "@/lib/wedjat/client";
+import type { Principal } from "@/lib/wedjat/types";
 
 const FEATURES = [
   {
-    icon: Network,
     title: "Versioned knowledge graph",
     text: "Platform blueprints, documents, sections and chunks — checksummed and time-scoped.",
   },
   {
-    icon: ShieldCheck,
     title: "Grounded, citable answers",
     text: "Every claim maps to [S1..Sn] sources with confidence and groundedness scoring.",
   },
   {
-    icon: Sparkles,
     title: "Controlled training lifecycle",
-    text: "Datasets, runs and promotion gates — simulated honestly in this environment.",
+    text: "Datasets, runs and promotion gates — with an honest export path for real fine-tuning.",
   },
 ];
 
 export function LoginView({
   onLogin,
 }: {
-  onLogin: (email: string, password: string) => Promise<Principal>;
+  onLogin: (username: string, password: string) => Promise<Principal>;
 }) {
-  const [users, setUsers] = useState<LoginUserOption[] | null>(null);
-  const [usersError, setUsersError] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    api<LoginUserOption[]>("/api/auth/users")
-      .then((u) => {
-        if (cancelled) return;
-        setUsers(u);
-        setSelected((prev) => prev ?? u[0]?.email ?? null);
-      })
-      .catch((e) => {
-        if (!cancelled) setUsersError(errMessage(e));
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selected || !password.trim() || submitting) return;
+    if (!username.trim() || !password || submitting) return;
     setSubmitting(true);
     setError(null);
     try {
-      await onLogin(selected, password.trim());
+      await onLogin(username.trim(), password);
     } catch (err) {
       setError(errMessage(err));
     } finally {
@@ -98,19 +65,16 @@ export function LoginView({
           aria-label="About WEDJAT"
           className="order-2 lg:order-1"
         >
-          <div className="flex items-center gap-3">
-            <div
-              aria-hidden="true"
-              className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm"
-            >
-              <Eye className="size-6" />
-            </div>
-            <div>
-              <p className="text-xl font-semibold tracking-wide">WEDJAT</p>
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                Domain AI
-              </p>
-            </div>
+          <div className="relative overflow-hidden rounded-2xl border border-border shadow-lg">
+            <Image
+              src="/wedjat-logo.jpg"
+              alt="WEDJAT AI logo — the Eye of Horus rendered as glowing circuitry"
+              width={1344}
+              height={768}
+              priority
+              sizes="(max-width: 1024px) 100vw, 576px"
+              className="h-auto w-full"
+            />
           </div>
           <h1 className="mt-8 text-2xl font-semibold tracking-tight sm:text-3xl">
             Proprietary domain intelligence for your platform estate.
@@ -127,7 +91,7 @@ export function LoginView({
                   aria-hidden="true"
                   className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
                 >
-                  <f.icon className="size-4.5" />
+                  <ShieldCheck className="size-4.5" />
                 </div>
                 <div>
                   <p className="text-sm font-medium">{f.title}</p>
@@ -152,76 +116,46 @@ export function LoginView({
         >
           <Card className="rounded-xl shadow-sm">
             <CardContent className="p-6">
-              <h2 className="text-base font-semibold">Sign in</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Choose a demo principal to explore role-based behavior.
-              </p>
+              <div className="flex items-center gap-3">
+                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-[#0f161e]">
+                  <Image
+                    src="/wedjat-mark-sm.jpg"
+                    alt=""
+                    width={44}
+                    height={33}
+                    className="h-auto w-9"
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold">Sign in</h2>
+                  <p className="text-xs text-muted-foreground">
+                    WEDJAT organization access
+                  </p>
+                </div>
+              </div>
 
               <form onSubmit={submit} className="mt-5 space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    Demo user
-                  </Label>
-                  {usersError ? (
-                    <Alert variant="destructive">
-                      <AlertTitle>Could not load demo users</AlertTitle>
-                      <AlertDescription>{usersError}</AlertDescription>
-                    </Alert>
-                  ) : users === null ? (
-                    <div className="space-y-2" aria-label="Loading users">
-                      <Skeleton className="h-14 rounded-lg" />
-                      <Skeleton className="h-14 rounded-lg" />
-                      <Skeleton className="h-14 rounded-lg" />
-                    </div>
-                  ) : users.length === 0 ? (
-                    <Alert>
-                      <AlertTitle>No demo users</AlertTitle>
-                      <AlertDescription>
-                        The backend has not seeded demo users yet.
-                      </AlertDescription>
-                    </Alert>
-                  ) : (
-                    <div
-                      role="radiogroup"
-                      aria-label="Demo user"
-                      className="wedjat-scroll max-h-64 space-y-2 overflow-y-auto pr-1"
-                    >
-                      {users.map((u) => (
-                        <button
-                          key={u.email}
-                          type="button"
-                          role="radio"
-                          aria-checked={selected === u.email}
-                          onClick={() => setSelected(u.email)}
-                          className={cn(
-                            "flex min-h-11 w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
-                            selected === u.email
-                              ? "border-primary/50 bg-primary/10"
-                              : "border-border hover:bg-accent",
-                          )}
-                        >
-                          <UserRound
-                            aria-hidden="true"
-                            className={cn(
-                              "size-4 shrink-0",
-                              selected === u.email
-                                ? "text-primary"
-                                : "text-muted-foreground",
-                            )}
-                          />
-                          <span className="min-w-0 flex-1">
-                            <span className="block truncate text-sm font-medium">
-                              {u.name}
-                            </span>
-                            <span className="block truncate text-xs text-muted-foreground">
-                              {u.email}
-                            </span>
-                          </span>
-                          <RoleBadge role={u.role} />
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                  <Label htmlFor="wedjat-username">Username or email</Label>
+                  <div className="relative">
+                    <UserRound
+                      aria-hidden="true"
+                      className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                    />
+                    <Input
+                      id="wedjat-username"
+                      type="text"
+                      autoComplete="username"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      placeholder="Your username"
+                      className="pl-9"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -235,31 +169,12 @@ export function LoginView({
                       id="wedjat-password"
                       type="password"
                       autoComplete="current-password"
-                      placeholder="demo password: wedjat"
+                      placeholder="Your password"
                       className="pl-9"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-xs text-muted-foreground">
-                      All demo accounts share the password{" "}
-                      <code className="rounded bg-muted px-1 py-0.5 font-mono text-[11px]">
-                        wedjat
-                      </code>
-                      .
-                    </p>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="h-8 gap-1.5 text-xs"
-                      onClick={() => setPassword("wedjat")}
-                    >
-                      <Wand2 className="size-3.5" aria-hidden="true" />
-                      Fill demo password
-                    </Button>
                   </div>
                 </div>
 
@@ -273,7 +188,7 @@ export function LoginView({
                 <Button
                   type="submit"
                   className="h-11 w-full"
-                  disabled={submitting || !selected || !password.trim()}
+                  disabled={submitting || !username.trim() || !password}
                 >
                   {submitting ? (
                     <>
@@ -293,17 +208,10 @@ export function LoginView({
               </form>
             </CardContent>
           </Card>
-          <div className="mt-3 flex items-center justify-center gap-2">
-            <Badge
-              variant="outline"
-              className="border-amber-500/40 bg-amber-500/10 text-[10px] text-amber-700 dark:text-amber-400"
-            >
-              SIMULATED
-            </Badge>
-            <p className="text-xs text-muted-foreground">
-              Training is simulated in this environment.
-            </p>
-          </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Training is simulated in this environment — inference runs on
+            sanctioned providers.
+          </p>
         </motion.section>
       </main>
       <footer className="mt-auto border-t bg-background px-4 py-3 pb-[env(safe-area-inset-bottom)] text-xs text-muted-foreground">

@@ -10,7 +10,6 @@ import {
   Boxes,
   ClipboardCheck,
   DatabaseZap,
-  Eye,
   GraduationCap,
   LayoutDashboard,
   Library,
@@ -20,9 +19,11 @@ import {
   Microscope,
   Moon,
   Search,
+  Settings2,
   Sun,
   type LucideIcon,
 } from "lucide-react";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -56,7 +57,8 @@ export type ViewId =
   | "training"
   | "evaluation"
   | "models"
-  | "observability";
+  | "observability"
+  | "settings";
 
 interface NavItem {
   id: ViewId;
@@ -76,6 +78,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "evaluation", label: "Evaluations", hint: "Suites & results", icon: ClipboardCheck },
   { id: "models", label: "Model Registry", hint: "Versions & promotion", icon: Boxes },
   { id: "observability", label: "Observability", hint: "Health & audit", icon: Activity },
+  { id: "settings", label: "Settings", hint: "Account, users & providers", icon: Settings2 },
 ];
 
 function Brand() {
@@ -83,9 +86,15 @@ function Brand() {
     <div className="flex items-center gap-2.5">
       <div
         aria-hidden="true"
-        className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm"
+        className="flex h-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-[#0f161e]"
       >
-        <Eye className="size-5" />
+        <Image
+          src="/wedjat-mark-sm.jpg"
+          alt=""
+          width={36}
+          height={27}
+          className="h-auto w-8"
+        />
       </div>
       <div className="leading-none">
         <div className="text-sm font-semibold tracking-wide">WEDJAT</div>

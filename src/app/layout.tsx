@@ -18,9 +18,7 @@ export const metadata: Metadata = {
   title: "WEDJAT DOMAIN AI",
   description:
     "WEDJAT DOMAIN AI — proprietary domain intelligence platform. Grounded RAG chat over versioned platform blueprints, analysis workflows, controlled training lifecycle and full observability.",
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
-  },
+  // Favicon is the WEDJAT brand mark (src/app/icon.png, file-based route).
 };
 
 export default function RootLayout({

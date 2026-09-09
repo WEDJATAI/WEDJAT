@@ -235,6 +235,14 @@ export function getRegistry(): RegistryEntry[] {
   return registryCache;
 }
 
+/**
+ * Drops the memoized registry so entries rebuild with CURRENT provider key
+ * presence (STANDBY→ACTIVE transitions). Called by provider-key sync.
+ */
+export function resetRegistryCache(): void {
+  registryCache = null;
+}
+
 export function findEntry(provider: string, model: string): RegistryEntry | undefined {
   return getRegistry().find((e) => e.provider === provider && e.model === model);
 }

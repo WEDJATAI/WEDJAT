@@ -11,29 +11,19 @@ import { cookies, headers } from 'next/headers';
 import { db } from '@/lib/db';
 import { sha256, safeEqual, newSessionToken } from '../ids';
 import { WedjatError } from '../errors';
-import type { Principal, LoginUserOption } from '../types';
+import type { Principal } from '../types';
 import { logger } from '../logger';
 
 export const SESSION_COOKIE = 'wedjat_session';
-/** Shared demo password (override via WEDJAT_DEMO_PASSWORD env). */
-export const DEMO_PASSWORD = process.env.WEDJAT_DEMO_PASSWORD || 'wedjat';
 
-/** Demo password hashing — sha256 with static salt is acceptable for seeded demo identities. */
+/** Credential hashing — sha256 with static salt. */
 function hashPassword(pw: string): string {
   return sha256(`wedjat::${pw}::v1`);
 }
 
-/**
- * Demo sign-in normalization (fix for "demo sign in doesn't work"):
- * all seeded identities share ONE demo password, so the comparison tolerates
- * case variants and stray surrounding whitespace ("Wedjat", " wedjat ", …)
- * which are the most common demo-login failures. Real per-user credentials
- * (when they exist) would use the exact hash only.
- */
-function demoPasswordMatches(pw: string, storedHash: string): boolean {
-  const trimmed = pw.trim();
-  const candidates = [trimmed, trimmed.toLowerCase()];
-  return candidates.some((c) => safeEqual(hashPassword(c), storedHash));
+/** Exact (timing-safe) credential comparison — real credentials, no tolerance. */
+function passwordMatches(pw: string, storedHash: string): boolean {
+  return safeEqual(hashPassword(pw), storedHash);
 }
 
 /**
@@ -125,7 +115,7 @@ export async function login(
     include: { org: true },
   });
   // Timing-safe compare against the stored hash; identical error either way.
-  const valid = user ? demoPasswordMatches(password, user.passwordHash) : false;
+  const valid = user ? passwordMatches(password, user.passwordHash) : false;
   if (!user || !valid) {
     // Audit the failure WITHOUT logging the attempted password.
     logger.warn('login_failed', { email: email.slice(0, 3) + '***' });
@@ -151,14 +141,231 @@ export async function logout(token: string | undefined): Promise<void> {
   if (token) await db.session.deleteMany({ where: { token } });
 }
 
-/** Demo user picker for the login screen. */
-export async function listLoginUsers(): Promise<LoginUserOption[]> {
+// ── Account self-service (real credentials) ─────────────────────────────────
+
+export interface CredentialChange {
+  currentPassword: string;
+  email?: string;
+  name?: string;
+  newPassword?: string;
+}
+
+/**
+ * Self-service credential change. Requires the CURRENT password; changing the
+ * password revokes every other session (the caller's session survives).
+ * The new username/email must be unique — mapped to a clean VALIDATION error.
+ */
+export async function changeOwnCredentials(
+  userId: string,
+  change: CredentialChange
+): Promise<Principal> {
+  const user = await db.user.findUnique({ where: { id: userId }, include: { org: true } });
+  if (!user) throw new WedjatError('UNAUTHORIZED', 'Session user no longer exists');
+  if (!passwordMatches(change.currentPassword, user.passwordHash)) {
+    throw new WedjatError('UNAUTHORIZED', 'Current password is incorrect');
+  }
+
+  const data: { email?: string; name?: string; passwordHash?: string } = {};
+  if (change.email !== undefined) {
+    const email = change.email.toLowerCase().trim();
+    if (email.length < 3 || email.length > 200 || /\s/.test(email)) {
+      throw new WedjatError('VALIDATION', 'Username must be 3-200 characters without spaces');
+    }
+    if (email !== user.email) {
+      const clash = await db.user.findUnique({ where: { email } });
+      if (clash && clash.id !== user.id) {
+        throw new WedjatError('VALIDATION', 'That username is already taken');
+      }
+      data.email = email;
+    }
+  }
+  if (change.name !== undefined) {
+    const name = change.name.trim();
+    if (name.length < 2 || name.length > 100) {
+      throw new WedjatError('VALIDATION', 'Display name must be 2-100 characters');
+    }
+    data.name = name;
+  }
+  if (change.newPassword !== undefined && change.newPassword !== '') {
+    if (change.newPassword.length < 8 || change.newPassword.length > 200) {
+      throw new WedjatError('VALIDATION', 'New password must be 8-200 characters');
+    }
+    data.passwordHash = hashPassword(change.newPassword);
+  }
+  if (Object.keys(data).length === 0) {
+    throw new WedjatError('VALIDATION', 'Nothing to change');
+  }
+
+  const updated = await db.user.update({ where: { id: user.id }, data, include: { org: true } });
+
+  if (data.passwordHash) {
+    // Password changed: revoke every OTHER session, keep the caller alive.
+    const keep = await resolveSessionToken();
+    await db.session.deleteMany({
+      where: { userId: user.id, ...(keep ? { token: { not: keep } } : {}) },
+    });
+  }
+
+  return principalOf(updated);
+}
+
+function principalOf(user: { id: string; name: string; email: string; role: string; orgId: string; org: { slug: string; name: string; dataPolicy: string } }): Principal {
+  return {
+    userId: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role as Principal['role'],
+    org: { id: user.orgId, slug: user.org.slug, name: user.org.name, dataPolicy: user.org.dataPolicy },
+  };
+}
+
+// ── User administration (OWNER / ADMIN) ──────────────────────────────────────
+
+export interface AdminUserRow {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  status: string;
+  createdAt: string;
+  lastActiveAt: string | null;
+}
+
+const ROLES = new Set(['OWNER', 'ADMIN', 'CURATOR', 'MEMBER', 'AUDITOR']);
+
+/** Owner/admin listing for the Settings → Users tab. */
+export async function adminListUsers(orgId: string): Promise<AdminUserRow[]> {
   const users = await db.user.findMany({
-    where: { status: 'ACTIVE' },
-    select: { email: true, name: true, role: true },
-    orderBy: { role: 'asc' },
+    where: { orgId },
+    orderBy: { createdAt: 'asc' },
+    include: { sessions: { orderBy: { createdAt: 'desc' }, take: 1, select: { createdAt: true } } },
   });
-  return users.map((u) => ({ email: u.email, name: u.name, role: u.role as LoginUserOption['role'] }));
+  return users.map((u) => ({
+    id: u.id,
+    email: u.email,
+    name: u.name,
+    role: u.role,
+    status: u.status,
+    createdAt: u.createdAt.toISOString(),
+    lastActiveAt: u.sessions[0]?.createdAt.toISOString() ?? null,
+  }));
+}
+
+export interface NewUserInput {
+  email: string;
+  name: string;
+  role: string;
+  password: string;
+}
+
+/** Creates a user inside the admin's org with an org-wide membership. */
+export async function adminCreateUser(orgId: string, input: NewUserInput): Promise<AdminUserRow> {
+  const email = input.email.toLowerCase().trim();
+  if (email.length < 3 || email.length > 200 || /\s/.test(email)) {
+    throw new WedjatError('VALIDATION', 'Username must be 3-200 characters without spaces');
+  }
+  const name = input.name.trim();
+  if (name.length < 2 || name.length > 100) {
+    throw new WedjatError('VALIDATION', 'Display name must be 2-100 characters');
+  }
+  if (!ROLES.has(input.role)) {
+    throw new WedjatError('VALIDATION', 'Role must be one of OWNER/ADMIN/CURATOR/MEMBER/AUDITOR');
+  }
+  if (input.password.length < 8 || input.password.length > 200) {
+    throw new WedjatError('VALIDATION', 'Password must be 8-200 characters');
+  }
+  const clash = await db.user.findUnique({ where: { email } });
+  if (clash) throw new WedjatError('VALIDATION', 'That username is already taken');
+
+  const user = await db.user.create({
+    data: { orgId, email, name, role: input.role, passwordHash: hashPassword(input.password) },
+  });
+  await db.membership.create({ data: { userId: user.id, orgId, scope: '*' } });
+  return {
+    id: user.id, email: user.email, name: user.name, role: user.role, status: user.status,
+    createdAt: user.createdAt.toISOString(), lastActiveAt: null,
+  };
+}
+
+export interface UserUpdateInput {
+  userId: string;
+  status?: 'ACTIVE' | 'DISABLED';
+  role?: string;
+  name?: string;
+  password?: string;
+}
+
+/** Updates a user; guards self-lockout and the last active OWNER. */
+export async function adminUpdateUser(
+  actor: Principal,
+  input: UserUpdateInput
+): Promise<AdminUserRow> {
+  const target = await db.user.findUnique({ where: { id: input.userId }, include: { org: true } });
+  if (!target || target.orgId !== actor.org.id) {
+    throw new WedjatError('NOT_FOUND', 'User not found in this organization');
+  }
+  const data: { status?: string; role?: string; name?: string; passwordHash?: string } = {};
+
+  if (input.status !== undefined) {
+    if (input.status !== 'ACTIVE' && input.status !== 'DISABLED') {
+      throw new WedjatError('VALIDATION', 'Status must be ACTIVE or DISABLED');
+    }
+    if (target.id === actor.userId && input.status === 'DISABLED') {
+      throw new WedjatError('VALIDATION', 'You cannot disable your own account');
+    }
+    if (target.role === 'OWNER' && input.status === 'DISABLED') {
+      const activeOwners = await db.user.count({ where: { orgId: actor.org.id, role: 'OWNER', status: 'ACTIVE' } });
+      if (activeOwners <= 1) {
+        throw new WedjatError('VALIDATION', 'Cannot disable the last active OWNER of the organization');
+      }
+    }
+    data.status = input.status;
+    if (input.status === 'DISABLED') {
+      await db.session.deleteMany({ where: { userId: target.id } });
+    }
+  }
+  if (input.role !== undefined) {
+    if (!ROLES.has(input.role)) {
+      throw new WedjatError('VALIDATION', 'Role must be one of OWNER/ADMIN/CURATOR/MEMBER/AUDITOR');
+    }
+    if (target.id === actor.userId && input.role !== target.role && target.role === 'OWNER') {
+      const activeOwners = await db.user.count({ where: { orgId: actor.org.id, role: 'OWNER', status: 'ACTIVE' } });
+      if (activeOwners <= 1) {
+        throw new WedjatError('VALIDATION', 'Cannot demote the last active OWNER of the organization');
+      }
+    }
+    data.role = input.role;
+  }
+  if (input.name !== undefined) {
+    const name = input.name.trim();
+    if (name.length < 2 || name.length > 100) {
+      throw new WedjatError('VALIDATION', 'Display name must be 2-100 characters');
+    }
+    data.name = name;
+  }
+  if (input.password !== undefined && input.password !== '') {
+    if (input.password.length < 8 || input.password.length > 200) {
+      throw new WedjatError('VALIDATION', 'Password must be 8-200 characters');
+    }
+    data.passwordHash = hashPassword(input.password);
+  }
+  if (Object.keys(data).length === 0) {
+    throw new WedjatError('VALIDATION', 'Nothing to update');
+  }
+
+  const updated = await db.user.update({
+    where: { id: target.id },
+    data,
+    include: { sessions: { orderBy: { createdAt: 'desc' }, take: 1, select: { createdAt: true } } },
+  });
+  if (data.passwordHash) {
+    await db.session.deleteMany({ where: { userId: target.id } });
+  }
+  return {
+    id: updated.id, email: updated.email, name: updated.name, role: updated.role,
+    status: updated.status, createdAt: updated.createdAt.toISOString(),
+    lastActiveAt: updated.sessions[0]?.createdAt.toISOString() ?? null,
+  };
 }
 
 export { hashPassword };
@@ -167,6 +374,14 @@ export { hashPassword };
 
 const MUTATION_ROLES = new Set(['OWNER', 'ADMIN', 'CURATOR']);
 const READ_ONLY_ROLES = new Set(['AUDITOR', 'MEMBER']);
+const ADMIN_ROLES = new Set(['OWNER', 'ADMIN']);
+
+/** Owner/admin gate for user administration and platform settings. */
+export function requireAdminRole(p: Principal): void {
+  if (!ADMIN_ROLES.has(p.role)) {
+    throw new WedjatError('FORBIDDEN', 'User administration requires ADMIN or OWNER');
+  }
+}
 
 /** Curator-level gate for ingestion/training/model mutations. */
 export function requireMutationRole(p: Principal): void {

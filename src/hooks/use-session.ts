@@ -63,5 +63,10 @@ export function useSession() {
     }
   }, []);
 
-  return { principal, status, login, logout };
+  /** Applies an updated principal after a self-service credential change. */
+  const updatePrincipal = useCallback((p: Principal) => {
+    setPrincipal(p);
+  }, []);
+
+  return { principal, status, login, logout, updatePrincipal };
 }

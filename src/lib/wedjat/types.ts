@@ -20,12 +20,6 @@ export interface Principal {
   org: { id: string; slug: string; name: string; dataPolicy: string };
 }
 
-export interface LoginUserOption {
-  email: string;
-  name: string;
-  role: Principal['role'];
-}
-
 /**
  * Login response — the session token is mirrored here so the client can send
  * it as a Bearer header in contexts where cookies are blocked (embedded
@@ -35,6 +29,31 @@ export interface LoginResponse {
   principal: Principal;
   token: string;
   expiresAt: string;
+}
+
+// ───────────────────── settings & administration ─────────────────────
+
+/** Admin user listing row (Settings → Users). */
+export interface AdminUserRow {
+  id: string;
+  email: string;
+  name: string;
+  role: Principal['role'];
+  status: 'ACTIVE' | 'DISABLED';
+  createdAt: string;
+  lastActiveAt: string | null;
+}
+
+/** Masked AI provider key status (Settings → AI Providers). */
+export interface ProviderKeyInfo {
+  configured: boolean;
+  managed: boolean;
+  hint: string | null;
+}
+
+export interface ProviderSettings {
+  groq: ProviderKeyInfo;
+  gemini: ProviderKeyInfo;
 }
 
 // ───────────────────────── knowledge graph ─────────────────────────

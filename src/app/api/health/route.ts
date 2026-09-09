@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { ok, failFrom } from '@/lib/wedjat/api';
 import { validateStartupConfig, providerKeyStatus, config } from '@/lib/wedjat/config';
+import { syncProviderKeys } from '@/lib/wedjat/provider-keys';
 import { healthSnapshot } from '@/lib/wedjat/gateway/provider-health';
 import { uptimeSec } from '@/lib/wedjat/observability/metrics';
 
@@ -17,6 +18,9 @@ export async function GET(req: Request): Promise<NextResponse> {
   try {
     const deep = new URL(req.url).searchParams.get('deep') === '1';
     const checks: { name: string; status: string; detail: string }[] = [];
+
+    // Resolve org-managed provider keys first so reported status is accurate.
+    await syncProviderKeys();
 
     const cfg = validateStartupConfig();
     checks.push({

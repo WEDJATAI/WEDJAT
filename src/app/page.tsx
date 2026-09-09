@@ -6,7 +6,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
+import Image from "next/image";
 import { AppShell, type ViewId } from "@/components/wedjat/app-shell";
 import { LoginView } from "@/components/wedjat/views/login-view";
 import { DashboardView } from "@/components/wedjat/views/dashboard-view";
@@ -19,6 +19,7 @@ import { TrainingView } from "@/components/wedjat/views/training-view";
 import { EvaluationView } from "@/components/wedjat/views/evaluation-view";
 import { ModelsView } from "@/components/wedjat/views/models-view";
 import { ObservabilityView } from "@/components/wedjat/views/observability-view";
+import { SettingsView } from "@/components/wedjat/views/settings-view";
 import { useSession } from "@/hooks/use-session";
 
 const VIEW_STORAGE_KEY = "wedjat.view";
@@ -34,6 +35,7 @@ const VALID_VIEWS: ViewId[] = [
   "evaluation",
   "models",
   "observability",
+  "settings",
 ];
 
 function subscribeToViewStore(cb: () => void) {
@@ -84,9 +86,15 @@ function LoadingSplash() {
     >
       <div
         aria-hidden="true"
-        className="flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md"
+        className="flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border bg-[#0f161e] shadow-md"
       >
-        <Eye className="size-7 wedjat-pulse" />
+        <Image
+          src="/wedjat-mark-sm.jpg"
+          alt=""
+          width={44}
+          height={33}
+          className="h-auto w-10"
+        />
       </div>
       <div className="text-center">
         <p className="text-sm font-semibold tracking-wide">WEDJAT</p>
@@ -102,7 +110,7 @@ function LoadingSplash() {
 }
 
 export default function Page() {
-  const { principal, status, login, logout } = useSession();
+  const { principal, status, login, logout, updatePrincipal } = useSession();
   const [view, changeView] = usePersistedView();
 
   if (status === "loading") {
@@ -139,6 +147,9 @@ export default function Page() {
         {view === "evaluation" ? <EvaluationView /> : null}
         {view === "models" ? <ModelsView role={principal.role} /> : null}
         {view === "observability" ? <ObservabilityView /> : null}
+        {view === "settings" ? (
+          <SettingsView principal={principal} onPrincipalUpdate={updatePrincipal} />
+        ) : null}
       </motion.div>
     </AppShell>
   );

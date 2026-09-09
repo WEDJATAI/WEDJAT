@@ -16,6 +16,7 @@ import { allowRequest, noteProbe, recordFailure, recordSuccess, getCircuitState 
 import { withRetry, isRetryableError } from './retry';
 import { recordProviderCall, persistHealth } from './provider-health';
 import { checkRateLimit, checkBudget, resolveGenerationPolicy } from '../security/policy';
+import { syncProviderKeys } from '../provider-keys';
 import { WedjatInternalAdapter } from './adapters/wedjat-adapter';
 import { GeminiAdapter } from './adapters/gemini-adapter';
 import { GroqAdapter } from './adapters/groq-adapter';
@@ -164,6 +165,9 @@ export async function routeAndComplete(
   routeReq: RouteRequest,
   completionReq: CompletionRequest
 ): Promise<GatewayExecution> {
+  // Resolve provider keys (env + org-managed settings) BEFORE routing so
+  // standby/active status reflects the current configuration.
+  await syncProviderKeys();
   // Rate limit + budget backpressure BEFORE touching providers (§24, §67).
   checkRateLimit('user', routeReq.userId, config.rateLimits.perUserPerMinute);
   checkBudget();

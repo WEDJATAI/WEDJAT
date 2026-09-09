@@ -94,7 +94,6 @@ export interface WedjatConfig {
   };
   auth: {
     sessionTtlHours: number;
-    demoPasswordHint: string;
   };
 }
 
@@ -106,9 +105,18 @@ export const config: WedjatConfig = {
   version: '1.0.0',
   env,
   keys: {
-    gemini: Boolean(process.env.GEMINI_API_KEY),
-    groq: Boolean(process.env.GROQ_API_KEY),
-    huggingface: Boolean(process.env.HF_TOKEN),
+    // Dynamic getters: provider keys can be materialized at runtime from
+    // org-managed settings (see provider-keys.ts), so presence is read live
+    // instead of being frozen at module load.
+    get gemini() {
+      return Boolean(process.env.GEMINI_API_KEY);
+    },
+    get groq() {
+      return Boolean(process.env.GROQ_API_KEY);
+    },
+    get huggingface() {
+      return Boolean(process.env.HF_TOKEN);
+    },
   },
   policy: {
     embedding: 'LOCAL_ONLY',
@@ -179,7 +187,6 @@ export const config: WedjatConfig = {
   },
   auth: {
     sessionTtlHours: 12,
-    demoPasswordHint: 'wedjat',
   },
 };
 
