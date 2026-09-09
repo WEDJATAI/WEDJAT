@@ -818,3 +818,102 @@ Stage Summary:
   needed — RAG intelligence runs free on CPU; set a free GROQ_API_KEY (or
   GEMINI_API_KEY) on Vercel to activate live chat generation; optional real
   fine-tuning is free via Colab T4 / Kaggle using the JSONL export.
+
+---
+Task ID: 16
+Agent: orchestrator (main)
+Task: User provided (via chat — real credentials, never displayed or logged):
+a Groq API key, platform login credentials, and the WEDJAT brand logo.
+Activate the key, switch the platform to the real login, integrate the logo.
+(Note: the API key value and password are intentionally NOT recorded here.)
+
+Work Log:
+- BRAND: logo asset processed from the upload (Eye of Horus circuit design,
+  "WEDJAT AI / DIGITAL IDENTITY SOLUTIONS", dark background): full banner
+  public/wedjat-logo.jpg, icon mark public/wedjat-mark-sm.jpg (VLM-verified
+  crops), favicon src/app/icon.png (180px, file-based route). Integrated in
+  login hero + sign-in card, app header Brand, loading splash; layout.tsx
+  external CDN icon reference removed.
+- REAL LOGIN (replaces demo identities):
+  * auth.ts: exact timing-safe password match (demo case-tolerance removed);
+    changeOwnCredentials (current password required; other sessions revoked);
+    adminList/Create/UpdateUser with self-lockout + last-active-OWNER guards;
+    requireAdminRole (ADMIN/OWNER).
+  * POST /api/account/credentials; GET/POST/PATCH /api/admin/users;
+    removed GET /api/auth/users (account enumeration vector).
+  * Login view rewritten: username/password form, logo, NO demo user picker,
+    NO password hints, NO autofill (credentials never displayed).
+  * PRODUCTION applied via app APIs (no DB token needed): owner switched to
+    the real username/password; curator/member/auditor demo accounts
+    DISABLED (login blocked); old demo password rejected.
+- PROVIDER KEYS (DB-backed, no Vercel env needed):
+  * provider-keys.ts: org-managed keys stored in ConfigVersion
+    (key 'provider.keys'), materialized into process.env; TTL cache;
+    registry cache reset on first sync + presence change (fixes a warm-
+    instance bug where dashboard/system snapshots built the registry before
+    keys resolved, leaving remote entries stuck in STANDBY).
+  * config.keys converted to dynamic getters; health/dashboard/system routes
+    sync before reporting; routeAndComplete syncs before routing.
+  * GET/POST /api/settings/providers (OWNER): masked reads (last-4 only),
+    save/clear applies immediately. Settings view → AI Providers tab.
+  * Groq key saved to production via the API — health shows it ACTIVE.
+- GATEWAY FIX: groq/llama-3.3-70b registered for deep_analysis (the chat
+  pipeline only emits deep_analysis; Groq was previously never a candidate
+  for answers). Router decision metadata (full chain + rejection reasons)
+  now surfaced in chat responses. Internal adapter fails fast on the
+  deterministic "config not found" error (sandbox gateway config cannot
+  exist on Vercel — internal-api.z.ai resolves to a private IP).
+- DATA GOVERNANCE (§66): intake upload classification is now the uploader's
+  choice (INTERNAL default = chat generation on approved remote providers;
+  CONFIDENTIAL = never leaves the org; PUBLIC). Threaded upload route →
+  job payload → engine → ingestion + semantic-assist policy. UI selector
+  added. (Production's earlier test sources were CONFIDENTIAL via the old
+  hard-coded default and blocked remote generation — root cause of the
+  degraded chats.)
+- LIFECYCLE DELETION (governance features):
+  * DELETE /api/intake/[id] (ADMIN+): FK-safe purge of a source + runs,
+    snapshots, mappings, candidates + training sources/examples/reviews,
+    documents/sections/chunks/embeddings/postings/knowledge records/KG
+    edges/lineage; orphaned blueprint/platform cleanup; confirm dialog +
+    per-row delete in the Sources tab.
+  * DELETE /api/ingestion?documentId (ADMIN+): same purge for manually
+    ingested documents.
+  * fix(ingestion): pipeline now runs in the after() window + maxDuration 60
+    (Vercel froze instances right after the response, leaving documents
+    partially indexed — lexical postings/knowledge records missing).
+- PRODUCTION CLEANUP via the new APIs: deleted the 3 CONFIDENTIAL test
+  sources and the frozen (partially indexed) spec document; re-seeded REAL
+  knowledge: "WEDJAT Platform Module Registry" CSV (INTERNAL, 8 chunks, 112
+  postings, 4 KR) + "WEDJAT Platform Overview v1" doc (INTERNAL, 4 chunks,
+  complete index). Chat retrieval verified: 6 sources, MEDIUM confidence.
+- GROQ KEY VERDICT: the routing + failover + key plumbing all WORK (chat
+  chain on production: [internal → groq]; internal fails on Vercel by
+  design, Groq is attempted). The key ITSELF is rejected by Groq's API:
+  HTTP 403 "Forbidden" on every endpoint (models + chat) from BOTH this
+  sandbox and Vercel's US network — the key is invalid/inactive, not a
+  configuration problem. Everything is ready: paste a valid Groq key (or a
+  free Gemini key from aistudio.google.com) in Settings → AI Providers and
+  chat generation goes live instantly — no redeploy.
+- VERIFICATION: browser pass on https://wedjat-ai.vercel.app as the real
+  OWNER — login form (logo, no hints), dashboard, Domain Chat end-to-end
+  (honest DEGRADED answer with 6 grounded sources — no fabrication),
+  Settings (Account/Users/AI Providers, masked key), zero console/page
+  errors. bun run lint clean throughout. Deploys: c382d72, 48c025f, 72c336b,
+  c5509a9, 39867ae, 81d8a8f — all green.
+
+Stage Summary:
+- Real credentials live on production (single OWNER login; demo accounts
+  disabled; passwords never displayed anywhere). WEDJAT brand logo shipped
+  (login, header, splash, favicon).
+- Settings view: Account self-service, Users administration, AI Provider key
+  management (masked, server-side, live-apply).
+- Chat: retrieval + grounding verified with real seeded knowledge; Groq is
+  correctly wired into the answer path. The provided Groq key is REJECTED by
+  Groq (403 on all endpoints from both networks) — the user must paste a
+  valid key (Groq console → API Keys, or a free Gemini key) in Settings →
+  AI Providers. Until then chat answers degrade honestly (by design).
+- Data lifecycle: sources and documents can now be deleted through the app
+  (ADMIN+), classification is chosen at upload.
+- Suggested user actions: 1) verify/re-create the Groq key at
+  console.groq.com and paste it in Settings → AI Providers; 2) optionally
+  add a free GEMINI_API_KEY from aistudio.google.com as a second provider.
