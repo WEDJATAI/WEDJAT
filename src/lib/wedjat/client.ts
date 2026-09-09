@@ -128,6 +128,41 @@ export function api<T>(path: string, init?: RequestInit): Promise<T> {
   return request<T>(path, init);
 }
 
+/**
+ * GET a raw text payload (file download) with the session Bearer header —
+ * works in cookie-blocked embedded contexts where a plain <a href> would 401.
+ * Returns { text, filename } parsed from Content-Disposition when present.
+ */
+export async function apiText(
+  path: string,
+): Promise<{ text: string; filename: string | null }> {
+  let res: Response;
+  try {
+    res = await fetch(path, { headers: { ...bearerHeaders() } });
+  } catch {
+    throw new ApiError(
+      "NETWORK",
+      "Network error — the WEDJAT API could not be reached.",
+      0,
+    );
+  }
+  if (res.status === 401) {
+    setAuthToken(null);
+    notifyUnauthorized();
+    throw new ApiError("UNAUTHORIZED", "Session expired or missing.", 401);
+  }
+  if (!res.ok) {
+    throw new ApiError(
+      "UNAVAILABLE",
+      `Download failed (HTTP ${res.status}).`,
+      res.status,
+    );
+  }
+  const disposition = res.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^";]+)"?/);
+  return { text: await res.text(), filename: match?.[1] ?? null };
+}
+
 /** POST JSON — unwraps the `{ok,data}` envelope. */
 export function apiPost<T>(path: string, body?: unknown): Promise<T> {
   return request<T>(path, {

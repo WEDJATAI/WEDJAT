@@ -17,6 +17,7 @@ import {
   RotateCcw,
   Sparkles,
   TriangleAlert,
+  Download,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -70,7 +71,7 @@ import {
   FeedbackLabelBadge,
   StatusBadge,
 } from "@/components/wedjat/shared/status-badge";
-import { api, apiPost, errMessage, formatWhen } from "@/lib/wedjat/client";
+import { api, apiPost, apiText, errMessage, formatWhen } from "@/lib/wedjat/client";
 import { cn } from "@/lib/utils";
 import type {
   TrainingDatasetDto,
@@ -403,6 +404,34 @@ function RunCard({
 
 function DatasetCard({ dataset }: { dataset: TrainingDatasetDto }) {
   const v = dataset.currentVersion;
+  const [exporting, setExporting] = useState(false);
+
+  const exportJsonl = async () => {
+    if (!v || exporting) return;
+    setExporting(true);
+    try {
+      const { text, filename } = await apiText(
+        `/api/training/export?datasetVersionId=${encodeURIComponent(v.id)}`,
+      );
+      const blob = new Blob([text], { type: "application/x-ndjson" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename ?? `wedjat-${dataset.slug}-v${v.version}.jsonl`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast.success(
+        `Exported ${v.exampleCount} examples — train anywhere (see docs/TRAINING_ON_FREE_GPU.md)`,
+      );
+    } catch (e) {
+      toast.error(errMessage(e));
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
     <Card className="rounded-xl">
       <CardContent className="space-y-2 p-4">
@@ -416,6 +445,23 @@ function DatasetCard({ dataset }: { dataset: TrainingDatasetDto }) {
               <Lock aria-hidden="true" className="size-3" />
               LOCKED
             </Badge>
+          ) : null}
+          {v ? (
+            <Button
+              size="sm"
+              variant="outline"
+              className="ml-auto h-7 gap-1 text-xs"
+              onClick={exportJsonl}
+              disabled={exporting}
+              aria-label="Export dataset version as JSONL for external training"
+            >
+              {exporting ? (
+                <LoaderCircle aria-hidden="true" className="size-3 animate-spin" />
+              ) : (
+                <Download aria-hidden="true" className="size-3" />
+              )}
+              Export JSONL
+            </Button>
           ) : null}
         </div>
         {dataset.description ? (

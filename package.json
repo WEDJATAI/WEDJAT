@@ -13,7 +13,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
-    "turso:migrate": "tsx scripts/turso-migrate.ts"
+    "turso:migrate": "tsx scripts/turso-migrate.ts",
+    "reset:live": "tsx scripts/reset-live.ts"
   },
   "engines": {
     "node": ">=20"
