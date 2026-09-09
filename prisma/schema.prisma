@@ -13,6 +13,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  // libsql/Turso driver adapter — see src/lib/db.ts. (Flag is marked
+  // deprecated-but-honored on the prisma-client-js generator in 6.19.)
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -831,7 +834,11 @@ model SourceDatabase {
   versionLabel  String   @default("v1") // source_database_version
   checksum      String // sha256 of raw artifact bytes
   byteSize      Int      @default(0)
-  artifactPath  String // immutable raw bytes location
+  artifactPath  String // FS cache location (local dev); ephemeral on serverless
+  // §108 immutable source bytes — DB-authoritative copy so serverless runtimes
+  // (Vercel: read-only FS) can re-materialize the artifact for reprocessing.
+  // Kept for artifacts within the portable blob budget (see intake/artifact.ts).
+  artifactData  Bytes?
   originalName  String?
   // UPLOADED | PROCESSING | IMPORTED | AWAITING_REVIEW | FAILED | SUPERSEDED
   status        String   @default("UPLOADED")

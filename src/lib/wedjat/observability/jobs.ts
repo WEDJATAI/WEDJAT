@@ -289,6 +289,24 @@ function safeParse(json: string): JobPayload {
   }
 }
 
+/**
+ * Deterministic inline execution for serverless (Vercel): claims the job if it
+ * is still QUEUED and executes it immediately. Called from route handlers via
+ * after() so the function stays alive past the response. The interval worker
+ * remains the fallback for jobs enqueued without a request context.
+ */
+export async function processJobNow(jobId: string): Promise<void> {
+  const job = await db.job.findUnique({ where: { id: jobId } });
+  if (!job) return;
+  if (job.status !== 'QUEUED') return; // already claimed/completed elsewhere
+  const claimed = await db.job.updateMany({
+    where: { id: job.id, status: 'QUEUED' },
+    data: { status: 'RUNNING', startedAt: new Date(), attempts: { increment: 1 } },
+  });
+  if (claimed.count === 0) return; // raced with the interval worker — fine
+  await executeJob(job.id, job.type, safeParse(job.payloadJson));
+}
+
 /** Retry / cancel controls for the UI. */
 export async function retryJob(jobId: string): Promise<void> {
   const job = await db.job.findUnique({ where: { id: jobId } });

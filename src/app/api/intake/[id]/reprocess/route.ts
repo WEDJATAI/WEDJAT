@@ -7,15 +7,17 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import { NextResponse } from 'next/server';
+import { after } from 'next/server';
 import { db } from '@/lib/db';
 import { ok, failFrom, withPrincipal } from '@/lib/wedjat/api';
 import { requireMutationRole } from '@/lib/wedjat/security/auth';
 import { WedjatError } from '@/lib/wedjat/errors';
 import { INTAKE_ENGINE_VERSION } from '@/lib/wedjat/intake/engine';
-import { enqueueJob } from '@/lib/wedjat/observability/jobs';
+import { enqueueJob, processJobNow } from '@/lib/wedjat/observability/jobs';
 import { recordAudit } from '@/lib/wedjat/observability/audit';
 
 export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 export async function POST(
   _req: Request,
@@ -27,7 +29,8 @@ export async function POST(
       const { id } = await params;
       const source = await db.sourceDatabase.findFirst({ where: { id, orgId: principal.org.id } });
       if (!source) throw new WedjatError('NOT_FOUND', 'Source database not found');
-      if (source.artifactPath === 'pending' || !source.artifactPath) {
+      // Serverless: the DB blob (§108) is authoritative; the FS path is a cache.
+      if (!source.artifactData && (!source.artifactPath || source.artifactPath === 'pending')) {
         throw new WedjatError('VALIDATION', 'Source artifact is not available for reprocessing');
       }
 
@@ -55,6 +58,14 @@ export async function POST(
       await db.sourceDatabase.update({
         where: { id: source.id },
         data: { status: 'PROCESSING', latestRunId: run.id },
+      });
+      // Deterministic serverless execution (same pattern as the upload route).
+      after(async () => {
+        try {
+          await processJobNow(jobId);
+        } catch {
+          // Job stays queued for the interval worker; failures surface on the run.
+        }
       });
       await recordAudit({
         orgId: principal.org.id,

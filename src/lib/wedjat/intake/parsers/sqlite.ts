@@ -1,13 +1,14 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // WEDJAT DOMAIN AI — Intake parser: SQLite database files (§106).
 //
-// Opens the uploaded database READ-ONLY via node:sqlite (works in Node and Bun) and extracts the complete
-// structural truth: sqlite_master DDL, PRAGMA table_info/index_list/foreign_key_
-// list, row counts, sample rows and per-column value statistics. The source file
-// is never written to (§108 source preservation).
+// Opens the uploaded artifact READ-ONLY via @libsql/client (portable across
+// Node/Bun/Vercel — no node:sqlite runtime flag requirements) and extracts the
+// complete structural truth: sqlite_master DDL, PRAGMA table_info/index_list/
+// foreign_key_list, row counts, sample rows and per-column value statistics.
+// The source file is never written to (§108 source preservation).
 // ═══════════════════════════════════════════════════════════════════════════════
 
-import { DatabaseSync } from 'node:sqlite';
+import { createClient, type Client } from '@libsql/client';
 import {
   cleanIdent,
   computeColumnStat,
@@ -21,15 +22,37 @@ import {
   type TableDef,
 } from '../schema-model';
 
-export function parseSqliteDatabase(path: string): SchemaSnapshot {
-  const db = new DatabaseSync(path, { readOnly: true });
+/** Minimal single-statement async query surface over the artifact file. */
+interface ArtifactSqlite {
+  all<T>(sql: string): Promise<T[]>;
+  get<T>(sql: string): Promise<T | undefined>;
+  close(): void;
+}
+
+function openArtifactSqlite(path: string): ArtifactSqlite {
+  const client: Client = createClient({ url: `file:${path}` });
+  return {
+    async all<T>(sql: string): Promise<T[]> {
+      return (await client.execute({ sql, args: [] })).rows as unknown as T[];
+    },
+    async get<T>(sql: string): Promise<T | undefined> {
+      return ((await client.execute({ sql, args: [] })).rows[0] ?? undefined) as unknown as
+        | T
+        | undefined;
+    },
+    close(): void {
+      client.close();
+    },
+  };
+}
+
+export async function parseSqliteDatabase(path: string): Promise<SchemaSnapshot> {
+  const db = openArtifactSqlite(path);
 
   try {
-    const objects = db
-      .prepare(
-        "SELECT name, type, sql FROM sqlite_master WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%' ORDER BY name"
-      )
-      .all() as { name: string; type: string; sql: string | null }[];
+    const objects = await db.all<{ name: string; type: string; sql: string | null }>(
+      "SELECT name, type, sql FROM sqlite_master WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%' ORDER BY name"
+    );
 
     const tables: TableDef[] = [];
     const views: { name: string; sql: string }[] = [];
@@ -39,7 +62,7 @@ export function parseSqliteDatabase(path: string): SchemaSnapshot {
         views.push({ name: cleanIdent(obj.name), sql: obj.sql ?? '' });
         continue;
       }
-      tables.push(parseTable(db, cleanIdent(obj.name)));
+      tables.push(await parseTable(db, cleanIdent(obj.name)));
     }
 
     const snapshot: SchemaSnapshot = {
@@ -61,26 +84,29 @@ export function parseSqliteDatabase(path: string): SchemaSnapshot {
   }
 }
 
-function parseTable(db: DatabaseSync, name: string): TableDef {
+async function parseTable(db: ArtifactSqlite, name: string): Promise<TableDef> {
   const quoted = `"${name.replace(/"/g, '""')}"`;
-  const info = db
-    .prepare(
-      `PRAGMA table_info(${quoted})`
-    )
-    .all() as { cid: number; name: string; type: string; notnull: number; dflt_value: string | null; pk: number }[];
+  const info = await db.all<{
+    cid: number;
+    name: string;
+    type: string;
+    notnull: number;
+    dflt_value: string | null;
+    pk: number;
+  }>(`PRAGMA table_info(${quoted})`);
 
-  const fkRaw = db
-    .prepare(
-      `PRAGMA foreign_key_list(${quoted})`
-    )
-    .all() as { id: number; seq: number; table: string; from: string; to: string }[];
+  const fkRaw = await db.all<{ id: number; seq: number; table: string; from: string; to: string }>(
+    `PRAGMA foreign_key_list(${quoted})`
+  );
 
   // PRAGMA index_list: seq, name, unique, origin, partial
-  const idxList = db
-    .prepare(
-      `PRAGMA index_list(${quoted})`
-    )
-    .all() as { seq: number; name: string; unique: number; origin: string; partial: number }[];
+  const idxList = await db.all<{
+    seq: number;
+    name: string;
+    unique: number;
+    origin: string;
+    partial: number;
+  }>(`PRAGMA index_list(${quoted})`);
 
   const pkColumns: string[] = info
     .filter((c) => c.pk > 0)
@@ -92,9 +118,9 @@ function parseTable(db: DatabaseSync, name: string): TableDef {
   for (const idx of idxList) {
     if (idx.origin === 'pk') continue; // rowid PK — implicit
     const cols = (
-      db
-        .prepare(`PRAGMA index_info("${idx.name.replace(/"/g, '""')}")`)
-        .all() as { seqno: number; cid: number; name: string | null }[]
+      await db.all<{ seqno: number; cid: number; name: string | null }>(
+        `PRAGMA index_info("${idx.name.replace(/"/g, '""')}")`
+      )
     )
       .filter((c) => c.name)
       .map((c) => c.name as string);
@@ -112,12 +138,23 @@ function parseTable(db: DatabaseSync, name: string): TableDef {
   }));
 
   const constraints: ConstraintDef[] = [];
-  if (pkColumns.length > 0) constraints.push({ name: 'PRIMARY KEY', type: 'PRIMARY_KEY', detail: `(${pkColumns.join(', ')})` });
+  if (pkColumns.length > 0)
+    constraints.push({
+      name: 'PRIMARY KEY',
+      type: 'PRIMARY_KEY',
+      detail: `(${pkColumns.join(', ')})`,
+    });
   for (const c of info.filter((c) => c.notnull === 1 && c.pk === 0)) {
     constraints.push({ name: `${c.name}_nn`, type: 'NOT_NULL', detail: `${c.name} NOT NULL` });
   }
-  for (const f of groupFks(fkRaw)) constraints.push({ name: `fk_${f.columns.join('_')}`, type: 'FOREIGN_KEY', detail: `${f.columns.join(',')} → ${f.refTable}(${f.refColumns.join(',')})` });
-  for (const idx of indexes.filter((i) => i.unique)) constraints.push({ name: idx.name, type: 'UNIQUE', detail: `(${idx.columns.join(', ')})` });
+  for (const f of groupFks(fkRaw))
+    constraints.push({
+      name: `fk_${f.columns.join('_')}`,
+      type: 'FOREIGN_KEY',
+      detail: `${f.columns.join(',')} → ${f.refTable}(${f.refColumns.join(',')})`,
+    });
+  for (const idx of indexes.filter((i) => i.unique))
+    constraints.push({ name: idx.name, type: 'UNIQUE', detail: `(${idx.columns.join(', ')})` });
 
   // FK grouping (compound FKs share the id)
   const foreignKeys = groupFks(fkRaw);
@@ -126,23 +163,27 @@ function parseTable(db: DatabaseSync, name: string): TableDef {
   let sampleRows: Record<string, unknown>[] = [];
   const stats: ReturnType<typeof computeColumnStat>[] = [];
   try {
-    rowCount = (db.prepare(`SELECT COUNT(*) AS n FROM ${quoted}`).get() as { n: number }).n;
+    rowCount = Number((await db.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${quoted}`))?.n ?? 0);
     sampleRows =
       rowCount > 0
-        ? (db.prepare(`SELECT * FROM ${quoted} LIMIT 40`).all() as Record<string, unknown>[])
+        ? await db.all<Record<string, unknown>>(`SELECT * FROM ${quoted} LIMIT 40`)
         : [];
 
     for (const col of columns) {
       const colQ = `"${col.name.replace(/"/g, '""')}"`;
       const nullCount =
-        rowCount - (db.prepare(`SELECT COUNT(${colQ}) AS n FROM ${quoted}`).get() as { n: number }).n;
+        rowCount - Number((await db.get<{ n: number }>(`SELECT COUNT(${colQ}) AS n FROM ${quoted}`))?.n ?? 0);
       let distinct: number | null = null;
       let enumValues: string[] = [];
       if (rowCount > 0 && rowCount <= 200_000) {
-        distinct = (db.prepare(`SELECT COUNT(DISTINCT ${colQ}) AS n FROM ${quoted}`).get() as { n: number }).n;
+        distinct = Number(
+          (await db.get<{ n: number }>(`SELECT COUNT(DISTINCT ${colQ}) AS n FROM ${quoted}`))?.n ?? 0
+        );
         if (distinct > 0 && distinct <= 25) {
           const vals = (
-            db.prepare(`SELECT DISTINCT ${colQ} AS v FROM ${quoted} WHERE ${colQ} IS NOT NULL LIMIT 26`).all() as { v: unknown }[]
+            await db.all<{ v: unknown }>(
+              `SELECT DISTINCT ${colQ} AS v FROM ${quoted} WHERE ${colQ} IS NOT NULL LIMIT 26`
+            )
           ).map((r) => (typeof r.v === 'object' ? JSON.stringify(r.v) : String(r.v)));
           enumValues = vals.slice(0, 25);
         }
@@ -151,12 +192,12 @@ function parseTable(db: DatabaseSync, name: string): TableDef {
       let max: number | undefined;
       let avg: number | undefined;
       if ((col.type === 'INTEGER' || col.type === 'REAL' || col.type === 'NUMERIC') && rowCount > 0) {
-        const agg = db
-          .prepare(`SELECT MIN(${colQ}) AS mn, MAX(${colQ}) AS mx, AVG(${colQ}) AS av FROM ${quoted}`)
-          .get() as { mn: number | null; mx: number | null; av: number | null };
-        min = agg.mn ?? undefined;
-        max = agg.mx ?? undefined;
-        avg = agg.av != null ? Math.round(agg.av * 100) / 100 : undefined;
+        const agg = await db.get<{ mn: number | null; mx: number | null; av: number | null }>(
+          `SELECT MIN(${colQ}) AS mn, MAX(${colQ}) AS mx, AVG(${colQ}) AS av FROM ${quoted}`
+        );
+        min = agg?.mn ?? undefined;
+        max = agg?.mx ?? undefined;
+        avg = agg?.av != null ? Math.round(agg.av * 100) / 100 : undefined;
       }
       const values = sampleRows.map((r) => r[col.name]);
       const stat = computeColumnStat(col.name, values, Math.max(rowCount, values.length), col.type);
@@ -180,7 +221,7 @@ function parseTable(db: DatabaseSync, name: string): TableDef {
 }
 
 function groupFks(
-  fkRaw: { id: number; seq: number; table: string; from: string; to: string }[],
+  fkRaw: { id: number; seq: number; table: string; from: string; to: string }[]
 ): { columns: string[]; refTable: string; refColumns: string[] }[] {
   const byId = new Map<number, { table: string; pairs: [string, string][] }>();
   for (const f of fkRaw) {

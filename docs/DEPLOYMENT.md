@@ -1,10 +1,55 @@
 # WEDJAT DOMAIN AI — Deployment
 
-This document covers running the app in development and building it for production, the full
-environment-variable table, how to enable remote providers (key presence → STANDBY → ACTIVE →
-router inclusion), GPU attachment notes for real training (§38), and the seeding procedure.
+This document covers running the app in development, deploying to **Vercel + Turso** (the live
+path), building standalone containers, the full environment-variable table, how to enable remote
+providers (key presence → STANDBY → ACTIVE → router inclusion), GPU attachment notes for real
+training (§38), and the seeding procedure.
 Runtime: Next.js 16 App Router on bun; port 3000; job worker starts via
 `src/instrumentation.ts` on server boot.
+
+## Deploy to Vercel + Turso (the live path)
+
+The production architecture: **Vercel** runs the Next.js app (serverless, Node runtime) and
+**Turso** hosts the database plane (`src/lib/db.ts` picks TURSO_* when present, local `file:` in
+dev). The one-shot migration `scripts/turso-migrate.ts` mirrors the seeded demo estate
+(schema + data + §108 artifact blobs) into Turso.
+
+1. **Database** (already provisioned):
+   ```bash
+   TURSO_DATABASE_URL=libsql://…  TURSO_AUTH_TOKEN=… \
+   DATABASE_URL=file:db/custom.db bunx tsx scripts/turso-migrate.ts
+   ```
+   Idempotent: re-running wipes remote tables in FK-safe reverse order and re-inserts the
+   local mirror (row counts verified at the end).
+2. **GitHub**: push `main` to the repo (secrets never committed — `.env` is gitignored).
+3. **Vercel**: import the GitHub repo (framework auto-detects Next.js). Set env vars on the
+   project (Production + Preview):
+   | Variable | Value |
+   |---|---|
+   | `TURSO_DATABASE_URL` | `libsql://<db>.turso.io` |
+   | `TURSO_AUTH_TOKEN` | the Turso database token |
+   | `DATABASE_URL` | same libsql:// URL (startup validation §91) |
+   | `GEMINI_API_KEY` / `GROQ_API_KEY` | optional — activates live LLM adapters for chat |
+   | `WEDJAT_DEMO_PASSWORD` | optional — overrides `wedjat` |
+   | `WEDJAT_LOG_LEVEL` | optional — `info`/`debug` |
+4. Deploy. `bun install` runs `postinstall → prisma generate`; `next build` is used as-is
+   (standalone output is disabled on Vercel — see `next.config.ts`).
+
+**Serverless adaptations already implemented:**
+- Auth: HttpOnly cookie for first-party + `Authorization: Bearer` fallback (embedded preview
+  contexts drop third-party cookies — the login response mirrors the session token).
+- Intake artifacts (§108): bytes are DB-authoritative (`SourceDatabase.artifactData`, 4MB
+  portable budget) with the filesystem as a cache; SQLite parsing re-materializes to `/tmp`.
+- SQLite parsing uses `@libsql/client` (no `node:sqlite` runtime flag requirements).
+- Async jobs: intake upload/reprocess execute deterministically via `after()` (the request
+  stays alive past the response); the interval worker remains the fallback while instances
+  are warm. `maxDuration: 60` on both routes.
+- Login cookie switches to `SameSite=None; Secure` when the request arrives over HTTPS.
+
+Known serverless limits (by design, documented): per-instance in-memory state (rate buckets,
+circuits, IDF cache) resets per cold start; the 5-min health check only runs while an instance
+is warm; artifacts > 4MB are not DB-portable (reprocess needs a re-upload — the 25MB intake
+cap otherwise applies); training remains SIMULATED without GPU (§38).
 
 ## Development
 
@@ -13,6 +58,7 @@ bun install
 bun run db:generate        # prisma client
 bun run db:push            # create/sync schema at DATABASE_URL
 bun scripts/seed.ts        # seed org/users/corpus/registry/benchmark/baseline
+bun scripts/seed-intake.ts # intake demo: 4 sources through the REAL pipeline
 bun run dev                # next dev -p 3000 | tee dev.log
 ```
 
@@ -21,10 +67,10 @@ rows (FK-safe order) before writing; it ingests `scripts/corpus/*.md` through th
 ingestion pipeline and records the `baseline-seed` evaluation run (embedding + indexing of 7
 documents runs in-process).
 
-## Production build
+## Standalone production build (self-hosted)
 
 ```bash
-bun run build              # next build + standalone assembly (copies static/, public/)
+bun run build:standalone   # next build + standalone assembly (copies static/, public/)
 bun run start              # NODE_ENV=production bun .next/standalone/server.js | tee server.log
 ```
 

@@ -189,7 +189,11 @@ export const config: WedjatConfig = {
  */
 export function validateStartupConfig(): { ok: boolean; problems: string[] } {
   const problems: string[] = [];
-  if (!process.env.DATABASE_URL) problems.push('DATABASE_URL missing');
+  // Either remote Turso (live/Vercel) or a local SQLite file (dev) — see src/lib/db.ts.
+  const hasTurso = Boolean(process.env.TURSO_DATABASE_URL);
+  const hasLocal = Boolean(process.env.DATABASE_URL);
+  if (!hasTurso && !hasLocal) problems.push('database misconfigured: TURSO_DATABASE_URL or DATABASE_URL required');
+  if (hasTurso && !process.env.TURSO_AUTH_TOKEN) problems.push('TURSO_AUTH_TOKEN missing for TURSO_DATABASE_URL');
   // Provider keys are optional (adapters fall back to the sanctioned internal
   // gateway), but if a policy forbids remote AND no provider is available we
   // still function — the answer pipeline degrades to retrieval-only responses.

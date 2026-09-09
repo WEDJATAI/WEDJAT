@@ -12,7 +12,6 @@
 // modified (§108/§107 — never silently destroy or overwrite source data).
 // ═══════════════════════════════════════════════════════════════════════════════
 
-import { promises as fs } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { db } from '@/lib/db';
 import { sha256, contentHash, newTraceId } from '../ids';
@@ -23,6 +22,7 @@ import { routeAndComplete } from '../gateway/router';
 import { runIngestion } from '../knowledge/ingestion';
 import { enqueueJob } from '../observability/jobs';
 import { detectFormat, type DetectionResult } from './detect';
+import { loadArtifactBytes, materializeArtifactFile } from './artifact';
 import { parseSqliteDatabase } from './parsers/sqlite';
 import { parseSqlDump } from './parsers/sqldump';
 import { parseCsvFile, parseJsonFile, parseJsonlFile } from './parsers/tabular';
@@ -177,7 +177,8 @@ export async function runIntake(runId: string, userId: string): Promise<IntakeOu
   // ══ STAGE 1 — RAW: verify immutable artifact (§108) ════════════════════════
   try {
     const t = Date.now();
-    artifactBytes = new Uint8Array(await fs.readFile(source.artifactPath));
+    // DB-authoritative bytes (serverless-safe) with the FS cache as fallback.
+    artifactBytes = await loadArtifactBytes(source);
     if (artifactBytes.length > MAX_ARTIFACT_BYTES) {
       throw new WedjatError('VALIDATION', 'Artifact exceeds the 25MB intake limit');
     }
@@ -206,7 +207,8 @@ export async function runIntake(runId: string, userId: string): Promise<IntakeOu
     let snapshot: SchemaSnapshot;
     switch (detection.format) {
       case 'SQLITE':
-        snapshot = parseSqliteDatabase(source.artifactPath);
+        // SQLite parsing opens a real file — materialize if the FS copy is gone.
+        snapshot = await parseSqliteDatabase(await materializeArtifactFile(source));
         break;
       case 'CSV':
         snapshot = parseCsvFile(text, source.originalName ?? source.name);

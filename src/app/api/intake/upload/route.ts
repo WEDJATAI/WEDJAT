@@ -7,23 +7,25 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'node:fs';
-import { join } from 'node:path';
+import { after } from 'next/server';
 import { createHash } from 'node:crypto';
 import { db } from '@/lib/db';
 import { ok, failFrom, withPrincipal } from '@/lib/wedjat/api';
 import { requireMutationRole } from '@/lib/wedjat/security/auth';
 import { WedjatError } from '@/lib/wedjat/errors';
 import { detectFormat } from '@/lib/wedjat/intake/detect';
-import { enqueueJob } from '@/lib/wedjat/observability/jobs';
+import { persistArtifact } from '@/lib/wedjat/intake/artifact';
+import { enqueueJob, processJobNow } from '@/lib/wedjat/observability/jobs';
 import { INTAKE_ENGINE_VERSION } from '@/lib/wedjat/intake/engine';
 import { recordAudit } from '@/lib/wedjat/observability/audit';
 import { newTraceId } from '@/lib/wedjat/ids';
 
 export const runtime = 'nodejs';
+// Vercel serverless: the intake pipeline runs after the response via after();
+// give the function enough runway for a full pipeline pass.
+export const maxDuration = 60;
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
-const SOURCES_DIR = join(process.cwd(), 'db', 'sources');
 
 function slugifyPlatform(s: string): string {
   return (
@@ -99,10 +101,13 @@ export async function POST(req: Request): Promise<NextResponse> {
           uploadedById: principal.userId,
         },
       });
-      const artifactPath = join(SOURCES_DIR, source.id, 'artifact');
-      await fs.mkdir(join(SOURCES_DIR, source.id), { recursive: true });
-      await fs.writeFile(artifactPath, bytes);
-      await db.sourceDatabase.update({ where: { id: source.id }, data: { artifactPath } });
+      // §108: immutable artifact — DB-authoritative bytes + best-effort FS cache
+      // (persistArtifact handles read-only serverless filesystems gracefully).
+      const { artifactData, artifactPath } = await persistArtifact(source.id, bytes);
+      await db.sourceDatabase.update({
+        where: { id: source.id },
+        data: { artifactPath, artifactData },
+      });
 
       const run = await db.intakeRun.create({
         data: {
@@ -120,6 +125,19 @@ export async function POST(req: Request): Promise<NextResponse> {
         { idempotencyKey: `intake-run-${run.id}` }
       );
       await db.intakeRun.update({ where: { id: run.id }, data: { jobId } });
+
+      // Serverless-safe execution: the in-process interval worker only runs
+      // while a function instance is warm. after() keeps this invocation alive
+      // past the response so the pipeline deterministically executes NOW
+      // (the interval worker remains a fallback for other job kinds).
+      after(async () => {
+        try {
+          await processJobNow(jobId);
+        } catch {
+          // Job stays QUEUED/RUNNING in the DB — the worker (warm instances)
+          // or the next upload picks it up; failures are surfaced on the run.
+        }
+      });
 
       await recordAudit({
         orgId: principal.org.id,
