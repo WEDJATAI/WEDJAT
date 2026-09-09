@@ -1220,3 +1220,85 @@ Stage Summary:
   endpoints + /api/v1/* public API exactly per contract §1/§2 and the
   DTOs already declared in types.ts; every tab already renders its
   friendly under-construction state against 404s today.
+
+---
+Task ID: 19 (v4 "KNOWLEDGE-FIRST EXPANSION" — full implementation)
+Agent: orchestrator (main)
+Task: User pasted v4 master prompt (LEARN/ADD/PRESERVE — never restructure/
+forget; 127 sections) + real credentials (Turso URL/token, GitHub token,
+Vercel token — stored ONLY in gitignored .env.local, never displayed/logged/
+committed) and instructed: "implement prompt and restore any deleted or
+removed that matches the new prompt".
+
+Work Log:
+- CREDENTIALS: .env.local (chmod 600, gitignored, verified untracked) with
+  WEDJAT_TURSO_* / WEDJAT_GITHUB_* / WEDJAT_VERCEL_* prefixed names so local
+  dev stays on SQLite (db.ts ignores them). Turso probed OK (HTTP 200).
+- SCHEMA (§76 ADDITIVE): 8 new Prisma models (ServiceIdentity, EventRecord,
+  DeadLetterEvent, Recommendation, RecommendationOutcome, OrgPattern,
+  KnowledgeGap, KnowledgeLineage) + nullable Platform registry columns
+  (repositoryUrl/deploymentUrl/databaseUrl/connectionStatus/registryMetaJson).
+  61 models total; zero existing tables/columns altered destructively.
+- BACKEND: fabric/ (identity.ts — hashed scoped keys, ownership validation,
+  rate limit; envelope.ts — validation + §41 secret redaction before storage;
+  dispatch.ts — handlers route events through the EXISTING ingestion pipeline,
+  §105 error classification, DLQ, §57 idempotent replay; registry.ts),
+  recommendations/engine.ts (evidence-only generation §119, append-only
+  status history, measured outcomes → LESSON_LEARNED knowledge §65),
+  memory/inspector.ts (provenance "why does WEDJAT know this", timeline,
+  §85 gap detection, §113 non-destructive export), security/redact.ts
+  (credential/JWT/PEM/URL-token detection, tested).
+- ROUTES: /api/v1/* public platform API (events, knowledge, schemas,
+  feedback, learning-candidates, incidents, outcomes, knowledge read,
+  platforms/:slug/insights|recommendations, query, analyze, health) all
+  behind withServiceIdentity (scopes + §8 ownership + 1MB body cap); admin
+  /api/fabric/* (events+DLQ console, identities CRUD/rotate/revoke, event
+  replay, DLQ resolve, recommendations list/generate/lifecycle/outcome,
+  patterns, memory, provenance, registry, connect/disconnect, export).
+  jobs.ts: added 'fabric-dispatch' job type (additive).
+- BUG FIX (additive §58): idempotent re-ingestion guard in runIngestion —
+  replay/duplicate delivery now returns the existing documentVersion instead
+  of crashing on (documentVersionId, ordinal) uniqueness.
+- SDK: sdk/ package @wedjat/sdk 1.0.0 (built, smoke-tested): retries+backoff+
+  jitter, auto idempotency keys, offline outbox with file store, bounded
+  backpressure, criticality ordering, ask/analyze/health.
+- RESTORE: scripts/seed-registry.ts registered all 10 org platforms (WEDJAT,
+  CIRKLE, AURIENTA, SGTX, MTQ, JUDGE SMART, EGYCOURT, SGTX FABLE, PPE,
+  MTQ SIGMA) locally AND on production Turso (idempotent, additive).
+- FRONTEND (subagent Task 6-b): Intelligence view with 8 tabs (Overview,
+  Event Fabric, Service Identities w/ one-time key reveal, Recommendations,
+  Patterns, Memory, Platform Registry, API Console) + nav entry; lint clean.
+- VERIFICATION (local, end-to-end): login → identity create → event publish
+  → dispatch → knowledge records → v1/knowledge read → duplicate event →
+  DUPLICATE (no double knowledge) → incidents (CRITICAL) → ownership
+  FORBIDDEN (sgtx key ≠ cirkle platform) → secret redaction verified in
+  stored payload ([SECRET_REDACTED], raw key never persisted) → v1/query
+  grounded answer (MEDIUM confidence, 3 sources, honest status) →
+  recommendations generated from 3-incident failure pattern → outcome
+  VALIDATED 2200→140 (-93.6%) → LESSON_LEARNED ingested → replay idempotent
+  → provenance panel. Agent Browser: all 8 tabs live, zero console errors.
+  (Stale network mock from an old debug session caused a fake login loop —
+  cleared via network unroute.)
+- PRODUCTION: scripts/migrate-v4-turso.ts ran ADDITIVELY against Turso —
+  8 tables + 5 columns + 15 indexes created; §125 audit verified ALL 53
+  pre-existing tables row-count identical (11 KnowledgeRecords, 12 chunks,
+  291 lexical postings intact). Registry seeded (10 platforms). Git pushed
+  (rebased f4aa98c → github.com/WEDJATAI/WEDJAT). Vercel auto-deploy
+  dpl_7vBHsBbEA8kLCnZezSq5xWJXyuor READY; wedjat-ai.vercel.app: /api/v1/health
+  ok=READY db=UP; all v1/fabric endpoints correctly 401 unauthenticated;
+  GET / 200. bun run lint clean throughout.
+
+Stage Summary:
+- v4 implemented ADDITIVELY on the existing foundation: no existing table,
+  route, view or capability was removed or restructured (§3/§122: default
+  classification ADDITIVE + one BUG FIX).
+- Production Turso now has the Intelligence Fabric schema with verified
+  zero-loss migration; the 10-platform registry is restored; GitHub and
+  Vercel are live with the v4 code.
+- Carried over: the Groq key from Task 16 is still INVALID (403) — chat/AI
+  generation on production degrades honestly until a valid GROQ_API_KEY or
+  free GEMINI_API_KEY is pasted in Settings → AI Providers (no redeploy
+  needed). v1/query works retrieval-grounded meanwhile.
+- User next steps: 1) paste a valid provider key; 2) open Intelligence →
+  Service Identities on production to mint per-platform keys for CIRKLE/
+  SGTX/… and integrate @wedjat/sdk into those platforms.
