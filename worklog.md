@@ -976,3 +976,84 @@ Stage Summary:
   simulation labels + free-GPU doc remain the honest path.
 - Open item carried from Task 16: a valid GROQ_API_KEY (or GEMINI_API_KEY) is
   still required for live chat generation.
+
+---
+Task ID: 18 (prompt check #2 — v3 master prompt review)
+Agent: orchestrator (main)
+Task: User pasted ANOTHER complete rewrite (upload/Pasted Content_1788959338589.txt,
+"check prompt"). Review integrity, structure, deltas vs v2, internal consistency,
+coverage vs the implementation, and feasibility.
+
+Work Log:
+- Integrity: 3,084 lines / 125 sections, headings sequential 1→125 (no gaps,
+  no duplicates), ends with §125 END STATE + final DO-NOT list. No secret
+  values in the file (only env var NAMES + platform URLs). File complete.
+- Identity: "WEDJAT INTELLIGENCE API — AUTONOMOUS ORGANIZATIONAL LEARNING
+  FABRIC". THIRD distinct prompt version in 2 days (v1 attached-corpus →
+  v2 pull-acquisition → v3 push/API-fabric + closed-loop learning).
+- v3 reframes WEDJAT as an API-first intelligence PROVIDER platforms PUSH to:
+  §7 public /api/v1 (POST events/knowledge/documents/schemas/feedback/
+  learning-candidates/incidents/decisions/audit-findings/outcomes/
+  platform-state; GET knowledge + per-platform insights/recommendations;
+  POST query/analyze/summarize/compare; health), §8-§10 service credentials
+  + rotating keys + scopes + platform-ownership validation, §11 @wedjat/sdk
+  (event/knowledge/feedback/schema/incident/outcome/learningCandidate/ask
+  with retries, idempotency, offline queue), §12 outbox pattern (platforms
+  never synchronously depend on WEDJAT), §13-§17 event fabric (30+ event
+  types, envelope w/ correlation+causation+schema_version+idempotency_key,
+  ordering, replay), §34 platforms PUBLISH schema snapshots, §44-§45
+  training-candidate API, §60-§67 learning-from-success + pattern mining +
+  cross-platform RECOMMENDATIONS + closed loop (recommendation →
+  implementation → measured outcome → knowledge update) + §64/§66
+  recommendation/outcome APIs, §63 no automatic unsafe platform changes,
+  §86-§89 webhook security + SDK offline queue + backpressure + event
+  criticality, §104-§105 DLQ + error classification, §111-§112 project
+  health + org intelligence dashboards, §120 "Connect this platform"
+  end-to-end UX, §124 final audit with 14 /100 scores.
+- v3 REMOVES v2 concepts: autonomy levels 0-5 (§90-91 v2), 22-phase plan,
+  detailed source-authority ordering, blueprint-detection taxonomy. Keeps:
+  no-OpenAI, Gemini/Groq/HF + router/failover/retry/circuit/rate-limit,
+  DB intelligence/canonical mapping/zero-data-loss/read-only sources, secret
+  detection/redaction, training governance, model registry/eval/canary/
+  rollback, honest-auditor + unknown-handling, failure isolation, health,
+  and the same 9-platform registry + WEDJAT itself (§4) with per-project
+  env-token names.
+- Consistency findings (flagged, none blocking):
+  * Dual acquisition model: §5+§122-§123 still assume PULL connectors
+    (GitHub/Turso/Vercel + tokens) while §12/§34 reframe as PUSH (SDK/
+    events/snapshot API). §68 explicitly allows both (webhook/event push/
+    scheduled/manual/startup sync) — coherent but doubles the ingestion
+    surface; keep both, label them.
+  * §122 build list includes "outbox" — outbox is SDK-side; WEDJAT
+    implements the receiving side (idempotency §15 + replay §17). Wording
+    note only.
+  * §76 answer modes add RECOMMEND + CHANGE IMPACT + COMPARE + CONTRADICTION
+    beyond current Q&A/CTO/RESILIENCE/RISK.
+  * §21 trust ladder (AUTHORITATIVE→…→SUPERSEDED) is a new dimension vs
+    current status/confidence fields.
+  * §20 adds INCIDENT/OUTCOME/LESSON_LEARNED knowledge classes (feeds the
+    closed loop).
+- Coverage vs implementation: intelligence core already built and satisfies
+  most retained sections; v3 NEW build surface = platform service identity +
+  scoped /api/v1 keys, event fabric + envelope/idempotency/replay, SDK,
+  recommendation engine + outcome/feedback APIs (closed loop), DLQ +
+  error classification (jobs system covers part), org intelligence
+  dashboard (extends current dashboard), webhooks.
+- Feasibility (unchanged from Task 17): push model fully feasible here and
+  on Vercel (no external deps). Pull connectors: GitHub REST 403 on this
+  shared IP unauthenticated (raw + token-auth OK), Turso/Vercel need user
+  tokens, GPU (§51 A10G/T4) impossible here (honest SIMULATION stays),
+  Groq key still invalid (403) from Task 16.
+
+Stage Summary:
+- v3 verdict: intact, coherent, self-consistent, no secrets, no structural
+  defects. It is the most production-realistic framing yet (platforms stay
+  operationally independent; WEDJAT is an async intelligence provider).
+- Stable invariants across all 3 versions: no OpenAI; read-only sources;
+  never ingest secrets; versioning/provenance/audit; honest non-inflated
+  audits; RAG-first; HF for training; same 10-platform org registry.
+- Biggest new build items vs current system: /api/v1 platform API + service
+  identities/scopes, event fabric w/ replay, @wedjat/sdk, recommendation +
+  outcome closed-loop, DLQ/error classification, org intelligence dashboard.
+- Recommendation to user: v2→v3 delta is additive (push fabric on top of
+  pull connectors); nothing in v3 invalidates the existing build.
