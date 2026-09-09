@@ -590,3 +590,65 @@ Stage Summary:
   tool-results/intake-after-login-fix.png, tool-results/login-fix-mobile.png.
 - No schema/DB changes. Auth invariant preserved: principal resolved
   server-side from the token; client identity never trusted.
+
+---
+Task ID: 12 (GitHub push + Turso migration + Vercel readiness)
+Agent: orchestrator (main)
+Task: "Push to GitHub and Turso, then prepare to push to Vercel and implement
+any missing before start using it live."
+
+Work Log:
+- GITHUB (repo WEDJATAI/WEDJAT, branch main):
+  * stripped template auto-committed runtime data from VCS (db/, tool-results/,
+    upload/ → .gitignore); untracked .env (template had committed it — content
+    was a non-secret file path; verified via secret scan).
+  * rebased-in upstream LICENSE commit (merge --allow-unrelated-histories);
+    pushed 223 files; zero secrets in tree.
+- TURSO (libsql://wedjat-fortleem.aws-us-east-1.turso.io):
+  * installed @libsql/client@0.18 + @prisma/adapter-libsql@6.19.2 (aligned to
+    resolver-upgraded prisma 6.19.2; constructor takes a CONFIG object, not a
+    client instance — discovered empirically).
+  * db.ts rewritten: PrismaLibSQL adapter, env-driven (TURSO_DATABASE_URL+
+    TURSO_AUTH_TOKEN remote / DATABASE_URL file: local); one code path both envs.
+  * schema.prisma: SourceDatabase.artifactData Bytes? (§108 DB-authoritative
+    immutable artifact copy; 4MB portable blob budget).
+  * scripts/turso-migrate.ts: idempotent local→Turso mirror — backfills
+    artifact blobs locally, DDL from sqlite_master, FK-safe reverse-order wipe,
+    topo-ordered inserts (200-row batches), index sync, per-table count
+    verification. MIGRATED: 5,865 rows / 63 indexes / 4 artifact blobs; counts
+    verified (AiGeneration +1 remote = live health-check probe, benign).
+- SERVERLESS ADAPTATIONS (Vercel):
+  * intake/artifact.ts: persistArtifact (DB blob + best-effort FS cache),
+    loadArtifactBytes (blob-first), materializeArtifactFile (re-materialize to
+    /tmp for SQLite file-handle parsing). Upload route + engine + reprocess
+    route rewired; reprocess availability check now blob-aware.
+  * parsers/sqlite.ts: node:sqlite DatabaseSync → @libsql/client (async,
+    portable; execute() is Promise-returning — first sync-wrapper attempt broke
+    with CLIENT_CLOSED/"objects is not iterable", fixed by full async rewrite).
+  * jobs.ts processJobNow + after() from next/server in upload/reprocess
+    routes (deterministic post-response execution; maxDuration 60; interval
+    worker remains fallback).
+  * package.json: postinstall=prisma generate, engines node>=20, build split
+    (build / build:standalone). next.config.ts: standalone off when VERCEL=1.
+  * vercel.json (functions maxDuration), .env.example, root README.md,
+    DEPLOYMENT.md Vercel+Turso runbook.
+- LIVE VERIFICATION (dev server now Turso-backed via .env):
+  * FRESH upload through the real pipeline → RAW/STAGED/ANALYZED/MAPPED/
+    VALIDATED/IMPORTED all OK (async @libsql/sqlite parser, 2 tables/5 rows,
+    DQ 99, 11 knowledge records + 11 candidates through RAG on Turso).
+  * pristine demo state restored via re-run of turso-migrate (fixed FK-safe
+    wipe ordering).
+  * agent-browser: login → dashboard → Database Intake (Turso data, review
+    queue 18) → grounded chat (FACTs, S1–S8, groundedness 0.66) → 390px mobile
+    no-overflow, zero console errors. bun run lint clean.
+- Known/accepted: z-ai internal gateway config (/etc/.z-ai-config) is
+  sandbox-internal — on Vercel set GEMINI_API_KEY/GROQ_API_KEY for live LLM
+  chat (gateway fallback design already handles it); artifacts >4MB not
+  DB-portable; training SIMULATED without GPU; health-check job only runs
+  while instances warm.
+
+Stage Summary:
+- GitHub main @ 6cd2663 (223 files, no secrets). Turso holds the full demo
+  estate. App is Vercel-ready: import repo → set TURSO_DATABASE_URL /
+  TURSO_AUTH_TOKEN / DATABASE_URL (+optional GEMINI/GROQ keys) → deploy.
+  Next session: actual Vercel project import once the user links the repo.
