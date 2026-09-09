@@ -652,3 +652,59 @@ Stage Summary:
   estate. App is Vercel-ready: import repo → set TURSO_DATABASE_URL /
   TURSO_AUTH_TOKEN / DATABASE_URL (+optional GEMINI/GROQ keys) → deploy.
   Next session: actual Vercel project import once the user links the repo.
+
+---
+Task ID: 13 (Vercel live deployment)
+Agent: orchestrator (main)
+Task: User provided Vercel token; deploy WEDJAT to Vercel production and verify
+end-to-end before live use.
+
+Work Log:
+- GITHUB: pushed remaining worklog commit 7d04519 (all of main in sync).
+- VERCEL STATE AUDIT: token is team-scoped (team_bVAdJfvsNGW6Os3KxkhvHoq8,
+  username tonsy). Project "wedjat" (prj_elBgV0OeD4n5bfOm0QdkFXXEbZTe) already
+  existed — user had imported the GitHub repo (auto-deploy on push active).
+  BOTH prior git deployments (6cd2663, 7d04519) were ERROR.
+- ROOT CAUSE: `next build` "Collecting page data" evaluates route module
+  scopes; src/lib/db.ts instantiated PrismaClient at import time and threw
+  "Database misconfigured" because no env vars were set on the project.
+  Confirmed prisma generate DID run on Vercel (bun root postinstall, 384ms)
+  and next.config.ts is VERCEL-aware (standalone off).
+- ENV VARS SET via API v10 (production+preview+development targets):
+  TURSO_DATABASE_URL, TURSO_AUTH_TOKEN (encrypted), DATABASE_URL=libsql://…,
+  WEDJAT_DEMO_PASSWORD=wedjat (encrypted).
+- HARDENING: db.ts rewritten with lazy Proxy — client created on FIRST ACCESS
+  (deferred adapterConfig()), cached across warm invocations in ALL envs.
+  Builds no longer depend on runtime credentials; verified no module-scope
+  db calls exist elsewhere (rg scan). Local Turso-backed dev regression:
+  health/deep 200, login 200, dashboard(bearer) 200, lint 0 problems.
+- DEPLOY: pushed d0f347f → git auto-deploy dpl_FSj2oq7bRXrRVJbGL5JzVwvpsziQ →
+  READY in ~90s. Production domains: wedjat-gamma.vercel.app (project),
+  wedjat-tonsy.vercel.app, wedjat-git-main-tonsy.vercel.app.
+- LIVE VERIFICATION (all on https://wedjat-gamma.vercel.app):
+  * /api/health 200; ?deep=1 → Vercel→Turso reachable in 16ms (same region).
+  * /api/auth/users 200 (4 demo users); / 200 (9.7KB HTML).
+  * LOGIN golden path: principal Amara Djedi/OWNER/org wedjat + 64-char token
+    + 12h expiry; dashboard 200 via BOTH Bearer and cookie transports;
+    intake/platforms 200; logout 200; me-after-logout 401 (clean lifecycle).
+  * agent-browser: login UI → dashboard full render (all 10 nav sections);
+    Database Intake view with live Turso data; ZERO console/page errors;
+    desktop 1280 no overflow; mobile 390px scrollWidth=390 no overflow.
+    Screenshots: /tmp/live-intake.png, /tmp/live-mobile.png.
+  * REAL INTAKE PIPELINE on serverless: uploaded live-e2e.csv (3 customers) →
+    after()-driven job → IMPORTED on first poll (~10s); import validation
+    12/12 PASS (row counts, PKs, dup/FK/orphan/type/date/enum/encoding/
+    mapping coverage); DQ score 100; 1 mapping, 2 KG edges, 1 training
+    candidate (CANDIDATE state, human-gated as designed).
+  * Chat endpoint: 200 with honest controlled-degraded answer (retrieval
+    returned 8 sources; generation layer needs GEMINI_API_KEY/GROQ_API_KEY
+    on Vercel to activate live LLM — documented design, not a defect).
+
+Stage Summary:
+- LIVE URL: https://wedjat-gamma.vercel.app (also wedjat-tonsy.vercel.app).
+  GitHub main @ d0f347f auto-deploys to production. Turso reachable 16ms.
+  Auth dual-track, intake §106–§160 pipeline, RAG retrieval, review gating
+  all verified working on production serverless.
+- REMAINING (user action, optional): set GEMINI_API_KEY or GROQ_API_KEY on
+  the Vercel project to activate live LLM chat (currently honest degraded
+  responses); custom domain wiring if desired.
