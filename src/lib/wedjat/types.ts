@@ -876,3 +876,218 @@ export const AUTONOMY_LEVELS: { level: number; label: string; description: strin
   { level: 4, label: "LEVEL 4 — AUTO TRAINING", description: "Upload → approved dataset → training → evaluation." },
   { level: 5, label: "LEVEL 5 — CONTROLLED AUTO-DEPLOYMENT", description: "Training → evaluation → canary. Production promotion remains human-controlled (§127/§152)." },
 ];
+
+// ═══════════════════════════ v4 INTELLIGENCE FABRIC (§1-§127) ═══════════════════════════
+// Knowledge-first expansion: Intelligence API /api/v1, service identities, event
+// fabric + DLQ, recommendations + outcomes closed loop, organizational patterns,
+// knowledge gaps, lineage and memory inspection. ADDITIVE — existing types above
+// are untouched (v4 §3/§76).
+
+// ── §7-§10 Service identities ────────────────────────────────────────────────
+export interface ServiceIdentityDto {
+  id: string;
+  platformSlug: string;
+  name: string;
+  keyPreview: string;
+  scopes: string[];
+  status: "ACTIVE" | "REVOKED";
+  lastUsedAt: string | null;
+  rotatedAt: string | null;
+  createdAt: string;
+}
+
+export interface ServiceIdentityCreatedDto extends ServiceIdentityDto {
+  /** Raw API key — shown exactly ONCE at creation; only the hash is stored. */
+  apiKey: string;
+}
+
+export type ApiScope =
+  | "knowledge:write" | "knowledge:read"
+  | "events:write" | "events:read"
+  | "schema:write"
+  | "feedback:write"
+  | "analysis:read"
+  | "recommendations:read"
+  | "training:candidate"
+  | "admin";
+
+export const API_SCOPES: ApiScope[] = [
+  "knowledge:write", "knowledge:read", "events:write", "events:read",
+  "schema:write", "feedback:write", "analysis:read", "recommendations:read",
+  "training:candidate", "admin",
+];
+
+// ── §13/§14 Event fabric ─────────────────────────────────────────────────────
+export interface EventEnvelopeDto {
+  eventId: string;
+  eventType: string;
+  sourcePlatform: string;
+  sourceEnvironment: string;
+  sourceVersion: string | null;
+  sourceCommit: string | null;
+  occurredAt: string;
+  receivedAt: string;
+  correlationId: string | null;
+  causationId: string | null;
+  schemaVersion: string;
+  idempotencyKey: string;
+  criticality: "CRITICAL" | "HIGH" | "NORMAL" | "LOW";
+  status: "RECEIVED" | "PROCESSED" | "SKIPPED" | "FAILED" | "DEAD";
+  processingError: string | null;
+  attempts: number;
+  processedAt: string | null;
+  resultSummary: Record<string, unknown> | null;
+  replayOfId: string | null;
+}
+
+export interface EventSubmitResult {
+  eventId: string;
+  status: "RECEIVED" | "PROCESSED" | "SKIPPED" | "DUPLICATE";
+  jobId: string | null;
+  message: string;
+}
+
+export interface DeadLetterDto {
+  id: string;
+  eventRecordId: string;
+  eventType: string;
+  sourcePlatform: string;
+  errorClass: string;
+  reason: string;
+  attempts: number;
+  firstFailedAt: string;
+  lastAttemptAt: string;
+  resolved: boolean;
+  resolutionNote: string | null;
+}
+
+export interface EventFabricPayload {
+  events: EventEnvelopeDto[];
+  deadLetters: DeadLetterDto[];
+  stats: {
+    total: number;
+    processed: number;
+    received: number;
+    failed: number;
+    dead: number;
+    byType: { eventType: string; count: number }[];
+    byPlatform: { platform: string; count: number }[];
+  };
+}
+
+// ── §42-§44/§64-§66 Recommendations & outcomes ───────────────────────────────
+export interface RecommendationDto {
+  id: string;
+  platformSlug: string;
+  finding: string;
+  evidence: { source: string; detail: string; authority?: string; version?: string }[];
+  recommendation: string;
+  confidence: number;
+  priority: "P0" | "P1" | "P2" | "P3";
+  expectedBenefit: string | null;
+  potentialRisk: string | null;
+  sourceType: string;
+  status: string;
+  statusHistory: { status: string; at: string; by: string; note?: string }[];
+  createdAt: string;
+  updatedAt: string;
+  outcomes: {
+    id: string;
+    outcome: string;
+    metricName: string | null;
+    beforeValue: string | null;
+    afterValue: string | null;
+    changePct: number | null;
+    measuredAt: string | null;
+    notes: string | null;
+    reportedBy: string;
+  }[];
+}
+
+export interface PatternDto {
+  id: string;
+  name: string;
+  patternType: string;
+  description: string;
+  status: string;
+  platforms: string[];
+  evidence: { platform: string; statement: string; recordId: string; version?: string }[];
+  confidence: number;
+  createdAt: string;
+}
+
+// ── §85/§86 Knowledge gaps ───────────────────────────────────────────────────
+export interface KnowledgeGapDto {
+  id: string;
+  gapType: string;
+  description: string;
+  platformSlug: string | null;
+  query: string | null;
+  priority: string;
+  status: string;
+  occurrences: number;
+  createdAt: string;
+}
+
+// ── §107-§112 Memory inspector: timeline / provenance / what-changed ─────────
+export interface TimelineEntryDto {
+  at: string;
+  kind: "KNOWLEDGE_ADDED" | "EVENT" | "CORRECTION" | "RECOMMENDATION" | "OUTCOME" | "MODEL" | "SOURCE" | "GAP";
+  platform: string | null;
+  summary: string;
+  refId: string | null;
+}
+
+export interface ProvenanceDto {
+  recordId: string;
+  statement: string;
+  status: string;
+  platform: string | null;
+  document: { id: string; title: string; docType: string; version: string } | null;
+  learnedAt: string;
+  lastVerifiedAt: string;
+  lineage: {
+    relation: string;
+    recordId: string;
+    statement: string;
+    note: string | null;
+    at: string;
+  }[];
+  events: { eventId: string; eventType: string; at: string }[];
+  usedByModels: string[];
+}
+
+export interface MemoryInspectorPayload {
+  timeline: TimelineEntryDto[];
+  gaps: KnowledgeGapDto[];
+  stats: {
+    knowledgeRecords: number;
+    lineages: number;
+    patterns: number;
+    gapsOpen: number;
+    eventsTotal: number;
+    corrections: number;
+  };
+}
+
+// ── §88 Platform registry (org-wide learning network) ────────────────────────
+export interface PlatformRegistryDto {
+  slug: string;
+  name: string;
+  criticality: string;
+  status: string;
+  connectionStatus: string | null;
+  repositoryUrl: string | null;
+  deploymentUrl: string | null;
+  databaseUrl: string | null;
+  knowledgeRecords: number;
+  blueprints: number;
+  events: number;
+  lastSyncAt: string | null;
+}
+
+export interface FabricAdminPayload {
+  identities: ServiceIdentityDto[];
+  registry: PlatformRegistryDto[];
+  apiExamples: { title: string; method: string; path: string; scope: string; description: string }[];
+}

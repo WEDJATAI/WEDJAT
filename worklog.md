@@ -1057,3 +1057,166 @@ Stage Summary:
   outcome closed-loop, DLQ/error classification, org intelligence dashboard.
 - Recommendation to user: v2→v3 delta is additive (push fabric on top of
   pull connectors); nothing in v3 invalidates the existing build.
+
+---
+Task ID: 6-b
+Agent: frontend-developer
+Task: Intelligence view frontend (v4) — 8-tab view + nav entry
+(Implements docs/API_CONTRACT_V4.md §1–§3 for the client: the new
+"Intelligence" nav view over the v4 intelligence-fabric admin endpoints.)
+
+Work Log:
+- Read API_CONTRACT_V4.md, v4 DTO section of src/lib/wedjat/types.ts
+  (ServiceIdentityDto/ServiceIdentityCreatedDto/ApiScope/API_SCOPES,
+  EventEnvelopeDto/EventSubmitResult/DeadLetterDto/EventFabricPayload,
+  RecommendationDto/PatternDto/KnowledgeGapDto/TimelineEntryDto/
+  ProvenanceDto/MemoryInspectorPayload/PlatformRegistryDto/
+  FabricAdminPayload), src/lib/wedjat/client.ts (api/apiPost/apiText,
+  errMessage, formatWhen, ApiError, 404-tolerant UNAVAILABLE envelope),
+  app-shell.tsx (nav registration + ViewId), the intake view/bits for
+  tab conventions (controlled Tabs, h-11 touch targets, wedjat-scroll,
+  role gates, poll badges, sonner toasts) and the shared components
+  (StatCard, StatusBadge, SectionHeading, EmptyState/ErrorState/
+  SkeletonGrid/SkeletonRows, ScoreBar).
+- Created src/components/wedjat/views/intelligence-view.tsx: single view
+  with the 8 contract §3 tabs — Overview · Event Fabric · Service
+  Identities · Recommendations · Patterns · Memory · Platform Registry ·
+  API Console. Intake-style chrome: SectionHeading (eyebrow "v4 ·
+  §1–§127"), scrollable icon TabsList, framer-motion fade, per-tab
+  fetch (Radix Tabs unmount inactive content so polls only run while a
+  tab is visible).
+- Created src/components/wedjat/intelligence/intelligence-bits.tsx
+  (presentational bits, mirrors intake-bits): CriticalityBadge
+  (CRITICAL red pulse / HIGH amber / NORMAL slate / LOW muted),
+  EventStatusBadge (PROCESSED emerald, RECEIVED slate, FAILED amber,
+  DEAD red, SKIPPED muted), IdentityStatusBadge (ACTIVE emerald,
+  REVOKED red), ConnectionBadge (CONNECTED emerald, DISCOVERED amber,
+  DISCONNECTED slate, RETIRED muted, null→UNKNOWN), PriorityBadge
+  (P0 red / P1 amber / P2 neutral / P3 slate), RecoStatusBadge,
+  PatternStatusBadge, ScopeChip, MethodBadge, KeyPreview (••••1234,
+  tooltip "hash stored only"), CopyButton, JsonBlock (console-style
+  pretty JSON, max-h-96 + wedjat-scroll), LivePollBadge,
+  RefreshButton, ReadOnlyNote, RoleGateChip, TimelineKindIcon
+  (8 kind→icon/color map), PatternTypeIcon, KeyRevealDialog (ONE-TIME
+  key reveal: amber "this key will not be shown again" alert + copy +
+  "I have stored it securely" — key never logged/toasted),
+  JsonPayloadChip, DeadLetterMarker.
+- Created src/components/wedjat/intelligence/intelligence-helpers.ts:
+  FABRIC_ADMIN_ROLES (OWNER+ADMIN: identities create/rotate/revoke,
+  event replay, DLQ resolve, registry connect/disconnect, reco
+  generate, export), FABRIC_CURATOR_ROLES (+CURATOR: lifecycle,
+  outcome), FABRIC_POLL_MS = 8000 (~8s event poll per task spec),
+  RECO_LIFECYCLE_STATUSES + help text, RECO_STATUS_FILTERS, SCOPE_HELP,
+  FabricFilters + fabricQuery (?platform=&type=&status=&deadletter=),
+  filtersActive, V1_ENDPOINTS (static §2 reference: 13 endpoints),
+  buildCurlExample/buildSdkExample (copyable curl + @wedjat/sdk
+  snippets), formatCount, toRatio (0..1 / 0..100 clamp),
+  formatChangePct, safeJsonStringify, copyText (clipboard + legacy
+  fallback).
+- 8 tab components (all with loading skeletons + ErrorState retry +
+  EmptyState, sonner toasts on every action, wedjat-scroll max-h-96
+  for long lists, emerald/teal + slate + amber palette in light+dark,
+  no indigo/blue):
+  * intelligence-overview-tab.tsx — 8 StatCards (events, processed,
+    failed, dead, DLQ open, patterns, gaps, corrections), recent
+    events table w/ criticality + status badges, top event types
+    (meter bars) + events by platform, ADMIN+ export-bundle download
+    via apiText (blob download, non-destructive).
+  * intelligence-fabric-tab.tsx — filter selects (platform/type/status
+    from live stats + dead-letter-only checkbox + reset), events table
+    (row + detail buttons), EventDetailDialog (full envelope rows,
+    processingError alert, Collapsible JSON resultSummary, replay
+    button), replay AlertDialog confirm (append-only note, newRecordId
+    toast), DLQ card (OPEN pulse / RESOLVED muted, resolve dialog with
+    optional note + replay checkbox → POST deadletter/[id]/resolve).
+    Polls every ~8s while mounted (useApiData pollMs).
+  * intelligence-identities-tab.tsx — table (platform, name, key
+    preview, scope chips, status, last used, rotated) + ADMIN+ create
+    dialog (platform select from GET /api/fabric/registry with manual
+    fallback, name, API_SCOPES multi-select with help), rotate +
+    revoke with AlertDialog confirms, shared KeyRevealDialog shown
+    exactly once after create/rotate.
+  * intelligence-recommendations-tab.tsx — platform/status filter
+    card (?platform=&status=), recommendation cards (priority + status
+    + platform + sourceType badges, finding, recommendation panel,
+    expected benefit/potential risk, ScoreBar confidence, Accordion:
+    evidence / append-only status-history timeline / recorded outcomes
+    with changePct), CURATOR+ Lifecycle dialog (7 statuses + note) and
+    Record Outcome dialog (outcome, metric before/after, commit,
+    measuredAt, notes → success state renders the returned `learning`
+    LESSON_LEARNED statement), ADMIN+ Generate dialog
+    (platformSlug optional) + tooltip-gated disabled Generate for
+    lesser roles.
+  * intelligence-patterns-tab.tsx — pattern cards (PatternTypeIcon,
+    platform chips, status badge, ScoreBar confidence, Collapsible
+    per-platform evidence with record ids/versions), sorted by
+    confidence.
+  * intelligence-memory-tab.tsx — 6 memory StatCards, vertical learning
+    timeline (TimelineKindIcon + Trace button for KNOWLEDGE_ADDED
+    entries), provenance inspector ("Why does WEDJAT know this?" —
+    record id search / timeline trace → GET
+    /api/fabric/memory/provenance: statement, source doc, lineage
+    chain, fabric events, usedByModels), open gaps list (priority,
+    gapType, occurrences×, query, status).
+  * intelligence-registry-tab.tsx — registry cards (name/slug,
+    criticality + ConnectionBadge, repo/deploy/db CoordinateLinks that
+    open in a NEW tab via window.open noopener, missing-coordinate
+    dashes, knowledge/blueprints/events counts, last sync), ADMIN+
+    connect dialog (optional repositoryUrl/deploymentUrl/databaseUrl →
+    DISCOVERED→CONNECTED) and disconnect AlertDialog (knowledge
+    preserved messaging).
+  * intelligence-console-tab.tsx — read-only §2 reference: scope chips
+    from API_SCOPES, V1_ENDPOINTS table (MethodBadge + scope + copy),
+    backend-published apiExamples from GET /api/fabric rendered as
+    ExampleCards with copyable curl + @wedjat/sdk snippets (optional
+    field — tolerated absent while the backend is under construction,
+    static table always renders).
+- Nav registration in app-shell.tsx: the "Intelligence" entry
+  (ViewId "intelligence", between Database Intake and Analysis) was
+  registered with the Share2 lucide icon — one of the two icons
+  contract §3 sanctions ("Network or Share2"). The task text asked for
+  `Network2`, which does NOT exist in the installed lucide-react
+  (verified `Network2 === undefined`); importing it would break the
+  build, so the contract-sanctioned Share2 is kept (deviation noted).
+  No other existing file was modified; src/app/page.tsx already routes
+  view === "intelligence" → <IntelligenceView role={principal.role} />.
+- Backend-404 tolerance: every tab fetches through useApiData → api(),
+  which throws ApiError("UNAVAILABLE", "…endpoint may not be
+  implemented yet", 404) for non-envelope responses; tabs render the
+  friendly ErrorState (with retry) instead of crashing, and dialogs
+  degrade (e.g. identity create falls back to a manual platform input
+  when /api/fabric/registry 404s).
+- Hardening pass: FABRIC_POLL_MS 7000→8000 with comment sync (~8s per
+  task spec), EventStatusBadge RECEIVED amber→slate and FAILED
+  orange→amber to match the required badge-color map exactly.
+- Verification: `bun run lint` → 0 problems (clean); `bunx tsc
+  --noEmit` → 0 errors in any intelligence/* or intelligence-view
+  file (remaining project errors are pre-existing in unrelated
+  examples/ and scripts/ files); no `any`, strict DTO typing
+  throughout; no new dependencies added.
+
+Stage Summary:
+- Intelligence view shipped: 1 view (views/intelligence-view.tsx) + 10
+  new modules under components/wedjat/intelligence/ (bits, helpers and
+  the 8 tab components), ~4.6k lines, covering every contract §3
+  requirement including the one-time key reveal, replay/DLQ resolve,
+  recommendation lifecycle/outcome closed loop with the returned
+  learning statement, provenance tracing, registry connect/disconnect
+  and the read-only API console.
+- Conventions held: intake-style tabs/chrome, shared StatCard/
+  SectionHeading/EmptyState/ErrorState/ScoreBar, sonner toasts,
+  AlertDialog confirms (rotate/revoke/replay/disconnect), sonner-free
+  secret handling, .wedjat-scroll + max-h-96 long lists, ADMIN+/CURATOR+
+  role gates, emerald/teal/slate/amber in light+dark, no indigo/blue,
+  no new deps.
+- Deviations: (1) nav icon is Share2, not the requested Network2 —
+  that export does not exist in the installed lucide-react; Share2 is
+  explicitly sanctioned by contract §3. (2) Poll cadence set to 8s
+  (task ~8s; contract §3 has no numeric requirement). (3)
+  apiExamples are read as an optional extension of GET /api/fabric
+  (FabricConsolePayload) since EventFabricPayload in types.ts does not
+  declare them — tolerated absent so the console works pre-backend.
+- Next actions for the backend agent: implement /api/fabric/* admin
+  endpoints + /api/v1/* public API exactly per contract §1/§2 and the
+  DTOs already declared in types.ts; every tab already renders its
+  friendly under-construction state against 404s today.

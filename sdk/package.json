@@ -1,0 +1,25 @@
+{
+  "name": "@wedjat/sdk",
+  "version": "1.0.0",
+  "description": "Official WEDJAT Intelligence API SDK — knowledge-first, offline-safe platform integration (retries, idempotency, offline queue, backpressure).",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "keywords": ["wedjat", "intelligence", "knowledge", "ai", "sdk"],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "typescript": "^7.0.2"
+  }
+}

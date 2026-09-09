@@ -203,6 +203,26 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
   const dvId = documentVersion.id;
   stages.push('INGESTION');
 
+  // ── v4 §58 IDEMPOTENT REPLAY GUARD (BUG FIX, additive) ─────────────────────
+  // When the SAME content (checksum) was already fully ingested into this
+  // document version, re-running the pipeline (event replay §57, duplicate
+  // delivery, re-dispatch) must NOT re-create sections/chunks/embeddings —
+  // it returns the existing result instead of violating (documentVersionId,
+  // ordinal) uniqueness. No knowledge is lost or duplicated (§58).
+  if (duplicate && documentVersion.status !== 'PENDING' && documentVersion.checksum === docChecksum) {
+    const chunkCount = await db.documentChunk.count({ where: { documentVersionId: dvId } });
+    if (chunkCount > 0) {
+      return {
+        documentId: document.id,
+        documentVersionId: dvId,
+        blueprintVersionId: blueprintVersion.id,
+        duplicate: true,
+        traceId,
+        stages: [...stages, 'IDEMPOTENT_REPLAY'],
+      };
+    }
+  }
+
   // ── VALIDATION: file-content integrity + untrusted-input checks (§59) ──────
   await stage(dvId, 'VALIDATED', async () => {
     if (Buffer.byteLength(input.content, 'utf8') > 2_000_000) {

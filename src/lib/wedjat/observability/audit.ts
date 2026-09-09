@@ -14,7 +14,11 @@ export interface AuditInput {
   targetType?: string;
   targetId?: string;
   severity?: 'INFO' | 'WARN' | 'ERROR' | 'CRITICAL';
+  /** Structured details (preferred — redacted before storage). */
   details?: Record<string, unknown>;
+  /** v4 additive: pre-serialized details (stored as-is; callers must not pass
+   *  secret values — the same key-redaction applies to `details`). */
+  detailsJson?: string;
   traceId?: string;
 }
 
@@ -29,7 +33,7 @@ export async function recordAudit(input: AuditInput): Promise<void> {
         targetType: input.targetType,
         targetId: input.targetId,
         severity: input.severity ?? 'INFO',
-        detailsJson: input.details ? redactDetails(input.details) : undefined,
+        detailsJson: input.detailsJson ?? (input.details ? redactDetails(input.details) : undefined),
         traceId: input.traceId,
       },
     });

@@ -18,12 +18,14 @@ import { metrics } from './metrics';
 import { runIntake } from '../intake/engine';
 import { runHealthCheck } from '../intake/health';
 import { getAutonomyState, autonomyAllows } from '../intake/autonomy';
+import { dispatchEvent } from '../fabric/dispatch';
 export type JobType =
   | 'ingestion'
   | 'training-run-step'
   | 'evaluation-run'
   | 'synthetic-registration'
-  | 'database-intake';
+  | 'database-intake'
+  | 'fabric-dispatch';
 
 interface JobPayloadBase {
   orgId: string;
@@ -73,12 +75,20 @@ export interface DatabaseIntakeJobPayload extends JobPayloadBase {
   classification?: 'INTERNAL' | 'CONFIDENTIAL' | 'PUBLIC';
 }
 
+// v4 §56-§60: event-fabric dispatch (one job per received event; bounded
+// retries + DLQ routing live inside dispatchEvent — §60/§104).
+export interface FabricDispatchJobPayload extends JobPayloadBase {
+  kind: 'fabric-dispatch';
+  eventRecordId: string;
+}
+
 export type JobPayload =
   | IngestJobPayload
   | TrainingRunJobPayload
   | EvaluationJobPayload
   | SyntheticJobPayload
-  | DatabaseIntakeJobPayload;
+  | DatabaseIntakeJobPayload
+  | FabricDispatchJobPayload;
 
 /** Enqueue a job (idempotent via idempotencyKey §61). */
 export async function enqueueJob(
@@ -244,6 +254,12 @@ async function executeJob(jobId: string, type: string, payload: unknown): Promis
           trainingCandidates: outcome.trainingCandidates,
           narrative: outcome.narrative,
         };
+        break;
+      }
+      case 'fabric-dispatch': {
+        const p = payload as FabricDispatchJobPayload;
+        const outcome = await dispatchEvent(p.eventRecordId);
+        result = { status: outcome.status, summary: outcome.summary };
         break;
       }
       default:

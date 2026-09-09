@@ -103,6 +103,15 @@ model Platform {
   criticality String   @default("MEDIUM")
   // ACTIVE | DEPRECATED | ARCHIVED
   status      String   @default("ACTIVE")
+  // ── v4 §88 PLATFORM REGISTRY (additive, nullable — existing rows unaffected):
+  // source coordinates for the org platform registry; disconnect/retire NEVER
+  // deletes learned knowledge (§114/§115 — only this status changes).
+  repositoryUrl  String? // e.g. https://github.com/fortleem/CIRKLE
+  deploymentUrl  String? // e.g. https://cirkleapp.vercel.app
+  databaseUrl    String? // libsql://… (identifier only — tokens never stored here)
+  // CONNECTED | DISCONNECTED | RETIRED | DISCOVERED
+  connectionStatus String?
+  registryMetaJson String? @default("{}") // registry notes, discovered resources…
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -1069,4 +1078,209 @@ model ImprovementQueueItem {
   resolvedById   String?
 
   @@index([orgId, status])
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// v4 — KNOWLEDGE-FIRST EXPANSION PLANE (Intelligence API + Event Fabric + Closed
+// Loop Learning). APPEND-ONLY additions (§3/§10/§76): every model below is new;
+// no existing table or column was altered destructively. Lifecycle values are
+// app-layer validated (src/lib/wedjat/types.ts) as everywhere else.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── v4 §55/§7-§10: SERVICE IDENTITIES (platform auth for /api/v1) ─────────────
+// Scoped API keys for connected platforms. Raw keys are shown ONCE at creation
+// and stored only as sha-256 hashes (§96: never exposed through API/log).
+model ServiceIdentity {
+  id          String    @id @default(cuid())
+  orgId       String
+  platformSlug String   // owning platform ("*" = org-wide service account)
+  name        String
+  keyHash     String    @unique // sha256(raw key)
+  keyPreview  String    // last 4 chars only — display-safe
+  scopesJson  String    @default("[]") // e.g. ["events:write","knowledge:read"]
+  // ACTIVE | REVOKED
+  status      String    @default("ACTIVE")
+  lastUsedAt  DateTime?
+  rotatedAt   DateTime?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([orgId, platformSlug])
+}
+
+// ── v4 §56-§58: EVENT FABRIC (append-only event log) ─────────────────────────
+// Events ADD knowledge (§56); repeated delivery is deduplicated by the unique
+// idempotency key (§58). Derived state can be rebuilt via replay (§57) without
+// deleting historical events.
+model EventRecord {
+  id              String    @id @default(cuid())
+  orgId           String
+  eventId         String    // publisher-supplied or generated (UUID)
+  eventType       String    // platform.created | schema.changed | incident.created | …
+  sourcePlatform  String
+  sourceEnvironment String  @default("production") // production|staging|development
+  sourceVersion   String?
+  sourceCommit    String?
+  occurredAt      DateTime  @default(now())
+  receivedAt      DateTime  @default(now())
+  correlationId   String?
+  causationId     String?
+  schemaVersion   String    @default("1")
+  idempotencyKey  String    @unique
+  criticality     String    @default("NORMAL") // CRITICAL|HIGH|NORMAL|LOW
+  payloadJson     String
+  identityId      String?   // ServiceIdentity that authenticated the submission
+  // RECEIVED | PROCESSED | SKIPPED | FAILED | DEAD
+  status          String    @default("RECEIVED")
+  processingError String?
+  attempts        Int       @default(0)
+  processedAt     DateTime?
+  resultJson      String?   // dispatch summary (created refs — additive evidence)
+  replayOfId      String?   // set when this record was produced by a replay run
+  jobId           String?
+
+  deadLetters DeadLetterEvent[]
+
+  @@unique([eventId])
+  @@index([orgId, eventType])
+  @@index([sourcePlatform, occurredAt])
+  @@index([status])
+}
+
+// ── v4 §60/§104-§105: DEAD LETTER QUEUE ──────────────────────────────────────
+// Failed events are NEVER silently discarded; after bounded retries they land
+// here with classified errors (§105) and can be resolved/replayed later.
+model DeadLetterEvent {
+  id               String    @id @default(cuid())
+  orgId            String
+  eventRecordId    String
+  // TRANSIENT|PERMANENT|DATA_ERROR|SECURITY_ERROR|AUTH_ERROR|RATE_LIMIT|SYSTEM_ERROR
+  errorClass       String
+  reason           String
+  attempts         Int       @default(0)
+  payloadSnapshotJson String
+  firstFailedAt    DateTime  @default(now())
+  lastAttemptAt    DateTime  @default(now())
+  resolved         Boolean   @default(false)
+  resolvedById     String?
+  resolutionNote   String?
+  resolvedAt       DateTime?
+
+  eventRecord EventRecord @relation(fields: [eventRecordId], references: [id])
+
+  @@index([orgId, resolved])
+}
+
+// ── v4 §42/§64: RECOMMENDATIONS (separate from execution §41) ────────────────
+// Status history is APPENDED (never rewritten) — full lifecycle audit trail.
+model Recommendation {
+  id              String    @id @default(cuid())
+  orgId           String
+  platformSlug    String
+  finding         String
+  evidenceJson    String    @default("[]") // evidence refs with authority + version
+  recommendation  String
+  confidence      Float     @default(0.5)
+  // P0 | P1 | P2 | P3
+  priority        String    @default("P2")
+  expectedBenefit String?
+  potentialRisk   String?
+  sourceType      String    @default("ANALYSIS") // ANALYSIS|AUDIT|PATTERN|EVENT|HUMAN
+  sourceRef       String?
+  // PROPOSED|ACCEPTED|REJECTED|IMPLEMENTED|PARTIALLY_IMPLEMENTED|FAILED|REVERTED|VALIDATED|SUPERSEDED
+  status          String    @default("PROPOSED")
+  statusHistoryJson String  @default("[]") // [{status,at,by,note}] — append-only
+  generatedBy     String    @default("wedjat-analysis") // engine/identity that proposed
+  supersededById  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  outcomes RecommendationOutcome[]
+
+  @@index([orgId, status])
+  @@index([platformSlug, status])
+}
+
+// ── v4 §43/§44/§66: OUTCOMES + MEASURED LEARNING (closed loop) ───────────────
+model RecommendationOutcome {
+  id               String   @id @default(cuid())
+  recommendationId String
+  orgId            String
+  // IMPLEMENTED|NOT_IMPLEMENTED|PARTIALLY_IMPLEMENTED|FAILED|REVERTED|VALIDATED
+  outcome          String
+  metricName       String?
+  beforeValue      String?
+  afterValue       String?
+  changePct        Float?
+  notes            String?
+  reportedBy       String   @default("platform") // platform slug or identity name
+  commitRef        String?
+  deploymentRef    String?
+  measuredAt       DateTime?
+  createdAt        DateTime  @default(now())
+
+  recommendation Recommendation @relation(fields: [recommendationId], references: [id])
+
+  @@index([recommendationId])
+}
+
+// ── v4 §47/§48/§90: ORGANIZATIONAL PATTERNS (reusable, evidence-linked) ──────
+// Cross-platform patterns PRESERVE per-platform source identity (§46) — evidence
+// links point back to the original knowledge; nothing is merged untraceably.
+model OrgPattern {
+  id            String   @id @default(cuid())
+  orgId         String
+  name          String
+  // RESILIENCE|DATABASE|SECURITY|ARCHITECTURE|INTEGRATION|WORKFLOW|ANTI_PATTERN
+  patternType   String
+  description   String
+  // CANDIDATE | CONFIRMED | RETIRED
+  status        String   @default("CANDIDATE")
+  platformSlugsJson String @default("[]")
+  evidenceJson  String   @default("[]") // [{platform,recordId,statement,version}]
+  confidence    Float    @default(0.5)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([orgId, patternType, status])
+}
+
+// ── v4 §85/§86: KNOWLEDGE GAPS (become improvement tasks — never deletions) ──
+model KnowledgeGap {
+  id          String   @id @default(cuid())
+  orgId       String
+  // MISSING_KNOWLEDGE|WEAK_RETRIEVAL|UNANSWERED_QUESTION|INSUFFICIENT_EVIDENCE
+  gapType     String
+  description String
+  platformSlug String?
+  query       String?
+  priority    String   @default("P2") // importance × frequency × risk (§86)
+  // OPEN | CONVERTED | RESOLVED | WONT_FIX
+  status      String   @default("OPEN")
+  convertedItemId String? // ImprovementQueueItem created from this gap
+  occurrences Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([orgId, status])
+}
+
+// ── v4 §7/§8/§9: KNOWLEDGE LINEAGE (corrections are additions) ───────────────
+// Links KnowledgeRecords into version/correction chains WITHOUT mutating the
+// records themselves: old facts stay retrievable, new facts carry the chain.
+model KnowledgeLineage {
+  id           String   @id @default(cuid())
+  orgId        String
+  fromRecordId String
+  toRecordId   String
+  // SUPERSEDES | CORRECTS | CONTRADICTS | DERIVES_FROM
+  relation     String
+  whatWasWrong String?
+  whyWrong     String?
+  correctedBy  String?  // source (event id / doc / platform) that corrected it
+  createdAt    DateTime @default(now())
+
+  @@index([fromRecordId])
+  @@index([toRecordId])
 }

@@ -20,6 +20,7 @@ import {
   Moon,
   Search,
   Settings2,
+  Share2,
   Sun,
   type LucideIcon,
 } from "lucide-react";
@@ -52,6 +53,7 @@ export type ViewId =
   | "chat"
   | "knowledge"
   | "intake"
+  | "intelligence"
   | "analysis"
   | "search"
   | "training"
@@ -72,6 +74,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "chat", label: "Domain Chat", hint: "Grounded RAG Q&A", icon: MessagesSquare },
   { id: "knowledge", label: "Knowledge Base", hint: "Blueprints & ingestion", icon: Library },
   { id: "intake", label: "Database Intake", hint: "Auto platform ingestion", icon: DatabaseZap },
+  { id: "intelligence", label: "Intelligence", hint: "Event fabric & learning", icon: Share2 },
   { id: "analysis", label: "Analysis", hint: "CTO workflows", icon: Microscope },
   { id: "search", label: "Search Lab", hint: "Retrieval tuning", icon: Search },
   { id: "training", label: "Training", hint: "Datasets & runs", icon: GraduationCap },
