@@ -32,13 +32,53 @@ function stem(word: string): string {
     );
 }
 
+/** Arabic stopword mini-set (high-frequency function words — §46 normalization). */
+const AR_STOPWORDS = new Set([
+  'في', 'من', 'على', 'عن', 'الى', 'إلى', 'التي', 'الذي', 'هذا', 'هذه',
+  'ذلك', 'كان', 'كانت', 'هو', 'هي', 'مع', 'بين', 'كل', 'أو', 'او', 'ثم',
+  'قد', 'لا', 'ما', 'إن', 'ان', 'بعد', 'قبل', 'حيث', 'عند', 'ليس', 'هذه',
+]);
+
+/**
+ * Split identifiers on case/separator boundaries BEFORE lowercasing so code
+ * identifiers tokenize like their prose forms ('MTQSigma' → 'mtq sigma',
+ * 'courtDirectory' → 'court directory'). Code-heavy platform sources are
+ * first-class knowledge (§40) — without this their exact identifiers were
+ * unmatchable by spaced prose queries.
+ */
+function splitIdentifiers(text: string): string {
+  return text
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .replace(/[\u0640_.\-]+/g, ' ');
+}
+
+/**
+ * Arabic search normalization: strip diacritics/tatweel, unify alef variants,
+ * ya and taa marbuta. Applied to BOTH queries and indexed content, so recall
+ * improves without corpus re-embedding drift. (Task 23: the JUDGE SMART legal
+ * corpus is Arabic — without this it was invisible to retrieval.)
+ */
+function normalizeArabic(text: string): string {
+  return text
+    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+    .replace(/[\u0623\u0625\u0622]/g, '\u0627')
+    .replace(/\u0649/g, '\u064A')
+    .replace(/\u0629/g, '\u0647');
+}
+
+/** Strip the definite article prefix (ال) when the stem is long enough. */
+function stripArabicArticle(token: string): string {
+  return token.startsWith('\u0627\u0644') && token.length - 2 >= 3 ? token.slice(2) : token;
+}
+
 export function tokenize(text: string): string[] {
-  const raw = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, ' ')
+  const prepared = normalizeArabic(splitIdentifiers(text)).toLowerCase();
+  const raw = prepared
+    .replace(/[^\p{L}\p{N}\s]+/gu, ' ')
     .split(/\s+/)
-    .filter((t) => t.length > 1 && !STOPWORDS.has(t));
-  return raw.map(stem).filter((t) => t.length > 1);
+    .filter((t) => t.length > 1 && !STOPWORDS.has(t) && !AR_STOPWORDS.has(t));
+  return raw.map((t) => stem(stripArabicArticle(t))).filter((t) => t.length > 1);
 }
 
 /** FNV-1a 32-bit hash — fast, deterministic. */

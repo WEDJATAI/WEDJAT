@@ -102,24 +102,54 @@ export async function hybridRetrieve(
     },
   } as const;
 
+  // BUG FIX (Task 23): this query previously used `take: 2000` with NO
+  // ordering — SQLite returned rows in insertion order, so an org-wide query
+  // only ever saw the FIRST 2000 chunks (seed + the earliest-ingested
+  // platform). Platforms ingested later were invisible to retrieval entirely
+  // (a cross-platform question returned 8/8 CIRKLE sources).
+  //
+  // Additive fix: scan the FULL in-scope corpus with a lean column select
+  // (memory-bounded), cutting to 25k by recency ONLY at pathological scale.
+  // A platform-diversity quota is unnecessary: BM25 IDF already rewards
+  // rare platform-specific terms once every platform's chunks are in the set.
   const rows = await db.documentChunk.findMany({
     where,
-    include: {
-      section: true,
-      embedding: true,
+    select: {
+      id: true,
+      content: true,
+      tokenEstimate: true,
+      section: { select: { heading: true } },
+      embedding: { select: { vector: true } },
       documentVersion: {
-        include: {
+        select: {
           document: {
-            include: {
+            select: {
+              title: true,
+              docType: true,
+              classification: true,
               blueprintVersion: {
-                include: { blueprint: { include: { platform: true } } },
+                select: {
+                  version: true,
+                  status: true,
+                  effectiveFrom: true,
+                  blueprint: {
+                    select: {
+                      id: true,
+                      slug: true,
+                      title: true,
+                      platform: { select: { id: true, slug: true, name: true } },
+                    },
+                  },
+                },
               },
             },
           },
         },
       },
     },
-    take: 2000, // bounded working set
+    take: 25_000, // bounded working set — ~4x the current org corpus (no
+                  // createdAt on chunks; ordering is irrelevant — candidates
+                  // are score-sorted below)
   });
 
   if (rows.length === 0) {

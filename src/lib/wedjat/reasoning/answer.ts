@@ -138,9 +138,34 @@ export async function resolveScope(
     include: { blueprints: true },
   });
   const q = query.toLowerCase();
-  let matchedPlatform = platforms.find(
-    (p) => q.includes(p.slug.toLowerCase()) || q.includes(p.name.toLowerCase())
-  );
+
+  // BUG FIX (Task 23): platforms.find() returned the FIRST platform whose slug
+  // was a substring of the query — a cross-platform question ("What courts does
+  // JUDGE SMART cover and what does MTQ Sigma collateralize?") matched the
+  // generic 'mtq' slug inside 'MTQ Sigma' and locked retrieval to the smallest
+  // platform, starving the answer of evidence (groundedness 0.00).
+  //
+  // Additive fix: collect EVERY platform match, then drop generic slugs that
+  // are subsumed by a longer matching slug ('mtq' ⊂ 'mtq-sigma'); if MULTIPLE
+  // DISTINCT platforms still match, the question is cross-platform → widen to
+  // org-wide retrieval (null scope) instead of arbitrarily picking one.
+  const matchesPlatform = (p: { slug: string; name: string }): boolean =>
+    q.includes(p.slug.toLowerCase()) || q.includes(p.name.toLowerCase());
+  let matched = platforms.filter(matchesPlatform);
+  if (matched.length > 1) {
+    // Subsume: drop platform A when a longer-matching platform's slug contains A's slug.
+    matched = matched.filter(
+      (a) => !matched.some((b) => b.id !== a.id && b.slug.includes(a.slug) && matchesPlatform(b))
+    );
+  }
+  let matchedPlatform = matched.length === 1 ? matched[0] : undefined;
+  if (matched.length > 1) {
+    // Cross-platform query: retrieval must stay org-wide (§46 AUTO scope).
+    return {
+      platformSlug: null, platformName: null, blueprintSlug: null, blueprintTitle: null,
+      blueprintVersionId: null, blueprintVersion: null, resolution: 'AUTO',
+    };
+  }
   let matchedBlueprint = matchedPlatform?.blueprints.find((b) =>
     q.includes(b.slug.toLowerCase()) || q.includes(b.title.toLowerCase())
   );
