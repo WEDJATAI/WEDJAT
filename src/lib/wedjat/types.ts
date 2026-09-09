@@ -178,6 +178,9 @@ export interface ChatResponse {
     retryCount: number;
     fallbackCount: number;
     fallbackChain: string[];
+    /** Full routing decision (never-attempted hops + rejection reasons). */
+    decisionChain?: string[];
+    decisionRejected?: string[];
     status: 'OK' | 'DEGRADED' | 'FAILED' | 'BLOCKED_BY_POLICY' | 'INSUFFICIENT_EVIDENCE';
     inputTokens: number;
     outputTokens: number;

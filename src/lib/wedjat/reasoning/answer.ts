@@ -444,6 +444,8 @@ export async function runChatPipeline(input: ChatPipelineInput): Promise<ChatRes
       retryCount: execution.retryCount,
       fallbackCount: execution.fallbackCount,
       fallbackChain: execution.fallbackChain,
+      decisionChain: execution.decisionChain,
+      decisionRejected: execution.decisionRejected,
       status: execution.degraded ? 'DEGRADED' : 'OK',
       inputTokens: execution.result.inputTokens,
       outputTokens: execution.result.outputTokens,

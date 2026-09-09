@@ -154,6 +154,9 @@ export interface GatewayExecution {
   fallbackChain: string[]; // every hop attempted, in order
   degraded: boolean;
   degradedReason?: string;
+  /** Full routing decision (never attempted hops + rejection reasons). */
+  decisionChain?: string[];
+  decisionRejected?: string[];
 }
 
 /**
@@ -176,6 +179,8 @@ export async function routeAndComplete(
   const fallbackChain: string[] = [];
   let retryCount = 0;
   let fallbackCount = 0;
+  const decisionChain = decision.chain.map((c) => `${c.provider}/${c.model}`);
+  const decisionRejected = decision.rejected.map((r) => `${r.provider}/${r.model}: ${r.reason}`);
 
   for (const hop of decision.chain) {
     const hopLabel = `${hop.provider}/${hop.model}`;
@@ -205,6 +210,8 @@ export async function routeAndComplete(
         fallbackCount,
         fallbackChain,
         degraded: false,
+        decisionChain,
+        decisionRejected,
       };
     } catch (err) {
       const latencyMs = Date.now() - started;
@@ -241,6 +248,8 @@ export async function routeAndComplete(
     fallbackChain,
     degraded: true,
     degradedReason: 'all provider hops exhausted',
+    decisionChain,
+    decisionRejected,
   };
 }
 
