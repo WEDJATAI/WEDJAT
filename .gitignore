@@ -52,3 +52,8 @@ prompt
 server.log
 # Skills directory
 /skills/
+# WEDJAT runtime data (reproduce via scripts/seed*.ts; live data lives in Turso)
+/db/
+/tool-results/
+/upload/
+/server.log
