@@ -917,3 +917,62 @@ Stage Summary:
 - Suggested user actions: 1) verify/re-create the Groq key at
   console.groq.com and paste it in Settings → AI Providers; 2) optionally
   add a free GEMINI_API_KEY from aistudio.google.com as a second provider.
+
+---
+Task ID: 17 (prompt check — v2 master prompt review + gap analysis)
+Agent: orchestrator (main)
+Task: User pasted a NEW v2 master prompt (upload/Pasted Content_1788958905525.txt,
+pasted 8× identical retries) and asked to "check prompt". Review the prompt,
+diff it against the v1 spec the system was built from, and produce a coverage
+gap analysis against the live implementation.
+
+Work Log:
+- Verified all 8 Sep-9 uploads are byte-identical (md5 821d15cf…) — retries, not
+  different versions. File intact: 3639 lines, 137 sections (§1 ROLE → §137
+  FINAL PRINCIPLE), well-formed.
+- Diffed v2 vs v1 (Pasted Content_1788894638833.txt, 2851 lines / 105 sections,
+  md5 b7fd7970…): v2 is a COMPLETE REWRITE, restructured around autonomous
+  acquisition from live external platforms rather than attached blueprint docs.
+- New in v2: §6 platform registry (10 real projects: WEDJAT, CIRKLE, AURIENTA,
+  SGTX, MTQ, JUDGE SMART, EGYCOURT, SGTX FABLE, PPE, MTQ SIGMA with GitHub/
+  Turso/Vercel coordinates), §7 per-project credential matrix, §8–§13 source
+  discovery engine, §9 GitHub ingestion, §11 Turso live introspection,
+  §21–§22 code-as-knowledge, §79 scheduled sync, §110 connector architecture
+  (GitHub/Turso/Vercel/File/Document connectors), §111–§114 parallel ingestion
+  + resume/checkpoint, §131 22 phases, §132 first-execution checklist, §136
+  "Sync all my projects" UX.
+- Verified current implementation coverage by code inspection: autonomy levels
+  0–5 default L4 (intake/autonomy.ts) ✅; schema drift ADDED/REMOVED/MODIFIED/
+  RENAMED/DEPRECATED (intake/drift.ts) ✅; canonical mapping + confidence
+  (intake/canonical.ts) ✅; quality/validation/extract/discovery/parsers ✅;
+  gateway router/circuit/retry/failover ✅; hybrid RAG + local embeddings ✅;
+  training lifecycle + eval + model registry ✅; feedback/failure memory ✅;
+  observability/audit/health ✅; docs set (13 files) ✅.
+- Confirmed NOT built (the v2 gap): platform registry with the 10 projects,
+  live GitHub/Turso/Vercel connectors, scheduled auto-sync, code-to-architecture
+  analysis, "sync all" command. Current intake is upload-based (SQLite file /
+  SQL dump / CSV / JSON / Markdown).
+- Connectivity probes from this sandbox: api.github.com REST → HTTP 403
+  (unauthenticated rate limit exhausted for shared egress IP 8.212.10.159;
+  authenticated requests get a higher limit), raw.githubusercontent.com → 200,
+  github.com HTML → 200. Turso/Vercel discovery requires per-project tokens
+  (TURSO_AUTH_TOKEN / VERCEL_TOKEN) — not present.
+- Environment/state check: dev server running on :3000 (GET / 200; /api/auth/me
+  401 pre-login is expected); .env holds only DATABASE_URL locally; git clean
+  at 5762f1d; the Groq key from Task 16 remains INVALID (Groq API 403) and is
+  stored only in the production DB via Settings → AI Providers.
+
+Stage Summary:
+- v2 prompt verdict: intact, coherent, self-consistent; constraints (no OpenAI,
+  read-only sources, secrets never ingested, honest audits) are unchanged from
+  v1 and already honored by the implementation.
+- The existing system covers roughly the entire v2 "intelligence core"
+  (canonicalization, knowledge, RAG, gateway, training governance, evaluation,
+  observability) — the delta is the ACQUISITION layer: connectors + registry +
+  auto-sync.
+- Feasibility: GitHub ingestion works with per-project GITHUB_TOKEN (REST) or
+  even unauthenticated raw-content fallback (200 OK); Turso needs tokens;
+  Vercel needs tokens; GPU fine-tuning (§39–40) is not possible here —
+  simulation labels + free-GPU doc remain the honest path.
+- Open item carried from Task 16: a valid GROQ_API_KEY (or GEMINI_API_KEY) is
+  still required for live chat generation.
