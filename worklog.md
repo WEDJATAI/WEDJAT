@@ -1302,3 +1302,80 @@ Stage Summary:
 - User next steps: 1) paste a valid provider key; 2) open Intelligence →
   Service Identities on production to mint per-platform keys for CIRKLE/
   SGTX/… and integrate @wedjat/sdk into those platforms.
+
+---
+Task ID: 20
+Agent: orchestrator (main)
+Task: User provided a Gemini API key (AQ.… format) and instructed:
+"proceed implementing; my username and password not working — don't make
+login with credentials for now."
+
+Work Log:
+- GEMINI KEY VERDICT: probed Google generativelanguage.googleapis.com with
+  key-param / x-goog-api-key / Bearer. The key IS a valid Google API key
+  (recognized, not UNAUTHENTICATED) but this sandbox's geographic location is
+  blocked ("User location is not supported for the API use", 400
+  FAILED_PRECONDITION). The production app runs on Vercel (supported region),
+  so the key works THERE. Local dev keeps honest failover to the sanctioned
+  internal gateway (verified: chat answered grounded with citations).
+- KEY STORAGE (Task 16 pattern, never printed/committed/logged): .env.local
+  GEMINI_API_KEY (chmod 600, gitignored, verified) + org-managed
+  ConfigVersion 'provider.keys' merged ADDITIVELY into local SQLite AND
+  production Turso (existing invalid Groq key preserved; 2 keys in map).
+  scripts/apply-gemini-and-open-access.ts (idempotent, additive, secrets
+  never echoed).
+- REGISTRY: Gemini entries now ACTIVE (was STANDBY) — /api/settings/providers
+  reports gemini configured+managed (hint …Pj1w).
+- OPEN ACCESS (login disabled, ADDITIVE §122 — no session code removed):
+  security/open-access.ts (env WEDJAT_OPEN_ACCESS OR org-managed 'access.mode'
+  {"mode":"OPEN"}; TTL-cached); getPrincipal() resolves the primary OWNER
+  (Amara Djedi / owner@wedjat.ai) whenever no live session exists — stale
+  bearer tokens also fall through. Server-side org scoping, role gates, audit
+  logging, and the /api/v1 service-identity layer remain fully enforced
+  (verified: v1/events + v1/knowledge still 401 unauthenticated).
+- Principal.authMethod ('SESSION' | 'OPEN_ACCESS', optional) added; app-shell
+  shows an "Open access" badge + user-menu note explaining how to re-enable
+  sign-in (archive access.mode row).
+- gemini-adapter: ADDITIVE model fallback chain gemini-2.5-pro → 2.5-flash →
+  2.0-flash, triggered ONLY on definitive model-not-found (404 / "is not
+  found" / "does not exist"); auth/quota/location errors fail fast (the
+  "not supported" phrase is deliberately NOT matched to avoid probing on the
+  location block).
+- settings/providers route: apiKey validation now allows dots (new Google
+  AQ.… key format was previously rejected by /^[A-Za-z0-9_-]+$/).
+- VERIFIED LOCAL (curl + Agent Browser): /api/auth/me 200 OPEN_ACCESS OWNER
+  with no login; app loads straight to Dashboard; Domain Chat answered the
+  lambda-architecture question grounded (KNOWLEDGE_QUERY, confidence HIGH
+  0.78, FACTs + [S1,S3,S6,S7] citations, provider wedjat-internal via honest
+  failover); user-menu open-access note visible; zero console errors; recent
+  dev.log error-free. bun run lint clean.
+- PRODUCTION: git pushed (277d25d → 1b3abd3); Vercel auto-deploy; access.mode
+  OPEN + provider.keys already written to Turso (no env change needed).
+
+Stage Summary:
+- Login is DISABLED for now (open access): anyone with the URL operates as
+  the org OWNER in the admin UI, while the public /api/v1 platform API stays
+  protected by service identities. Re-enable credentials anytime by archiving
+  the 'access.mode' ConfigVersion row (or setting {"mode":"STANDARD"}).
+- Gemini key is stored env+DB locally and DB-managed on production; chat
+  generation on production will use Gemini (location-blocked only from this
+  sandbox). Groq remains invalid (preserved, unused).
+- Next: verify production deployment (open access + Gemini-backed generation).
+
+Addendum (Task 20 — production verification):
+- Deployments READY: 1b3abd3 (open access + Gemini wiring) and 89cd070
+  (providerKeyStatusMasked now syncs DB→env first, so fresh serverless
+  instances report configured:true immediately).
+- wedjat-ai.vercel.app verified: /api/auth/me 200 OPEN_ACCESS (production
+  OWNER "Fortleem" — the credentials that were failing are no longer needed);
+  /api/v1/health READY db=UP; /api/v1/events + /api/v1/knowledge 401
+  unauthenticated (service identities still enforced); GET / 200.
+- Gemini verified ON PRODUCTION: chat "lambda architecture" question served
+  by provider=google, model=gemini-2.5-pro, status OK (Vercel egress is in a
+  Google-supported region — the key only fails from THIS sandbox's location).
+  Provider status: gemini configured+managed (…Pj1w); groq managed (…IYg4,
+  still invalid 403 at provider side, preserved per never-delete).
+- Retrieval-gate note: "provenance/module registry" questions score 0.00
+  below the 0.18 rerank threshold IDENTICALLY on local and production —
+  pre-existing retrieval characteristic of metadata-style discovered chunks,
+  not a regression of this task (no retrieval code touched).
