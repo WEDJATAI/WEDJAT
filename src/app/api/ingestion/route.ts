@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
+import { after } from 'next/server';
 import { db } from '@/lib/db';
 import { ok, withPrincipal, readJson, requireString, failFrom } from '@/lib/wedjat/api';
 import { requireMutationRole, requireAdminRole } from '@/lib/wedjat/security/auth';
-import { enqueueJob } from '@/lib/wedjat/observability/jobs';
+import { enqueueJob, processJobNow } from '@/lib/wedjat/observability/jobs';
 import { deleteKnowledgeDocument } from '@/lib/wedjat/intake/delete';
 import { recordAudit } from '@/lib/wedjat/observability/audit';
 import { WedjatError } from '@/lib/wedjat/errors';
@@ -11,6 +12,8 @@ import type { IngestionSubmitResult, IngestionEventDto, JobDto } from '@/lib/wed
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+// Vercel serverless: the pipeline runs in the after() window; allow a full pass.
+export const maxDuration = 60;
 
 interface IngestBody {
   platformSlug?: string;
@@ -98,6 +101,20 @@ export async function POST(req: Request): Promise<NextResponse> {
         ? 'This document was already ingested (idempotency key matched) — showing the existing pipeline.'
         : 'Ingestion job queued. The pipeline stages will appear below as the worker processes the document.',
     };
+
+    // Serverless-safe execution: run the pipeline deterministically in the
+    // after() window (the 1.5s interval worker remains the fallback).
+    if (!duplicate) {
+      after(async () => {
+        try {
+          await processJobNow(jobId);
+        } catch {
+          // Job stays QUEUED/RUNNING — the warm-instance worker picks it up;
+          // failures are surfaced on the job + ingestion events.
+        }
+      });
+    }
+
     return ok(result, 201);
   });
 }
