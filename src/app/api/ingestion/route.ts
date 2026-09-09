@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { ok, withPrincipal, readJson, requireString } from '@/lib/wedjat/api';
-import { requireMutationRole } from '@/lib/wedjat/security/auth';
+import { ok, withPrincipal, readJson, requireString, failFrom } from '@/lib/wedjat/api';
+import { requireMutationRole, requireAdminRole } from '@/lib/wedjat/security/auth';
 import { enqueueJob } from '@/lib/wedjat/observability/jobs';
+import { deleteKnowledgeDocument } from '@/lib/wedjat/intake/delete';
+import { recordAudit } from '@/lib/wedjat/observability/audit';
 import { WedjatError } from '@/lib/wedjat/errors';
 import { contentHash } from '@/lib/wedjat/ids';
 import type { IngestionSubmitResult, IngestionEventDto, JobDto } from '@/lib/wedjat/types';
@@ -100,7 +102,33 @@ export async function POST(req: Request): Promise<NextResponse> {
   });
 }
 
-/** GET — recent pipeline events + jobs for the live pipeline view. */
+/** DELETE ?documentId= — remove an ingested document and its derived index (ADMIN+). */
+export async function DELETE(req: Request): Promise<NextResponse> {
+  return withPrincipal(async (principal) => {
+    try {
+      requireAdminRole(principal);
+      const documentId = new URL(req.url).searchParams.get('documentId');
+      if (!documentId) {
+        throw new WedjatError('VALIDATION', 'documentId query parameter is required');
+      }
+      const report = await deleteKnowledgeDocument(principal.org.id, documentId);
+      await recordAudit({
+        orgId: principal.org.id,
+        actorType: 'user',
+        actorId: principal.userId,
+        action: 'knowledge.document_deleted',
+        targetType: 'document',
+        targetId: documentId,
+        severity: 'WARN',
+        details: { title: report.title, chunks: report.chunks },
+      });
+      return ok({ deleted: report });
+    } catch (err) {
+      return failFrom(err);
+    }
+  });
+}
+
 export async function GET(): Promise<NextResponse> {
   return withPrincipal(async (principal) => {
     const events = await db.ingestionEvent.findMany({

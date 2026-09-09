@@ -212,3 +212,85 @@ export async function deleteIntakeSource(
     platforms,
   };
 }
+
+/**
+ * Deletes a knowledge DOCUMENT (manual ingestion path): all its versions with
+ * sections, chunks, embeddings, lexical postings, knowledge records and
+ * generation-source lineage; then the blueprint version / blueprint / ext-
+ * platform when orphaned. Chat history and audit events are preserved.
+ */
+export async function deleteKnowledgeDocument(
+  orgId: string,
+  documentId: string
+): Promise<{ documentId: string; title: string; chunks: number; knowledgeRecords: number }> {
+  const document = await db.document.findFirst({
+    where: { id: documentId, blueprintVersion: { blueprint: { platform: { orgId } } } },
+    include: { versions: { select: { id: true } } },
+  });
+  if (!document) throw new WedjatError('NOT_FOUND', 'Document not found');
+  const docVersionIds = document.versions.map((v) => v.id);
+  const blueprintVersionId = document.blueprintVersionId;
+
+  let chunks = 0;
+  let knowledgeRecords = 0;
+  if (docVersionIds.length) {
+    const chunkRows = await db.documentChunk.findMany({
+      where: { documentVersionId: { in: docVersionIds } },
+      select: { id: true },
+    });
+    const chunkIds = chunkRows.map((c) => c.id);
+    if (chunkIds.length) {
+      await db.generationSource.deleteMany({ where: { chunkId: { in: chunkIds } } });
+      await db.embeddingRecord.deleteMany({ where: { chunkId: { in: chunkIds } } });
+      await db.lexicalTerm.deleteMany({ where: { chunkId: { in: chunkIds } } });
+      knowledgeRecords = await db.knowledgeRecord.count({
+        where: { OR: [{ chunkId: { in: chunkIds } }, { blueprintVersionId }] },
+      });
+      await db.knowledgeRecord.deleteMany({
+        where: { OR: [{ chunkId: { in: chunkIds } }, { blueprintVersionId }] },
+      });
+      chunks = chunkIds.length;
+    }
+    await db.documentSection.deleteMany({ where: { documentVersionId: { in: docVersionIds } } });
+    await db.ingestionEvent.deleteMany({ where: { documentVersionId: { in: docVersionIds } } });
+    await db.documentChunk.deleteMany({ where: { documentVersionId: { in: docVersionIds } } });
+    await db.documentVersion.deleteMany({ where: { id: { in: docVersionIds } } });
+  }
+  await db.document.delete({ where: { id: documentId } });
+
+  // Blueprint version → blueprint → ext-platform cleanup when orphaned.
+  const remainingDocs = await db.document.count({ where: { blueprintVersionId } });
+  if (remainingDocs === 0) {
+    const bpv = await db.blueprintVersion.findUnique({
+      where: { id: blueprintVersionId },
+      select: { id: true, blueprintId: true },
+    });
+    if (bpv) {
+      await db.blueprintVersion.delete({ where: { id: bpv.id } }).catch(() => undefined);
+      const remainingVersions = await db.blueprintVersion.count({
+        where: { blueprintId: bpv.blueprintId },
+      });
+      if (remainingVersions === 0) {
+        const blueprint = await db.blueprint.findUnique({
+          where: { id: bpv.blueprintId },
+          select: { id: true, platformId: true },
+        });
+        if (blueprint) {
+          await db.blueprint.delete({ where: { id: blueprint.id } }).catch(() => undefined);
+          const remainingBlueprints = await db.blueprint.count({
+            where: { platformId: blueprint.platformId },
+          });
+          const platform = await db.platform.findUnique({
+            where: { id: blueprint.platformId },
+            select: { slug: true },
+          });
+          if (remainingBlueprints === 0 && platform?.slug.startsWith('ext-')) {
+            await db.platform.delete({ where: { id: blueprint.platformId } }).catch(() => undefined);
+          }
+        }
+      }
+    }
+  }
+
+  return { documentId, title: document.title, chunks, knowledgeRecords };
+}
