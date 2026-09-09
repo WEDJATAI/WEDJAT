@@ -112,12 +112,15 @@ export function resetProviderKeyCache(): void {
 /**
  * Masked view for the settings UI: which providers have keys configured and a
  * last-4 hint of the ORG-MANAGED value (env-only keys show no hint).
- * Never returns key material.
+ * Never returns key material. Syncs DB-managed keys into the process env
+ * FIRST so a fresh serverless instance reports `configured: true` before any
+ * generation call has materialized the env (DB is authoritative, §91).
  */
 export async function providerKeyStatusMasked(): Promise<{
   groq: { configured: boolean; managed: boolean; hint: string | null };
   gemini: { configured: boolean; managed: boolean; hint: string | null };
 }> {
+  await syncProviderKeys();
   const orgId = await primaryOrgId();
   const managed = orgId ? await loadActiveKeys(orgId) : {};
   const presence = currentPresence();
