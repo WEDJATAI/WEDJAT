@@ -1379,3 +1379,40 @@ Addendum (Task 20 — production verification):
   below the 0.18 rerank threshold IDENTICALLY on local and production —
   pre-existing retrieval characteristic of metadata-style discovered chunks,
   not a regression of this task (no retrieval code touched).
+
+---
+Task ID: 21
+Agent: orchestrator (main)
+Task: User uploaded new brand logo (upload/xK6Wm.jpg) and instructed "proceed
+implementing and update logo".
+
+Work Log:
+- ASSET ANALYSIS (VLM): new artwork is the same brand family as Task 16 —
+  cyan circuit-line Eye of Horus with hexagonal iris, "WEDJAT AI / DIGITAL
+  IDENTITY SOLUTIONS" — but on a WHITE background (old asset was dark).
+  1344x768 JPEG; symbol ink bbox detected programmatically (numpy
+  luminance/spread mask, text band starts at y≈71%): x 422–940, y 86–515.
+- GENERATED ASSETS: public/wedjat-logo.jpg (full banner, re-encoded
+  optimized), public/wedjat-mark-sm.jpg (SQUARE 320px symbol-only crop,
+  adaptive padding keeps bottom above the text band — VLM-verified "symbol
+  fully visible, well-centered, no text"), src/app/icon.png (180px favicon).
+  First crop attempt included "WEDJAT AI" text (VLM caught it) — fixed by
+  ink-bbox + text-band capping instead of VLM percentage estimates.
+- COMPONENT UPDATES (ADDITIVE): brand tiles were dark bg-[#0f161e] to match
+  the old dark asset — now bg-white with square object-cover Image in
+  app-shell header, login sign-in card and loading splash; no leftover dark
+  tile backgrounds (grep-verified).
+- VERIFIED: Agent Browser light+dark mode screenshots VLM-checked ("correct
+  and intentional white app-icon tile, not broken"); console clean; bun run
+  lint clean.
+- PRODUCTION: git pushed (89cd070 → 4f1be5f); Vercel deployment READY;
+  /wedjat-logo.jpg, /wedjat-mark-sm.jpg (confirmed 320x320 served),
+  /icon.png and / all 200 on wedjat-ai.vercel.app.
+
+Stage Summary:
+- New logo live everywhere: sidebar brand, login hero + card, loading splash
+  and favicon — local and production.
+- Note for the OWNER: to later re-enable credential login (currently open
+  access), reset the password first via Settings → Users (OWNER can set any
+  user's password, including their own) and then archive the access.mode
+  ConfigVersion row.
