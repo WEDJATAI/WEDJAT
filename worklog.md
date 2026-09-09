@@ -767,3 +767,54 @@ Stage Summary:
   (JSONL → free Colab/Kaggle LoRA → optional HF/Groq serving). No GPU cost.
 - REMAINING user actions (optional): set GROQ_API_KEY (free) for live chat
   generation; rotate demo password when real users arrive.
+
+---
+Task ID: 15
+Agent: orchestrator (main)
+Task: User notified the Vercel domain changed to wedjat-ai.vercel.app; all
+communication must be in English from now on. Re-verify the live site on the
+new domain and keep the clean-slate state intact.
+
+Work Log:
+- DOMAIN CHANGE VERIFIED: https://wedjat-ai.vercel.app is the new canonical
+  production URL (Vercel project renamed; old project URL wedjat-gamma
+  returns 404, old alias wedjat-tonsy now goes through SSO). No code or env
+  changes were required — same deployment, same Turso database.
+- WORKING-TREE RECOVERY: found 44 uncommitted changes in the repo. 43 were
+  mode-only flips (100644→100755) and one was an accidental DELETION of
+  src/app/api/intake/upload/route.ts with NO replacement (frontend still
+  calls POST /api/intake/upload). Restored everything with git checkout -- .
+  → tree is clean at f2df827 (the verified deployed commit).
+- LIVE RE-VERIFICATION on the new domain (curl):
+  * /api/health 200; ?deep=1 → database OK (171ms), providers OK, jobs OK,
+    retrieval EMPTY (0 chunks / 0 records — clean slate preserved).
+  * POST /api/auth/login (owner@wedjat.ai) → 64-char token; /api/auth/me
+    returns Amara Djedi / OWNER / org wedjat.
+  * /api/dashboard → all zeros (platforms/blueprints/documents/chunks/
+    knowledgeRecords = 0), health all OK.
+  * /api/intake → empty sources, review queue 0/0, autonomy LEVEL 4 intact.
+  * /api/intake/upload → 405 on GET (route exists), 401 on unauthenticated
+    POST (auth enforced). Upload path live and guarded.
+- BROWSER VERIFICATION (agent-browser on https://wedjat-ai.vercel.app):
+  * Login page renders with the 4 preserved accounts; signed in as OWNER.
+  * Dashboard renders fully (all 10 nav sections, estate stats, system
+    health, attention items, quick actions).
+  * Database Intake view renders: §106–§160 header, upload widget
+    (file/platform/name, CURATOR+ gated), Sources/Run Detail/Review
+    Queue/Autonomy/Learning tabs, engine-support copy.
+  * ZERO console/page errors; mobile 390px scrollWidth=390 (no overflow).
+  * Screenshots: /tmp/new-domain-intake.png, /tmp/new-domain-mobile.png.
+- bun run lint → 0 problems; local dev server health 200 after restoration.
+
+Stage Summary:
+- Canonical production URL: https://wedjat-ai.vercel.app (old URLs dead —
+  update any bookmarks). Deployment unchanged (commit f2df827), Turso clean
+  slate intact, logins preserved (owner/curator/member/auditor @wedjat.ai,
+  password = WEDJAT_DEMO_PASSWORD env, currently "wedjat" — rotate for real
+  use).
+- The accidental upload-route deletion was caught and reverted before it
+  could reach production; repo back to the verified-green state.
+- GPU answer (from Task 14, docs/TRAINING_ON_FREE_GPU.md): no GPU purchase
+  needed — RAG intelligence runs free on CPU; set a free GROQ_API_KEY (or
+  GEMINI_API_KEY) on Vercel to activate live chat generation; optional real
+  fine-tuning is free via Colab T4 / Kaggle using the JSONL export.
