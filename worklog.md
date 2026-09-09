@@ -1416,3 +1416,80 @@ Stage Summary:
   access), reset the password first via Settings → Users (OWNER can set any
   user's password, including their own) and then archive the access.mode
   ConfigVersion row.
+
+---
+Task ID: 22
+Agent: orchestrator (main)
+Task: User instructed "proceed implementing and ingesting documents from:
+CIRKLE" and provided connector credentials for ALL 10 org platforms
+(GitHub/Turso/Vercel tokens, per-platform Groq keys, HF, AIS, Messari,
+Discord, NVIDIA, OpenRouter) — stored ONLY in gitignored .env.local
+(chmod 600, 73 entries, never displayed/committed/logged; verified ignored).
+
+Work Log:
+- CREDENTIAL PROBE (scripts/probe-credentials.ts — prints OK/FAIL only):
+  ALL 10 GitHub tokens valid (every repo reachable). Turso OK: CIRKLE
+  (134 tables!) + JUDGE; AURIENTA/MTQ/PPE/MTQS Turso 401/404 (likely my
+  long-JWT transcription; noted — CIRKLE is the active task and is fully
+  green). All Groq keys 403 FROM THIS SANDBOX (regional block, same as
+  Task 16) — validity from Vercel untested. Vercel OK: CIRKLE, MTQ.
+- RESUME-SAFE PIPELINE (ADDITIVE §122, §58 spirit): knowledge/ingestion.ts
+  persistence is now interrupt-resumable — sections/chunks upsert by ordinal
+  (crash/serverless-timeout no longer violates (documentVersionId, ordinal)
+  uniqueness or duplicates section rows); embeddings skip embedded chunks;
+  postings + knowledge atoms skip already-indexed chunks; IDF rebuild
+  idempotent. Fixed during this task after a local burst (28 concurrent
+  after() pipelines) killed the dev server and left 16 orphaned RUNNING
+  jobs; also deduped 1,184 identical duplicate section rows created by the
+  old code's retry storm (lossless: identical content; chunks relinked 0).
+- REGISTRY BUG FIX: fabric/registry.ts connectPlatform .slice(1,60) chopped
+  the first slug character ('cirkle'→'irkle'), creating a spurious empty
+  platform row. Fixed normalization (kebab-case, strip separators only);
+  artifact removed locally (verified 0 blueprints/0 knowledge); real cirkle
+  row now CONNECTED locally AND on production (fixed code deployed 6451413,
+  verified 'cirkle → CONNECTED').
+- CIRKLE PULL INGESTION (scripts/ingest-cirkle.ts): curated 44 documents
+  (~2MB) from github.com/fortleem/CIRKLE: all docs/ architecture+governance
+  docs (ADRs, BLUEPRINTs v15/v16/ACA, compliance, emergency routing,
+  monetization, competitive moats), root engineering docs, prisma/schema.prisma
+  (main app + Brain AI), package manifests, CIRKLE Brain AI service sources
+  (mini-services entries, cognitive/AHG/CIE/LIEE/PCPF/TEE/TGSE/UOB modules).
+  Code wrapped as fenced markdown with provenance; serial submit+wait; docs
+  >70KB split at heading boundaries into parts (serverless 60s window) — §30
+  chunk-checksum dedup handles overlap.
+- LOCAL RESULT: 49 docs, 2,945 sections, 5,050 chunks, 3,783 embeddings,
+  2,083 knowledge records under platform cirkle (3 blueprints:
+  cirkle-architecture 31 docs, cirkle-brain-ai 10, cirkle-engineering 2).
+  Browser-verified: Knowledge Base shows CIRKLE 7 blueprints/49 docs/2039
+  chunks; registry CONNECTED; chat grounded with [S1–S6] citations
+  (federated architecture, Matrix Olm/Megolm E2EE, Turso 97 models).
+- PRODUCTION RESULT: 50/50 ingestion jobs COMPLETED on Vercel (split parts
+  fit the after() window); one transient Turso ConnectorError job requeued
+  and completed. Registry: cirkle CONNECTED. 56 docs, 4,024 knowledge
+  records, org-wide 5,083 chunks / 3,858 embeddings on Turso. PRODUCTION
+  CHAT VERIFIED: "What is CIRKLE + ADR E2EE/monetization?" answered by
+  provider=google model=gemini-2.5-pro with grounded FACTs and [S1-S8]
+  citations. Note: prod carries ~2x knowledge records vs local because the
+  interrupted first-run originals + split parts coexist (different chunk
+  boundaries → different checksums; retrieval quality verified good; a
+  future non-destructive SUPERSEDED-marking pass can dedupe if needed).
+- GROQ: new WEDJAT Groq key set as org-managed provider key on production
+  via POST /api/settings/providers (additive versioning; old invalid key
+  archived, never deleted). Validity-from-Vercel not yet exercised (Gemini
+  serves generation; groq 403s only from this sandbox region).
+- Deploys: e40f37c (resume-safe pipeline + ingestion scripts), 6451413
+  (registry slug fix), 2fa2204 (split ingestion) — all READY.
+
+Stage Summary:
+- WEDJAT now KNOWS CIRKLE end-to-end: 44 curated repo documents ingested
+  through the full pipeline (sections→chunks→embeddings→postings→knowledge
+  atoms) locally AND on production, registry CONNECTED, and Gemini-grounded
+  chat answers CIRKLE architecture questions with citations.
+- Two real bugs found & fixed additively: (1) ingestion pipeline not
+  interrupt-resumable (unique-violation crash + section duplication);
+  (2) registry connect() slug corruption. Both fixed, verified, deployed.
+- All 10 platforms' GitHub connectors are reachable (tokens stored); CIRKLE
+  + JUDGE Turso probes pass. Remaining platform ingestions (AURIENTA, SGTX,
+  MTQ, JUDGE, EGYCOURT, SGTX FABLE, PPE, MTQ SIGMA, OLYMP-EX) can reuse
+  scripts/ingest-cirkle.ts with per-platform env — plus a Turso token
+  re-check for the 4 that returned 401/404.
