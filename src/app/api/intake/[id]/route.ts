@@ -7,6 +7,9 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { ok, failFrom, withPrincipal } from '@/lib/wedjat/api';
+import { requireAdminRole } from '@/lib/wedjat/security/auth';
+import { deleteIntakeSource } from '@/lib/wedjat/intake/delete';
+import { recordAudit } from '@/lib/wedjat/observability/audit';
 import { WedjatError } from '@/lib/wedjat/errors';
 import {
   parseDqReport,
@@ -22,6 +25,38 @@ import {
 import type { IntakeDetailPayload, IntakeDriftReportDto } from '@/lib/wedjat/types';
 
 export const runtime = 'nodejs';
+
+export async function DELETE(
+  _req: Request,
+  { params }: { params: Promise<{ id: string }> }
+): Promise<NextResponse> {
+  return withPrincipal(async (principal) => {
+    try {
+      requireAdminRole(principal);
+      const { id } = await params;
+      const report = await deleteIntakeSource(principal.org.id, id);
+      await recordAudit({
+        orgId: principal.org.id,
+        actorType: 'user',
+        actorId: principal.userId,
+        action: 'intake.source_deleted',
+        targetType: 'sourceDatabase',
+        targetId: id,
+        severity: 'WARN',
+        details: {
+          sourceName: report.sourceName,
+          runs: report.runs,
+          documents: report.documents,
+          chunks: report.chunks,
+          knowledgeRecords: report.knowledgeRecords,
+        },
+      });
+      return ok({ deleted: report });
+    } catch (err) {
+      return failFrom(err);
+    }
+  });
+}
 
 export async function GET(
   _req: Request,

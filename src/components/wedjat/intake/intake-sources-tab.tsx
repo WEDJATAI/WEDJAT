@@ -17,8 +17,19 @@ import {
   Lock,
   ChevronRight,
   ClipboardCheck,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -60,7 +71,7 @@ import {
   uploadIntakeFile,
 } from "@/components/wedjat/intake/intake-helpers";
 import type { UseApiDataResult } from "@/hooks/use-api-data";
-import { errMessage, formatWhen } from "@/lib/wedjat/client";
+import { api, errMessage, formatWhen } from "@/lib/wedjat/client";
 import { cn } from "@/lib/utils";
 import type {
   IntakeListPayload,
@@ -268,11 +279,35 @@ export function IntakeSourcesTab({
   onOpenAutonomy: () => void;
 }) {
   const canMutate = INTAKE_MUTATION_ROLES.has(role);
+  const canDelete = role === "OWNER" || role === "ADMIN";
   const data = list.data;
   const sources = data?.sources ?? [];
   const pendingMappings = data?.reviewQueue?.mappings ?? 0;
   const pendingCandidates = data?.reviewQueue?.candidates ?? 0;
   const [expandedIssues, setExpandedIssues] = useState<Set<string>>(new Set());
+  const [confirmDelete, setConfirmDelete] = useState<IntakeSourceDto | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteSource = async (s: IntakeSourceDto) => {
+    if (deleting) return;
+    setDeleting(true);
+    try {
+      const r = await api<{ deleted: {
+        sourceName: string; documents: number; chunks: number;
+        knowledgeRecords: number; trainingCandidates: number;
+      } }>(`/api/intake/${s.id}`, { method: "DELETE" });
+      const d = r.deleted;
+      toast.success("Source deleted", {
+        description: `“${d.sourceName}” removed — ${d.documents} documents, ${d.chunks} chunks, ${d.knowledgeRecords} knowledge records, ${d.trainingCandidates} training candidates.`,
+      });
+      setConfirmDelete(null);
+      list.refresh();
+    } catch (e) {
+      toast.error("Delete failed", { description: errMessage(e) });
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const toggleIssues = (id: string) => {
     setExpandedIssues((cur) => {
@@ -470,13 +505,31 @@ export function IntakeSourcesTab({
                             <ImportStatusBadge status={s.status} />
                           </TableCell>
                           <TableCell>
-                            <div className="space-y-1">
-                              <IntakeStageChips status={s.latestRun?.status} />
-                              <p className="font-mono text-[10px] text-muted-foreground">
-                                {s.latestRun
-                                  ? `${s.latestRun.trigger} · ${formatWhen(s.latestRun.finishedAt ?? null)}`
-                                  : "no run yet"}
-                              </p>
+                            <div className="flex items-center gap-1">
+                              <div className="space-y-1">
+                                <IntakeStageChips status={s.latestRun?.status} />
+                                <p className="font-mono text-[10px] text-muted-foreground">
+                                  {s.latestRun
+                                    ? `${s.latestRun.trigger} · ${formatWhen(s.latestRun.finishedAt ?? null)}`
+                                    : "no run yet"}
+                                </p>
+                              </div>
+                              {canDelete ? (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="ml-auto size-8 shrink-0 text-muted-foreground hover:text-red-600 dark:hover:text-red-400"
+                                  aria-label={`Delete source ${s.name} and its derived knowledge`}
+                                  title="Delete source and derived knowledge"
+                                  disabled={deleting}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmDelete(s);
+                                  }}
+                                >
+                                  <Trash2 className="size-3.5" aria-hidden="true" />
+                                </Button>
+                              ) : null}
                             </div>
                           </TableCell>
                         </TableRow>
@@ -516,6 +569,44 @@ export function IntakeSourcesTab({
           </CardContent>
         </Card>
       )}
+
+      <AlertDialog
+        open={confirmDelete !== null}
+        onOpenChange={(open) => !open && setConfirmDelete(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this source and its knowledge?</AlertDialogTitle>
+            <AlertDialogDescription>
+              &ldquo;{confirmDelete?.name}&rdquo; ({confirmDelete?.platform},{" "}
+              {confirmDelete ? formatBytes(confirmDelete.byteSize) : ""}) will be
+              removed together with every entity the pipeline derived from it:
+              documents, chunks, knowledge records, graph edges and training
+              candidates. Chat history is preserved. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-600 text-white hover:bg-red-700"
+              disabled={deleting}
+              onClick={() => confirmDelete && void deleteSource(confirmDelete)}
+            >
+              {deleting ? (
+                <>
+                  <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+                  Deleting…
+                </>
+              ) : (
+                <>
+                  <Trash2 className="size-4" aria-hidden="true" />
+                  Delete permanently
+                </>
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
