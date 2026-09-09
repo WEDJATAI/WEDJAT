@@ -92,11 +92,13 @@ export async function uploadIntakeFile(
   file: File,
   platform?: string,
   name?: string,
+  classification?: string,
 ): Promise<IntakeUploadResult> {
   const body = new FormData();
   body.append("file", file);
   if (platform && platform.trim()) body.append("platform", platform.trim());
   if (name && name.trim()) body.append("name", name.trim());
+  if (classification) body.append("classification", classification);
 
   let res: Response;
   try {

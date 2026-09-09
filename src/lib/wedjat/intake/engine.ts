@@ -55,6 +55,8 @@ interface RunContext {
   sourceId: string;
   orgId: string;
   userId: string;
+  /** Data classification chosen at upload (§66 routing). */
+  dataClassification: string;
   stageEvents: StageEvent[];
   errors: string[];
   warnings: string[];
@@ -143,7 +145,15 @@ export interface IntakeOutcome {
   trainingCandidates: number;
 }
 
-export async function runIntake(runId: string, userId: string): Promise<IntakeOutcome> {
+/** Valid data classifications for intake-sourced documents (§17/§66). */
+const INTAKE_CLASSIFICATIONS = new Set(['INTERNAL', 'CONFIDENTIAL', 'PUBLIC']);
+
+export async function runIntake(
+  runId: string,
+  userId: string,
+  classification: string = 'INTERNAL'
+): Promise<IntakeOutcome> {
+  const dataClassification = INTAKE_CLASSIFICATIONS.has(classification) ? classification : 'INTERNAL';
   const run = await db.intakeRun.findUnique({ where: { id: runId } });
   if (!run) throw new WedjatError('NOT_FOUND', 'Intake run not found');
   const source = await db.sourceDatabase.findUnique({ where: { id: run.sourceDatabaseId } });
@@ -154,6 +164,7 @@ export async function runIntake(runId: string, userId: string): Promise<IntakeOu
     sourceId: source.id,
     orgId: run.orgId,
     userId,
+    dataClassification,
     stageEvents: JSON.parse(run.stageEventsJson || '[]') as StageEvent[],
     errors: JSON.parse(run.errorsJson || '[]') as string[],
     warnings: JSON.parse(run.warningsJson || '[]') as string[],
@@ -546,7 +557,7 @@ export async function runIntake(runId: string, userId: string): Promise<IntakeOu
           blueprintVersion,
           title: doc.title,
           docType: 'REFERENCE',
-          classification: 'CONFIDENTIAL',
+          classification: dataClassification,
           content: doc.content,
           documentVersion: '1',
           sourcePath: source.artifactPath,
@@ -784,7 +795,7 @@ async function aiSemanticAssist(
         taskType: 'classification',
         contextChars: listing.length + 400,
         orgPolicy: 'APPROVED_REMOTE_PROVIDER',
-        classifications: ['CONFIDENTIAL'],
+        classifications: [ctx.dataClassification],
         userId: ctx.userId,
         traceId: trace,
       },

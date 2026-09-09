@@ -69,6 +69,8 @@ export interface SyntheticJobPayload extends JobPayloadBase {
 export interface DatabaseIntakeJobPayload extends JobPayloadBase {
   kind: 'database-intake';
   runId: string;
+  /** Data classification applied to ingested documents (§66). */
+  classification?: 'INTERNAL' | 'CONFIDENTIAL' | 'PUBLIC';
 }
 
 export type JobPayload =
@@ -233,7 +235,7 @@ async function executeJob(jobId: string, type: string, payload: unknown): Promis
       }
       case 'database-intake': {
         const p = payload as DatabaseIntakeJobPayload;
-        const outcome = await runIntake(p.runId, p.userId ?? 'intake-job');
+        const outcome = await runIntake(p.runId, p.userId ?? 'intake-job', p.classification ?? 'INTERNAL');
         result = {
           status: outcome.status,
           tables: outcome.tables,

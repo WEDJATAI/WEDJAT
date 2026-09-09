@@ -136,7 +136,7 @@ export function route(req: RouteRequest): RoutingDecision {
     traceId: req.traceId,
     task: req.taskType,
     chain: chain.map((c) => `${c.provider}/${c.model}`),
-    rejected: rejected.length,
+    rejected: rejected.map((r) => `${r.provider}/${r.model}: ${r.reason}`),
   });
 
   return { chain, rejected };

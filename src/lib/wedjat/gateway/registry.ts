@@ -138,8 +138,8 @@ export function buildRegistry(): RegistryEntry[] {
     costClass: 'LOW',
     gpuRequirement: 'none',
     status: groqActive ? 'ACTIVE' : 'STANDBY',
-    notes: 'Low-latency inference, routing and evaluation workloads where suitable.',
-    tasks: ['classification', 'chat', 'summarization'],
+    notes: 'Low-latency inference, routing, chat and grounded deep-analysis answers (ranked after the internal gateway for quality).',
+    tasks: ['classification', 'chat', 'summarization', 'deep_analysis'],
   });
   entries.push({
     provider: 'groq',

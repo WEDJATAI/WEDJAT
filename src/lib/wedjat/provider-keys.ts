@@ -42,10 +42,12 @@ function currentPresence(): ProviderKeyPresence {
 
 function applyPresenceChange(): void {
   const now = currentPresence();
-  if (lastPresence && (now.groq !== lastPresence.groq || now.gemini !== lastPresence.gemini)) {
-    // Registry entries embed STANDBY/ACTIVE status from key presence — rebuild.
-    resetRegistryCache();
-  }
+  // Reset when presence CHANGED or on the FIRST sync: the registry cache may
+  // have been built by a non-syncing path (dashboard/system snapshots) before
+  // keys were resolved, leaving remote entries stuck in STANDBY.
+  const changed =
+    !lastPresence || now.groq !== lastPresence.groq || now.gemini !== lastPresence.gemini;
+  if (changed) resetRegistryCache();
   lastPresence = now;
 }
 

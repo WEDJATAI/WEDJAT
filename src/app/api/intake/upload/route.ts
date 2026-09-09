@@ -27,6 +27,8 @@ export const maxDuration = 60;
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
+const UPLOAD_CLASSIFICATIONS = new Set(['INTERNAL', 'CONFIDENTIAL', 'PUBLIC']);
+
 function slugifyPlatform(s: string): string {
   return (
     s
@@ -120,8 +122,22 @@ export async function POST(req: Request): Promise<NextResponse> {
       });
       await db.sourceDatabase.update({ where: { id: source.id }, data: { latestRunId: run.id } });
 
+      // §66 data classification (uploader's choice; INTERNAL keeps chat
+      // generation available on approved remote providers, CONFIDENTIAL
+      // never leaves the org boundary).
+      const requestedClassification = String(form.get('classification') ?? 'INTERNAL').trim().toUpperCase();
+      const classification = (
+        UPLOAD_CLASSIFICATIONS.has(requestedClassification) ? requestedClassification : 'INTERNAL'
+      ) as 'INTERNAL' | 'CONFIDENTIAL' | 'PUBLIC';
+
       const { jobId } = await enqueueJob(
-        { kind: 'database-intake', orgId: principal.org.id, userId: principal.userId, runId: run.id },
+        {
+          kind: 'database-intake',
+          orgId: principal.org.id,
+          userId: principal.userId,
+          runId: run.id,
+          classification,
+        },
         { idempotencyKey: `intake-run-${run.id}` }
       );
       await db.intakeRun.update({ where: { id: run.id }, data: { jobId } });

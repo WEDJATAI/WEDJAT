@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { ok, withPrincipal } from '@/lib/wedjat/api';
+import { syncProviderKeys } from '@/lib/wedjat/provider-keys';
 import { healthSnapshot } from '@/lib/wedjat/gateway/provider-health';
 import { metrics } from '@/lib/wedjat/observability/metrics';
 import { budgetSnapshot } from '@/lib/wedjat/security/policy';
@@ -13,6 +14,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(): Promise<NextResponse> {
   return withPrincipal(async (principal) => {
+    // Resolve org-managed provider keys so snapshots reflect live config.
+    await syncProviderKeys();
+
     const orgId = principal.org.id;
 
     const dbStart = Date.now();

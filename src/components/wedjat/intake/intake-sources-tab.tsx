@@ -26,6 +26,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -102,6 +109,7 @@ function UploadCard({
   const [file, setFile] = useState<File | null>(null);
   const [platform, setPlatform] = useState("");
   const [name, setName] = useState("");
+  const [classification, setClassification] = useState("INTERNAL");
   const [busy, setBusy] = useState(false);
 
   const submit = async () => {
@@ -114,7 +122,7 @@ function UploadCard({
     }
     setBusy(true);
     try {
-      const res = await uploadIntakeFile(file, platform, name);
+      const res = await uploadIntakeFile(file, platform, name, classification);
       const confidencePct = Math.round((toRatio(res.detected.confidence) ?? 0) * 100);
       toast.success("Database intake started", {
         description: `Detected ${res.detected.engine} via ${res.detected.method} (confidence ${confidencePct}%). The staging pipeline is now running — RAW → STAGED → ANALYZED → MAPPED → VALIDATED → IMPORTED.`,
@@ -143,8 +151,8 @@ function UploadCard({
           </Badge>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="space-y-1.5 md:col-span-1">
+        <div className="grid gap-4 md:grid-cols-4">
+          <div className="space-y-1.5">
             <Label htmlFor="intake-file">File</Label>
             <Input
               id="intake-file"
@@ -186,6 +194,27 @@ function UploadCard({
               className="h-11"
               disabled={busy}
             />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="intake-classification">Data classification</Label>
+            <Select
+              value={classification}
+              onValueChange={setClassification}
+              disabled={busy}
+            >
+              <SelectTrigger id="intake-classification" className="h-11">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="INTERNAL">INTERNAL — chat enabled</SelectItem>
+                <SelectItem value="CONFIDENTIAL">CONFIDENTIAL — local only</SelectItem>
+                <SelectItem value="PUBLIC">PUBLIC</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-[10px] leading-snug text-muted-foreground">
+              §66 — CONFIDENTIAL sources never leave the org boundary (no
+              remote AI providers).
+            </p>
           </div>
         </div>
 

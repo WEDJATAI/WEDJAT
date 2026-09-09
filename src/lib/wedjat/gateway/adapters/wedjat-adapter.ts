@@ -60,7 +60,11 @@ export class WedjatInternalAdapter implements ProviderAdapter {
       if (err instanceof AdapterError) throw err;
       // SDK/network failures are treated transient so the bounded retry can engage.
       const message = err instanceof Error ? err.message : 'internal gateway failure';
-      throw new AdapterError(message, { transient: true });
+      // A missing gateway config file is DETERMINISTIC (e.g. serverless hosts
+      // without the sandbox config) — fail fast so the failover chain reaches
+      // the next sanctioned provider without retry delay.
+      const transient = !/Configuration file not found/i.test(message);
+      throw new AdapterError(message, { transient });
     }
   }
 }
