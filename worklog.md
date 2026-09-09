@@ -1493,3 +1493,94 @@ Stage Summary:
   MTQ, JUDGE, EGYCOURT, SGTX FABLE, PPE, MTQ SIGMA, OLYMP-EX) can reuse
   scripts/ingest-cirkle.ts with per-platform env — plus a Turso token
   re-check for the 4 that returned 401/404.
+
+---
+Task ID: 23
+Agent: orchestrator (main)
+Task: User instructed "proceed implementing". Continued §5 INITIAL REGISTERED
+PLATFORM SOURCES: ingest the remaining reachable platforms + harden the
+retrieval layer that the new multi-platform corpus exposed.
+
+Work Log:
+- SANDBOX RESET DETECTED: gitignored state was wiped between sessions —
+  .env.local (73 platform credentials from Task 22) and the local SQLite
+  (Task 22 CIRKLE data) are GONE; git repo + production (Vercel + Turso)
+  persisted. Consequence: private-repo platforms (AURIENTA/SGTX/PPE — GitHub
+  403 unauthenticated) and EGYCOURT (repo 404) CANNOT be ingested until the
+  OWNER re-supplies their tokens. Public-repo platforms need no token.
+- BOOTSTRAP: re-seeded local DB (org/OWNER/core corpus/evals — baseline
+  passRate 0.917), prisma generate, WEDJAT_OPEN_ACCESS=true in local .env.
+- CLONED 5 public repos locally (no GitHub API rate limits): fortleem/CIRKLE,
+  MITHQALMTQ/MTQ, fortleem/judge_synapse, fortlee/SGTX_FABLE,
+  MITHQALMTQ/MTQ_SIGMA.
+- scripts/ingest-platform.ts (NEW): generalized multi-platform pull ingestion
+  driver — per-platform §5 profiles (repo/deploy/db coordinates, blueprint
+  partitioning, curation rules), §88 registry connect before ingestion,
+  serial submit+wait, code files split RAW then wrapped as fenced markdown
+  with repo+HEAD provenance. Supersedes ingest-cirkle.ts (kept for history).
+  Profile notes: MTQ repo is a stub (README only — honest ingestion, §5
+  "never invent unavailable resources"); JUDGE = judge_synapse main branch
+  (legal-corpus/snapshots Egyptian courts + 21 judicial engine modules +
+  prisma schema + audit report; skills/ marketplace tree excluded as
+  non-org knowledge); SGTX FABLE = root docs + canonical SQL migrations +
+  src/lib engine modules; MTQ SIGMA = MTQSigma.sol Solidity contract +
+  src/lib/mtq engine modules + schema.
+- LOCAL INGESTION: 5 platforms CONNECTED, 125 docs / 2,801 sections / 5,814
+  chunks / 5,279 embeddings / 5,055 knowledge records / 19 blueprints.
+- BUG 1 (answer.ts resolveScope): platforms.find() picked the FIRST platform
+  whose slug was a query substring — cross-platform questions locked to one
+  platform ("mtq" matched inside "MTQ Sigma"). FIX: collect all matches,
+  subsume generic slugs ('mtq' ⊂ 'mtq-sigma'), widen to org-wide retrieval
+  when multiple distinct platforms match.
+- BUG 2 (hybrid.ts): working set was take:2000 with NO ordering → org-wide
+  queries only saw the first 2000 chunks by insertion order; later-ingested
+  platforms were INVISIBLE (8/8 CIRKLE sources). FIX: full-corpus scan with
+  lean column select (memory-bounded), take 25k pathological-scale cap.
+- BUG 3 (embeddings.ts tokenize): Latin-only tokenizer — the JUDGE legal
+  corpus (Arabic) produced ZERO tokens → no postings, no embeddings, no
+  atoms, invisible to retrieval. FIX (tokenizer v2, additive): Unicode
+  letters (\p{L}\p{N}), Arabic normalization (diacritics/tatweel strip, alef
+  variants, ya/taa-marbuta unification), Arabic stopwords + definite-article
+  stripping, camelCase identifier splitting BEFORE lowercase ('MTQSigma' →
+  'mtq sigma'). Stemmer untouched (old postings stay query-compatible).
+- scripts/reindex-tokenizer.ts (NEW): local maintenance re-index — delete +
+  recreate postings/embeddings per chunk, backfill missing atoms, full IDF
+  rebuild. Ran against local DB (dev server paused for the window):
+  5,279 chunks, 202,178 postings, 11,875 IDF terms. Note: Arabic legal
+  chunks still yield 0 knowledge ATOMS (extractKnowledgeAtoms is
+  English-heuristic) — retrieval works regardless; atoms are graph-view
+  only. Prod CIRKLE chunks keep v1 postings (still matchable; noted).
+- OOM POST-MORTEM: dev next-server hit 3.1GB RSS after 35 min of in-process
+  ingestion pipelines and was OOM-killed (3.9GB machine) — transient dev-mode
+  artifact (multiple module instances); production lambdas unaffected.
+- PRODUCTION: deployed dc7645b; ingested mtq (1/1), judge (30/30),
+  sgtx-fable (16/16), mtq-sigma (15/15) via the script --app flag — ALL
+  with the NEW tokenizer live, 0 failures. Prod now: 12 registry rows
+  (5 CONNECTED with knowledge: cirkle/mtq/judge/sgtx-fable/mtq-sigma),
+  122 docs, 5,226 chunks, 4,353 knowledge records. Cosmetic: pre-existing
+  empty 'judge-smart' placeholder row coexists with the real 'judge' row
+  (no platform-delete API exists; left as honest DISCOVERED placeholder).
+- VERIFIED (Agent Browser, local + production):
+  • Local: Knowledge Base 9 platforms; cross-platform chat → scope
+    org-wide, groundedness 0.66, FACTs on Egyptian courts + USDC
+    collateral, sources #1 JUDGE law-check.ts, #2-4 MTQSigma.sol.
+  • Local: Arabic query "ما هي المحكمة الدستورية العليا؟" answered IN
+    ARABIC with grounded FACTs + [S5,S7] citations.
+  • Production: cross-platform chat groundedness 0.67 (GFB Index basket,
+    USDC mint, "Egyptian Judicial Smart V2.1", sources S1-S8 with
+    repo+SHA provenance). Production Arabic query groundedness 0.82 —
+    6 Arabic FACTs citing Law 48/1979 + 2014 Constitution Art. 192.
+  • bun run lint clean; local dev healthy; push dc7645b READY.
+
+Stage Summary:
+- WEDJAT now KNOWS 5 platforms end-to-end (CIRKLE + 4 new) locally AND in
+  production: 125 docs / 5.8K chunks / 5.1K knowledge records local;
+  122 docs / 5.2K chunks / 4.4K knowledge records on Turso.
+- Three real retrieval bugs found & fixed additively (cross-platform scope
+  lock, working-set insertion-order truncation, Latin-only tokenization) —
+  Arabic legal corpus is now first-class retrievable knowledge.
+- BLOCKED pending OWNER credentials (lost in sandbox reset): AURIENTA,
+  SGTX, PPE (private GitHub repos), EGYCOURT (repo not found publicly).
+  Re-supply tokens → re-run: bun scripts/ingest-platform.ts --platform <slug>
+  after adding a profile + cloning with token. Turso DB tokens (4 platforms
+  401/404 in Task 22) also needed for §34/§35 database intelligence.
