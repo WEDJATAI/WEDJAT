@@ -294,48 +294,72 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
   }));
   stages.push('QUALITY_SCORED');
 
-  // Persist sections.
+  // Persist sections — RESUME-SAFE (§58 spirit, ADDITIVE §122): an interrupted
+  // run may have already persisted some section ordinals (serverless timeout,
+  // crash, re-dispatch). Update those in place and create only the missing
+  // ones — never duplicates, never a uniqueness crash on re-run.
+  const priorSections = await db.documentSection.findMany({
+    where: { documentVersionId: dvId },
+    select: { id: true, ordinal: true },
+  });
+  const priorSectionId = new Map(priorSections.map((s) => [s.ordinal, s.id]));
   const sectionRows = await Promise.all(
-    sections.map((s) =>
-      db.documentSection.create({
-        data: {
-          documentVersionId: dvId,
-          ordinal: s.ordinal,
-          heading: s.heading,
-          level: s.level,
-          content: s.content,
-          qualityScore: 0,
-        },
-      })
-    )
+    sections.map((s) => {
+      const data = {
+        heading: s.heading,
+        level: s.level,
+        content: s.content,
+      };
+      const existing = priorSectionId.get(s.ordinal);
+      return existing
+        ? db.documentSection.update({ where: { id: existing }, data })
+        : db.documentSection.create({
+            data: { documentVersionId: dvId, ordinal: s.ordinal, qualityScore: 0, ...data },
+          });
+    })
   );
   const sectionByOrdinal = new Map(sectionRows.map((s) => [s.ordinal, s]));
 
-  // Persist chunks.
+  // Persist chunks — same resume-safe upsert (unique (documentVersionId, ordinal)).
+  const priorChunks = await db.documentChunk.findMany({
+    where: { documentVersionId: dvId },
+    select: { id: true, ordinal: true },
+  });
+  const priorChunkId = new Map(priorChunks.map((c) => [c.ordinal, c.id]));
   const chunkRows = await Promise.all(
-    chunks.map((c) =>
-      db.documentChunk.create({
-        data: {
-          documentVersionId: dvId,
-          sectionId: c.sectionOrdinal != null ? sectionByOrdinal.get(c.sectionOrdinal)?.id ?? null : null,
-          ordinal: c.ordinal,
-          content: c.content,
-          tokenEstimate: c.tokenEstimate,
-          qualityScore: c.qualityScore,
-          status:
-            existingHashes.has(c.checksum) || c.qualityScore < config.chunking.qualityThreshold
-              ? 'EXCLUDED'
-              : 'INDEXED',
-          checksum: c.checksum,
-        },
-      })
-    )
+    chunks.map((c) => {
+      const data = {
+        sectionId: c.sectionOrdinal != null ? sectionByOrdinal.get(c.sectionOrdinal)?.id ?? null : null,
+        content: c.content,
+        tokenEstimate: c.tokenEstimate,
+        qualityScore: c.qualityScore,
+        status:
+          existingHashes.has(c.checksum) || c.qualityScore < config.chunking.qualityThreshold
+            ? 'EXCLUDED'
+            : 'INDEXED',
+        checksum: c.checksum,
+      };
+      const existing = priorChunkId.get(c.ordinal);
+      return existing
+        ? db.documentChunk.update({ where: { id: existing }, data })
+        : db.documentChunk.create({ data: { documentVersionId: dvId, ordinal: c.ordinal, ...data } });
+    })
   );
 
   // ── EMBEDDING (LOCAL_ONLY policy — text never leaves for indexing §17) ─────
   const indexed = chunkRows.filter((c) => c.status === 'INDEXED');
+  // Resume-safe: skip chunks that already carry an embedding (unique chunkId).
+  const embeddedChunkIds = new Set(
+    (
+      await db.embeddingRecord.findMany({
+        where: { chunk: { documentVersionId: dvId } },
+        select: { chunkId: true },
+      })
+    ).map((e) => e.chunkId)
+  );
   await stage(dvId, 'EMBEDDED', async () => {
     for (const chunk of indexed) {
+      if (embeddedChunkIds.has(chunk.id)) continue;
       const { vector, norm } = embed(chunk.content);
       await db.embeddingRecord.create({
         data: {
@@ -351,23 +375,41 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
   });
   stages.push('EMBEDDED');
 
-  // ── INDEXING (lexical postings + knowledge records) ────────────────────────
+  // ── INDEXING (lexical postings + knowledge records) — RESUME-SAFE ──────────
+  // Skip per-chunk index artifacts that a prior interrupted run already wrote
+  // (postings + knowledge atoms); the IDF rebuild below is naturally idempotent.
+  const indexedChunkIdsWithPostings = new Set(
+    (await db.lexicalTerm.findMany({
+      where: { chunk: { documentVersionId: dvId } },
+      select: { chunkId: true },
+    })).map((p) => p.chunkId)
+  );
+  const indexedChunkIdsWithKnowledge = new Set(
+    (await db.knowledgeRecord.findMany({
+      where: { chunk: { documentVersionId: dvId } },
+      select: { chunkId: true },
+    })).map((k) => k.chunkId)
+  );
   await stage(dvId, 'INDEXED', async () => {
     for (const chunk of indexed) {
-      const tokens = tokenize(chunk.content);
-      const tfMap = new Map<string, number>();
-      for (const t of tokens) tfMap.set(t, (tfMap.get(t) ?? 0) + 1);
-      const postings = [...tfMap.entries()].map(([term, count]) => ({
-        term,
-        chunkId: chunk.id,
-        tf: 1 + Math.log(count),
-      }));
-      if (postings.length > 0) {
-        await db.lexicalTerm.createMany({ data: postings });
+      const alreadyIndexed = indexedChunkIdsWithPostings.has(chunk.id);
+      if (!alreadyIndexed) {
+        const tokens = tokenize(chunk.content);
+        const tfMap = new Map<string, number>();
+        for (const t of tokens) tfMap.set(t, (tfMap.get(t) ?? 0) + 1);
+        const postings = [...tfMap.entries()].map(([term, count]) => ({
+          term,
+          chunkId: chunk.id,
+          tf: 1 + Math.log(count),
+        }));
+        if (postings.length > 0) {
+          await db.lexicalTerm.createMany({ data: postings });
+        }
       }
 
       // Knowledge records (atoms) with currentness + priority (§6/§7).
       // The extracted chunk list maps 1:1 to DB rows by ordinal.
+      if (indexedChunkIdsWithKnowledge.has(chunk.id)) continue;
       const extracted = chunks[chunk.ordinal];
       const heading = extracted?.sectionOrdinal != null
         ? sectionByOrdinal.get(extracted.sectionOrdinal)?.heading ?? null
