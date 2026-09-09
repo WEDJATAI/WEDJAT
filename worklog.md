@@ -708,3 +708,62 @@ Stage Summary:
 - REMAINING (user action, optional): set GEMINI_API_KEY or GROQ_API_KEY on
   the Vercel project to activate live LLM chat (currently honest degraded
   responses); custom domain wiring if desired.
+
+---
+Task ID: 14 (fresh start: demo data removal + free-GPU training path)
+Agent: orchestrator (main)
+Task: User: "do I need gpu or there is a free way to make it train, remove all
+mock data to start uploading real data."
+
+Work Log:
+- GPU ANSWER (documented in docs/TRAINING_ON_FREE_GPU.md): no GPU purchase
+  needed. RAG (retrieval+grounding) is the production intelligence path and
+  is fully live; chat generation activates with one free API key
+  (GROQ_API_KEY recommended, or GEMINI_API_KEY) on the Vercel project. Real
+  fine-tuning is optional and free via Colab T4 / Kaggle 30 GPU-h/week with
+  LoRA on small open models; the platform exports the dataset.
+- scripts/reset-live.ts (bun run reset:live): FK-safe topological wipe of all
+  demo domain data from the ACTIVE database (Turso preferred, local file
+  fallback), KEEPING logins (Organization/User/Membership), the system model
+  catalog (8 registries, 8 baseline versions, 1 PRODUCTION deployment), and
+  §74/§75 prompt/config versions. Learned: Turso's SQL parser rejects QUOTED
+  args to PRAGMA foreign_key_list — bare identifiers only.
+- RESET EXECUTED (twice, idempotent): first pass wiped 5,984 demo rows across
+  42 tables (LexicalTerm 3855, KnowledgeRecord 161, IngestionEvent 480,
+  TrainingCandidate 85, KG edges 84, 5 demo sources incl. §106 scarab demo,
+  benchmark suites, sessions…); post-state verified (logins + catalog intact,
+  zero leftovers). Local preview + production cleaned in one shot (shared
+  Turso).
+- EXPORT FEATURE (free-GPU enabler): GET /api/training/export?datasetVersionId=
+  … streams locked dataset versions as LoRA/SFT-ready JSONL ({prompt,
+  completion, type, quality, synthetic}) with Content-Disposition + count
+  headers; client.ts apiText() Bearer-authed download helper (works in
+  cookie-blocked embedded contexts); Training view "Export JSONL" button
+  (blob download, loading state, toast). 400/401/404 paths covered.
+- FULL VERIFICATION LOOP on real pipeline: upload CSV → IMPORTED (1 candidate,
+  TRAINING_APPROVED via autonomy≥4 §127); 8-table SQLite upload → IMPORTED
+  (54 knowledge records, DQ 100, 8 LOW mappings, threshold §128 correctly
+  waits at 1/8 candidates — no retraining per upload by design); mirrored
+  engine §148 promotion (TrainingSource INTAKE rows) → create-dataset via API
+  (2 examples) → export → valid JSONL verified; browser click-through: toast
+  "Exported 2 examples", zero console errors (screenshot /tmp/training-
+  export.png). Then FINAL reset wiped the 791 verification rows — pristine.
+- EMPTY-STATE HARDENING VERIFIED (local + live): login 200; dashboard/intake/
+  training/evaluations/models all 200 with zeros; chat returns the honest
+  §15 "Insufficient evidence" answer (no fabrication); browser cycled every
+  view (Dashboard, Chat, Knowledge, Intake, Training, Evaluations, Registry,
+  Observability) — zero page/console errors; mobile 390px unchanged.
+- DEPLOY: pushed 0737e40 → git auto-deploy READY; live verified on
+  wedjat-gamma.vercel.app (health OK, Turso 25ms, clean empty state, export
+  endpoint 401/400 paths, chat honest empty). bun run lint 0 problems.
+
+Stage Summary:
+- Production is a CLEAN SLATE: logins preserved (owner/curator/member/auditor
+  @wedjat.ai · password wedjat — recommend rotating WEDJAT_DEMO_PASSWORD env
+  for real use), system catalog/config intact, zero domain data. Upload real
+  data via Database Intake — the §106–§160 pipeline, RAG ingestion, review
+  gates and training-candidate capture are all live.
+- Training: SIMULATED in-app (honest §38 labeling) + NEW real export path
+  (JSONL → free Colab/Kaggle LoRA → optional HF/Groq serving). No GPU cost.
+- REMAINING user actions (optional): set GROQ_API_KEY (free) for live chat
+  generation; rotate demo password when real users arrive.
