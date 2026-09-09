@@ -151,6 +151,7 @@ function initials(name: string) {
 }
 
 function UserMenu({ principal, onLogout }: { principal: Principal; onLogout: () => void }) {
+  const openAccess = principal.authMethod === "OPEN_ACCESS";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -167,6 +168,15 @@ function UserMenu({ principal, onLogout }: { principal: Principal; onLogout: () 
           <span className="hidden max-w-32 truncate text-sm font-medium sm:inline">
             {principal.name}
           </span>
+          {openAccess ? (
+            <Badge
+              variant="outline"
+              className="hidden border-amber-500/40 text-[10px] font-semibold uppercase tracking-wide text-amber-600 md:inline"
+              title="Credential login is temporarily disabled; you are signed in as the organization OWNER"
+            >
+              Open access
+            </Badge>
+          ) : null}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
@@ -183,14 +193,22 @@ function UserMenu({ principal, onLogout }: { principal: Principal; onLogout: () 
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={onLogout}
-          className="h-10 cursor-pointer"
-        >
-          <LogOut className="size-4" aria-hidden="true" />
-          Sign out
-        </DropdownMenuItem>
+        {openAccess ? (
+          <div className="px-2 py-2 text-xs leading-relaxed text-muted-foreground">
+            Open access mode is active — credential login is temporarily
+            disabled and you are operating as the organization OWNER. Re-enable
+            sign-in by archiving the <code>access.mode</code> setting.
+          </div>
+        ) : (
+          <DropdownMenuItem
+            variant="destructive"
+            onClick={onLogout}
+            className="h-10 cursor-pointer"
+          >
+            <LogOut className="size-4" aria-hidden="true" />
+            Sign out
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -13,6 +13,7 @@ import { sha256, safeEqual, newSessionToken } from '../ids';
 import { WedjatError } from '../errors';
 import type { Principal } from '../types';
 import { logger } from '../logger';
+import { isOpenAccess, openAccessPrincipal } from './open-access';
 
 export const SESSION_COOKIE = 'wedjat_session';
 
@@ -60,21 +61,36 @@ export async function resolveSessionToken(): Promise<string | undefined> {
 
 /**
  * Resolves the current principal from the session cookie OR the bearer
- * header (server-side only). Tries each candidate token; throws
- * UNAUTHORIZED when none maps to a live session.
+ * header (server-side only). Tries each candidate token; falls back to the
+ * Open Access principal (login-disabled mode → primary OWNER) when Open
+ * Access is enabled and no live session exists; throws UNAUTHORIZED when
+ * neither applies.
  */
 export async function getPrincipal(): Promise<Principal> {
   const tokens = await candidateSessionTokens();
-  if (tokens.length === 0) throw new WedjatError('UNAUTHORIZED', 'No session');
-  let lastErr: unknown = null;
-  for (const token of tokens) {
-    try {
-      return await getPrincipalByToken(token);
-    } catch (err) {
-      lastErr = err;
+  if (tokens.length > 0) {
+    let lastErr: unknown = null;
+    for (const token of tokens) {
+      try {
+        const principal = await getPrincipalByToken(token);
+        return { ...principal, authMethod: 'SESSION' };
+      } catch (err) {
+        lastErr = err;
+      }
     }
+    // Stale/expired token(s): in Open Access mode fall through to the org
+    // OWNER instead of bouncing the user to a login they asked to disable.
+    if (await isOpenAccess()) {
+      const open = await openAccessPrincipal();
+      if (open) return open;
+    }
+    throw lastErr ?? new WedjatError('UNAUTHORIZED', 'Session invalid or expired');
   }
-  throw lastErr ?? new WedjatError('UNAUTHORIZED', 'Session invalid or expired');
+  if (await isOpenAccess()) {
+    const open = await openAccessPrincipal();
+    if (open) return open;
+  }
+  throw new WedjatError('UNAUTHORIZED', 'No session');
 }
 
 export async function getPrincipalByToken(token: string): Promise<Principal> {

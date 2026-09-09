@@ -18,6 +18,13 @@ export interface Principal {
   email: string;
   role: 'OWNER' | 'ADMIN' | 'CURATOR' | 'MEMBER' | 'AUDITOR';
   org: { id: string; slug: string; name: string; dataPolicy: string };
+  /**
+   * How this principal was resolved. 'SESSION' (default) = cookie/bearer
+   * session; 'OPEN_ACCESS' = the org-wide login-disabled fallback to the
+   * primary OWNER (user-directed temporary mode). Optional so every existing
+   * producer/consumer stays source-compatible.
+   */
+  authMethod?: 'SESSION' | 'OPEN_ACCESS';
 }
 
 /**

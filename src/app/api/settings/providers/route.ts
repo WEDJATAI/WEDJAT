@@ -49,7 +49,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       if (apiKey.length > MAX_KEY_LEN) {
         throw new WedjatError('VALIDATION', `apiKey exceeds ${MAX_KEY_LEN} characters`);
       }
-      if (apiKey && !/^[A-Za-z0-9_\-]+$/.test(apiKey)) {
+      // Google issues newer Gemini keys containing dots (e.g. "AQ.Ab8…"), so
+      // dots are allowed alongside word chars and dashes.
+      if (apiKey && !/^[A-Za-z0-9_\-.]+$/.test(apiKey)) {
         throw new WedjatError('VALIDATION', 'apiKey contains invalid characters');
       }
 

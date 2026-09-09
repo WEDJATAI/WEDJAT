@@ -34,7 +34,6 @@ export class GeminiAdapter implements ProviderAdapter {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) throw new AdapterError('GEMINI_API_KEY not configured', { transient: false, status: 401 });
 
-    const model = 'gemini-2.5-pro';
     const systemText = req.messages.filter((m) => m.role === 'system').map((m) => m.content).join('\n\n');
     const contents = req.messages
       .filter((m) => m.role !== 'system')
@@ -42,31 +41,54 @@ export class GeminiAdapter implements ProviderAdapter {
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.content }],
       }));
+    const payload = {
+      contents,
+      ...(systemText ? { systemInstruction: { parts: [{ text: systemText }] } } : {}),
+      generationConfig: {
+        temperature: req.temperature ?? 0.3,
+        maxOutputTokens: req.maxOutputTokens ?? 4096,
+      },
+    };
+
+    // §122 ADDITIVE robustness: newer keys may not expose every model tier, so
+    // probe the preferred model first and fall back down the chain ONLY on a
+    // definitive "model not found / not supported" signal (404 + message).
+    const MODEL_CHAIN = ['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.0-flash'] as const;
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), config.retry.requestTimeoutMs);
     const started = Date.now();
     try {
-      const res = await fetch(`${API_BASE}/${model}:generateContent?key=${encodeURIComponent(apiKey)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        signal: controller.signal,
-        body: JSON.stringify({
-          contents,
-          ...(systemText ? { systemInstruction: { parts: [{ text: systemText }] } } : {}),
-          generationConfig: {
-            temperature: req.temperature ?? 0.3,
-            maxOutputTokens: req.maxOutputTokens ?? 4096,
-          },
-        }),
-      });
-      const body = (await res.json()) as GeminiResponse;
-      if (!res.ok) {
-        throw new AdapterError(body.error?.message ?? `Gemini HTTP ${res.status}`, {
+      let body: GeminiResponse | null = null;
+      let lastErr: AdapterError | null = null;
+      for (const model of MODEL_CHAIN) {
+        const res = await fetch(`${API_BASE}/${model}:generateContent?key=${encodeURIComponent(apiKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify(payload),
+        });
+        body = (await res.json()) as GeminiResponse;
+        if (res.ok) {
+          lastErr = null;
+          break;
+        }
+        const message = body.error?.message ?? `Gemini HTTP ${res.status}`;
+        // Definitive "this model does not exist for this key" signals only.
+        // (Deliberately NOT "not supported": that phrase appears in Google's
+        // user-location block, which must fail fast, not probe the chain.)
+        const modelMissing =
+          res.status === 404 || /is not found|does not exist|not found for API/i.test(message);
+        const err = new AdapterError(message, {
           status: res.status,
           transient: res.status === 429 || res.status >= 500,
         });
+        if (!modelMissing) throw err; // auth / quota / location / policy → fail fast
+        lastErr = err; // try the next model in the chain
       }
+      if (lastErr) throw lastErr;
+      if (!body) throw new AdapterError('Gemini returned no response', { transient: true });
+
       const text = body.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
       if (!text.trim()) {
         throw new AdapterError('Gemini returned empty content', { transient: true });
