@@ -59,7 +59,16 @@ export async function connectPlatform(
   input: { repositoryUrl?: string; deploymentUrl?: string; databaseUrl?: string },
   userId: string
 ): Promise<Platform> {
-  const safeSlug = slug.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(1, 60);
+  // Normalize: lowercase kebab-case; strip leading/trailing separators. (BUG
+  // FIX: the previous `.slice(1, 60)` chopped the FIRST character of every
+  // clean slug — 'cirkle' became 'irkle' and connect() created a spurious
+  // empty platform row instead of updating the real one.)
+  const safeSlug = slug
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
   if (!/^[a-z][a-z0-9-]*$/.test(safeSlug)) {
     throw new WedjatError('VALIDATION', 'platform slug must be lowercase kebab-case');
   }

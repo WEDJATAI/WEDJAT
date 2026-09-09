@@ -152,7 +152,11 @@ async function apiPost<T>(path: string, body: unknown): Promise<T> {
 
 async function listJobs(): Promise<{ id: string; status: string; progress: number; lastError: string | null }[]> {
   const res = await fetch(`${APP}/api/jobs?limit=100`);
-  const json = (await res.json()) as { ok: boolean; data?: { jobs?: { id: string; status: string; progress: number; lastError: string | null }[] } };
+  const json = (await res.json()) as {
+    ok: boolean;
+    data?: { id: string; status: string; progress: number; lastError: string | null }[] | { jobs?: { id: string; status: string; progress: number; lastError: string | null }[] };
+  };
+  if (Array.isArray(json.data)) return json.data;
   return json.data?.jobs ?? [];
 }
 
