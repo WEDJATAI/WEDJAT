@@ -88,14 +88,14 @@ function LoadingSplash() {
     >
       <div
         aria-hidden="true"
-        className="flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border bg-[#0f161e] shadow-md"
+        className="flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border bg-white shadow-md"
       >
         <Image
           src="/wedjat-mark-sm.jpg"
           alt=""
-          width={44}
-          height={33}
-          className="h-auto w-10"
+          width={56}
+          height={56}
+          className="h-full w-full object-cover"
         />
       </div>
       <div className="text-center">

@@ -117,13 +117,13 @@ export function LoginView({
           <Card className="rounded-xl shadow-sm">
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-[#0f161e]">
+                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white">
                   <Image
                     src="/wedjat-mark-sm.jpg"
                     alt=""
                     width={44}
-                    height={33}
-                    className="h-auto w-9"
+                    height={44}
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <div>
