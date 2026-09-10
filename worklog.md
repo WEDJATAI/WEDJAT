@@ -1689,3 +1689,72 @@ Stage Summary:
   production.
 - Remaining gaps (OWNER action): EGYCOURT repo/token, Turso tokens for
   MTQ / MTQ SIGMA / SGTX FABLE.
+---
+Task ID: 25
+Agent: orchestrator (main)
+Task: User re-supplied the last two §34/§35 Turso gaps (MTQ SIGMA + MTQ
+MITHQAL tokens, plus a Turso CLI platform token) and a new dark-background
+WEDJAT brand asset (upload/emsss.jpg). Proceed implementing.
+
+Work Log:
+- SANDBOX RESET #4 detected: .env.local (platform credentials) and local DB
+  contents wiped again between sessions; production (Vercel + Turso)
+  persisted. Re-bootstrapped: .env.local restored (WEDJAT core + the new
+  MTQ/MTQS Turso credentials, chmod 600, gitignored, secrets never
+  printed/committed), DB re-seeded via the real pipeline (baseline
+  passRate 0.833), open access verified (OWNER via OPEN_ACCESS).
+- TOKEN PROBE (read-only, honest): MTQ SIGMA token VALID → instance
+  libsql://mtqs-fortleem... reachable, 2 tables (MetricSample,
+  PilotTrial), 0 live rows (fresh/empty database — measured truth §5).
+  MITHQAL MTQ token 401 (revoked/expired; instance itself alive —
+  cross-scope test confirms auth-scope failure, not outage). Turso CLI
+  platform token EXPIRED ("Token is expired" from api.turso.tech) →
+  cannot mint a fresh MTQ DB token. mtq §34/§35 stays an honest gap
+  pending a fresh OWNER token; noted for the OWNER in this entry.
+- §34/§35 MTQ SIGMA (scripts/probe-platform-db.ts, additive +2 targets
+  mtq/mtq-sigma with repo/deploy/db coordinates): read-only
+  sqlite_master+COUNT(*) introspection → versioned markdown snapshot
+  through the REAL ingestion pipeline under blueprint
+  mtq-sigma/mtq-sigma-database, registry §88 CONNECTED first.
+  LOCAL: job COMPLETED — KB shows "MTQ SIGMA Database Intelligence
+  (Turso)" 1 doc / 4 chunks / 2 knowledge CURRENT.
+- BRAND (emsss.jpg = dark-background variant of the Task-21 white logo,
+  same artwork family, 1344x768): generated public/wedjat-logo-dark.jpg
+  (banner) + public/wedjat-mark-sm-dark.jpg (320px square symbol mark —
+  symbol-only ink bbox with text-band-safe bottom padding; first attempt
+  included the text band, fixed by capping region above y=522; VLM
+  verified: symbol fully visible, centered, NO text). THEME-AWARE
+  branding (additive): dark mode now shows the neon dark variant on a
+  dark bg-[#070a10] tile, light mode keeps the white variant on bg-white
+  — app-shell brand tile, login hero (in-flow light + absolute dark
+  overlay, same 1344x768 aspect) and login card tile, pure CSS
+  dark: variants (no hydration flash).
+- VERIFIED (Agent Browser): LOCAL light mode = white tile/white logo,
+  dark mode = dark tile/dark neon logo (VLM-checked both); local chat
+  "MTQ SIGMA live Turso database tables?" → FACTs naming MetricSample
+  (id, gfbIndex, mtqPrice, nav, reserveRatio, lcr, status, vix, dxy,
+  targetGold, bufferState, createdAt) and PilotTrial (18 cols incl.
+  basketJson, wallet, ok, reason) each citing S3, groundedness 0.75.
+  Console clean; bun run lint clean.
+- PRODUCTION: deployed 4fa9f1a (READY ~90s); /wedjat-logo-dark.jpg +
+  /wedjat-mark-sm-dark.jpg serve 200; probe run against prod →
+  registry CONNECTED + snapshot job COMPLETED on Vercel. Prod chat
+  verified: first attempt hit a transient provider failure (controlled
+  degraded response, no fabrication — 8 sources still retrieved),
+  retry succeeded: groundedness 0.85 with 8 sources, FACTs citing the
+  Turso instance URL, probe timestamp, 2 tables, 0 rows and both table
+  schemas (S1/S7), provider fallback chain healthy
+  (wedjat-internal → google/gemini-2.5-pro → groq). Prod dark-mode
+  brand tile VLM-verified (dark tile + neon eye logo).
+
+Stage Summary:
+- §34/§35 database intelligence now covers 4 platforms (AURIENTA, SGTX,
+  PPE + MTQ SIGMA). WEDJAT answers "what's in the MTQ SIGMA production
+  database" from MEASURED live data with citations, local + production.
+- Theme-aware brand system: white logo in light mode, the new dark neon
+  variant in dark mode — everywhere (header tile, login hero, card tile).
+- REMAINING OWNER ACTIONS: (1) fresh MITHQAL MTQ Turso DB token (current
+  one 401s) — then rerun `bun scripts/probe-platform-db.ts --platform
+  mtq`; (2) Turso CLI token expired — a fresh one would let WEDJAT mint
+  per-DB tokens itself; (3) SGTX FABLE + EGYCOURT Turso credentials /
+  repo access still outstanding from Task 24.
