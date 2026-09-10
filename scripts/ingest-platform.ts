@@ -41,6 +41,12 @@ const REPOS_DIR = arg('repos') ?? '/tmp/repos';
 const DRY_RUN = has('dry-run');
 const CONNECT = !has('no-connect');
 const PLATFORMS_ARG = arg('platform') ?? '';
+// Bounded submit concurrency. Default 1 = the original serial submit+wait
+// (required against a LOCAL dev server: embeddings are CPU-bound in one
+// process — Task 22 OOM lesson). Against SERVERLESS (--app …vercel.app) each
+// job runs in its own lambda instance, so a small window (4–6) is safe and
+// ~5× faster; duplicates are idempotency-key-skipped on re-runs.
+const PARALLEL = Math.max(1, Math.min(8, parseInt(arg('parallel') ?? '1', 10) || 1));
 
 // ── Platform profiles (§5 INITIAL REGISTERED PLATFORM SOURCES) ───────────────
 
@@ -611,7 +617,21 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
     }
   }
 
-  const results: { title: string; jobId: string; duplicate: boolean }[] = [];
+  // Materialize ALL parts first (read + wrap + split), then submit through
+  // a bounded-concurrency pool. PARALLEL=1 (default) preserves the original
+  // serial submit+wait — required against a LOCAL dev server, where
+  // embeddings are CPU-bound in one process (Task 22 OOM lesson). Against
+  // serverless (--app …vercel.app) each job runs in its own lambda
+  // instance, so a small window (4–6) is safe and ~N× faster.
+  interface Part {
+    partTitle: string;
+    docType: string;
+    content: string;
+    version: string;
+    blueprint: BlueprintDef;
+    kb: number;
+  }
+  const allParts: Part[] = [];
   let failed = 0;
   for (const sel of selections) {
     try {
@@ -625,23 +645,44 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
       const markdown = wrapAsMarkdown(src.repo, sel.path, raw, src.sha);
       const parts = splitMarkdown(sel.title, markdown, src.repo.replace('https://github.com/', ''));
       for (let pi = 0; pi < parts.length; pi++) {
-        const partTitle = parts.length > 1 ? `${sel.title} — Part ${pi + 1}/${parts.length}` : sel.title;
-        const r = await apiPost<{ jobId: string; duplicate: boolean }>('/api/ingestion', {
-          platformSlug: profile.slug,
-          blueprintSlug: sel.blueprint.slug,
-          blueprintTitle: sel.blueprint.title,
-          title: partTitle,
+        allParts.push({
+          partTitle: parts.length > 1 ? `${sel.title} — Part ${pi + 1}/${parts.length}` : sel.title,
           docType: sel.docType,
           content: parts[pi],
-          documentVersion: `github-main-${src.sha}`,
+          version: `github-main-${src.sha}`,
+          blueprint: sel.blueprint,
+          kb: Math.round(parts[pi].length / 1024),
         });
-        results.push({ title: partTitle, jobId: r.jobId, duplicate: r.duplicate });
-        console.log(`  ${r.duplicate ? 'DUPLICATE' : 'QUEUED'}: ${partTitle} [${sel.docType}] (${Math.round(parts[pi].length / 1024)}KB)`);
+      }
+    } catch (err) {
+      failed++;
+      console.log(`  FAIL: ${sel.path} — ${err instanceof Error ? err.message.slice(0, 80) : 'err'}`);
+    }
+  }
+
+  const results: { title: string; jobId: string; duplicate: boolean }[] = [];
+  let submitIdx = 0;
+  const submitNext = async (): Promise<void> => {
+    for (;;) {
+      const i = submitIdx++;
+      if (i >= allParts.length) return;
+      const part = allParts[i];
+      try {
+        const r = await apiPost<{ jobId: string; duplicate: boolean }>('/api/ingestion', {
+          platformSlug: profile.slug,
+          blueprintSlug: part.blueprint.slug,
+          blueprintTitle: part.blueprint.title,
+          title: part.partTitle,
+          docType: part.docType,
+          content: part.content,
+          documentVersion: part.version,
+        });
+        results.push({ title: part.partTitle, jobId: r.jobId, duplicate: r.duplicate });
+        console.log(`  ${r.duplicate ? 'DUPLICATE' : 'QUEUED'}: ${part.partTitle} [${part.docType}] (${part.kb}KB)`);
         if (!r.duplicate) {
-          // Serial pipeline: embeddings are CPU-bound; a concurrent burst can
-          // exhaust a single dev-server process (learned in Task 22). 75s ≈
-          // the serverless after()-window cap — bigger docs checkpoint
-          // progress and are resumed by a later re-run (resume-safe §58).
+          // 75s ≈ the serverless after()-window cap — bigger docs checkpoint
+          // progress and are resumed by a later re-run (resume-safe §58) or
+          // by the worker's stale-RUNNING self-heal (Task 26).
           const waitDeadline = Date.now() + 75_000;
           for (;;) {
             await sleep(3000);
@@ -653,16 +694,18 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
               console.log(`    ✗ FAILED: ${(j.lastError ?? '').slice(0, 90)}`);
               break;
             }
-            if (Date.now() > waitDeadline) { console.log('    ⏱ window elapsed (job checkpoints progress; re-run resumes it)'); break; }
+            if (Date.now() > waitDeadline) { console.log('    ⏱ window elapsed (job checkpoints progress; self-heal requeues it)'); break; }
           }
         }
+      } catch (err) {
+        failed++;
+        console.log(`  FAIL: ${part.partTitle} — ${err instanceof Error ? err.message.slice(0, 80) : 'err'}`);
+        await sleep(8000); // server may be restarting after a burst — back off
       }
-    } catch (err) {
-      failed++;
-      console.log(`  FAIL: ${sel.path} — ${err instanceof Error ? err.message.slice(0, 80) : 'err'}`);
-      await sleep(8000); // server may be restarting after a burst — back off
     }
-  }
+  };
+  if (PARALLEL > 1) console.log(`  submitting with concurrency ${PARALLEL}`);
+  await Promise.all(Array.from({ length: PARALLEL }, () => submitNext()));
 
   // Poll job completion (bounded wait).
   const ids = new Set(results.filter((r) => !r.duplicate).map((r) => r.jobId));
@@ -697,7 +740,7 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
 
 async function main(): Promise<void> {
   if (!PLATFORMS_ARG) {
-    console.error('usage: bun scripts/ingest-platform.ts --platform <slug[,slug2…]|all> [--app url] [--repos dir] [--dry-run] [--no-connect]');
+    console.error('usage: bun scripts/ingest-platform.ts --platform <slug[,slug2…]|all> [--app url] [--repos dir] [--dry-run] [--no-connect] [--parallel N]');
     console.error(`profiles: ${profiles.map((p) => p.slug).join(', ')}`);
     process.exit(1);
   }
