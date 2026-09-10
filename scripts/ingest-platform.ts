@@ -63,6 +63,11 @@ interface PlatformProfile {
   databaseUrl?: string;
   titlePrefix: string;
   select: (files: string[]) => Selection[];
+  // Task 26 — platforms whose knowledge spans MULTIPLE repositories (e.g.
+  // MITHQAL flagship + its web app; OLYMP-EX site + micro-app). Extra clones
+  // are mounted under a virtual path prefix so `select` sees one unified
+  // tree; provenance + SHA are resolved per-source.
+  extraClones?: { clone: string; repositoryUrl: string; mount: string }[];
 }
 
 const ARCH = (p: string, t: string): BlueprintDef => ({ slug: `${p}-architecture`, title: t });
@@ -121,19 +126,110 @@ const profiles: PlatformProfile[] = [
     },
   },
   {
+    // Task 26 — the REAL MITHQAL flagship repository was discovered at
+    // MITHQALMTQ/mithqal (2340 tracked files: v25 final blueprint, 221
+    // verification reports, 127 institutional src/lib modules, Solidity
+    // contracts). The old MITHQALMTQ/MTQ stub (5KB README) is superseded
+    // as the platform's source of record. fortleem/MTQ (the MTQ web-app
+    // builder workspace carrying src/lib/mithqal app modules) is mounted
+    // as a second source under mtq-app/.
     slug: 'mtq',
     name: 'MITHQAL MTQ',
-    clone: 'MITHQALMTQ_MTQ',
-    repositoryUrl: 'https://github.com/MITHQALMTQ/MTQ',
+    clone: 'MITHQALMTQ_mithqal',
+    repositoryUrl: 'https://github.com/MITHQALMTQ/mithqal',
     deploymentUrl: 'https://mithqal.vercel.app/',
     databaseUrl: 'libsql://mtq-fortleem.aws-us-east-1.turso.io',
-    titlePrefix: 'MTQ',
-    // Honest minimal repo (§5 EGYCOURT principle applies to all: never invent
-    // unavailable resources) — the README carries the integration principle.
-    select: (files) =>
-      files
-        .filter((p) => p === 'README.md')
-        .map((p) => ({ path: p, blueprint: ARCH('mtq', 'MITHQAL Settlement Architecture'), docType: 'SPEC', title: 'MTQ Settlement Capability Overview' })),
+    titlePrefix: 'MITHQAL',
+    extraClones: [
+      { clone: 'fortleem_MTQ', repositoryUrl: 'https://github.com/fortleem/MTQ', mount: 'mtq-app/' },
+    ],
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('mtq', 'MITHQAL Settlement Architecture');
+      const verify: BlueprintDef = { slug: 'mtq-verification', title: 'MITHQAL Verification & Due Diligence' };
+      const eng: BlueprintDef = { slug: 'mtq-engineering', title: 'MITHQAL Engineering (Contracts, Modules, Schema)' };
+      const ROOT_BOILERPLATE = /^(LICENSE|CODE_OF_CONDUCT|CODEOWNERS|CONTRIBUTING|SECURITY|NOTICE)/i;
+      for (const p of files) {
+        if (p.startsWith('mtq-app/')) {
+          // MTQ web-app workspace (fortleem/MTQ) — only the MITHQAL domain
+          // modules + manifests (skip .grok skills, .vercel, multiplayer,
+          // og, screenshots — non-org boilerplate).
+          const rel = p.slice('mtq-app/'.length);
+          if (rel === 'AGENTS.md' || rel === 'package.json' || /^src\/lib\/mithqal\/[^/]+\.ts$/.test(rel)) {
+            out.push({ path: p, blueprint: eng, docType: rel.endsWith('.md') ? 'REFERENCE' : 'REFERENCE', title: `MTQ app ${titleFromPath(rel)}` });
+          }
+          continue;
+        }
+        // ── MITHQALMTQ/mithqal curation ──
+        if (p.startsWith('skills/') || p.startsWith('.legacy-backup/') || p.startsWith('backups/') ||
+            p.startsWith('upload/') || p.startsWith('screenshots/') || p.startsWith('foundry/') ||
+            p.startsWith('.zscripts/') || p.startsWith('public/') || p.startsWith('scripts/') ||
+            p.startsWith('src/app/') || p.startsWith('src/components/') || p.startsWith('src/hooks/')) continue;
+        if (/\.(docx|png|jpg|jpeg|gif|svg|pdf|zip|db|bak|wav|mp3|mp4|mov|webm|srt|html|csv|woff2?|ttf|otf|exe|wasm|bin)$/i.test(p)) continue; // text-only pipeline
+        // Blueprint-chain curation: v24/v25 versions are ALL included as
+        // honest versioned history (CIRKLE v15/v16 precedent) — note the
+        // v24 files are named mithqal-canonical-v24.x.md. Excluded only:
+        // mithqal-canonical-blueprint.md (duplicate render of v24.2.1),
+        // v18-blueprint-complete.md (superseded base) and blueprint.txt
+        // (rendered artifact). Non-md media is cut by the global filter.
+        const SUPERSEDED_BLUEPRINT = /^(docs\/blueprint\/(mithqal-canonical-blueprint\.md|v18-blueprint-complete\.md|blueprint\.txt))$/;
+        if (SUPERSEDED_BLUEPRINT.test(p)) continue;
+        if (!p.includes('/') && p.toLowerCase().endsWith('.md') && !ROOT_BOILERPLATE.test(p)) {
+          out.push({ path: p, blueprint: arch, docType: docTypeFor(p), title: `MITHQAL ${titleFromPath(p)}` });
+        } else if ((/^docs\/(architecture|blueprint|contracts|legal|roadmap|video)\//.test(p) || p === 'docs/whitepaper.md') && p.toLowerCase().endsWith('.md')) {
+          out.push({ path: p, blueprint: p.startsWith('docs/blueprint/publication/') ? verify : arch, docType: docTypeFor(p), title: `MITHQAL ${titleFromPath(p)}` });
+        } else if (/^docs\/(verification|due-diligence|evidence|institutional-validation)\//.test(p) && p.endsWith('.md')) {
+          out.push({ path: p, blueprint: verify, docType: 'AUDIT', title: `MITHQAL ${titleFromPath(p)}` });
+        } else if (/^src\/[A-Z][A-Za-z]+\.sol$/.test(p)) {
+          out.push({ path: p, blueprint: eng, docType: 'SPEC', title: `MITHQAL Solidity contract — ${titleFromPath(p)}` });
+        } else if (/^src\/lib\/[A-Za-z0-9_/-]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MITHQAL module — ${titleFromPath(p)}` });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MITHQAL ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // Task 26 — OLYMP-EX (Egyptian agritrade export company: fresh/frozen
+    // produce brand + corporate site). Two public repos: the full brand site
+    // (fortleem/olympex_export, Lovable-built) + a vite/Cloudflare micro-app
+    // (fortleem/olympex) mounted under micro-app/.
+    slug: 'olymp-ex',
+    name: 'OLYMP EX',
+    clone: 'fortleem_olympex_export',
+    repositoryUrl: 'https://github.com/fortleem/olympex_export',
+    titlePrefix: 'OLYMP EX',
+    extraClones: [
+      { clone: 'fortleem_olympex', repositoryUrl: 'https://github.com/fortleem/olympex', mount: 'micro-app/' },
+    ],
+    select: (files) => {
+      const out: Selection[] = [];
+      const brand: BlueprintDef = { slug: 'olymp-ex-brand', title: 'OLYMP-EX Brand Identity & Site' };
+      const eng: BlueprintDef = { slug: 'olymp-ex-engineering', title: 'OLYMP-EX Engineering' };
+      for (const p of files) {
+        if (p.startsWith('micro-app/')) {
+          const rel = p.slice('micro-app/'.length);
+          const wanted = rel === 'README.md' || rel === 'package.json' || rel === 'wrangler.jsonc' ||
+            rel === 'ecosystem.config.cjs' || rel === 'vite.config.ts' || rel === 'tsconfig.json' ||
+            /^src\/[^/]+\.(ts|tsx)$/.test(rel) || /^public\/static\/[^/]+\.(js|css)$/.test(rel);
+          if (wanted) out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `Olymp Ex micro-app ${titleFromPath(rel)}` });
+          continue;
+        }
+        if (/\.(png|jpg|jpeg|webp|gif|svg|ico|pdf|zip)$/i.test(p)) continue; // text-only pipeline
+        if (p === 'README.md' || p === 'AGENTS.md') {
+          out.push({ path: p, blueprint: brand, docType: 'SPEC', title: `OLYMP-EX ${p === 'README.md' ? 'brand launch specification' : 'agents guide'}` });
+        } else if (/^src\/data\/[^/]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: brand, docType: 'REFERENCE', title: `OLYMP-EX ${titleFromPath(p)} data` });
+        } else if (/^src\/(components\/(brand|site)|hooks|lib|routes)\/[A-Za-z0-9_/-]+\.(ts|tsx)$/.test(p)) {
+          out.push({ path: p, blueprint: brand, docType: 'REFERENCE', title: `OLYMP-EX ${titleFromPath(p)}` });
+        } else if (p === 'package.json' || p === 'components.json' || p === 'vite.config.ts' || p === 'tsconfig.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `OLYMP-EX ${titleFromPath(p)} manifest` });
+        }
+      }
+      return out;
+    },
   },
   {
     slug: 'judge',
@@ -366,11 +462,11 @@ function shortSha(cloneDir: string): string {
 
 const LANG_MAP: Record<string, string> = { ts: 'ts', tsx: 'tsx', js: 'js', json: 'json', prisma: 'prisma', py: 'py', md: 'md', sh: 'sh', sql: 'sql', sol: 'sol', rego: 'rego' };
 
-function wrapAsMarkdown(profile: PlatformProfile, path: string, content: string, sha: string): string {
+function wrapAsMarkdown(repositoryUrl: string, path: string, content: string, sha: string): string {
   const ext = (path.split('.').pop() ?? 'txt').toLowerCase();
   if (ext === 'md') return content; // already markdown — ingest as-is
   const lang = LANG_MAP[ext] ?? '';
-  return `# Source: ${path}\n\nProvenance: \`${path}\` in the ${profile.repositoryUrl.replace('https://github.com/', '')} repository (branch main @ ${sha}).\n\n\`\`\`${lang}\n${content}\n\`\`\`\n`;
+  return `# Source: ${path}\n\nProvenance: \`${path}\` in the ${repositoryUrl.replace('https://github.com/', '')} repository (branch main @ ${sha}).\n\n\`\`\`${lang}\n${content}\n\`\`\`\n`;
 }
 
 /**
@@ -434,26 +530,55 @@ function splitMarkdown(title: string, markdown: string, repo: string): string[] 
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function ingestPlatform(profile: PlatformProfile): Promise<void> {
-  const cloneDir = join(REPOS_DIR, profile.clone);
+  // Task 26 — unified multi-clone file tree: main-clone paths stay as-is;
+  // extra clones mount under a virtual prefix so `select` sees ONE tree.
+  // Provenance (repo URL + SHA) is resolved per-source at read time.
+  const sources: { dir: string; repo: string; mount: string; sha: string }[] = [];
+  const addSource = (clone: string, repo: string, mount: string) => {
+    const dir = join(REPOS_DIR, clone);
+    try {
+      const sha = shortSha(dir); // throws when the dir is not a git clone
+      sources.push({ dir, repo, mount, sha });
+    } catch {
+      console.error(`  ✗ clone not found: ${clone} (clone it first)`);
+    }
+  };
+  addSource(profile.clone, profile.repositoryUrl, '');
+  for (const e of profile.extraClones ?? []) addSource(e.clone, e.repositoryUrl, e.mount);
+  if (sources.length === 0) return;
+  const cloneDir = sources[0].dir; // single-clone profiles keep their ref
   console.log(`\n──────────────────────────────────────────────────────`);
   console.log(`${profile.name} (${profile.slug}) → ${APP}`);
   console.log(`  source: ${profile.repositoryUrl} @ local clone ${cloneDir}`);
 
-  let files: string[];
-  try {
-    files = walkFiles(cloneDir);
-  } catch {
-    console.error(`  ✗ clone not found: ${cloneDir} (clone it first)`);
-    return;
+  const files: string[] = [];
+  for (const src of sources) {
+    try {
+      const walked = walkFiles(src.dir);
+      files.push(...(src.mount ? walked.map((p) => `${src.mount}${p}`) : walked));
+    } catch {
+      console.error(`  ✗ cannot walk: ${src.dir}`);
+    }
   }
-  const sha = shortSha(cloneDir);
-  console.log(`  HEAD ${sha} · ${files.length} repo entries`);
+  console.log(`  HEAD ${sources[0].sha} · ${files.length} repo entries (${sources.length} source repo(s))`);
+
+  /** Resolve a (possibly mounted) selection path back to its source clone. */
+  const resolve = (path: string): { dir: string; real: string; repo: string; sha: string } | null => {
+    for (let i = sources.length - 1; i >= 0; i--) {
+      const s = sources[i];
+      if (!s.mount || path.startsWith(s.mount)) {
+        return { dir: s.dir, real: s.mount ? path.slice(s.mount.length) : path, repo: s.repo, sha: s.sha };
+      }
+    }
+    return null;
+  };
 
   const selections = profile.select(files);
   const totalKB = Math.round(
     selections.reduce((s, x) => {
       try {
-        return s + statSync(join(cloneDir, x.path)).size;
+        const r = resolve(x.path);
+        return s + (r ? statSync(join(r.dir, r.real)).size : 0);
       } catch {
         return s;
       }
@@ -490,13 +615,15 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
   let failed = 0;
   for (const sel of selections) {
     try {
-      const raw = readFileSync(join(cloneDir, sel.path), 'utf8');
+      const src = resolve(sel.path);
+      if (!src) throw new Error('selection path not found in any clone');
+      const raw = readFileSync(join(src.dir, src.real), 'utf8');
       if (raw.trim().length < 40) {
         console.log(`  SKIP (too short): ${sel.path}`);
         continue;
       }
-      const markdown = wrapAsMarkdown(profile, sel.path, raw, sha);
-      const parts = splitMarkdown(sel.title, markdown, profile.repositoryUrl.replace('https://github.com/', ''));
+      const markdown = wrapAsMarkdown(src.repo, sel.path, raw, src.sha);
+      const parts = splitMarkdown(sel.title, markdown, src.repo.replace('https://github.com/', ''));
       for (let pi = 0; pi < parts.length; pi++) {
         const partTitle = parts.length > 1 ? `${sel.title} — Part ${pi + 1}/${parts.length}` : sel.title;
         const r = await apiPost<{ jobId: string; duplicate: boolean }>('/api/ingestion', {
@@ -506,7 +633,7 @@ async function ingestPlatform(profile: PlatformProfile): Promise<void> {
           title: partTitle,
           docType: sel.docType,
           content: parts[pi],
-          documentVersion: `github-main-${sha}`,
+          documentVersion: `github-main-${src.sha}`,
         });
         results.push({ title: partTitle, jobId: r.jobId, duplicate: r.duplicate });
         console.log(`  ${r.duplicate ? 'DUPLICATE' : 'QUEUED'}: ${partTitle} [${sel.docType}] (${Math.round(parts[pi].length / 1024)}KB)`);
