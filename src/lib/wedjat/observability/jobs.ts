@@ -329,7 +329,23 @@ export async function processJobNow(jobId: string): Promise<void> {
 export async function retryJob(jobId: string): Promise<void> {
   const job = await db.job.findUnique({ where: { id: jobId } });
   if (!job) throw new Error('job not found');
-  if (!['FAILED', 'CANCELLED'].includes(job.status)) throw new Error(`cannot retry job in status ${job.status}`);
+  // BUG FIX (additive §58): a RUNNING job whose serverless instance
+  // evaporated mid-pipeline (after() window boundary / instance freeze) is
+  // orphaned forever — the interval worker only claims QUEUED jobs and the
+  // retry gate rejected RUNNING. Allow retrying a RUNNING job that has been
+  // "running" with no completion for >15 minutes (stale by two orders of
+  // magnitude vs the 60s pipeline window). The pipeline itself is
+  // interrupt-resumable (sections/chunks upsert by ordinal), so a retry
+  // continues from the last checkpoint instead of duplicating.
+  const STALE_RUNNING_MS = 15 * 60_000;
+  const finished = ['FAILED', 'CANCELLED'].includes(job.status);
+  const orphaned =
+    job.status === 'RUNNING' &&
+    job.startedAt !== null &&
+    Date.now() - job.startedAt.getTime() > STALE_RUNNING_MS;
+  if (!finished && !orphaned) {
+    throw new Error(`cannot retry job in status ${job.status}`);
+  }
   await db.job.update({
     where: { id: jobId },
     data: { status: 'QUEUED', lastError: null, progress: 0, attempts: 0 },

@@ -396,6 +396,32 @@ function splitMarkdown(title: string, markdown: string, repo: string): string[] 
     currentSize += line.length + 1;
   }
   flush();
+  // Heading-boundary split fails for wrapped CODE files (one giant fenced
+  // block, no interior headings) — post-pass: raw-slice any still-oversized
+  // part at line boundaries (found via the orphaned 320KB SGTX schema job on
+  // production: single part > after() window).
+  const sliced: string[] = [];
+  for (const part of parts) {
+    if (part.length <= SPLIT_THRESHOLD * 1.2) {
+      sliced.push(part);
+      continue;
+    }
+    const partLines = part.split('\n');
+    let buf: string[] = [];
+    let bufSize = 0;
+    for (const line of partLines) {
+      buf.push(line);
+      bufSize += line.length + 1;
+      if (bufSize >= SPLIT_THRESHOLD) {
+        sliced.push(buf.join('\n'));
+        buf = [];
+        bufSize = 0;
+      }
+    }
+    if (buf.length > 0 && bufSize > 800) sliced.push(buf.join('\n'));
+  }
+  parts.length = 0;
+  parts.push(...sliced);
   if (parts.length === 0) {
     for (let i = 0; i < markdown.length; i += SPLIT_THRESHOLD) parts.push(markdown.slice(i, i + SPLIT_THRESHOLD));
   }
