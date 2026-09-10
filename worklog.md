@@ -1758,3 +1758,88 @@ Stage Summary:
   mtq`; (2) Turso CLI token expired — a fresh one would let WEDJAT mint
   per-DB tokens itself; (3) SGTX FABLE + EGYCOURT Turso credentials /
   repo access still outstanding from Task 24.
+---
+Task ID: 26
+Agent: orchestrator (main)
+Task: User instructed "proceed implementing". Swept the remaining §5 gaps
+reachable WITHOUT new credentials: discovered + ingested never-ingested
+public repositories, and restored the local corpus lost to sandbox
+reset #4.
+
+Work Log:
+- REPO DISCOVERY (GitHub org/user sweep — no tokens needed): fortleem is a
+  USER (not org) whose public repos include never-ingested knowledge:
+  MITHQALMTQ/mithqal (221MB, 2340 files — the REAL MITHQAL flagship
+  codebase; the MITHQALMTQ/MTQ stub previously used is 5KB), fortleem/MTQ
+  (3MB MTQ web-app workspace with src/lib/mithqal modules), fortleem/
+  olympex + olympex_export (OLYMP-EX — Egyptian agritrade export company,
+  one of the 10 §5 org platforms, never ingested). EGYCOURT: still not
+  found publicly (search only matches an unrelated 2020 personal repo) —
+  honest gap. fortleem/tokens deliberately NOT ingested (credential
+  material, §41).
+- MULTI-CLONE INGESTION (scripts/ingest-platform.ts, additive): platforms
+  can now span multiple repositories — extraClones mount under virtual
+  path prefixes, select() sees ONE unified tree, provenance (repo URL +
+  SHA + documentVersion) resolves per-source.
+- mtq PROFILE REWRITTEN: source of record = MITHQALMTQ/mithqal. Curation:
+  v25.2 MASTER blueprint family + v24/v25 canonical chains + v25 sections
+  + custody framework (blueprint/architecture), 159 verification/
+  due-diligence reports (mtq-verification), 8 Solidity contracts + 127
+  src/lib institutional modules + prisma schema + MTQ app modules
+  (mtq-engineering). Excluded: skills/, .legacy-backup, foundry, media
+  binaries (.wav/.docx/.png/.html), src/app routes. Curation-bug found &
+  fixed: v24 files are named mithqal-canonical-v24.x.md (no "blueprint-")
+  — exclusion regex initially missed them; rule now matches local reality
+  (v24 chain = honest versioned history, CIRKLE v15/v16 precedent).
+- NEW olymp-ex PROFILE: brand site (olympex_export) + CF micro-app
+  (fortleem/olympex) → olymp-ex-brand + olymp-ex-engineering blueprints.
+- LOCAL CORPUS RESTORED (reset #4) + EXTENDED: 726 jobs, 0 failures —
+  olymp-ex 38, cirkle 57, judge 30, sgtx-fable 17, mtq-sigma 25,
+  MITHQAL 556. Local now: 10 platforms / 725 docs / 33,394 chunks.
+  Browser-verified: MITHQAL chat groundedness 0.82 (constitutional
+  principles: no discretionary minting, Reserve ≥ Supply × NAV, banks-
+  more-useful non-compete, sources ranked with v25 FINAL #1); OLYMP-EX
+  chat grounded (green/purple brand, fresh/frozen categories).
+- BUG 1 (found on prod, FIXED in a0b3542): orphaned RUNNING jobs (serverless
+  instance evaporation) could only be recovered by the MANUAL retry
+  control — long pulls stalled. Worker now self-heals: every ~30s it
+  requeues RUNNING jobs stale >15min (attempts <5; exhausted ones marked
+  FAILED honestly). VERIFIED LIVE on prod: a 963-second-old orphan
+  requeued itself and completed.
+- BUG 2 (throughput, FIXED in 9c8c948): serial submit+wait capped prod
+  at ~1-2 jobs/min (25-30s pipeline latency × 1 lane) → 556-part MITHQAL
+  would take 5+ hours. Added --parallel N (bounded pool, parts
+  materialized up front); PARALLEL=1 default preserves the serial
+  behavior a LOCAL dev server needs (Task 22 OOM lesson). Prod run at
+  --parallel 5 achieved ~5 docs/min. Two transient SQLITE_BUSY failures
+  (write contention) retried via POST /api/jobs → COMPLETED.
+- PRODUCTION RESULT: deployed f8658d7 + a0b3542 + 9c8c948 (all READY).
+  olymp-ex CONNECTED (38 docs); mtq repositoryUrl updated to the real
+  flagship repo (559 docs / 11,287 deduped-INDEXED chunks — doc-level
+  totals verified IDENTICAL to local: 42,040 vs 42,039 chunks, every doc
+  matching except the old stub; the platform-metric difference is the §30
+  global checksum dedup marking repeat chunks EXCLUDED); drift-check
+  re-ingestions: cirkle +5 docs, sgtx-fable +2, mtq-sigma +12 (fresh repo
+  HEADs → new versioned snapshots), judge unchanged. Prod now: 13
+  platform rows, 8 with knowledge CONNECTED + olymp-ex = 9, 1014 docs.
+- PRODUCTION CHAT VERIFIED (Agent Browser): "MITHQAL constitutional
+  principles + custody readiness" → groundedness 0.87, 8 sources, FACTs
+  on non-custodial settlement, gold/silver allocated bullion, no-
+  commingling invariant, AND deep retrieval of the specific
+  docs/verification/custody-readiness-report.md status ("10/33 criteria
+  met, custody operationalization BLOCKED"). "Olymp Ex products/brand"
+  → groundedness 0.77, auto-scoped to the olymp-ex platform (Task 23
+  resolveScope working), specific produce (mangoes, sweet potatoes,
+  artichokes, molokhia, okra).
+- bun run lint clean; local dev healthy; both runs' logs clean.
+
+Stage Summary:
+- WEDJAT now KNOWS 9 platforms end-to-end on production (MITHQAL's real
+  flagship codebase + OLYMP-EX newly discovered and ingested) — §5 is
+  complete for every publicly-reachable org repository.
+- Two systemic improvements shipped: self-healing job worker (orphaned
+  RUNNING jobs recover automatically) and --parallel bounded ingestion
+  (5× serverless throughput).
+- REMAINING OWNER ACTIONS (unchanged): fresh MITHQAL MTQ Turso DB token
+  (§34/§35 for mtq — current one 401s), Turso CLI token (expired), SGTX
+  FABLE Turso token, EGYCOURT repo/token (repo not found publicly).
