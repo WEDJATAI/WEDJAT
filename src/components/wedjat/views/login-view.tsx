@@ -73,7 +73,17 @@ export function LoginView({
               height={768}
               priority
               sizes="(max-width: 1024px) 100vw, 576px"
-              className="h-auto w-full"
+              className="h-auto w-full dark:invisible"
+            />
+            <Image
+              src="/wedjat-logo-dark.jpg"
+              alt=""
+              aria-hidden="true"
+              width={1344}
+              height={768}
+              priority
+              sizes="(max-width: 1024px) 100vw, 576px"
+              className="absolute inset-0 hidden h-auto w-full dark:block"
             />
           </div>
           <h1 className="mt-8 text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -117,13 +127,20 @@ export function LoginView({
           <Card className="rounded-xl shadow-sm">
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white">
+                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white dark:bg-[#070a10]">
                   <Image
                     src="/wedjat-mark-sm.jpg"
                     alt=""
                     width={44}
                     height={44}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover dark:hidden"
+                  />
+                  <Image
+                    src="/wedjat-mark-sm-dark.jpg"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="hidden h-full w-full object-cover dark:block"
                   />
                 </div>
                 <div>

@@ -72,6 +72,26 @@ const TARGETS: DbTarget[] = [
     deploymentUrl: 'https://ppe-smart.vercel.app',
     databaseUrl: 'libsql://ppe-smart-fortleem.aws-us-east-1.turso.io',
   },
+  {
+    // Task 25 — OWNER re-supplied the MTQ (MITHQAL) + MTQ SIGMA Turso tokens
+    // (the last two §34/§35 gaps flagged at the end of Task 24).
+    slug: 'mtq',
+    name: 'MITHQAL MTQ',
+    urlEnv: 'MTQ_TURSO_URL',
+    tokenEnv: 'MTQ_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/MITHQALMTQ/MTQ',
+    deploymentUrl: 'https://mithqal.vercel.app',
+    databaseUrl: 'libsql://mtq-fortleem.aws-us-east-1.turso.io',
+  },
+  {
+    slug: 'mtq-sigma',
+    name: 'MTQ SIGMA',
+    urlEnv: 'MTQS_TURSO_URL',
+    tokenEnv: 'MTQS_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/MITHQALMTQ/MTQ_SIGMA',
+    deploymentUrl: 'https://mtq-sigma.vercel.app',
+    databaseUrl: 'libsql://mtqs-fortleem.aws-us-east-1.turso.io',
+  },
 ];
 
 // ── .env.local loader (secrets never printed) ────────────────────────────────

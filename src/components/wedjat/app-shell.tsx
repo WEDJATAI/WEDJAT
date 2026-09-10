@@ -89,14 +89,21 @@ function Brand() {
     <div className="flex items-center gap-2.5">
       <div
         aria-hidden="true"
-        className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white"
+        className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white dark:bg-[#070a10]"
       >
         <Image
           src="/wedjat-mark-sm.jpg"
           alt=""
           width={36}
           height={36}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover dark:hidden"
+        />
+        <Image
+          src="/wedjat-mark-sm-dark.jpg"
+          alt=""
+          width={36}
+          height={36}
+          className="hidden h-full w-full object-cover dark:block"
         />
       </div>
       <div className="leading-none">
