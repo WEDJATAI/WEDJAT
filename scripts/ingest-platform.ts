@@ -193,6 +193,106 @@ const profiles: PlatformProfile[] = [
     },
   },
   {
+    // OWNER re-supplied the private-repo GitHub token (Task 24) — this profile
+    // was blocked in Task 23 (GitHub 403 unauthenticated).
+    slug: 'aurienta',
+    name: 'AURIENTA',
+    clone: 'Aurienta_Aurienta',
+    repositoryUrl: 'https://github.com/Aurienta/Aurienta',
+    deploymentUrl: 'https://aurienta.vercel.app',
+    databaseUrl: 'libsql://aurienta-fortleem.aws-us-east-1.turso.io',
+    titlePrefix: 'AURIENTA',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('aurienta', 'AURIENTA Architecture & Governance');
+      const blueprint: BlueprintDef = { slug: 'aurienta-blueprint', title: 'AURIENTA Master Blueprint & Amendments' };
+      const eng: BlueprintDef = { slug: 'aurienta-engineering', title: 'AURIENTA Engineering & Modules' };
+      for (const p of files) {
+        // Blueprint registry first (docs/blueprint/*.md would otherwise be
+        // captured by the generic docs/ rule).
+        if (p.startsWith('docs/blueprint/') && (p.endsWith('.md') || p.endsWith('.json'))) {
+          out.push({ path: p, blueprint, docType: p.includes('REGISTRY') ? 'SPEC' : 'REFERENCE', title: `AURIENTA Blueprint ${titleFromPath(p)}` });
+        } else if (p.startsWith('docs/') && p.toLowerCase().endsWith('.md')) {
+          out.push({ path: p, blueprint: arch, docType: docTypeFor(p), title: `AURIENTA ${titleFromPath(p)}` });
+        } else if (p === 'PRODUCTION_READINESS_AUDIT.md' || p === 'REPOSITORY_INTEGRITY.md' || p === 'UI_AUDIT.md') {
+          out.push({ path: p, blueprint: arch, docType: docTypeFor(p), title: `AURIENTA ${titleFromPath(p)}` });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `AURIENTA ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        } else if (/^src\/lib\/aurienta\/[^/]+\.ts$/.test(p)) {
+          // All 42 institutional modules — each is a self-contained engine
+          // (matching engine, constitutional audit, market execution…).
+          // .docx blueprint binaries are honestly NOT ingested (text-only
+          // pipeline); the markdown changelog carries the canonical version.
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `AURIENTA module — ${titleFromPath(p)}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // OWNER re-supplied the private-repo GitHub token (Task 24) — blocked in
+    // Task 23. 151 domain-engine entry modules + certification docs + the
+    // constitutional OPA governor policies.
+    slug: 'sgtx',
+    name: 'SGTX',
+    clone: 'SGTX-PILOT_SGTX',
+    repositoryUrl: 'https://github.com/SGTX-PILOT/SGTX',
+    deploymentUrl: 'https://sgtx.vercel.app',
+    databaseUrl: 'libsql://sgtx-fortleem.aws-us-east-1.turso.io',
+    titlePrefix: 'SGTX',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('sgtx', 'SGTX Trade Platform Architecture & Certification');
+      const gov: BlueprintDef = { slug: 'sgtx-governor', title: 'SGTX Constitutional Governor & Policies' };
+      const eng: BlueprintDef = { slug: 'sgtx-engineering', title: 'SGTX Engineering & Domain Engines' };
+      const auth: BlueprintDef = { slug: 'sgtx-security-auth', title: 'SGTX Security & Authentication' };
+      for (const p of files) {
+        if (/^SGTX_[A-Z0-9_.]+\.md$/.test(p) || p === 'README.md' || p === 'COCKPIT_PHASE_0_PR.md') {
+          out.push({ path: p, blueprint: arch, docType: docTypeFor(p), title: `SGTX ${titleFromPath(p)}` });
+        } else if (p === 'docs/blueprint/CHANGE-CONTROL-LEDGER.md') {
+          out.push({ path: p, blueprint: arch, docType: 'SPEC', title: 'SGTX Blueprint Change-Control Ledger' });
+        } else if (/^core\/governor\/policies\/[^/]+\.rego$/.test(p)) {
+          out.push({ path: p, blueprint: gov, docType: 'SPEC', title: `SGTX Governor policy — ${titleFromPath(p)}` });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json' || p === 'src/lib/openapi-spec.ts') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `SGTX ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : p.includes('openapi') ? 'API surface' : 'package manifest'})` });
+        } else if (/^src\/lib\/v1\/(auth|auth-edge|passkey|zitadel)\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: auth, docType: 'REFERENCE', title: `SGTX auth — ${titleFromPath(p)}` });
+        } else if (/^src\/lib\/sgtx\/[^/]+\/index\.ts$/.test(p) || /^src\/lib\/sgtx\/[^/]+\.ts$/.test(p)) {
+          // Domain-engine module entry (index.ts) or single-file module.
+          const moduleName = p.slice('src/lib/sgtx/'.length).replace(/\/index\.ts$/, '').replace(/\.ts$/, '');
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `SGTX engine — ${moduleName}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // OWNER re-supplied the private-repo GitHub token (Task 24) — blocked in
+    // Task 23. Compact bilingual (AR/EN) VLM compliance platform.
+    slug: 'ppe',
+    name: 'PPE SMART',
+    clone: 'fortleem_PPE',
+    repositoryUrl: 'https://github.com/fortleem/PPE',
+    deploymentUrl: 'https://ppe-smart.vercel.app',
+    databaseUrl: 'libsql://ppe-smart-fortleem.aws-us-east-1.turso.io',
+    titlePrefix: 'PPE',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('ppe', 'PPE Detector Architecture & Experiments');
+      const eng: BlueprintDef = { slug: 'ppe-engineering', title: 'PPE Detector Engineering' };
+      for (const p of files) {
+        if (p === 'README.md') {
+          out.push({ path: p, blueprint: arch, docType: 'SPEC', title: 'PPE Detector — نظام كشف معدات السلامة (overview & experiments)' });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `PPE ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        } else if (/^src\/lib\/[^/]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `PPE module — ${titleFromPath(p)}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
     slug: 'mtq-sigma',
     name: 'MTQ SIGMA',
     clone: 'MITHQALMTQ_MTQ_SIGMA',
@@ -264,7 +364,7 @@ function shortSha(cloneDir: string): string {
   }
 }
 
-const LANG_MAP: Record<string, string> = { ts: 'ts', tsx: 'tsx', js: 'js', json: 'json', prisma: 'prisma', py: 'py', md: 'md', sh: 'sh', sql: 'sql', sol: 'sol' };
+const LANG_MAP: Record<string, string> = { ts: 'ts', tsx: 'tsx', js: 'js', json: 'json', prisma: 'prisma', py: 'py', md: 'md', sh: 'sh', sql: 'sql', sol: 'sol', rego: 'rego' };
 
 function wrapAsMarkdown(profile: PlatformProfile, path: string, content: string, sha: string): string {
   const ext = (path.split('.').pop() ?? 'txt').toLowerCase();
