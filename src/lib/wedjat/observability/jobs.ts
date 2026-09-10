@@ -124,8 +124,17 @@ export function startJobWorker(): void {
   if (workerRunning) return;
   workerRunning = true;
   logger.info('job_worker_started', {});
+  // Task 26 — self-heal pass: every ~30s (every 20th 1.5s tick) requeue
+  // RUNNING jobs orphaned by serverless instance evaporation. Previously
+  // only the MANUAL retry control (UI) could recover them (Task 24 fix),
+  // which stalls long pull-ingestion runs on Vercel: the script's 75s
+  // window elapses, the orphan stays RUNNING forever, and the worker only
+  // claims QUEUED. The pipeline is interrupt-resumable (sections/chunks
+  // upsert by ordinal), so a requeue continues from the last checkpoint.
+  let tickCount = 0;
   const tick = async () => {
     try {
+      if (++tickCount % 20 === 0) await requeueStaleRunningJobs();
       await claimAndRunOneJob();
     } catch (err) {
       logger.error('job_worker_tick_failed', { error: err instanceof Error ? err.message : String(err) });
@@ -152,6 +161,41 @@ export function startJobWorker(): void {
     void healthTick();
     setInterval(() => void healthTick(), 5 * 60_000);
   }, 30_000);
+}
+
+/**
+ * Task 26 — self-heal: requeue RUNNING jobs whose serverless instance
+ * evaporated (startedAt > 15 min ago with no completion — 15× the ~60s
+ * pipeline window; same staleness policy as the manual retryJob control).
+ * Jobs already at maxAttempts are marked FAILED (honest terminal state)
+ * instead of ping-ponging forever. The pipeline is interrupt-resumable,
+ * so the requeued job continues from its last checkpoint (§58 additive).
+ */
+async function requeueStaleRunningJobs(): Promise<void> {
+  const STALE_RUNNING_MS = 15 * 60_000;
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_MS);
+  try {
+    const requeued = await db.job.updateMany({
+      where: { status: 'RUNNING', startedAt: { lt: staleBefore }, attempts: { lt: 5 } },
+      data: { status: 'QUEUED', lastError: null, progress: 0 },
+    });
+    if (requeued.count > 0) {
+      logger.info('job_worker_requeued_stale_running', { count: requeued.count });
+    }
+    const failed = await db.job.updateMany({
+      where: { status: 'RUNNING', startedAt: { lt: staleBefore } },
+      data: {
+        status: 'FAILED',
+        lastError: 'orphaned RUNNING (serverless instance evaporation) — exceeded requeue attempts',
+        completedAt: new Date(),
+      },
+    });
+    if (failed.count > 0) {
+      logger.warn('job_worker_failed_orphaned', { count: failed.count });
+    }
+  } catch (err) {
+    logger.warn('job_worker_stale_scan_failed', { error: err instanceof Error ? err.message : String(err) });
+  }
 }
 
 /** Claims ONE queued job (status → RUNNING) and executes it. */
