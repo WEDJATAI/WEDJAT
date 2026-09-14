@@ -117,7 +117,7 @@ export type IntakeDetail = IntakeDetailPayload & {
 
 const MAX_SNAPSHOT_TABLES = 60;
 
-const GREEN_TXT = "text-emerald-700 dark:text-emerald-400";
+const GREEN_TXT = "text-cyan-700 dark:text-cyan-300";
 const RED_TXT = "text-red-700 dark:text-red-400";
 
 interface ReviewBody {
@@ -361,7 +361,7 @@ function ColumnsTable({ table }: { table: IntakeTableDto }) {
                     {col.isPrimaryKey ? (
                       <Badge
                         variant="outline"
-                        className="border-emerald-500/30 bg-emerald-500/10 px-1 text-[9px] text-emerald-700 dark:text-emerald-400"
+                        className="border-cyan-500/30 bg-cyan-500/10 px-1 text-[9px] text-cyan-700 dark:text-cyan-300"
                       >
                         PK
                       </Badge>
@@ -369,7 +369,7 @@ function ColumnsTable({ table }: { table: IntakeTableDto }) {
                     {col.isForeignKey ? (
                       <Badge
                         variant="outline"
-                        className="border-teal-500/30 bg-teal-500/10 px-1 text-[9px] text-teal-700 dark:text-teal-400"
+                        className="border-sky-500/30 bg-sky-500/10 px-1 text-[9px] text-sky-700 dark:text-sky-400"
                       >
                         FK
                       </Badge>
@@ -618,7 +618,7 @@ function CandidateCard({
               className={cn(
                 "rounded-md border px-2 py-0.5 text-[10px] font-medium",
                 g.passed
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                  ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
                   : "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400",
               )}
             >
@@ -1023,7 +1023,7 @@ export function IntakeRunDetailTab({
             <div className="flex flex-wrap items-center gap-2">
               <Badge
                 variant="outline"
-                className={cn("text-[10px]", "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400")}
+                className={cn("text-[10px]", "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300")}
               >
                 {importReport.passed} passed
               </Badge>
@@ -1044,7 +1044,7 @@ export function IntakeRunDetailTab({
                   BLOCKED
                 </Badge>
               ) : importReport.importable ? (
-                <Badge variant="outline" className="border-emerald-500/40 bg-emerald-500/15 text-[10px] text-emerald-700 dark:text-emerald-400">
+                <Badge variant="outline" className="border-cyan-500/40 bg-cyan-500/15 text-[10px] text-cyan-700 dark:text-cyan-300">
                   IMPORTABLE
                 </Badge>
               ) : null}
@@ -1476,7 +1476,7 @@ export function IntakeRunDetailTab({
             <div className="flex items-center gap-2">
               <Badge
                 variant="outline"
-                className="border-emerald-500/30 bg-emerald-500/10 gap-1.5 text-[10px] text-emerald-700 dark:text-emerald-400"
+                className="border-cyan-500/30 bg-cyan-500/10 gap-1.5 text-[10px] text-cyan-700 dark:text-cyan-300"
               >
                 <ShieldCheck aria-hidden="true" className="size-3" />
                 Zero data loss — unmapped fields are preserved, not discarded

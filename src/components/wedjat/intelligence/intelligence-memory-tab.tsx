@@ -103,12 +103,12 @@ function ProvenancePanel({ provenance }: { provenance: ProvenanceDto }) {
                 <li key={`${l.recordId}-${i}`} className="relative pb-3 last:pb-0">
                   <span
                     aria-hidden="true"
-                    className="absolute -left-[21px] top-1.5 size-2 rounded-full border-2 border-background bg-teal-500"
+                    className="absolute -left-[21px] top-1.5 size-2 rounded-full border-2 border-background bg-sky-500"
                   />
                   <div className="flex flex-wrap items-center gap-1.5">
                     <Badge
                       variant="outline"
-                      className="border-teal-500/30 bg-teal-500/10 font-mono text-[10px] text-teal-700 dark:border-teal-400/30 dark:bg-teal-400/10 dark:text-teal-400"
+                      className="border-sky-500/30 bg-sky-500/10 font-mono text-[10px] text-sky-700 dark:border-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400"
                     >
                       {l.relation}
                     </Badge>

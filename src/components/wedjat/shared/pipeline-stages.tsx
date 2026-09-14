@@ -37,7 +37,7 @@ function stageState(status: string): StageState {
 }
 
 const STATE_CLASSES: Record<StageState, string> = {
-  done: "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+  done: "border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
   running:
     "wedjat-pulse border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-400",
   failed: "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-400",

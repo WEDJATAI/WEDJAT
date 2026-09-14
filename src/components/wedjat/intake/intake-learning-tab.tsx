@@ -85,7 +85,7 @@ const chartConfig = {
 function LearningCheckBadge({ status }: { status: string }) {
   const s = status.toUpperCase();
   const cls = ["PASS", "OK", "HEALTHY", "GREEN"].includes(s)
-    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+    ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
     : ["WARN", "DEGRADED", "AMBER"].includes(s)
       ? "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400"
       : ["FAIL", "ERROR", "CRITICAL", "RED"].includes(s)
@@ -103,8 +103,8 @@ function ImprovementStatusBadge({ status }: { status: string }) {
     status === "OPEN"
       ? "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400"
       : status === "ACKNOWLEDGED"
-        ? "border-teal-500/30 bg-teal-500/10 text-teal-700 dark:text-teal-400"
-        : "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
+        ? "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-400"
+        : "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300";
   return (
     <Badge variant="outline" className={cn(cls, "text-[10px]")}>
       {status}
@@ -581,7 +581,7 @@ export function IntakeLearningTab({ role }: { role: string }) {
                   className={cn(
                     "ml-auto text-[10px]",
                     lastHealthCheck.issuesFound === 0
-                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                      ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
                       : "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400",
                   )}
                 >

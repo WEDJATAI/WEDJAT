@@ -53,7 +53,7 @@ import type { ServiceIdentityCreatedDto, TimelineEntryDto } from "@/lib/wedjat/t
 // ── tone classes (local — intelligence-specific statuses) ───────────────────
 
 const GREEN =
-  "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-400";
+  "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300";
 const AMBER =
   "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-400";
 const ORANGE =
@@ -61,7 +61,7 @@ const ORANGE =
 const RED =
   "border-red-500/30 bg-red-500/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-400";
 const TEAL =
-  "border-teal-500/30 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:bg-teal-400/10 dark:text-teal-400";
+  "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400";
 const SLATE = "border-border bg-muted text-muted-foreground";
 const MUTED = "border-border bg-muted/60 text-muted-foreground/80";
 
@@ -267,7 +267,7 @@ export function CopyButton({
       aria-label={ariaLabel ?? label ?? "Copy to clipboard"}
     >
       {copied ? (
-        <Check aria-hidden="true" className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+        <Check aria-hidden="true" className="size-3.5 text-cyan-600 dark:text-cyan-300" />
       ) : (
         <Copy aria-hidden="true" className="size-3.5" />
       )}
@@ -296,7 +296,7 @@ export function JsonBlock({
       ) : null}
       <pre
         aria-label={label ?? "JSON payload"}
-        className="wedjat-scroll max-h-96 overflow-y-auto rounded-lg border border-border bg-slate-950 p-3 font-mono text-[11px] leading-5 whitespace-pre-wrap break-all text-emerald-200/90"
+        className="wedjat-scroll max-h-96 overflow-y-auto rounded-lg border border-border bg-sidebar p-3 font-mono text-[11px] leading-5 whitespace-pre-wrap break-all text-cyan-200/90"
       >
         {text}
       </pre>
@@ -491,8 +491,8 @@ export function KeyRevealDialog({
           <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
             API key (shown only once)
           </p>
-          <div className="flex items-center gap-2 rounded-lg border border-border bg-slate-950 p-3">
-            <code className="min-w-0 flex-1 break-all font-mono text-xs text-emerald-200/90">
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-sidebar p-3">
+            <code className="min-w-0 flex-1 break-all font-mono text-xs text-cyan-200/90">
               {issued?.apiKey ?? ""}
             </code>
             {issued ? <CopyButton text={issued.apiKey} ariaLabel="Copy API key" /> : null}

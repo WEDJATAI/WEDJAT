@@ -83,7 +83,7 @@ const ACCEPTED_FILES = ".db,.sqlite,.sqlite3,.sql,.csv,.json,.jsonl,.dump,.txt";
 
 // tone classes for the H/M/L/U mapping mini-counts
 const HMLU_TONES = {
-  high: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+  high: "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
   medium: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400",
   low: "border-orange-500/30 bg-orange-500/10 text-orange-700 dark:text-orange-400",
   unresolved: "border-border bg-muted text-muted-foreground",

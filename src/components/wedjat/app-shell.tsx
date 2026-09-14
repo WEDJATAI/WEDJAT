@@ -1,8 +1,10 @@
 "use client";
 
-// WEDJAT DOMAIN AI application shell: top bar (brand, theme toggle, user
-// menu), left sidebar nav on desktop, mobile sheet + horizontal scrollable
-// nav, main content area, and the sticky confidentiality footer.
+// WEDJAT DOMAIN AI application shell — "Night Eye" edition.
+// Glowing glass header with gradient hairline, grouped sidebar nav with
+// laser-cyan active rails, ambient eye-bloom aura, mobile pill nav, and
+// the sticky confidentiality footer. All colors derive from the brand
+// logo tokens (see globals.css).
 
 import { useState, useSyncExternalStore } from "react";
 import {
@@ -10,6 +12,7 @@ import {
   Boxes,
   ClipboardCheck,
   DatabaseZap,
+  Eye,
   GraduationCap,
   LayoutDashboard,
   Library,
@@ -69,7 +72,7 @@ interface NavItem {
   icon: LucideIcon;
 }
 
-export const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   { id: "dashboard", label: "Dashboard", hint: "Fleet overview", icon: LayoutDashboard },
   { id: "chat", label: "Domain Chat", hint: "Grounded RAG Q&A", icon: MessagesSquare },
   { id: "knowledge", label: "Knowledge Base", hint: "Blueprints & ingestion", icon: Library },
@@ -84,31 +87,67 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "settings", label: "Settings", hint: "Account, users & providers", icon: Settings2 },
 ];
 
+/** Nav organized into temple sections: read → learn → control → govern. */
+const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
+  {
+    label: "Core",
+    items: NAV_ITEMS.filter((n) =>
+      ["dashboard", "chat", "knowledge"].includes(n.id),
+    ),
+  },
+  {
+    label: "Pipeline",
+    items: NAV_ITEMS.filter((n) =>
+      ["intake", "intelligence", "analysis", "search"].includes(n.id),
+    ),
+  },
+  {
+    label: "Control",
+    items: NAV_ITEMS.filter((n) =>
+      ["training", "evaluation", "models", "observability"].includes(n.id),
+    ),
+  },
+  {
+    label: "Governance",
+    items: NAV_ITEMS.filter((n) => n.id === "settings"),
+  },
+];
+
+/** Brand mark: circuit-eye tile with a soft neon ring. */
+function BrandMark({ size = 9 }: { size?: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{ width: `${size * 0.25}rem`, height: `${size * 0.25}rem` }}
+      className="wedjat-mark-ring flex shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-white dark:bg-[#070a10]"
+    >
+      <Image
+        src="/wedjat-mark-sm.jpg"
+        alt=""
+        width={36}
+        height={36}
+        className="h-full w-full object-cover dark:hidden"
+      />
+      <Image
+        src="/wedjat-mark-sm-dark.jpg"
+        alt=""
+        width={36}
+        height={36}
+        className="hidden h-full w-full object-cover dark:block"
+      />
+    </div>
+  );
+}
+
 function Brand() {
   return (
     <div className="flex items-center gap-2.5">
-      <div
-        aria-hidden="true"
-        className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white dark:bg-[#070a10]"
-      >
-        <Image
-          src="/wedjat-mark-sm.jpg"
-          alt=""
-          width={36}
-          height={36}
-          className="h-full w-full object-cover dark:hidden"
-        />
-        <Image
-          src="/wedjat-mark-sm-dark.jpg"
-          alt=""
-          width={36}
-          height={36}
-          className="hidden h-full w-full object-cover dark:block"
-        />
-      </div>
+      <BrandMark />
       <div className="leading-none">
-        <div className="text-sm font-semibold tracking-wide">WEDJAT</div>
-        <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+        <div className="wedjat-text-gradient wedjat-sheen font-display text-[15px] font-semibold tracking-[0.08em]">
+          WEDJAT
+        </div>
+        <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.28em] text-muted-foreground">
           Domain AI
         </div>
       </div>
@@ -129,7 +168,7 @@ function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="size-11"
+      className="size-11 rounded-lg transition-shadow hover:shadow-[0_0_16px_-6px_var(--wedjat-laser)]"
       aria-label={
         mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"
       }
@@ -157,6 +196,21 @@ function initials(name: string) {
     .join("");
 }
 
+/** Informational simulation chip — brand cyan (not a warning). */
+function SimBadge({ label, className }: { label: string; className?: string }) {
+  return (
+    <Badge
+      variant="outline"
+      className={cn(
+        "border-cyan-500/40 bg-cyan-500/10 text-[10px] font-medium tracking-wide text-cyan-700 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-300",
+        className,
+      )}
+    >
+      {label}
+    </Badge>
+  );
+}
+
 function UserMenu({ principal, onLogout }: { principal: Principal; onLogout: () => void }) {
   const openAccess = principal.authMethod === "OPEN_ACCESS";
   return (
@@ -176,13 +230,10 @@ function UserMenu({ principal, onLogout }: { principal: Principal; onLogout: () 
             {principal.name}
           </span>
           {openAccess ? (
-            <Badge
-              variant="outline"
-              className="hidden border-amber-500/40 text-[10px] font-semibold uppercase tracking-wide text-amber-600 md:inline"
-              title="Credential login is temporarily disabled; you are signed in as the organization OWNER"
-            >
-              Open access
-            </Badge>
+            <SimBadge
+              label="Open access"
+              className="hidden md:inline"
+            />
           ) : null}
         </Button>
       </DropdownMenuTrigger>
@@ -230,28 +281,45 @@ function DesktopNav({
 }) {
   return (
     <nav aria-label="Primary" className="flex flex-col gap-1 p-3">
-      {NAV_ITEMS.map((item) => {
-        const active = view === item.id;
-        const Icon = item.icon;
-        return (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onViewChange(item.id)}
-            aria-current={active ? "page" : undefined}
-            title={item.hint}
-            className={cn(
-              "flex min-h-11 w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-              active
-                ? "bg-primary/10 font-medium text-primary"
-                : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
-            )}
-          >
-            <Icon className="size-4 shrink-0" aria-hidden="true" />
-            <span className="truncate text-left">{item.label}</span>
-          </button>
-        );
-      })}
+      {NAV_GROUPS.map((group, gi) => (
+        <div key={group.label}>
+          <p className="px-3 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+            {group.label}
+            <span className="sr-only"> section</span>
+          </p>
+          {group.items.map((item) => {
+            const active = view === item.id;
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onViewChange(item.id)}
+                aria-current={active ? "page" : undefined}
+                title={item.hint}
+                className={cn(
+                  "relative flex min-h-11 w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                  active
+                    ? "bg-primary/10 font-medium text-primary"
+                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
+                )}
+              >
+                {active ? (
+                  <span
+                    aria-hidden="true"
+                    className="wedjat-fill absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full"
+                  />
+                ) : null}
+                <Icon className="size-4 shrink-0" aria-hidden="true" />
+                <span className="truncate text-left">{item.label}</span>
+              </button>
+            );
+          })}
+          {gi < NAV_GROUPS.length - 1 ? (
+            <div aria-hidden="true" className="wedjat-hairline mx-3 mt-3 h-px opacity-40" />
+          ) : null}
+        </div>
+      ))}
     </nav>
   );
 }
@@ -266,7 +334,7 @@ function MobileNavRow({
   return (
     <nav
       aria-label="Primary"
-      className="wedjat-scroll flex gap-2 overflow-x-auto border-b px-4 py-2 lg:hidden"
+      className="wedjat-scroll flex gap-2 overflow-x-auto px-4 py-2 lg:hidden"
     >
       {NAV_ITEMS.map((item) => {
         const active = view === item.id;
@@ -280,7 +348,7 @@ function MobileNavRow({
             className={cn(
               "inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border px-3 text-xs font-medium transition-colors",
               active
-                ? "border-primary/40 bg-primary/10 text-primary"
+                ? "border-cyan-500/50 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/50 dark:bg-cyan-400/10 dark:text-cyan-300"
                 : "border-border text-muted-foreground hover:bg-accent hover:text-foreground",
             )}
           >
@@ -314,7 +382,7 @@ function MobileNavSheet({
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
-        <SheetHeader className="border-b p-4">
+        <SheetHeader className="p-4">
           <SheetTitle asChild>
             <div className="flex items-center justify-between">
               <Brand />
@@ -322,6 +390,7 @@ function MobileNavSheet({
             </div>
           </SheetTitle>
         </SheetHeader>
+        <div aria-hidden="true" className="wedjat-hairline mx-4 h-px" />
         <DesktopNav
           view={view}
           onViewChange={(v) => {
@@ -348,7 +417,11 @@ export function AppShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="flex min-h-screen flex-col text-foreground">
+      {/* Ambient eye-bloom aura (fixed, behind everything; body supplies
+          the canvas color so z-[-1] stays visible). */}
+      <div aria-hidden="true" className="wedjat-aura" />
+
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:text-primary-foreground"
@@ -356,33 +429,35 @@ export function AppShell({
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-        <div className="mx-auto flex h-14 w-full max-w-7xl items-center gap-2 px-4 sm:px-6">
+      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65">
+        <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center gap-2 px-4 sm:px-6">
           <MobileNavSheet view={view} onViewChange={onViewChange} />
           <Brand />
-          <Badge
-            variant="outline"
-            className="ml-1 hidden border-amber-500/40 bg-amber-500/10 text-[10px] font-medium tracking-wide text-amber-700 dark:text-amber-400 md:inline-flex"
-          >
-            SIM ENV
-          </Badge>
+          <SimBadge label="SIM ENV" className="ml-1 hidden md:inline-flex" />
           <div className="ml-auto flex items-center gap-1">
             <ThemeToggle />
             <UserMenu principal={principal} onLogout={onLogout} />
           </div>
         </div>
         <MobileNavRow view={view} onViewChange={onViewChange} />
+        {/* Gradient energy hairline — the header's luminous edge. */}
+        <div aria-hidden="true" className="wedjat-hairline h-px w-full" />
       </header>
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 px-0 sm:px-6">
-        <aside className="sticky top-[3.5rem] hidden max-h-[calc(100vh-3.5rem)] w-60 shrink-0 self-start overflow-y-auto border-r bg-sidebar lg:block wedjat-scroll">
+        <aside className="sticky top-16 hidden max-h-[calc(100vh-4rem)] w-60 shrink-0 self-start overflow-y-auto border-r border-sidebar-border bg-sidebar lg:block wedjat-scroll">
           <DesktopNav view={view} onViewChange={onViewChange} />
-          <div className="mt-2 border-t p-3">
-            <p className="rounded-lg bg-muted/60 p-3 text-[11px] leading-relaxed text-muted-foreground">
-              <span className="font-semibold text-foreground">WEDJAT</span> is
-              the eye of Horus — every answer is grounded in versioned,
-              checksummed platform blueprints.
-            </p>
+          <div className="mt-2 border-t border-sidebar-border p-3">
+            <div className="wedjat-panel rounded-lg bg-muted/40 p-3">
+              <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+                <Eye aria-hidden="true" className="size-3.5" />
+                The all-seeing corpus
+              </p>
+              <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
+                WEDJAT is the eye of Horus — every answer is grounded in
+                versioned, checksummed platform blueprints.
+              </p>
+            </div>
           </div>
         </aside>
         <main
@@ -393,19 +468,22 @@ export function AppShell({
         </main>
       </div>
 
-      <footer className="mt-auto border-t bg-background">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 pb-[env(safe-area-inset-bottom)] text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>WEDJAT DOMAIN AI v1.0 — Proprietary &amp; Confidential</p>
-          <p className="flex items-center gap-1.5">
-            <Badge
-              variant="outline"
-              className="border-amber-500/40 bg-amber-500/10 text-[10px] text-amber-700 dark:text-amber-400"
-            >
-              SIMULATED
-            </Badge>
-            Training &amp; fine-tuning are simulated in this environment — no
-            GPU workloads run.
-          </p>
+      <footer className="mt-auto">
+        <div aria-hidden="true" className="wedjat-hairline h-px w-full" />
+        <div className="bg-background">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 pb-[env(safe-area-inset-bottom)] text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <p>
+              <span className="font-display font-semibold tracking-[0.08em] text-foreground/80">
+                WEDJAT
+              </span>{" "}
+              DOMAIN AI v1.0 — Proprietary &amp; Confidential
+            </p>
+            <p className="flex items-center gap-1.5">
+              <SimBadge label="SIMULATED" />
+              Training &amp; fine-tuning are simulated in this environment — no
+              GPU workloads run.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

@@ -475,7 +475,7 @@ function UsersTab({ principal }: { principal: Principal }) {
                         {u.status === "ACTIVE" ? (
                           <Badge
                             variant="outline"
-                            className="border-emerald-500/40 bg-emerald-500/10 text-[10px] text-emerald-600 dark:text-emerald-400"
+                            className="border-cyan-500/40 bg-cyan-500/10 text-[10px] text-cyan-600 dark:text-cyan-300"
                           >
                             ACTIVE
                           </Badge>
@@ -614,7 +614,7 @@ function ProviderTab() {
     info.configured ? (
       <Badge
         variant="outline"
-        className="border-emerald-500/40 bg-emerald-500/10 text-[10px] text-emerald-600 dark:text-emerald-400"
+        className="border-cyan-500/40 bg-cyan-500/10 text-[10px] text-cyan-600 dark:text-cyan-300"
       >
         {info.managed ? "CONFIGURED (APP)" : "CONFIGURED (ENV)"}
       </Badge>

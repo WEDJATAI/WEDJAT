@@ -1979,3 +1979,24 @@ Stage Summary:
 - Database-learning rails extended 5→9 Turso targets; one-time OWNER token POSTs (mashahd/verify/wasl/judge + re-supply for ari/sgtx/ppe/mtq-sigma; fresh MTQ token) re-arm the full "download all databases" probe permanently (reset-proof org-managed store).
 - Production hardened: Turso raw-constraint concurrency guard (root-caused, fixed, deployed, drain-verified 3/3 recovered docs). §29 report artifact committed as the master-prompt final report.
 - Remaining gaps (owner actions, no engineering blockers): EGYCOURT repo token; 8 Turso platform tokens; MTQ 401 token; (optional) local AI keys.
+
+---
+Task ID: 29-h
+Agent: general-purpose (color-harmonization sweep)
+Task: Harmonize hardcoded emerald/teal/amber/slate classes in views+intake+intelligence tabs with the WEDJAT Night Eye palette
+
+Work Log:
+- Read worklog tail for Task 27/28 context; confirmed the token-level retheme (globals.css now defines --sidebar as deep-night oklch(0.165 0.018 258) in dark, primary = laser cyan) is already in the working tree.
+- Audited all owned files (9 views + 7 intake + 9 intelligence .tsx/.ts) for hardcoded Tailwind colors: found emerald in 5 views + 6 intake + 4 intelligence files, teal in 3 files, exactly 4 bg-slate-950 instances (all dark code/terminal panels), and amber across 15 files.
+- Applied mapping 1 (emerald→cyan) mechanically with the prescribed shade adjustments (dark:text-emerald-400→dark:text-cyan-300, text-emerald-500/60→text-cyan-400/60, text-emerald-400 terminal text→text-cyan-300, border-emerald-500/70 narrative rail→border-cyan-500/70 same-shade).
+- Applied mapping 2 (teal→sky): the two local TEAL tone constants (intake-bits, intelligence-bits), FK badge, ACKNOWLEDGED status, memory lineage dot bg-teal-500→bg-sky-500, lineage relation chip.
+- Applied mapping 3 (amber) with judgment: converted ONLY the observability-view GPU "SIMULATED"/"AVAILABLE" Badge to the exact prescribed cyan chip set (border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-300) plus its wrapping Card border/bg (amber→cyan, same opacities) since the whole GPU section is the simulation-environment panel. All true warnings kept amber: DEGRADED/WARN/HALF_OPEN/OPEN errors, potential-risk boxes, NOT SET keys, canary %, review-queue alerts, LIVE/in-flight pulse badges, "key will not be shown again", missing evidence, current/pending lifecycle steps, governance list, SIMULATED LIFECYCLE + no-GPU fallback notices in training-view (warning-styled panels with TriangleAlert, not chips).
+- Applied mapping 4: all 4 bg-slate-950 → bg-sidebar (intake-bits §160 narrative console, intelligence-bits JsonBlock + API-key code panel, intelligence-console-tab code block) — verified each is a dark code/terminal panel where the token-based deep night surface is correct.
+- Verified zero remaining emerald-*/teal-*/slate-950 across all 25 owned files (remaining occurrences in the repo are only in dashboard-view/chat-view/shared/* — principal agent's scope, untouched).
+- Ran `bunx eslint src/components/wedjat/views src/components/wedjat/intake src/components/wedjat/intelligence --max-warnings=0` → clean (exit 0, no output).
+- Curl-checked the running dev server post-edit: HTTP 200 (hot recompile fine, server not restarted).
+
+Stage Summary:
+- 16 files changed (6 views: analysis, evaluation, models, observability, settings, training; 6 intake: autonomy-tab, bits, learning-tab, review-tab, run-detail-tab, sources-tab; 4 intelligence: bits, console-tab, memory-tab, recommendations-tab). knowledge/intelligence/search views + intake-view had only amber-warning or token classes → untouched.
+- Class-token replacements: emerald→cyan 111 tokens; teal→sky 27 tokens; amber→cyan 6 tokens across 2 elements (GPU SIM badge + its card wrapper); bg-slate-950→bg-sidebar 4 tokens. Color-only diffs — no logic, structure, text, or imports touched.
+- Judgment calls: GPU panel is informational sim-env (cyan), while training-view's "SIMULATED LIFECYCLE" / no-GPU fallback alerts stayed amber (TriangleAlert warning panels about blocked capability, not environment chips); "AVAILABLE" renders cyan in the converted badge which fits the healthy/ON=brand-cyan semantics.

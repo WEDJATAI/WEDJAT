@@ -60,3 +60,4 @@ server.log
 # v4 SDK build output (publish from source)
 /sdk/dist/
 /sdk/node_modules/
+tmp-design/

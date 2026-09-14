@@ -10,13 +10,13 @@ import {
   ArrowUp,
   Eye,
   LoaderCircle,
-  MessagesSquare,
   MessageSquarePlus,
   ShieldAlert,
   Sparkles,
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
@@ -97,10 +97,10 @@ function CitationLink({
 
 function confidenceTone(level: string) {
   if (level === "HIGH")
-    return "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
+    return "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300";
   if (level === "MEDIUM")
-    return "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400";
-  return "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400";
+    return "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-400";
+  return "border-red-500/30 bg-red-500/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-400";
 }
 
 function ScopeLine({ scope }: { scope: ChatResponse["scope"] }) {
@@ -199,7 +199,7 @@ function FeedbackControls({
           <div className="space-y-2 rounded-lg border bg-background/60 p-3">
             <div className="flex items-center gap-2">
               {preset === "positive" ? (
-                <ThumbsUp className="size-3.5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                <ThumbsUp className="size-3.5 text-cyan-600 dark:text-cyan-300" aria-hidden="true" />
               ) : preset === "negative" ? (
                 <ThumbsDown className="size-3.5 text-red-600 dark:text-red-400" aria-hidden="true" />
               ) : null}
@@ -258,11 +258,11 @@ function AssistantBubble({
     >
       <div
         aria-hidden="true"
-        className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm"
+        className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-lg border border-primary/40 bg-primary/15 text-primary shadow-[0_0_16px_-6px_var(--wedjat-laser)]"
       >
         <Eye className="size-4" />
       </div>
-      <Card className="min-w-0 flex-1 rounded-xl">
+      <Card className="wedjat-panel min-w-0 flex-1 rounded-xl">
         <CardContent className="space-y-4 p-4 sm:p-5">
           <div className="flex flex-wrap items-center gap-1.5">
             <Badge
@@ -357,7 +357,7 @@ function UserBubble({ content }: { content: string }) {
       transition={{ duration: 0.25 }}
       className="flex justify-end"
     >
-      <div className="max-w-[85%] rounded-xl rounded-br-sm bg-primary px-4 py-2.5 text-sm leading-relaxed text-primary-foreground shadow-sm sm:max-w-[75%]">
+      <div className="wedjat-bubble max-w-[85%] rounded-xl rounded-br-sm px-4 py-2.5 text-sm font-medium leading-relaxed text-primary-foreground shadow-sm sm:max-w-[75%]">
         {content}
       </div>
     </motion.div>
@@ -377,11 +377,11 @@ function PendingBubble() {
     <div className="flex gap-3" aria-live="polite" aria-label="Assistant is working">
       <div
         aria-hidden="true"
-        className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm"
+        className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-lg border border-primary/40 bg-primary/15 text-primary shadow-[0_0_16px_-6px_var(--wedjat-laser)]"
       >
         <Eye className="size-4" />
       </div>
-      <Card className="rounded-xl">
+      <Card className="wedjat-panel rounded-xl">
         <CardContent className="flex items-center gap-3 p-4">
           <span className="flex gap-1" aria-hidden="true">
             <span className="wedjat-dot size-1.5 rounded-full bg-primary" />
@@ -485,10 +485,14 @@ export function ChatView() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <span
+              aria-hidden="true"
+              className="wedjat-fill inline-block h-2.5 w-0.5 rounded-full"
+            />
             Grounded RAG
           </p>
-          <h1 className="mt-0.5 text-base font-semibold tracking-tight">
+          <h1 className="mt-1 font-display text-lg font-semibold tracking-[0.02em]">
             Domain Chat
           </h1>
         </div>
@@ -512,7 +516,7 @@ export function ChatView() {
         </Alert>
       ) : null}
 
-      <Card className="rounded-xl">
+      <Card className="wedjat-panel rounded-xl">
         <CardContent className="grid gap-3 p-4 sm:grid-cols-3">
           <div className="space-y-1.5">
             <Label className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -599,15 +603,30 @@ export function ChatView() {
       </Card>
 
       {messages.length === 0 && !pending ? (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed p-10 text-center">
+        <div className="wedjat-panel relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-xl border border-dashed p-10 text-center">
           <div
             aria-hidden="true"
-            className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"
+            className="wedjat-mark-ring flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border/60 bg-white dark:bg-[#070a10]"
           >
-            <MessagesSquare className="size-7" />
+            <Image
+              src="/wedjat-mark-sm.jpg"
+              alt=""
+              width={56}
+              height={56}
+              className="h-full w-full object-cover dark:hidden"
+            />
+            <Image
+              src="/wedjat-mark-sm-dark.jpg"
+              alt=""
+              width={56}
+              height={56}
+              className="hidden h-full w-full object-cover dark:block"
+            />
           </div>
           <div>
-            <p className="text-sm font-semibold">Ask the domain</p>
+            <p className="font-display text-sm font-semibold tracking-[0.04em]">
+              Ask the domain
+            </p>
             <p className="mt-1 max-w-md text-sm text-muted-foreground">
               Every answer is grounded in the current, versioned blueprint
               corpus — citations [S1..Sn] map to retrieved chunks.
@@ -619,7 +638,7 @@ export function ChatView() {
                 key={ex}
                 type="button"
                 onClick={() => setInput(ex)}
-                className="rounded-full border border-border px-3 py-2 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="rounded-full border border-border px-3 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
               >
                 {ex}
               </button>
@@ -653,7 +672,7 @@ export function ChatView() {
 
       <form
         onSubmit={send}
-        className="sticky bottom-4 z-10 rounded-xl border bg-background/90 p-3 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/75"
+        className="wedjat-panel wedjat-focus-glow sticky bottom-4 z-10 rounded-xl border bg-background/90 p-3 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/75"
       >
         <div className="flex items-end gap-2">
           <Textarea
@@ -674,7 +693,7 @@ export function ChatView() {
           <Button
             type="submit"
             size="icon"
-            className="size-11 shrink-0"
+            className="size-11 shrink-0 transition-shadow hover:shadow-[0_0_20px_-6px_var(--wedjat-laser)]"
             aria-label="Send message"
             disabled={pending || !input.trim()}
           >

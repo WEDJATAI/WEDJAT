@@ -562,7 +562,7 @@ export function AnalysisView() {
                 {r.report.recommendations.length > 0 ? (
                   <section aria-label="Recommendations" className="space-y-2">
                     <h3 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                      <CheckCircle2 aria-hidden="true" className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <CheckCircle2 aria-hidden="true" className="size-3.5 text-cyan-600 dark:text-cyan-300" />
                       Recommendations ({r.report.recommendations.length})
                     </h3>
                     <ul className="space-y-2">
@@ -570,7 +570,7 @@ export function AnalysisView() {
                         <li key={i} className="flex gap-2 text-sm">
                           <CheckCircle2
                             aria-hidden="true"
-                            className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400"
+                            className="mt-0.5 size-4 shrink-0 text-cyan-600 dark:text-cyan-300"
                           />
                           {rec}
                         </li>

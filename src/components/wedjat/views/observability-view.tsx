@@ -494,12 +494,12 @@ export function ObservabilityView() {
             <HardDrive aria-hidden="true" className="size-3.5" />
             GPU
           </h3>
-          <Card className="rounded-xl border-amber-500/40 bg-amber-500/5">
+          <Card className="rounded-xl border-cyan-500/40 bg-cyan-500/5">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
                 <Badge
                   variant="outline"
-                  className="border-amber-500/40 bg-amber-500/10 text-[10px] text-amber-700 dark:text-amber-400"
+                  className="border-cyan-500/40 bg-cyan-500/10 text-[10px] text-cyan-700 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-300"
                 >
                   {d.gpu.available ? "AVAILABLE" : "SIMULATED"}
                 </Badge>

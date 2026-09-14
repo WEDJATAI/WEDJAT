@@ -58,7 +58,7 @@ function SnippetBlock({
         </p>
         <CopyButton text={code} label={copyLabel} ariaLabel={`Copy ${label}`} />
       </div>
-      <pre className="wedjat-scroll max-h-48 overflow-x-auto rounded-lg border border-border bg-slate-950 p-3 font-mono text-[11px] leading-5 text-emerald-200/90">
+      <pre className="wedjat-scroll max-h-48 overflow-x-auto rounded-lg border border-border bg-sidebar p-3 font-mono text-[11px] leading-5 text-cyan-200/90">
         {code}
       </pre>
     </div>

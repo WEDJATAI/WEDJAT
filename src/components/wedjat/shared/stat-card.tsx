@@ -1,6 +1,7 @@
 "use client";
 
-// Stat card for dashboard / observability metric rows.
+// Stat card for dashboard / observability metric rows — Night Eye
+// edition: luminous top edge, laser icon chip, hover glow.
 
 import type { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,14 +25,14 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        "rounded-xl border shadow-sm transition-shadow hover:shadow-md",
-        accent && "border-primary/30",
+        "wedjat-panel rounded-xl border shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[0_0_28px_-14px_var(--wedjat-laser)]",
+        accent && "border-primary/40",
         className,
       )}
     >
       <CardContent className="flex items-start justify-between gap-3 p-4">
         <div className="min-w-0">
-          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
             {label}
           </p>
           <p className="mt-1.5 truncate font-mono text-2xl font-semibold tabular-nums tracking-tight">
@@ -45,10 +46,10 @@ export function StatCard({
           <div
             aria-hidden="true"
             className={cn(
-              "flex size-8 shrink-0 items-center justify-center rounded-lg",
+              "flex size-8 shrink-0 items-center justify-center rounded-lg border",
               accent
-                ? "bg-primary/10 text-primary"
-                : "bg-muted text-muted-foreground",
+                ? "border-primary/30 bg-primary/10 text-primary"
+                : "border-border/60 bg-muted/60 text-muted-foreground",
             )}
           >
             <Icon className="size-4" />

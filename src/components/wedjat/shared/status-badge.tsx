@@ -1,8 +1,9 @@
 "use client";
 
 // Maps platform/blueprint/run/model statuses to colored Badge variants.
-// Palette: emerald (healthy/done) · amber (in-flight/warn) · red (failed) ·
-// slate/zinc (neutral/terminal-neutral) · teal (curator flavor).
+// Night Eye palette (logo-harmonized): cyan (energized / healthy / done)
+// · amber (in-flight / caution) · red (failed) · slate (neutral) · sky
+// (curator / informational flavor).
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -11,12 +12,12 @@ type Tone = "green" | "amber" | "red" | "slate" | "teal";
 
 const TONE_CLASSES: Record<Tone, string> = {
   green:
-    "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-400",
+    "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300",
   amber:
     "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-400",
   red: "border-red-500/30 bg-red-500/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-400",
   slate: "border-border bg-muted text-muted-foreground",
-  teal: "border-teal-500/30 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:bg-teal-400/10 dark:text-teal-400",
+  teal: "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400",
 };
 
 const STATUS_TONES: Record<string, Tone> = {

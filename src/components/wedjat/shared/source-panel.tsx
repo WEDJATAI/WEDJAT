@@ -34,7 +34,7 @@ export function SourceCard({
     : source.content.slice(0, PREVIEW_LEN);
 
   return (
-    <div className="rounded-lg border bg-card p-3">
+    <div className="wedjat-panel rounded-lg border bg-card p-3">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <span
           aria-label={`Source rank ${source.rank}`}

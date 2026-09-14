@@ -2,14 +2,19 @@
 
 // Labeled horizontal score bar for 0..1 metrics
 // (lexical / semantic / rerank / confidence / groundedness / recall …).
+// Night Eye edition: strong scores render as the petrol→laser beam,
+// middling as amber, weak as red.
 
 import { cn } from "@/lib/utils";
 
-export function scoreColor(value: number): string {
-  if (value >= 0.7) return "bg-emerald-500";
+export function scoreFill(value: number): string {
+  if (value >= 0.7) return "wedjat-fill";
   if (value >= 0.4) return "bg-amber-500";
   return "bg-red-500";
 }
+
+/** Backwards-compatible alias (intake-bits meter fills). */
+export const scoreColor = scoreFill;
 
 export function ScoreBar({
   label,
@@ -36,7 +41,7 @@ export function ScoreBar({
           compact && "mb-0.5",
         )}
       >
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
           {label}
         </span>
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">
@@ -57,11 +62,7 @@ export function ScoreBar({
         <div
           className={cn(
             "h-full rounded-full transition-all duration-500",
-            tone === "primary"
-              ? "bg-primary"
-              : v === null
-                ? "bg-muted"
-                : scoreColor(v),
+            tone === "primary" || v === null ? "wedjat-fill" : scoreFill(v),
           )}
           style={{ width: v === null ? "0%" : `${Math.round(v * 100)}%` }}
         />

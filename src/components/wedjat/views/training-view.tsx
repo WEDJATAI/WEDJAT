@@ -139,7 +139,7 @@ function LifecycleStepper({ status }: { status: string }) {
               className={cn(
                 "flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium",
                 state === "done" &&
-                  "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+                  "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
                 state === "current" &&
                   "wedjat-pulse border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-400",
                 state === "pending" &&

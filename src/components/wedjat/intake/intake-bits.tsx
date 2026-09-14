@@ -27,7 +27,7 @@ import { INTAKE_STAGES } from "@/components/wedjat/intake/intake-helpers";
 // ── tone classes (kept local — intake-specific statuses) ──────────────────
 
 const GREEN =
-  "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-400";
+  "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300";
 const AMBER =
   "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-400";
 const ORANGE =
@@ -35,7 +35,7 @@ const ORANGE =
 const RED =
   "border-red-500/30 bg-red-500/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-400";
 const TEAL =
-  "border-teal-500/30 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:bg-teal-400/10 dark:text-teal-400";
+  "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400";
 const SLATE = "border-border bg-muted text-muted-foreground";
 const MUTED = "border-border bg-muted/60 text-muted-foreground/80";
 
@@ -297,7 +297,7 @@ export function IssueChips({
 type IntakeStageState = "done" | "running" | "warn" | "failed" | "pending";
 
 const STAGE_STATE_CLASSES: Record<IntakeStageState, string> = {
-  done: "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+  done: "border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
   running:
     "wedjat-pulse border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-400",
   warn: "border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-400",
@@ -465,14 +465,14 @@ export function PipelineNarrative({
         </div>
         <div
           aria-label="Pipeline narrative"
-          className="wedjat-scroll max-h-96 overflow-y-auto bg-slate-950 p-4 font-mono text-xs leading-6 text-emerald-200/90"
+          className="wedjat-scroll max-h-96 overflow-y-auto bg-sidebar p-4 font-mono text-xs leading-6 text-cyan-200/90"
         >
           {narrative.map((line, i) => (
             <p
               key={i}
-              className="flex gap-2.5 border-l-2 border-emerald-500/70 py-0.5 pl-3"
+              className="flex gap-2.5 border-l-2 border-cyan-500/70 py-0.5 pl-3"
             >
-              <span className="shrink-0 tabular-nums text-emerald-500/60">
+              <span className="shrink-0 tabular-nums text-cyan-400/60">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="min-w-0 break-words">{line}</span>
@@ -480,7 +480,7 @@ export function PipelineNarrative({
           ))}
           <p
             aria-hidden="true"
-            className="wedjat-pulse mt-1 border-l-2 border-transparent pl-3 text-emerald-400"
+            className="wedjat-pulse mt-1 border-l-2 border-transparent pl-3 text-cyan-300"
           >
             ▊
           </p>

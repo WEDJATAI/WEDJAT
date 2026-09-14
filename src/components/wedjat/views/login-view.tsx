@@ -1,8 +1,9 @@
 "use client";
 
-// Login gate: real credential sign-in (username + password).
-// The WEDJAT brand logo ships as a static asset. No demo identities, no
-// password hints, no autofill — credentials are never displayed.
+// Login gate — "Night Eye" hero edition. Real credential sign-in
+// (username + password) framed by the brand banner, ambient aura and
+// gradient typography. No demo identities, no password hints, no
+// autofill — credentials are never displayed.
 
 import { useState } from "react";
 import { KeyRound, LoaderCircle, LogIn, ShieldCheck, UserRound } from "lucide-react";
@@ -56,7 +57,10 @@ export function LoginView({
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="flex min-h-screen flex-col text-foreground">
+      {/* Ambient eye-bloom aura (canvas color comes from body). */}
+      <div aria-hidden="true" className="wedjat-aura" />
+
       <main className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:gap-16">
         <motion.section
           initial={{ opacity: 0, y: 12 }}
@@ -65,7 +69,8 @@ export function LoginView({
           aria-label="About WEDJAT"
           className="order-2 lg:order-1"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-border shadow-lg">
+          {/* Brand banner in a glowing frame */}
+          <div className="wedjat-panel relative overflow-hidden rounded-2xl border border-border shadow-lg shadow-[0_0_40px_-18px_var(--wedjat-laser)]">
             <Image
               src="/wedjat-logo.jpg"
               alt="WEDJAT AI logo — the Eye of Horus rendered as glowing circuitry"
@@ -87,7 +92,8 @@ export function LoginView({
             />
           </div>
           <h1 className="mt-8 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Proprietary domain intelligence for your platform estate.
+            Proprietary domain intelligence for your{" "}
+            <span className="wedjat-text-gradient">platform estate</span>.
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
             RAG chat over versioned platform blueprints, CTO analysis
@@ -99,7 +105,7 @@ export function LoginView({
               <li key={f.title} className="flex gap-3">
                 <div
                   aria-hidden="true"
-                  className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+                  className="wedjat-panel flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary"
                 >
                   <ShieldCheck className="size-4.5" />
                 </div>
@@ -124,10 +130,10 @@ export function LoginView({
           aria-label="Sign in"
           className="order-1 lg:order-2"
         >
-          <Card className="rounded-xl shadow-sm">
+          <Card className="wedjat-panel rounded-xl bg-card/90 shadow-lg shadow-[0_0_48px_-24px_var(--wedjat-laser)] backdrop-blur">
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white dark:bg-[#070a10]">
+                <div className="wedjat-mark-ring flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border/60 bg-white dark:bg-[#070a10]">
                   <Image
                     src="/wedjat-mark-sm.jpg"
                     alt=""
@@ -144,7 +150,9 @@ export function LoginView({
                   />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold">Sign in</h2>
+                  <h2 className="font-display text-base font-semibold tracking-[0.06em]">
+                    Sign in
+                  </h2>
                   <p className="text-xs text-muted-foreground">
                     WEDJAT organization access
                   </p>
@@ -204,7 +212,7 @@ export function LoginView({
 
                 <Button
                   type="submit"
-                  className="h-11 w-full"
+                  className="h-11 w-full font-semibold tracking-wide transition-shadow hover:shadow-[0_0_24px_-6px_var(--wedjat-laser)]"
                   disabled={submitting || !username.trim() || !password}
                 >
                   {submitting ? (
@@ -231,11 +239,14 @@ export function LoginView({
           </p>
         </motion.section>
       </main>
-      <footer className="mt-auto border-t bg-background px-4 py-3 pb-[env(safe-area-inset-bottom)] text-xs text-muted-foreground">
-        <p className="mx-auto max-w-6xl">
-          WEDJAT DOMAIN AI v1.0 — Proprietary &amp; Confidential · Training is
-          simulated in this environment.
-        </p>
+      <footer className="mt-auto">
+        <div aria-hidden="true" className="wedjat-hairline h-px w-full" />
+        <div className="bg-background px-4 py-3 pb-[env(safe-area-inset-bottom)] text-xs text-muted-foreground">
+          <p className="mx-auto max-w-6xl">
+            WEDJAT DOMAIN AI v1.0 — Proprietary &amp; Confidential · Training is
+            simulated in this environment.
+          </p>
+        </div>
       </footer>
     </div>
   );

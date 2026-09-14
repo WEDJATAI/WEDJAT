@@ -35,7 +35,7 @@ export function EmptyState({
       <div
         aria-hidden="true"
         className={cn(
-          "flex items-center justify-center rounded-full bg-muted text-muted-foreground",
+          "flex items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary",
           compact ? "size-9" : "size-12",
         )}
       >

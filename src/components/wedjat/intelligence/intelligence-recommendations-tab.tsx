@@ -267,7 +267,7 @@ function OutcomeDialog({
                 <DialogTitle className="flex items-center gap-2">
                   <CircleCheck
                     aria-hidden="true"
-                    className="size-4 text-emerald-600 dark:text-emerald-400"
+                    className="size-4 text-cyan-600 dark:text-cyan-300"
                   />
                   Outcome recorded
                 </DialogTitle>
@@ -276,15 +276,15 @@ function OutcomeDialog({
                   the knowledge memory.
                 </DialogDescription>
               </DialogHeader>
-              <Alert className="border-emerald-500/40 bg-emerald-500/10">
+              <Alert className="border-cyan-500/40 bg-cyan-500/10">
                 <Sparkles
                   aria-hidden="true"
-                  className="size-4 text-emerald-600 dark:text-emerald-400"
+                  className="size-4 text-cyan-600 dark:text-cyan-300"
                 />
-                <AlertTitle className="text-emerald-800 dark:text-emerald-300">
+                <AlertTitle className="text-cyan-800 dark:text-cyan-300">
                   Lesson learned (LESSON_LEARNED record)
                 </AlertTitle>
-                <AlertDescription className="text-emerald-900/90 dark:text-emerald-200/90">
+                <AlertDescription className="text-cyan-900/90 dark:text-cyan-200/90">
                   {learning}
                 </AlertDescription>
               </Alert>
@@ -538,8 +538,8 @@ function RecommendationCard({
 
         <div className="grid gap-3 sm:grid-cols-2">
           {reco.expectedBenefit ? (
-            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-2.5">
-              <p className="text-[10px] font-medium uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
+            <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/5 p-2.5">
+              <p className="text-[10px] font-medium uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
                 Expected benefit
               </p>
               <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
@@ -668,7 +668,7 @@ function RecommendationCard({
                               variant="outline"
                               className={
                                 o.changePct !== null && o.changePct > 0
-                                  ? "border-emerald-500/30 bg-emerald-500/10 text-[10px] text-emerald-700 dark:text-emerald-400"
+                                  ? "border-cyan-500/30 bg-cyan-500/10 text-[10px] text-cyan-700 dark:text-cyan-300"
                                   : "border-amber-500/40 bg-amber-500/10 text-[10px] text-amber-700 dark:text-amber-400"
                               }
                             >

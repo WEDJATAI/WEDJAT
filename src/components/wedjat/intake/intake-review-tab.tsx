@@ -360,7 +360,7 @@ export function IntakeReviewTab({
                             className={cn(
                               "rounded-md border px-2 py-0.5 text-[10px] font-medium",
                               g.passed
-                                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                                ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
                                 : "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400",
                             )}
                           >

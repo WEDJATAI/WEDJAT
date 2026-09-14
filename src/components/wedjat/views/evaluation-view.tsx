@@ -161,7 +161,7 @@ function ResultRow({ r }: { r: EvaluationResultDto }) {
       </TableCell>
       <TableCell>
         {r.passed ? (
-          <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+          <span className="flex items-center gap-1 text-cyan-600 dark:text-cyan-300">
             <CheckCircle2 aria-hidden="true" className="size-4" />
             <span className="sr-only">passed</span>
           </span>
@@ -237,7 +237,7 @@ function GroupTable({
                   className={cn(
                     "font-mono text-xs tabular-nums",
                     passRate >= 0.8
-                      ? "text-emerald-600 dark:text-emerald-400"
+                      ? "text-cyan-600 dark:text-cyan-300"
                       : passRate >= 0.5
                         ? "text-amber-600 dark:text-amber-400"
                         : "text-red-600 dark:text-red-400",

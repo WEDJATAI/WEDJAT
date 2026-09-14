@@ -145,7 +145,7 @@ export function DashboardView({
             <HealthBadge label="AI providers" status={d.health.providers} />
             <HealthBadge label="Job queue" status={d.health.jobs} />
           </div>
-          <Card>
+          <Card className="wedjat-panel">
             <CardContent className="flex flex-wrap items-center justify-between gap-4 p-4">
               <div>
                 <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -211,8 +211,8 @@ export function DashboardView({
               </AlertDescription>
             </Alert>
           ) : (
-            <Alert className="border-emerald-500/30 bg-emerald-500/5">
-              <Sparkles aria-hidden="true" className="text-emerald-600 dark:text-emerald-400" />
+            <Alert className="border-cyan-500/30 bg-cyan-500/5 dark:border-cyan-400/30 dark:bg-cyan-400/5">
+              <Sparkles aria-hidden="true" className="text-cyan-600 dark:text-cyan-300" />
               <AlertTitle>No open recommendations</AlertTitle>
               <AlertDescription>
                 All analysis recommendations have been triaged.
@@ -248,7 +248,7 @@ export function DashboardView({
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Button
             variant="outline"
-            className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
+            className="wedjat-panel h-auto flex-col items-start gap-1.5 rounded-xl border-primary/30 p-4 text-left transition-all hover:border-primary/50 hover:shadow-[0_0_24px_-12px_var(--wedjat-laser)]"
             onClick={() => onNavigate("chat")}
           >
             <MessagesSquare className="size-5 text-primary" aria-hidden="true" />
@@ -259,7 +259,7 @@ export function DashboardView({
           </Button>
           <Button
             variant="outline"
-            className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
+            className="wedjat-panel h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left transition-all hover:border-primary/50 hover:shadow-[0_0_24px_-12px_var(--wedjat-laser)]"
             onClick={() => onNavigate("knowledge")}
           >
             <Workflow className="size-5 text-primary" aria-hidden="true" />
@@ -270,7 +270,7 @@ export function DashboardView({
           </Button>
           <Button
             variant="outline"
-            className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
+            className="wedjat-panel h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left transition-all hover:border-primary/50 hover:shadow-[0_0_24px_-12px_var(--wedjat-laser)]"
             onClick={() => onNavigate("intake")}
           >
             <DatabaseZap className="size-5 text-primary" aria-hidden="true" />
@@ -281,7 +281,7 @@ export function DashboardView({
           </Button>
           <Button
             variant="outline"
-            className="h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left"
+            className="wedjat-panel h-auto flex-col items-start gap-1.5 rounded-xl p-4 text-left transition-all hover:border-primary/50 hover:shadow-[0_0_24px_-12px_var(--wedjat-laser)]"
             onClick={() => onNavigate("evaluation")}
           >
             <ShieldCheck className="size-5 text-primary" aria-hidden="true" />

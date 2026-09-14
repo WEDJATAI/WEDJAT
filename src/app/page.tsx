@@ -88,18 +88,27 @@ function LoadingSplash() {
     >
       <div
         aria-hidden="true"
-        className="flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border bg-white shadow-md"
+        className="wedjat-mark-ring flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-border/60 bg-white shadow-md dark:bg-[#070a10]"
       >
         <Image
           src="/wedjat-mark-sm.jpg"
           alt=""
           width={56}
           height={56}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover dark:hidden"
+        />
+        <Image
+          src="/wedjat-mark-sm-dark.jpg"
+          alt=""
+          width={56}
+          height={56}
+          className="hidden h-full w-full object-cover dark:block"
         />
       </div>
       <div className="text-center">
-        <p className="text-sm font-semibold tracking-wide">WEDJAT</p>
+        <p className="wedjat-text-gradient font-display text-sm font-semibold tracking-[0.08em]">
+          WEDJAT
+        </p>
         <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
           Domain AI
         </p>

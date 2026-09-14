@@ -227,7 +227,7 @@ export function IntakeAutonomyTab({ role }: { role: string }) {
                           className={cn(
                             "inline-flex items-center gap-1 text-xs font-medium",
                             c.enabled
-                              ? "text-emerald-700 dark:text-emerald-400"
+                              ? "text-cyan-700 dark:text-cyan-300"
                               : "text-muted-foreground",
                           )}
                         >

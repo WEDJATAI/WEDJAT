@@ -114,7 +114,7 @@ function LifecycleCallout() {
                 className={cn(
                   "rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium",
                   s === "PRODUCTION"
-                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                    ? "border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
                     : "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400",
                 )}
               >
