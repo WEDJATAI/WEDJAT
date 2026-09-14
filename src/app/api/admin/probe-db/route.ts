@@ -28,6 +28,7 @@ import {
   splitSnapshotMarkdown,
   type TableInfo,
 } from '@/lib/wedjat/intake/db-probe';
+import { loadPrimaryOrgPlatformTokens, resolvePlatformDbToken } from '@/lib/wedjat/platform-db-keys';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -70,20 +71,26 @@ export async function POST(req: Request): Promise<NextResponse> {
         }
       }
 
+      // Org-managed tokens are AUTHORITATIVE (§91 — they survive sandbox
+      // resets via the production DB); process.env is the fallback.
+      const { managed } = await loadPrimaryOrgPlatformTokens();
+
       const submitted: string[] = [];
       const reports: PlatformProbeReport[] = await Promise.all(
         wanted.map(async (slug): Promise<PlatformProbeReport> => {
           const target = DB_TARGETS.find((t) => t.slug === slug)!;
           const base: PlatformProbeReport = { slug, name: target.name, status: 'ERROR' };
 
-          // §41: credentials exist ONLY in this process's env — never echoed.
-          const url = process.env[target.urlEnv];
-          const token = process.env[target.tokenEnv];
-          if (!url || !token) {
+          // §41: credentials are resolved server-side (org settings or env)
+          // and never echoed. The instance URL is a known coordinate (it is
+          // published in every snapshot) — env override optional.
+          const url = process.env[target.urlEnv] ?? target.databaseUrl;
+          const token = await resolvePlatformDbToken(principal.org.id, target.slug, managed);
+          if (!token) {
             return {
               ...base,
               status: 'SKIPPED',
-              reason: `${target.urlEnv}/${target.tokenEnv} not configured in this environment`,
+              reason: `no token resolved (${target.tokenEnv} env unset, no org-managed token stored) — supply one via /api/settings/platform-db`,
             };
           }
 

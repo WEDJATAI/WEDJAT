@@ -100,7 +100,17 @@ export interface IngestResult {
 /**
  * Runs the FULL pipeline synchronously (called by the job worker). The HTTP
  * layer only enqueues jobs — long-running operations never block requests (§62).
+ *
+ * CONCURRENCY (Task 27): parallel ingestion (--parallel N / concurrent
+ * after() jobs) can race on entity creation — two workers both see
+ * "blueprint missing" and both create it; the loser hits the unique
+ * constraint. Every create below is guarded: on P2002 the worker re-fetches
+ * the row the winner created and continues — no job is lost.
  */
+function isUniqueViolation(err: unknown): boolean {
+  return (err as { code?: string })?.code === 'P2002';
+}
+
 export async function runIngestion(input: IngestInput): Promise<IngestResult> {
   const traceId = newTraceId();
   const stages: string[] = [];
@@ -117,27 +127,36 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
     include: { versions: true },
   });
   if (!blueprint) {
-    blueprint = await db.blueprint.create({
-      data: {
-        platformId: platform.id,
-        slug: input.blueprintSlug,
-        title: input.blueprintTitle ?? input.blueprintSlug.replace(/-/g, ' '),
-        blueprintType: input.blueprintType ?? 'ARCHITECTURE',
-        status: 'ACTIVE',
-      },
-      include: { versions: true },
-    });
-    await recordAudit({
-      orgId: input.orgId,
-      actorType: input.actorId ? 'user' : 'system',
-      actorId: input.actorId,
-      action: 'blueprint.created',
-      targetType: 'blueprint',
-      targetId: blueprint.id,
-      severity: 'INFO',
-      details: { slug: input.blueprintSlug, platform: input.platformSlug },
-      traceId,
-    });
+    try {
+      blueprint = await db.blueprint.create({
+        data: {
+          platformId: platform.id,
+          slug: input.blueprintSlug,
+          title: input.blueprintTitle ?? input.blueprintSlug.replace(/-/g, ' '),
+          blueprintType: input.blueprintType ?? 'ARCHITECTURE',
+          status: 'ACTIVE',
+        },
+        include: { versions: true },
+      });
+      await recordAudit({
+        orgId: input.orgId,
+        actorType: input.actorId ? 'user' : 'system',
+        actorId: input.actorId,
+        action: 'blueprint.created',
+        targetType: 'blueprint',
+        targetId: blueprint.id,
+        severity: 'INFO',
+        details: { slug: input.blueprintSlug, platform: input.platformSlug },
+        traceId,
+      });
+    } catch (err) {
+      if (!isUniqueViolation(err)) throw err;
+      // A concurrent worker created this blueprint first — adopt it.
+      blueprint = await db.blueprint.findFirstOrThrow({
+        where: { platformId: platform.id, slug: input.blueprintSlug },
+        include: { versions: true },
+      });
+    }
   }
 
   // VERSION DETECTION: immutable new BlueprintVersion rows (§29).
@@ -145,18 +164,28 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
     input.blueprintVersion ?? nextVersion(blueprint.versions.map((v) => v.version));
   const docChecksum = documentChecksum(input.content);
   let blueprintVersion = blueprint.versions.find((v) => v.version === versionNumber);
-  const duplicate = Boolean(blueprintVersion?.checksum === docChecksum);
+  let duplicate = Boolean(blueprintVersion?.checksum === docChecksum);
 
   if (!blueprintVersion) {
-    blueprintVersion = await db.blueprintVersion.create({
-      data: {
-        blueprintId: blueprint.id,
-        version: versionNumber,
-        status: 'CURRENT',
-        checksum: docChecksum,
-        effectiveFrom: new Date(),
-      },
-    });
+    try {
+      blueprintVersion = await db.blueprintVersion.create({
+        data: {
+          blueprintId: blueprint.id,
+          version: versionNumber,
+          status: 'CURRENT',
+          checksum: docChecksum,
+          effectiveFrom: new Date(),
+        },
+      });
+    } catch (err) {
+      if (!isUniqueViolation(err)) throw err;
+      // A concurrent worker created this version first — adopt it and
+      // recompute the duplicate verdict against the FRESH row.
+      blueprintVersion = await db.blueprintVersion.findFirstOrThrow({
+        where: { blueprintId: blueprint.id, version: versionNumber },
+      });
+      duplicate = blueprintVersion.checksum === docChecksum;
+    }
     // Supersede previous CURRENT versions — historical rows stay untouched.
     await db.blueprintVersion.updateMany({
       where: { blueprintId: blueprint.id, status: 'CURRENT', id: { not: blueprintVersion.id } },
@@ -172,16 +201,24 @@ export async function runIngestion(input: IngestInput): Promise<IngestResult> {
     where: { blueprintVersionId: blueprintVersion.id, slug: slugify(input.title) },
   });
   if (!document) {
-    document = await db.document.create({
-      data: {
-        blueprintVersionId: blueprintVersion.id,
-        slug: slugify(input.title),
-        title: input.title,
-        docType: input.docType ?? classifyDocument(input.title, input.content),
-        classification: input.classification ?? 'INTERNAL',
-        status: 'ACTIVE',
-      },
-    });
+    try {
+      document = await db.document.create({
+        data: {
+          blueprintVersionId: blueprintVersion.id,
+          slug: slugify(input.title),
+          title: input.title,
+          docType: input.docType ?? classifyDocument(input.title, input.content),
+          classification: input.classification ?? 'INTERNAL',
+          status: 'ACTIVE',
+        },
+      });
+    } catch (err) {
+      if (!isUniqueViolation(err)) throw err;
+      // Concurrent worker created the document shell first — adopt it.
+      document = await db.document.findFirstOrThrow({
+        where: { blueprintVersionId: blueprintVersion.id, slug: slugify(input.title) },
+      });
+    }
   }
 
   let documentVersion = await db.documentVersion.findFirst({
