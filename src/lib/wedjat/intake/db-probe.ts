@@ -78,6 +78,51 @@ export const DB_TARGETS: DbTarget[] = [
     deploymentUrl: 'https://mtq-sigma.vercel.app',
     databaseUrl: 'libsql://mtqs-fortleem.aws-us-east-1.turso.io',
   },
+  {
+    // Master-prompt platform A (cirkle-superapp). Instance URL read from the
+    // repo's own push-turso references (mashahd-fortleem, aws-us-east-1).
+    slug: 'mashahd',
+    name: 'MASHAHD',
+    urlEnv: 'MASHAHD_TURSO_URL',
+    tokenEnv: 'MASHAHD_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/cirkle-superapp/mashahd',
+    deploymentUrl: 'https://mashahd.vercel.app',
+    databaseUrl: 'libsql://mashahd-fortleem.aws-us-east-1.turso.io',
+  },
+  {
+    // Master-prompt platform B. The verify-specific instance is
+    // validate-fortleem (aws-us-east-2, referenced by scripts in the repo);
+    // cirkle-fortleem is the shared CIRKLE core DB, not VERIFY's own.
+    slug: 'verify',
+    name: 'CIRKLE VERIFY',
+    urlEnv: 'VERIFY_TURSO_URL',
+    tokenEnv: 'VERIFY_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/cirkle-superapp/verify',
+    deploymentUrl: 'https://cirkle-verify.vercel.app',
+    databaseUrl: 'libsql://validate-fortleem.aws-us-east-2.turso.io',
+  },
+  {
+    // Master-prompt platform C. Instance URL published in the repo README.
+    slug: 'wasl',
+    name: 'WASL',
+    urlEnv: 'WASL_TURSO_URL',
+    tokenEnv: 'WASL_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/cirkle-superapp/wasl',
+    deploymentUrl: 'https://cirkle-wasl.vercel.app',
+    databaseUrl: 'libsql://wasl-fortleem.aws-us-east-1.turso.io',
+  },
+  {
+    // Master-prompt platform G ("Turso — Judge"). The platform knowledge
+    // already lives under registry slug 'judge' (judge_synapse ingestion);
+    // this target extends §34/§35 database learning to its live instance.
+    slug: 'judge',
+    name: 'JUDGE SMART',
+    urlEnv: 'JUDGE_TURSO_URL',
+    tokenEnv: 'JUDGE_TURSO_TOKEN',
+    repositoryUrl: 'https://github.com/fortleem/judge_synapse',
+    deploymentUrl: 'https://judge-smart.vercel.app',
+    databaseUrl: 'libsql://judge-fortleem.aws-us-east-1.turso.io',
+  },
 ];
 
 // ── Introspection (read-only) ───────────────────────────────────────────────

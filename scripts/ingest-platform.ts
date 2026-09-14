@@ -20,7 +20,7 @@
 //   bun scripts/ingest-platform.ts --platform cirkle
 //   bun scripts/ingest-platform.ts --platform judge,sgtx-fable,mtq-sigma,mtq
 //   bun scripts/ingest-platform.ts --platform mtq --app https://wedjat-ai.vercel.app
-//   bun scripts/ingest-platform.ts --platform all            (all 5 profiles)
+//   bun scripts/ingest-platform.ts --platform all            (all 8 profiles)
 // Flags: --app <url>  --repos <dir>  --no-connect  --dry-run
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -415,6 +415,109 @@ const profiles: PlatformProfile[] = [
           out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MTQ Σ service — ${titleFromPath(p)}` });
         } else if (/^src\/lib\/mtq\/[^/]+\.ts$/.test(p)) {
           out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MTQ Σ engine — ${titleFromPath(p)}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // Master-prompt platform A — public repo, real-source ingestion (Task 28).
+    // Media platform: 16 Prisma models, 40 src/lib engines (demand-transcoder,
+    // heat-predictor, scarcity-engine, peer-scorer, swarm…), p2p-tracker +
+    // watch-party mini-services, Filebase/R2 storage backends.
+    slug: 'mashahd',
+    name: 'MASHAHD',
+    clone: 'cirkle-superapp_mashahd',
+    repositoryUrl: 'https://github.com/cirkle-superapp/mashahd',
+    deploymentUrl: 'https://mashahd.vercel.app',
+    databaseUrl: 'libsql://mashahd-fortleem.aws-us-east-1.turso.io',
+    titlePrefix: 'MASHAHD',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('mashahd', 'MASHAHD Platform Architecture & Operations');
+      const media: BlueprintDef = { slug: 'mashahd-media-fabric', title: 'MASHAHD Media Fabric & P2P Delivery' };
+      const eng: BlueprintDef = { slug: 'mashahd-engineering', title: 'MASHAHD Engineering & Media Engines' };
+      const svc: BlueprintDef = { slug: 'mashahd-services', title: 'MASHAHD Services & Storage Backends' };
+      const MEDIA_DOCS = /^(MEDIA_FABRIC_CHECKLIST|MEDIA_MESH_V4_CHECKLIST|MEDIA_PIPELINE|P2P_NETWORKING|VIDEO_STREAMING_ARCHITECTURE)\.md$/i;
+      for (const p of files) {
+        if (MEDIA_DOCS.test(p)) {
+          out.push({ path: p, blueprint: media, docType: docTypeFor(p), title: `MASHAHD ${titleFromPath(p)}` });
+        } else if (!p.includes('/') && p.toLowerCase().endsWith('.md') && !/^worklog/i.test(p)) {
+          out.push({ path: p, blueprint: arch, docType: docTypeFor(p), title: `MASHAHD ${titleFromPath(p)}` });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MASHAHD ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        } else if (/^src\/lib\/[^/]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `MASHAHD engine — ${titleFromPath(p)}` });
+        } else if (/^mini-services\/[^/]+\/index\.ts$/.test(p) || /^server-lib\/[^/]+\.ts$/.test(p)) {
+          // Include the service directory in the title — mini-services all
+          // have index.ts, which would otherwise collide ("service — index").
+          const svcName = p.startsWith('mini-services/') ? p.slice('mini-services/'.length).split('/')[0] : titleFromPath(p);
+          out.push({ path: p, blueprint: svc, docType: 'REFERENCE', title: `MASHAHD service — ${svcName.replace(/[-_]/g, ' ')}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // Master-prompt platform B — public repo (Task 28). AI identity
+    // verification: 3-pass Arabic OCR, Egyptian National ID decoding, MRZ
+    // TD1/TD3, VLM face match, liveness challenges, training database,
+    // ports-and-adapters platform layer.
+    slug: 'verify',
+    name: 'CIRKLE VERIFY',
+    clone: 'cirkle-superapp_verify',
+    repositoryUrl: 'https://github.com/cirkle-superapp/verify',
+    deploymentUrl: 'https://cirkle-verify.vercel.app',
+    databaseUrl: 'libsql://validate-fortleem.aws-us-east-2.turso.io',
+    titlePrefix: 'VERIFY',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('verify', 'CIRKLE VERIFY Architecture & Identity Pipeline');
+      const ai: BlueprintDef = { slug: 'verify-ai-engines', title: 'CIRKLE VERIFY AI Engines (OCR / Face / Liveness / VLM)' };
+      const eng: BlueprintDef = { slug: 'verify-engineering', title: 'CIRKLE VERIFY Engineering & Storage' };
+      const plat: BlueprintDef = { slug: 'verify-platform', title: 'CIRKLE VERIFY Platform Ports & Adapters' };
+      const AI_MODULES = /^(ocr-engine|face-engine|liveness-engine|vlm-service|ai-consensus|ai-router|image-enhance|image-server|fraud-detection|synthetic-doc|doc-parser|doc-renderer|doc-validators|verification-types|training-database|training-worldwide)\.ts$/;
+      for (const p of files) {
+        if (p === 'README.md') {
+          out.push({ path: p, blueprint: arch, docType: 'SPEC', title: 'CIRKLE VERIFY — دواير AI identity verification (overview)' });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `CIRKLE VERIFY ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        } else if (/^src\/lib\/platform\/[^/]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: plat, docType: 'REFERENCE', title: `CIRKLE VERIFY adapter — ${titleFromPath(p)}` });
+        } else if (/^src\/lib\/doc-specs\/[^/]+\.ts$/.test(p)) {
+          out.push({ path: p, blueprint: ai, docType: 'REFERENCE', title: `CIRKLE VERIFY document specs — ${titleFromPath(p)}` });
+        } else if (/^src\/lib\/[^/]+\.ts$/.test(p)) {
+          const mod = p.slice('src/lib/'.length);
+          const bp = AI_MODULES.test(mod) ? ai : eng;
+          const label = AI_MODULES.test(mod) ? 'AI engine' : 'module';
+          out.push({ path: p, blueprint: bp, docType: 'REFERENCE', title: `CIRKLE VERIFY ${label} — ${titleFromPath(p)}` });
+        }
+      }
+      return out;
+    },
+  },
+  {
+    // Master-prompt platform C — public repo (Task 28). WhatsApp-class
+    // messaging: 31 Prisma models, Socket.io realtime, business accounts,
+    // AI-verified commitments (Cirkle-inspired), stories, polls.
+    slug: 'wasl',
+    name: 'WASL',
+    clone: 'cirkle-superapp_wasl',
+    repositoryUrl: 'https://github.com/cirkle-superapp/wasl',
+    deploymentUrl: 'https://cirkle-wasl.vercel.app',
+    databaseUrl: 'libsql://wasl-fortleem.aws-us-east-1.turso.io',
+    titlePrefix: 'WASL',
+    select: (files) => {
+      const out: Selection[] = [];
+      const arch = ARCH('wasl', 'WASL Messaging Architecture');
+      const eng: BlueprintDef = { slug: 'wasl-engineering', title: 'WASL Engineering & Messaging Engine' };
+      for (const p of files) {
+        if (p === 'README.md' || p === 'SECURITY.md' || p === 'docs/SCALING.md') {
+          out.push({ path: p, blueprint: arch, docType: p === 'SECURITY.md' ? 'AUDIT' : 'SPEC', title: `WASL ${titleFromPath(p)}` });
+        } else if (p === 'prisma/schema.prisma' || p === 'package.json') {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `WASL ${titleFromPath(p)} (${p.includes('prisma') ? 'database schema' : 'package manifest'})` });
+        } else if (/^src\/lib\/[^/]+\.tsx?$/.test(p)) {
+          out.push({ path: p, blueprint: eng, docType: 'REFERENCE', title: `WASL module — ${titleFromPath(p)}` });
         }
       }
       return out;

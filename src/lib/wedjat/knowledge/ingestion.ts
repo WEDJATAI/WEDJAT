@@ -108,7 +108,16 @@ export interface IngestResult {
  * the row the winner created and continues — no job is lost.
  */
 function isUniqueViolation(err: unknown): boolean {
-  return (err as { code?: string })?.code === 'P2002';
+  if ((err as { code?: string })?.code === 'P2002') return true;
+  // Turso/libsql surfaces raw SQLite unique violations wrapped in a Prisma
+  // ConnectorError ("SQLITE_CONSTRAINT: … UNIQUE constraint failed: …")
+  // WITHOUT mapping them to P2002 — a production-only manifestation of the
+  // same concurrency race (found on the Task 28 production ingest: two
+  // after() workers both creating the WASL blueprint). Match the SQLite
+  // UNIQUE message precisely — bare SQLITE_CONSTRAINT also covers CHECK /
+  // FOREIGN-KEY violations which must NOT be treated as adoptable races.
+  const msg = err instanceof Error ? err.message : String(err);
+  return /UNIQUE constraint failed/i.test(msg);
 }
 
 export async function runIngestion(input: IngestInput): Promise<IngestResult> {
