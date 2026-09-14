@@ -150,13 +150,21 @@ async function download(): Promise<{ registry: RegistryPlatform[]; documents: Ex
 async function waitForDrain(app: string, timeoutMs: number): Promise<boolean> {
   const deadline = Date.now() + timeoutMs;
   let quietTicks = 0;
+  let netFails = 0;
   for (;;) {
-    const [queued, running] = await Promise.all([listJobs(app, 'QUEUED'), listJobs(app, 'RUNNING')]);
-    if (queued.length === 0 && running.length === 0) {
-      quietTicks++;
-      if (quietTicks >= 2) return true; // two consecutive quiet samples
-    } else {
-      quietTicks = 0;
+    try {
+      const [queued, running] = await Promise.all([listJobs(app, 'QUEUED'), listJobs(app, 'RUNNING')]);
+      netFails = 0;
+      if (queued.length === 0 && running.length === 0) {
+        quietTicks++;
+        if (quietTicks >= 2) return true; // two consecutive quiet samples
+      } else {
+        quietTicks = 0;
+      }
+    } catch {
+      // Transient app unavailability (e.g. dev-server restart under load) —
+      // tolerate up to 12 consecutive failures (~30s) before giving up.
+      if (++netFails > 12) return false;
     }
     if (Date.now() > deadline) return false;
     await sleep(2500);
@@ -211,6 +219,9 @@ async function importCorpus(registry: RegistryPlatform[], documents: ExportedDoc
         errors++;
         console.error(`  ✗ submit FAILED: [${d.platformSlug}] ${d.title} — ${err instanceof Error ? err.message.slice(0, 120) : err}`);
       }
+      // Submission failures (e.g. the app restarting under load) are retried
+      // by re-running this idempotent script — content-hash dedup makes the
+      // re-run safe (§30/§58).
       if ((submitted + duplicates) % 100 === 0 && (submitted + duplicates) > 0) {
         console.log(`  … ${submitted + duplicates}/${documents.length} submitted`);
       }

@@ -59,11 +59,13 @@ export const DB_TARGETS: DbTarget[] = [
     databaseUrl: 'libsql://ppe-smart-fortleem.aws-us-east-1.turso.io',
   },
   {
+    // repositoryUrl = the REAL MITHQAL flagship repo (Task 26 source of
+    // record); the 5KB MITHQALMTQ/MTQ stub is deprecated as a coordinate.
     slug: 'mtq',
     name: 'MITHQAL MTQ',
     urlEnv: 'MTQ_TURSO_URL',
     tokenEnv: 'MTQ_TURSO_TOKEN',
-    repositoryUrl: 'https://github.com/MITHQALMTQ/MTQ',
+    repositoryUrl: 'https://github.com/MITHQALMTQ/mithqal',
     deploymentUrl: 'https://mithqal.vercel.app',
     databaseUrl: 'libsql://mtq-fortleem.aws-us-east-1.turso.io',
   },
