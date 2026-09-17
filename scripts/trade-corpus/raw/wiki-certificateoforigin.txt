@@ -1,0 +1,169 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Certificate%20of%20origin
+SOURCE-TITLE: Certificate of origin
+FETCH-METHOD: wiki-api
+====
+A Certificate of Origin or Declaration of Origin (often abbreviated to C/O, CO or DOO) is a document widely used in international trade transactions which attests that the product listed therein has met certain criteria to be considered as originating in a particular country. A certificate of origin / declaration of origin is generally prepared and completed by the exporter or the manufacturer, and may be subject to official certification by an authorized third party. It is often submitted to a customs authority of the importing country to justify the product's eligibility for entry and/or its entitlement to preferential treatment. Guidelines for issuance of Certificates of Origin by chambers of commerce globally are issued by the International Chamber of Commerce.
+
+
+== Fundamentals of certificate of origin ==
+
+
+=== Concept of certificate of origin ===
+It is noted that Chapter 2 of the Revised Kyoto Convention provides a strict definition to "certificate of origin". The scope of this concept covers only the specific form issued by an authorized third party.
+
+Certificate of origin means a specific form identifying the goods, in which the authority or body empowered to issue it certifies expressly that the goods to which the certificate relates originate in a specific country. This certificate may also include a declaration by the manufacturer, producer, supplier, exporter or other competent person;
+in which, a "declaration of origin" is defined as follows:
+
+Declaration of origin means an appropriate statement as to the origin of the goods made, in connection with their exportation, by the manufacturer, producer, supplier, exporter or other competent person on the commercial invoice or any other document relating to the goods;
+However, the concept has been used in practice in a broader sense, which includes self-certified certificates of origin as well (e.g., in NAFTA). Taking into account this fact, the International Chamber of Commerce provides a simpler and more comprehensive definition which covers both self-certification and authorized certification:
+
+A certificate of origin is an important international trade document that certifies that goods in a particular export shipment are wholly obtained, produced, manufactured or processed in a particular country. It also serves as a declaration by the exporter.
+In this topic, declaration of origin will also be mentioned because it is an important proof of origin beside the more popularly used certificate of origin.
+
+
+=== The importance of certificate of origin ===
+In general, a certificate of origin is essential in international trade transactions because it is the proof certifying the origin of the product, which is in turn the basis to determine the tariffs and other trade measures that will be applied.
+Although satisfying rules of origin in principle means that a product has qualified for the originating status, and is thus entitled to preferential tariffs, in most cases, a claim for preferences must be accompanied by a certificate of origin presented to the customs authority at the port of entry. Unlike the exporter or manufacturer, who is responsible for (and capable of) proving to the issuing authority (or self-certifying) the origin of the product, the importer often has little knowledge of how the product meets the origin criteria. The importer is instead required to present a proof, e.g., a certificate of origin issued or obtained by the exporter or manufacturer. Such separation of obligations means that even if a product may actually originate in a particular country, the importer's failure to submit a certificate of origin may cause the good to be barred from enjoying preferences.
+For instance, the rules of origin in the free trade agreement between Chile and Thailand provides that:
+
+Article 4.13: Certificate of Origin
+A claim that goods are eligible for preferential tariff treatment under this Agreement shall be supported by a Certificate of Origin issued by the exporting Party in the form as prescribed in Section A of Annex 4.13 (Form of Certificate of Origin of Chile, issued by its competent authority) or Section B of Annex 4.13 (Form of Certificate of Origin of Thailand, issued by its competent authority).
+Apart from border purposes, a certificate of origin also plays a certain role in certifying the source of a product and thus its prestige (for instance Swiss watches). Therefore, the importer may need it to show to his consumers in the destination market. In some cases, a certificate of origin helps to determine whether a product can be legally imported, particularly when the importing country is applying a ban or a sanction on goods originating in certain countries.
+
+
+=== Certificate of origin, country of origin and rules of origin ===
+These concepts are interrelated and sometimes cause confusion. Basically, a certificate of origin certifies the country of origin of the product listed in the certificate. As the term self indicates, the country of origin of a product does not refer to the country of the exporter, but to the country where it is obtained or produced. In many cases the country of origin is also the country from which it is exported. However, there are various cases where these countries are different. For instance, an exporter in country A may sign a contract with an importer in country C, and instructs the goods to be shipped from country B, where it is actually made. Regarding goods not directly shipped, the competent authority in a transit country may sometimes issue a back-to-back certificate of origin based on an original one, in which the country of origin is different from the transit country.
+The country of origin is determined based on the origin requirements provided in the rules of origin applied to the product at hand. In its simplest case, the country of origin will be the country in which the product is wholly obtained or produced. For instance, rice grown and harvested in Vietnam is considered as originating in Vietnam. In the event that the manufacture of a product involves two or more countries (e.g., crackers made in Korea from rice of Vietnam), the country of origin is defined as the country where the last substantial economically justified working or processing is carried out.
+
+
+== Issuing and verifying certificate of origin ==
+
+
+=== Issuing certificate of origin ===
+For both preferential and non-preferential certificates of origin, the issuance thereof depends on whether self-certification is allowed, or authorized certification is required.
+In the case of self-certification, the exporter or the manufacturer will have the right to assess the compliance of its product with the applicable origin criteria. It may then issue a certificate of origin using a prescribed form. Sometimes, there is no prescribed form, which means the exporter or the manufacturer is allowed to simply provide a (sworn) declaration about the origin of the goods. The declaration may either be made on a separate document, or incorporated in another trade document, such as an invoice.
+Where third-party certification is required, normally the certificate of origin must be signed by the exporter or the manufacturer, and countersigned by a local issuing body, such as a chamber of commerce or a customs authority. The certification officer may require the exporter or manufacturer to submit documents relating to the manufacturing process, or even examine the manufacturing premises. The certification process will thus incur some costs, including the fees paid to the competent authority.
+
+
+=== Waiver of certificate of origin ===
+Determining the origin of a product is crucial because country of origin is the ground to apply tariffs and other trade measures. However, a certificate of origin is not systematically required for all shipments. It will depend on the trade regime under which a product is imported to a destination country, and also the value of that goods.
+For non-preferential purposes, the submission of a certificate of origin is usually not necessary unless it is otherwise indicated, particularly during a period when the importing country is applying some trade remedies to certain products originating in certain countries. For preferential purposes, although a certificate of origin is usually mandatory, most certificate provide a provision on exemption applied to "small value" consignments.
+The threshold below which a certificate of origin is waived differs from one trade agreement to another. Therefore, it is important for traders to examine the applicable trade agreement carefully to find out whether or not they will need a certificate of origin for a certain shipment. The provision on exemption or waiver of certificate of origin is often provided unambiguously in the protocol or annex on rules of origin of the relevant agreements. They may also check and compare the exemption thresholds of various trade agreements by using the Rules of Origin Facilitator, a free tool developed by the International Trade Centre - a free tool developed in a joint initiative with the WCO and WTO to assist small and medium-sized enterprises.
+
+
+=== Verifying certificate of origin ===
+Verification is a process carried out in the importing country to confirm the originating status of goods which have already been imported. In this process, verifying the certificate of origin submitted to customs authorities is an important step. The customs officer may need to check the authenticity of the certificate at hand by comparing the reference number thereof and examining the signature and stamp on it surface. He also needs to check to make sure all the fields in the certificate have been duly filled and the information in the certificate is consistent with that in other trade documents (e.g., commercial invoice, bill of lading). Where the certificate of origin is found to contain some errors, the certificate may be rejected; however, minor and formal errors is usually not the basis for an automatic rejection of the validity of a certificate.
+A certificate must in principle be submitted within the validity period provided in the applicable rules of origin. Moreover, it should normally be submitted at the time of importation to claim for preferential treatment. However many agreements accepts the retroactive issuance of certificates of origin, and the possibility of a tariff refund. This relaxation rule applies if by the time of importation, for some justifiable reasons, the importer has not filed a claim for preferential tariff.
+In the event that the customs authority remain in doubt despite there is no sign of non-compliance on the certificate of origin, it may ask to physically check the imported goods. Moreover, the customs authority may also contact the issuing authority in the exporting country to verify any information it considers necessary before making the decision.
+
+
+=== Issuing and verifying authorities ===
+Domestic institutions are those who direct deal with the issuance and verification of rules of origin. It differs from country to country and depends also on the specific agreement under which a shipment is classified. For instance, for goods shipped from the exporting country to the importing country under non-preferential regime, the certificate of origin may be certified by the Chamber of Commerce but for if those goods are traded under a free trade agreement, the issuing authority may be one agency of the Ministry of Trade.
+Normally the issuing authority can be one of the following institutions:
+- Chambers of commerce
+ICC accredited chambers using International Certificate of Origin Guidelines
+- Customs authorities
+Under bilateral or regional trade agreements
+- Other government bodies or agencies assigned by the agreement, normally belongs to the Ministry of Trade.
+Verifying authorities
+In most cases where verifying authorities are specified, it would be the customs authorities of the importing countries. The reason is that rules of origin must pass the verification in the importing country so that the goods can be determined as eligible for preferential treatment or not.
+
+
+== Types, forms, and formats of certificate of origin ==
+
+
+=== Types of certificate of origin ===
+Basically, because rules of origin may be established for preferential or non-preferential purposes, certificates of origin can also be classified into two types: preferential and non-preferential.
+
+
+==== Non-preferential certificate of origin ====
+
+Non-preferential certificate of origin is the form of certificate issued for the purpose of complying with non-preferential rules of origin. This type of certificate basically certifies the country of origin of the product without allowing it to be entitled to preferential tariffs under preferential trade regimes. To be specific, non-preferential certificate of origin is used within the WTO framework for most-favored-nation treatment as provided for in Article 1.2 of the Agreement on Rules of Origin.
+The words "preferential" and "non-preferential" in the Agreement does cause certain confusion. In the WTO context, preferential trade regimes cover free trade agreements and other autonomous preferential regimes, such as Generalized System of Preferences. Therefore, although MFN tariffs can actually be more favorable as compared to those applied to goods originating in non-WTO countries, they are considered "non-preferential" because they are applied to all members in the same manner without discrimination. Moreover, as trade within the WTO now accounts for roughly all world trade, transactions with countries outside the WTO are negligible in value. This is the reason why these days very few WTO members still require the submission of a non-preferential certificate of origin to apply MFN tariffs, but will apply them automatically.
+However, non-preferential certificate of origin remains important in several cases. Non-preferential rules of origin shall apply to products originating in countries subject to trade remedies, so this form may be requisite in such instances. In the time of trade wars, a certificate of origin showing that the product is not originating in a sanctioned country may also be required for the goods to enter the sanctioning country. Moreover, sometimes the origin of the good itself is an evidence of quality and prestige, so it may be beneficial to obtain one, although it does not help traders gain preferential tariff treatment.
+
+
+==== Preferential certificate of origin ====
+A preferential certificate of origin is a document attesting that goods in a particular shipment are of a certain origin under the definitions of a particular bilateral or multilateral free trade agreement. This certificate is usually required by the importing country's customs authority in deciding whether the imports should benefit from preferential treatment allowed under the applicable agreement. Unlike non-preferential certificate of origin which often indicates only the country of origin in its title, a preferential certificate will indicate at the top of the document under which trade agreement it is issued.
+As compared to non-preferential certificate of origin, preferential certificate of origin has more practical use because it enables the claim of benefit beyond the MFN treatment. Therefore, most of the discussion on certificate of origin normally focuses on preferential one. The following parts on forms and formats will add clarification to the diversity of this type of certificate of origin.
+
+
+=== Forms of certificate of origin ===
+
+With the proliferation of trade agreements, a variety of forms of certificates of origin have been used in international trade. While each country often in principle provides only one form of non-preferential certificate of origin (or even no form at all), the form of preferential certificate of origin differs from one trade agreement to another. It means that the more trade agreements a country participates in, the more forms of preferential certificate of origin its traders may need to be familiar with.
+To claim preference under a certain trade agreement, traders must use exactly the form of certificate of origin devised for that agreement. Taking Vietnam as an example, a Vietnamese exporter will apply for a preferential certificate of origin Form A for GSP purposes, Form D if exported to another ASEAN country, Form E if exported to China under the ASEAN-China trade agreement, Form AK if exported to China under the ASEAN-Korea trade agreement, etc. Particularly, if his trade partner is a Japan importer, this Vietnamese exporter may need to choose among Form A (GSP), Form AJ (ASEAN-Japan) or Form VJ (Vietnam-Japan), depending on the preferential agreement that he opts to adhere to.
+However, virtually all certificate of origin forms adopt a similar template, with fields to be filled in covering the country of origin, shipper's name and address, consignee's name and address, transport detail, product description and quantity, and the issuing body's stamp and signature if authorized certification is required. Besides, some countries and trading blocs have made effort in reducing the divergence of origin certification forms. For instance, the EUR.1 movement certificate (also known as EUR.1 certificate, or EUR.1) is recognized as a certificate of origin in various bilateral and multilateral trade agreements of the Pan-European preference system.
+
+
+=== Formats of certificate of origin ===
+
+
+==== Paper-based certificate of origin ====
+The most popular format of certificate of origin is paper-based. Paper-based certificates are widely used because in most cases, they have to bear the signatures and stamps of the exporters or manufacturers, and those of the issuing authorities. Moreover, the verification and acceptance of electronic documents still take time to be widely applied, so the abolition of paper-based certificates of origin is impossible in the near future.
+Although more and more trade agreements allow the traders to print the certificates themselves, it is quite common that they are pre-printed by a competent authority and sold or delivered to the applicants. For instance, the free trade agreement between Thailand and India requires that the certificate of origin must be printed in a specific way, which means that the trader cannot print it by himself:
+
+Rule 7
+(a) The validity of the Certificate of Origin shall be 12 months from the date of its issuance.
+(b) The Certificate of Origin must be on ISO A4 size paper in conformity to the specimen shown in Attachment
+1. It shall be made in English.
+(c) The Certificate of Origin shall comprise of one original and three (3) carbon copies of the following colours :
+Original - Blue
+Duplicate - White
+Triplicate - White
+Quadruplicate - White
+(d) Each Certificate of Origin shall bear a printed distinctive number and a reference number separately given by each place or office of issuance.
+
+(e) The original copy, together with the triplicate, shall be forwarded by the exporter to the importer for submission of the original copy to the Customs Authority at the port or place of importation. The duplicate shall be retained by the issuing authority in the exporting Party. The triplicate shall be retained by the importer and the quadruplicate shall be retained by the exporter.
+
+
+==== Electronic certificate of origin ====
+As millions of certificates are issued every year, and to keep pace with the shift to e-business, electronic certificates of origin or "e-CO" are being implemented. Electronic certificates of origin are not only a means to facilitate and provide a secure trading environment but also save time, costs and increase transparency.
+In recent years, several e-CO platforms have been developed by national and regional chambers of commerce. The use of electronic certificates of origin is anticipated to increase considering the support from both the business community but also from policy makers. Notably, The WTO's Agreement on Trade Facilitation came into force, bringing a new benchmark for the use of electronic documents, including certificates of origin. Article 10.2 of the agreement provides that:
+
+2. Acceptance of Copies
+2.1 Each Member shall, where appropriate, endeavour to accept paper or electronic copies of supporting documents required for import, export, or transit formalities;
+2.2 Where a government agency of a Member already holds the original of such a document, any other agency of that Member shall accept a paper or electronic copy, where applicable, from the agency holding the original in lieu of the original document;
+
+2.3 A Member shall not require an original or copy of export declarations submitted to the customs authorities of the exporting Member as a requirement for importation.
+
+
+== Certificates of origin and trade facilitation initiatives ==
+Some international organizations are taking efforts to facilitate the process of certifying and verifying certificates of origin. The followings are some most significant initiatives:
+
+
+=== Rules of Origin Facilitator ===
+In a joint initiative with the WCO and WTO, the International Trade Centre introduces Rules of Origin Facilitator, which provides free and user-friendly access to ITC's database of rules of origin and origin-related documentation in hundreds of trade agreements. The Facilitator is also combined with the huge tariff and trade agreements databases that have been constructed and continuously maintained by ITC's Market Access Map since 2006, resulting in a unique market intelligence solution enabling companies, particularly ones from developing countries, to benefit from trade agreements worldwide. The Facilitator currently contains a data for more than 150 free trade agreements applied by more than 190 countries as well as non-preferential regimes of the EU, the US and Switzerland. This database is gradually expanding with the ultimate goal to cover over 400 free trade agreements and preferential schemes that are currently active in the world.
+The Rules of Origin Facilitator aims to help small and medium-sized enterprises to increase trade by taking advantage of global trade opportunities in the form of low duty rates under trade agreements. The tool can also be used by policymakers, trade negotiators, economists as well as any other users. Any user can simply look for information on origin criteria, other origin provisions, and trade documentation by entering the HS code of their product.
+Apart from its searching feature, the Facilitator allows traders to get free and direct access to thousands of legal documentation, including hundreds of forms of certificates of origin. The user may download the form he needs for a certain transaction and fill in necessary information to submit. In addition, a full glossary on common provisions, including those relating to certificates of origin certification and verification is also provided to help users get used to the complicated terms and concepts.
+
+
+=== Certificate of Origin Accreditation Chain ===
+The formalization in the role of chambers of commerce as issuing agencies for certificates of origin (CO) can be traced back to the 1923 Geneva Convention relating to the Simplification of Customs Formalities and has been reinforced with the Revised Kyoto Convention. Under these Conventions, signatory governments were able to allow organizations “which possess the necessary authority and offer the necessary guarantees” to the State to issue certificates of origin. Thus due to the widespread network of the chamber of commerce community, in most countries, chambers of commerce were seen as these organizations allowed to issue certificates of origin. 
+
+Since 1923, governments have been delegating the issuance of certificates of origin to chambers of commerce. Chambers are deemed to be competent organisations and regarded as an accountable and reliable third-party with neutrality and impartiality. Understanding the lack of harmony in issuing certificates of origin across the globe, the International Chamber of Commerce World Chambers Federation Council on International Certificate of Origin (ICO) has been established to enhance and promote the unique position of chambers as the natural agent in the issuance of trade documents. The Federation has also provided a universal set of guidelines for issuing and attesting certificates by chambers all over the world.
+
+
+== See also ==
+Rules of origin
+International Certificate of Origin Guidelines
+Trade facilitation
+Chamber of Commerce
+International Trade
+Provenance
+
+
+== References ==
+General
+
+
+== External links ==
+ITC's Rules of Origin Facilitator, a free online tool enabling enterprises to search for origin provisions and documentation.
+World Trends in Preferential Origin Certification and Verification,
+World Chambers Federation
+ICC WCF International Certificate of Origin Guidelines Archived 2013-09-23 at the Wayback Machine
+Simplified CMMI Certification Process
+International Chamber of Commerce
+World Customs Organization
+WTO's Agreement on Rules of Origin
+Digital Certificate
+System Certification

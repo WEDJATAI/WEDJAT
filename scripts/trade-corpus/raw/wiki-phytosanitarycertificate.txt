@@ -1,0 +1,37 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Phytosanitary%20certificate
+SOURCE-TITLE: Phytosanitary certification
+FETCH-METHOD: wiki-api
+====
+Phytosanitary certification verifies phytosanitary worthiness (plant health). These certificates are used to attest that consignments meet phytosanitary import requirements and are undertaken by a National Plant Protection Organization (NPPO). Under the Agreement on the Application of Sanitary and Phytosanitary Measures and ISPM, a certificate for export or for re-export can be issued only by a public officer who is technically qualified and duly authorized by an NPPO.
+A phytosanitary certificate for export is usually issued by the NPPO of the country where the plants, plant products, or regulated articles were grown or processed. Phytosanitary certificates are issued to indicate that consignments of plants, plant products or other regulated articles meet specified phytosanitary import requirements and are in conformity with the certifying statement of the appropriate model certificate. Phytosanitary certificates should only be issued for this purpose.
+
+
+== USDA, APHIS, and PPQ ==
+The US designated NPPO – Plant Protection and Quarantine (PPQ) – maintains the export program for the United States exporters of United States-origin and foreign-origin agricultural commodities. The export program does not require certification of any exports, but does provide certification of commodities as a service to United States exporters. Animal and Plant Health Inspection Service (APHIS) and its Plant Protection and Quarantine (PPQ) are responsible for safeguarding agriculture and natural resources from the risks associated with the entry, establishment, or spread of animal and plant pests and noxious weeds. Phytosanitary certification is provided as a service to U.S. applicants based on the phytosanitary requirements of foreign countries.  The APHIS will not issue a phytosanitary certificate for Wood Packaging Material (WPM) such as pallets or crates used in the transport of commodities. If the WPM is the cargo, only then can a phytosanitary certificate be issued.  After assessing the phytosanitary condition of the commodities intended for export, an Authorized Certification Official (ACO) issues these internationally recognized phytosanitary certificates:
+
+PPQ Form 577, Phytosanitary Certificate
+PPQ Form 579, Phytosanitary Certificate for Reexport
+
+
+== Authorized Certification Official (ACO) ==
+A public officer who is authorized by the National Plant Protection organization (NPPO) and accredited for the signing of phytosanitary certificates, who 1) possesses the required education, experience, and training; and 2) has written confirmation of having passed an approved examination. (RSPM No. 8, Accreditation) [NAPPO, 2004].
+
+
+== Export Certification Specialists ==
+The USDA APHIS PPQ Export Certification Specialists are responsible for maintaining the quality and credibility of the U.S. Export Program.
+
+
+== Phytosanitary Certificate Issuance & Tracking (PCIT) ==
+The USDA / APHIS / PPQ issues Phytosanitary Certificates for export via the PCIT system. PCIT tracks the inspection of products and certifies compliance with plant health standards of importing countries. This capability provides the USDA/APHIS/PPQ with greater fraud prevention, reporting functions, and monitoring capabilities.
+
+
+== See also ==
+Animal and Plant Health Inspection Service (APHIS)
+International Plant Protection Convention (IPPC)
+Phytosanitary Certificate Issuance and Tracking System
+United States Department of Agriculture (USDA)
+
+
+== References ==
+
+ This article incorporates public domain material from websites or documents of the United States Department of Agriculture.

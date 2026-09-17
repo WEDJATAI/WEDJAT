@@ -1,0 +1,495 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Sea%20waybill
+SOURCE-TITLE: MediaWiki API help - Wikipedia
+FETCH-METHOD: wiki-api+reader
+====
+MediaWiki API help - Wikipedia 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+# MediaWiki API help
+
+## Contents
+
+- 0 General information 
+
+- 0.1 Request methods 
+
+- 0.2 Data types 
+
+- 0.3 Limits 
+
+- 0.4 Templated parameters 
+
+- 1 Main module 
+
+- 2 Credits 
+
+This is an auto-generated MediaWiki Action API documentation page.
+
+## General information
+
+- Documentation & examples 
+
+- Etiquette & usage guidelines 
+
+- FAQ 
+
+- Mailing list 
+
+- API Announcements 
+
+- Bugs & requests 
+
+Status: The MediaWiki API is a mature and stable interface that is actively supported and improved. While we try to avoid it, we may occasionally need to make breaking changes; subscribe to the mediawiki-api-announce mailing list for notice of updates.
+
+Erroneous requests: When erroneous requests are sent to the API, an HTTP header will be sent with the key "MediaWiki-API-Error" and then both the value of the header and the error code sent back will be set to the same value. For more information see API: Errors and warnings .
+
+Testing: For ease of testing API requests, see Special:ApiSandbox .
+
+### Request methods
+Action API requests may use GET and POST methods. Prefer using the GET method, which allows requests to be routed to faster replica servers and responses to be cached, unless the length of the URL with parameters would exceed its length limit (commonly 8000 bytes), or a module only accepts POST requests.
+
+Parameters for POST requests may be sent in the query part of the request URL (like in GET requests) and in the POST request body, and mixing both ways in one request is allowed. Certain parameters such as passwords must be sent in the request body. If the same parameter is sent as part of the URL and also in the request body, it must have the same value in both places.
+
+### Data types
+Input to MediaWiki should be NFC-normalized UTF-8. MediaWiki may attempt to convert other input, but this may cause some operations (such as edits with MD5 checks) to fail.
+
+Parameters that take multiple values are normally submitted with the values separated using the pipe character, e.g. param=value1|value2 or param=value1%7Cvalue2 . If a value must contain the pipe character, use U+001F (Unit Separator) as the separator and prefix the value with U+001F, e.g. param=%1Fvalue1%1Fvalue2 .
+
+Some parameter types in API requests need further explanation:
+
+boolean Boolean parameters work like HTML checkboxes: if the parameter is specified, regardless of value, it is considered true. For a false value, omit the parameter entirely.
+
+expiry Expiry values may be relative (e.g. 5 months or 2 weeks ) or absolute (e.g. 2014-09-18T12:34:56Z ). For no expiry, use infinite , indefinite , infinity or never .
+
+timestamp Timestamps may be specified in several formats, see the Timestamp library input formats documented on mediawiki.org for details. ISO 8601 date and time is recommended: 2001 - 01 - 15 T 14 : 56 : 00 Z . The string now may be used to specify the current time.
+
+### Limits
+Most API modules can accept up to 50 inputs in multivalue parameters, and can return up to 500 results per query (50 results for slow queries).
+
+For users with the apihighlimits right (Bots, Administrators and Researchers), the limits are increased to 500 inputs and 5,000 results (500 results for slow queries).
+
+### Templated parameters
+Templated parameters support cases where an API module needs a value for each value of some other parameter. For example, if there were an API module to request fruit, it might have a parameter fruits to specify which fruits are being requested and a templated parameter {fruit}-quantity to specify how many of each fruit to request. An API client that wants 1 apple, 5 bananas, and 20 strawberries could then make a request like fruits=apples|bananas|strawberries&apples-quantity=1&bananas-quantity=5&strawberries-quantity=20 .
+
+## Main module
+
+- Source: MediaWiki 
+
+- License: GPL-2.0-or-later 
+
+Specify the action to perform, the format of the response, and options that apply to all API modules.
+
+Specific parameters:
+action Which action to perform. This parameter should be sent as part of the request URL (not the POST body) for ease of use in debugging, analytics, and request routing or filtering.
+
+abusefiltercheckmatch 
+Check to see if an AbuseFilter matches a set of variables, an edit, or a logged AbuseFilter event. 
+abusefilterchecksyntax 
+Check syntax of an AbuseFilter filter. 
+abusefilterevalexpression 
+Evaluates an AbuseFilter expression. 
+abusefilterunblockautopromote 
+Unblocks a user from receiving autopromotions due to an abusefilter consequence. 
+abuselogprivatedetails 
+View private details of an AbuseLog entry. 
+acquiretempusername 
+Acquire a temporary user username and stash it in the current session, if temp account creation is enabled and the current user is logged out. If a name has already been stashed, returns the same name. 
+antispoof 
+Check a username against AntiSpoof's normalisation checks. 
+block 
+Block a user. 
+centralauthtoken 
+Fetch a centralauthtoken for making an authenticated request to an attached wiki. 
+centralnoticecdncacheupdatebanner 
+Request the purge of banner content stored in the CDN (front-end) cache for anonymous users, for the requested banner and language 
+centralnoticechoicedata 
+Get data needed to choose a banner for a given project and language 
+centralnoticequerycampaign 
+Get all configuration settings for a campaign. 
+changeauthenticationdata 
+Change authentication data for the current user. 
+changecontentmodel 
+Change the content model of a page 
+checktoken 
+Check the validity of a token from action=query&meta=tokens . 
+clearhasmsg 
+Clears the hasmsg flag for the current user. 
+clientlogin 
+Log in to the wiki using the interactive flow. 
+communityconfigurationedit 
+Change the content of a configuration provider in Community configuration 
+compare 
+Get the difference between two pages. 
+createaccount 
+Create a new user account. 
+createlocalaccount 
+Forcibly create a local account. The central account must exist. 
+cxdelete 
+Delete a draft translation created using the Content Translation extension. 
+cxtoken 
+Get JWT tokens to authenticate with cxserver. 
+delete 
+Delete a page. 
+deleteglobalaccount 
+Delete a global user. 
+discussiontoolsedit 
+Post a message on a discussion page. 
+discussiontoolsfindcomment 
+Find a comment by its ID or name. 
+discussiontoolsgetsubscriptions 
+Get the subscription statuses of given topics. 
+discussiontoolssubscribe 
+Subscribe (or unsubscribe) to receive notifications about a topic. 
+discussiontoolsthank 
+Send a public thank-you notification for a comment. 
+echocreateevent 
+Manually trigger a notification to a user 
+echomarkread 
+Mark notifications as read for the current user. 
+echomarkseen 
+Mark notifications as seen for the current user. 
+echomute 
+Mute or unmute notifications from certain users or pages. 
+edit 
+Create and edit pages. 
+editmassmessagelist 
+Edit a mass message delivery list. 
+emailuser 
+Email a user. 
+expandtemplates 
+Expands all templates within wikitext. 
+featuredfeed 
+Returns a featured content feed. 
+feedcontributions 
+Returns a user's contributions feed. 
+feedrecentchanges 
+Returns a recent changes feed. 
+feedwatchlist 
+Returns a watchlist feed. 
+filerevert 
+Revert a file to an old version. 
+flagconfig 
+Get basic information about review flag configuration for this site. 
+globalblock 
+Globally block or unblock a user. 
+globalpreferenceoverrides 
+Change local overrides for global preferences for the current user. 
+globalpreferences 
+Change global preferences of the current user. 
+globaluserrights 
+Add/remove a user to/from global groups. 
+growthmanagementorlist 
+Manage information in the structured mentor list (usually stored in MediaWiki:GrowthMentors.json ). This module can be used by both current and future mentors (to add themselves or change their details) and administrators (for all users). 
+growthmentordashboardupdatedata 
+Schedule an extraordinary update of the mentee overview module in the mentor dashboard. You can only schedule one update per two hours for performance reasons. 
+growthsetmenteestatus 
+Set mentee's status (allows mentees to enable/disable mentorship module, or to opt-out entirely, which deletes the mentee/mentor relationship) 
+growthsetmentor 
+Set user's mentor. Change will be publicly logged. 
+growthstarmentee 
+Mark or unmark a mentee as starred by current user (stored privately and not logged) 
+help 
+Display help for the specified modules. 
+homepagequestionstore 
+Obtain formatted questions posted via homepage modules 
+imagerotate 
+This module has been disabled. 
+import 
+Import a page from another wiki, or from an XML file. 
+jsonconfig 
+Allows direct access to JsonConfig subsystem. 
+languagesearch 
+Search for language names in any script. 
+linkaccount 
+Link an account from a third-party provider to the current user. 
+login 
+Log in and get authentication cookies. 
+logout 
+Log out and clear session data. 
+managetags 
+Perform management tasks relating to change tags. 
+massmessage 
+Send a message to a list of pages. 
+mergehistory 
+Merge page histories. 
+move 
+Move a page. 
+opensearch 
+Search the wiki using the OpenSearch protocol. 
+options 
+Change preferences of the current user. 
+pagetriageaction 
+Mark an article as reviewed or unreviewed. 
+pagetriagelist 
+Get a list of page IDs for building a PageTriage queue. 
+pagetriagestats 
+Get the stats for page triage. 
+pagetriagetagcopyvio 
+Tag a revision as a likely copyright violation. 
+pagetriagetagging 
+Add tags to an article. 
+paraminfo 
+Obtain information about API modules. 
+parse 
+Parses content and returns parser output. 
+patrol 
+Patrol a page or revision. 
+protect 
+Change the protection level of a page. 
+purge 
+Purge the cache for the given titles. 
+query 
+Fetch data from and about MediaWiki. 
+removeauthenticationdata 
+Remove authentication data for the current user. 
+resetpassword 
+Send a password reset email to a user. 
+review 
+Review a revision by approving or de-approving it. 
+revisiondelete 
+Delete and undelete revisions. 
+rollback 
+Undo the last edit to the page. 
+rsd 
+Export an RSD (Really Simple Discovery) schema. 
+setglobalaccountstatus 
+Hide or lock (or unhide or unlock) a global user account. 
+setnotificationtimestamp 
+Update the notification timestamp for watched pages. 
+setpagelanguage 
+Change the language of a page. 
+shortenurl 
+Shorten a long URL into a shorter one. 
+sitematrix 
+Get Wikimedia sites list. 
+spamblacklist 
+Validate one or more URLs against the spam block list. 
+stabilize 
+Configure review-protection settings for a page. 
+streamconfigs 
+Exposes event stream config. Returns only format=json with formatversion=2. 
+strikevote 
+Allows admins to strike or unstrike a vote. 
+sxdelete 
+Delete the draft section translation and its parallel corpora from database. 
+tag 
+Add or remove change tags from individual revisions or log entries. 
+templatedata 
+Fetch data stored by the TemplateData extension. 
+thank 
+Send a thank-you notification to an editor. 
+titleblacklist 
+Validate a page title, filename, or username against the TitleBlacklist. 
+torblock 
+Check if an IP address is blocked as a Tor exit node. 
+transcodereset 
+Users with the 'transcode-reset' right can reset and re-run a transcode job. 
+unblock 
+Unblock a user. 
+undelete 
+Undelete revisions of a deleted page. 
+unlinkaccount 
+Remove a linked third-party account from the current user. 
+upload 
+Upload a file, or get the status of pending uploads. 
+userrights 
+Change a user's group membership. 
+validatepassword 
+Validate a password against the wiki's password policies. 
+watch 
+Add or remove pages from the current user's watchlist. 
+webapp-manifest 
+Returns a webapp manifest. 
+webauthn 
+API Module to communicate between server and client during registration/authentication process. 
+wikilove 
+Give WikiLove to another user. 
+bouncehandler 
+Internal. Receive a bounce email and process it to handle the failing recipient. 
+categorytree 
+Internal. Internal module for the CategoryTree extension. 
+chartinfo 
+Internal. Retrieve current count of how many unique Chart page usages there are. Multiple uses of the same chart on the same page are considered a single use. 
+cirrus-check-sanity 
+Internal. Reports on the correctness of a range of page ids in the search index 
+cirrus-config-dump 
+Internal. Dump of CirrusSearch configuration. 
+cirrus-profiles-dump 
+Internal. Dump of CirrusSearch profiles for this wiki. 
+cirrus-schema-dump 
+Internal. Dump of CirrusSearch schema (settings and mappings) for this wiki. 
+codemirror-validate 
+Internal. Check for validation errors in the given content 
+collection 
+Internal. API module for performing various operations on a wiki user's collection. 
+cspreport 
+Internal. Used by browsers to report violations of the Content Security Policy. This module should never be used, except when used automatically by a CSP compliant web browser. 
+cxcheckunreviewed 
+Internal. Check if any fast, unreviewed translation has been published recently for the current user. 
+cxfavoritesuggestions 
+Internal. Add or remove a favorite suggestion to the current user's list. 
+cxpublish 
+Internal. Save a page created using the Content Translation extension. 
+cxpublishsection 
+Internal. Save a section created using the Content Translation extension's section translation feature. 
+cxsave 
+Internal. This module allows to save draft translations by section to save bandwidth and to collect parallel corpora. 
+cxsplit 
+Internal. Create and save a section translation to database, for every translated section of the given article translation 
+discussiontoolscompare 
+Internal. Get information about comment changes between two page revisions. 
+discussiontoolspageinfo 
+Internal. Returns metadata required to initialize the discussion tools. 
+discussiontoolspreview 
+Internal. Preview a message on a discussion page. 
+echopushsubscriptions 
+Internal. Manage push subscriptions for the current user. 
+editcheckreferenceurl 
+Internal. Check the status of a URL for use as a reference. 
+fancycaptchareload 
+Internal. Get a new FancyCaptcha. 
+growthinvalidateimagerecommendation 
+Internal. Invalidate an image recommendation. 
+growthinvalidatepersonalizedpraisesuggestion 
+Internal. Invalidates a suggestion of a praiseworthy mentee in the Personalized praise module on the Mentor dashboard 
+growthinvalidaterevisetonerecommendation 
+Internal. Drop a 'Revise Tone' recommendation for a given page. 
+helppanelquestionposter 
+Internal. Handle questions posted via the help panel for the current user. 
+jsondata 
+Internal. Retrieve localized JSON data. 
+jsontransform 
+Internal. Retrieve JSON data transformed by a Lua function. 
+parser-migration 
+Internal. Parse a page with two different parser configurations. 
+readinglists 
+Internal. Reading list write operations. 
+sanitize-mapdata 
+Internal. Performs data validation for Kartographer extension 
+scribunto-console 
+Internal. Internal module for servicing XHR requests from the Scribunto console. 
+securepollauth 
+Internal. Allows a remote wiki to authenticate users before granting access to vote in the election. 
+stashedit 
+Internal. Prepare an edit in shared cache. 
+sxsave 
+Internal. Save the draft section translation and store the parallel corpora 
+timedtext 
+Internal. Provides timed text content for usage by <track> elements 
+ulslocalization 
+Internal. Get the localization of ULS in the given language. 
+ulssetlang 
+Internal. Update user's preferred interface language. 
+visualeditor 
+Internal. Returns HTML5 for a page from the Parsoid service. 
+visualeditoredit 
+Internal. Save an HTML5 page to MediaWiki (converted to wikitext via the Parsoid service). 
+wikimediaeventsblockededit 
+Internal. Log information about blocked edit attempts 
+wikimediaeventshcaptchaeditattempt 
+Internal. Log edit diff when hCaptcha challenge is shown but edit is incomplete One of the following values: abusefiltercheckmatch , abusefilterchecksyntax , abusefilterevalexpression , abusefilterunblockautopromote , abuselogprivatedetails , acquiretempusername , antispoof , block , centralauthtoken , centralnoticecdncacheupdatebanner , centralnoticechoicedata , centralnoticequerycampaign , changeauthenticationdata , changecontentmodel , checktoken , clearhasmsg , clientlogin , communityconfigurationedit , compare , createaccount , createlocalaccount , cxdelete , cxtoken , delete , deleteglobalaccount , discussiontoolsedit , discussiontoolsfindcomment , discussiontoolsgetsubscriptions , discussiontoolssubscribe , discussiontoolsthank , echocreateevent , echomarkread , echomarkseen , echomute , edit , editmassmessagelist , emailuser , expandtemplates , featuredfeed , feedcontributions , feedrecentchanges , feedwatchlist , filerevert , flagconfig , globalblock , globalpreferenceoverrides , globalpreferences , globaluserrights , growthmanagementorlist , growthmentordashboardupdatedata , growthsetmenteestatus , growthsetmentor , growthstarmentee , help , homepagequestionstore , imagerotate , import , jsonconfig , languagesearch , linkaccount , login , logout , managetags , massmessage , mergehistory , move , opensearch , options , pagetriageaction , pagetriagelist , pagetriagestats , pagetriagetagcopyvio , pagetriagetagging , paraminfo , parse , patrol , protect , purge , query , removeauthenticationdata , resetpassword , review , revisiondelete , rollback , rsd , setglobalaccountstatus , setnotificationtimestamp , setpagelanguage , shortenurl , sitematrix , spamblacklist , stabilize , streamconfigs , strikevote , sxdelete , tag , templatedata , thank , titleblacklist , torblock , transcodereset , unblock , undelete , unlinkaccount , upload , userrights , validatepassword , watch , webapp-manifest , webauthn , wikilove , bouncehandler , categorytree , chartinfo , cirrus-check-sanity , cirrus-config-dump , cirrus-profiles-dump , cirrus-schema-dump , codemirror-validate , collection , cspreport , cxcheckunreviewed , cxfavoritesuggestions , cxpublish , cxpublishsection , cxsave , cxsplit , discussiontoolscompare , discussiontoolspageinfo , discussiontoolspreview , echopushsubscriptions , editcheckreferenceurl , fancycaptchareload , growthinvalidateimagerecommendation , growthinvalidatepersonalizedpraisesuggestion , growthinvalidaterevisetonerecommendation , helppanelquestionposter , jsondata , jsontransform , parser-migration , readinglists , sanitize-mapdata , scribunto-console , securepollauth , stashedit , sxsave , timedtext , ulslocalization , ulssetlang , visualeditor , visualeditoredit , wikimediaeventsblockededit , wikimediaeventshcaptchaeditattempt Default: help format The format of the output.
+
+json 
+Output data in JSON format. 
+jsonfm 
+Output data in JSON format (pretty-print in HTML). 
+none 
+Output nothing. 
+rawfm 
+Output data, including debugging elements, in JSON format (pretty-print in HTML). 
+xml 
+Output data in XML format. 
+xmlfm 
+Output data in XML format (pretty-print in HTML). One of the following values: json , jsonfm , none , rawfm , xml , xmlfm Default: jsonfm maxlag Maximum lag can be used when MediaWiki is installed on a database replicated cluster. To save actions causing any more site replication lag, this parameter can make the client wait until the replication lag is less than the specified value. In case of excessive lag, error code maxlag is returned with a message like Waiting for $host: $lag seconds lagged .
+See Manual: Maxlag parameter for more information.
+
+Type: integer smaxage Set the s-maxage HTTP cache control header to this many seconds. Errors are never cached.
+
+Type: integer The value must be no less than 0. Default: 0 maxage Set the max-age HTTP cache control header to this many seconds. Errors are never cached.
+
+Type: integer The value must be no less than 0. Default: 0 assert Verify that the user is logged in (including possibly as a temporary user) if set to user , not logged in if set to anon , or has the bot user right if bot .
+
+One of the following values: anon, bot, user assertuser Verify the current user is the named user.
+
+Type: user, by any of username and Temporary user requestid Any value given here will be included in the response. May be used to distinguish requests.
+
+servedby Include the hostname that served the request in the results.
+
+Type: boolean ( details ) curtimestamp Include the current timestamp in the result.
+
+Type: boolean ( details ) responselanginfo Include the languages used for uselang and errorlang in the result.
+
+Type: boolean ( details ) origin When accessing the API using a cross-domain AJAX request (CORS), set this to the originating domain. This must be included in any pre-flight request, and therefore must be part of the request URL (not the POST body).
+
+For authenticated requests, this must match one of the origins in the Origin header exactly, so it has to be set to something like https://en.wikipedia.org or https://meta.wikimedia.org . If this parameter does not match the Origin header, a 403 response will be returned. If this parameter matches the Origin header and the origin is allowed, the Access-Control-Allow-Origin and Access-Control-Allow-Credentials headers will be set.
+
+For non-authenticated requests, specify the value * . This will cause the Access-Control-Allow-Origin header to be set, but Access-Control-Allow-Credentials will be false and all user-specific data will be restricted.
+
+crossorigin When accessing the API using a cross-domain AJAX request (CORS) and using a session provider that is safe against cross-site request forgery (CSRF) attacks (such as OAuth), use this instead of origin=* to make the request authenticated (i.e., not logged out). This must be included in any pre-flight request, and therefore must be part of the request URL (not the POST body).
+
+Note that most session providers, including standard cookie-based sessions, do not support authenticated CORS and cannot be used with this parameter.
+
+Type: boolean ( details ) uselang Language to use for message translations. action=query&meta=siteinfo&siprop=languages returns a list of language codes. You can specify user to use the current user's language preference or content to use this wiki's content language.
+
+Default: user variant Variant of the language. Only works if the base language supports variant conversion.
+
+errorformat Format to use for warning and error text output
+
+plaintext 
+Wikitext with HTML tags removed and entities replaced. 
+wikitext 
+Unparsed wikitext. 
+html 
+HTML 
+raw 
+Message key and parameters. 
+none 
+No text output, only the error codes. 
+bc 
+Format used prior to MediaWiki 1.29. errorlang and errorsuselocal are ignored. One of the following values: bc, html, none, plaintext, raw, wikitext Default: bc errorlang Language to use for warnings and errors. action=query&meta=siteinfo&siprop=languages returns a list of language codes. Specify content to use this wiki's content language or uselang to use the same value as the uselang parameter.
+
+Default: uselang errorsuselocal If given, error texts will use locally-customized messages from the MediaWiki namespace.
+
+Type: boolean ( details ) centralauthtoken When accessing the API using a cross-domain AJAX request (CORS), use this to authenticate as the current SUL user. Use action=centralauthtoken on this wiki to retrieve the token, before making the CORS request. Each token may only be used once, and expires after 60 seconds. This should be included in any pre-flight request, and therefore should be included in the request URI (not the POST body).
+
+On this wiki the expected value is a JSON Web Token, which may be validated by proxy servers in front of MediaWiki. If the token has expired or is otherwise invalid, you may receive a HTTP error from a proxy in a different format than a normal API error.
+
+Examples:
+Help for the main module. api.php?action=help [open in sandbox] All help in one page. api.php?action=help&recursivesubmodules=1&toc [open in sandbox] 
+
+## Credits
+API developers:
+
+- Yuri Astrakhan (creator, lead developer Sep 2006–Sep 2007)
+
+- Roan Kattouw (lead developer Sep 2007–2009)
+
+- Victor Vasiliev
+
+- Bryan Tong Minh
+
+- Sam Reed
+
+- Brad Jorsch (lead developer 2013–2020)
+
+Please send your comments, suggestions and questions to mediawiki-api@lists.wikimedia.org
+or file a bug report at https://phabricator.wikimedia.org/ .
+
+Retrieved from " https://en.wikipedia.org/wiki/Special:ApiHelp "

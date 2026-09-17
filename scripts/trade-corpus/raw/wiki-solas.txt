@@ -1,0 +1,46 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=SOLAS
+SOURCE-TITLE: Solas
+FETCH-METHOD: wiki-api
+====
+Solas may refer to:
+
+
+== Arts and entertainment ==
+Solas (group), an Irish-American musical group
+Solas (album), by The Answer
+Solas Festival, a Scottish music festival
+Solas (film), a 1999 Spanish film directed by Benito Zambrano
+"Solas" (song), by Jamie Duffy
+
+
+== People ==
+Solås, a Norwegian surname
+Daniel Solas (born 1946), French former footballer
+Humberto Solás (1941–2008), Cuban director
+María Ruiz Solás (born 1970), Spanish journalist, businesswoman, politician
+
+
+=== Fictional characters ===
+Solas (Dragon Age), the name of an Elven Mage from Dragon Age: Inquisition
+
+
+== Science and technology ==
+Surface Ocean Lower Atmosphere Study, a research project
+Service-Oriented Localisation Architecture Solution, software
+SOLAS (cable system), in the List of international submarine communications cables
+
+
+== Other uses ==
+SOLAS Convention (Safety of Life at Sea), an international convention
+Sollas (Scottish Gaelic: Solas), a village, Outer Hebrides, Scotland, UK
+SOLAS (Ireland), an Irish state agency, successor to Foras Áiseanna Saothair
+
+
+== See also ==
+
+Five solas (five solae), Latin phrases summarizing the core beliefs behind the Protestant Reformation
+All pages with titles containing solas
+All pages with titles beginning with Solas
+All pages with titles beginning with SOLAS
+A solas (disambiguation)
+Sola (disambiguation)

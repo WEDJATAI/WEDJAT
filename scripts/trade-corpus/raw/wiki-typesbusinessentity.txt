@@ -1,0 +1,1230 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Types%20of%20business%20entity
+SOURCE-TITLE: List of legal entity types by country
+FETCH-METHOD: wiki-api
+====
+A legal entity is an entity that has legal personality, giving it legal rights and obligations including allowing it to enter into contracts, own property, and to sue and be sued. A legal entity may be created in order to engage in business activities, charitable work, or other activities. Most often, legal entities in business are formed to sell a product or a service. There are many types of legal entities defined in the legal systems of various countries. These may include corporations, cooperatives, charities, partnerships, sole traders and limited liability companies, although not all of these may be legal entities in all jurisdictions. The specific rules vary by country and by state or province. Some of these types are listed below, by country.
+
+
+== Common-law jurisdictions ==
+
+
+=== United Kingdom ===
+
+There are a number of forms of legal entity in the United Kingdom, including some types of business partnership, companies incorporated under the Companies Acts, mutual societies, some types of charitable organisation, and others including chartered corporations and statutory corporations.
+Partnerships (other forms of partnership exist that are not legal entities):
+
+General partnership (in Scotland)
+Limited liability partnership (LLP)
+Scottish limited partnership (SLP)
+Companies – corporations incorporated under the Companies Act 2006 (or previous companies acts):
+
+Private limited company (Ltd or Limited; Welsh: Cyfyngedig or Cyf)
+Private company limited by shares. The liability is limited to the amount, if any, unpaid on the shares held by them. Its shares cannot be traded publicly.
+Private company limited by guarantee. The liability is limited to such amount as the members undertake to contribute to the assets of the company in the event of its being wound up.
+Private unlimited company (Welsh: cwmni anghyfyngedig). A company with no limit on the liability of its members.
+Public limited company (PLC; Welsh: Cwmni Cyfyngedig Cyhoeddus or CCC). A limited company whose shares may be traded publicly.
+Community interest company (CIC) – a company that carries out activities for the benefit of the community. These may be either a company limited by guarantee or a company limited by shares.
+UK Societas (UKS) – the form taken by a UK-registered Societas Europaea (European public limited company) from 1 January 2021 following Brexit. Treated in most respects like a public limited company.
+Mutual societies:
+
+Co-operative or community benefit society – these may be co-operatives run for the benefit of members, community benefit societies run for the benefit of the community, or charitable community benefit societies run for the public benefit. Pre-commencement societies (formerly known as an industrial and provident society) were registered with the Financial Conduct Authority before 1 August 2014 (6 April 2018 for Northern Ireland).
+Credit union - a financial co-operative.
+Building society
+Friendly society
+Charities:
+
+Charitable company – a type of company limited by guarantee. Charities incorporated in this form may apply for exemption from the requirement to include "Ltd" (or one of the other forms) in their company name.
+Very rarely, a company limited by shares where the shareholders have no right to receive dividends may be registered as a charity; for example, St John's College, Durham, where the council members are the shareholders, and Harvard Global Research, a UK company limited by shares where the sole shareholder is Harvard Global Research and Support Services Inc., a US-based charity.
+Charitable incorporated organisation (CIO) – registered with the Charity Commission for England and Wales.
+Scottish charitable incorporated organisation (SCIO) – registered with the Office of the Scottish Charity Regulator.
+Other forms:
+
+Corporation by prescription - a corporation that has existed since time immemorial: the University of Oxford, the University of Cambridge and the City of London Corporation.
+Chartered corporation – an organisation incorporated by royal charter. These are normally bodies operating in the public interest, e.g., charities or professional bodies, but also including many older universities and, historically, chartered companies.
+Statutory corporation – a corporation created by statute and having only those powers granted by that statute.
+Classifications:
+
+Corporation sole – a corporation consisting of a single person, normally an incorporated official position such as the Archbishop of Canterbury or the Clerk of the House of Commons. A corporation made up of more than one person (i.e., all other corporations) is a corporation aggregate.
+Ecclesiastical corporation – a Church of England corporation (aggregate or sole) established for spiritual purposes. All other corporations are lay corporations.
+Eleemosynary corporation – a lay corporation established by a financial endowment "for the perpetual distribution of the free alms or bounty of the founder". All other lay corporations, including other charities, are civil corporations.
+
+
+=== Australia ===
+Australian companies are generally either proprietary or public. Under the Corporations Act 2001, proprietary companies commonly use the suffix Pty Ltd.
+
+LLP (Limited liability partnership): partnerships are governed on a state-by-state basis in Australia. In Queensland, a limited liability partnership is composed of at least one general partner and one limited partner. It is thus similar to what is called a limited partnership in many countries.
+ILP (Incorporated limited partnership): used for venture capital investments comes in four types: Venture Capital Limited Partnership (VCLP), Early-stage Venture Capital Limited Partnership (ESCVLP), Australian Venture Capital Fund of Funds (AFOF), Venture Capital Management Partnership (VCMP).
+
+Inc. (Incorporated): restricted to non-profit associations
+Ltd. (Limited): ≈ plc (UK). The suffix Ltd. may also be used by a private company limited by guarantee, such as a charity or university (these may obtain dispensation from the Registrar of Companies to operate without the suffix).
+NL (No liability): A type of mining, speculative, or research company with no right to call up the unpaid issue price of shares.
+Pty. Ltd. (Proprietary Limited Company): ≈ Ltd. (UK) ATF Trust. In Australia companies can act as a trustee for a trust.
+Pty. (Unlimited Proprietary) company with a share capital: A company, similar to its limited company (Ltd., or Pty. Ltd.) counterpart, but where the liability of the members or shareholders is not limited.
+Trust
+Indigenous Corporation under the Corporations (Aboriginal and Torres Strait Islander) Act 2006 ("CATSI Act"), administrated by the Office of the Registrar of Indigenous Corporations
+
+
+=== Canada ===
+Companies in Canada can be incorporated at the federal or provincial level under the Canada Business Corporations Act or equivalent provincial statutes.
+The word or expression "Limited", Limitée, "Incorporated", Incorporée, "Corporation" or Société par actions de régime fédéral or the corresponding abbreviation "Ltd.", Ltée, "Inc.", "Corp." or S.A.R.F. forms part of the name of every entity incorporated under the Canada Business Corporations Act (R.S., 1985, c. C-44). ≈ Ltd. or Plc (UK)
+As an exception, entities registered prior to 1985 may continue to be designated Société commerciale canadienne or by the abbreviation S.C.C.
+Under the Canada Cooperatives Act (1998, c. 1), a co-operative must have the word "cooperative", "co-operative", "coop", "co-op", coopérative, "united" or "pool", or another grammatical form of any of those words, as part of its name.
+Unlike in many other Western countries, Canadian businesses generally only have one form of incorporation available. Unlimited liability corporations can be formed in Alberta "AULC", British Columbia "BCULC" and Nova Scotia "NSULC". The aforementioned unlimited liability corporations are generally not used as operating business structures, but are instead used to create favorable tax positions for either Americans investing in Canada or vice versa. For U.S. tax purposes the ULC is classified as a disregarded entity.
+Rather, Canadian businesses are generally formed under one of the following structures:
+
+SP (Sole Proprietorship): No formal business structure is established
+GP (General Partnership): Either a formal structure with a partnership agreement, or an informal structure, in which case the Partnerships Act for the province will apply
+LP (Limited Partnership): An investment structure, limiting both the liability and the participation of the investor. An investor who takes an active role will be deemed a general partner, and become exposed to unlimited liability.
+Corporation
+Joint Venture: A business activity shared by two or more business entities. The joint venture's activities must be finite in terms of either time or scope.
+
+
+=== Hong Kong ===
+Ltd (Limited/有限公司): may denote either a private or public company limited by shares, or a company limited by guarantee. Under the Companies Ordinance, the name of a Hong Kong incorporated company may be registered in English, Chinese, or both.
+Unltd or Ultd (Unlimited/無限公司): similar to a limited liability company (Ltd) but whose members or shareholders do not benefit from limited liability should the company ever go into formal liquidation. It is not a requirement under company law to add or state the word or designation Unlimited (無限公司) or its abbreviations (Unltd or Ultd) at the ending of its legal company name, and most unlimited companies do not.
+
+
+=== India ===
+
+In India, the Companies Act 2013 provides for public and private companies and introduced the one person company as a single-member private company; naming conventions include "Limited" for public companies and "Private Limited".
+
+Sole proprietorship – a sole proprietorship firm is the simplest form of business entity in India. It is owned and managed by a single person. It is usually considered to be the easiest way of registering and starting a business. It is not governed by any law and hence it is the easiest form of business in India. All the decisions and management of the business are in the hands of one person. Documents required for the registration of a sole proprietorship in India are Aadhar card, PAN card, bank account and a proof of registered office.
+Hindu Undivided Family (HUF) - a type entity consisting of members of a joint Hindu family. HUF represent a joint family that is held togrther by strong ties of kinship and estails a variety of joint property relations among the members. The Karta is the head of the family business, who generally is the eldest person in the house. HUF exists both as a family and as a firm.
+Partnership – liability is joint and unlimited. Registration is not compulsory and can be done through the registrar of firms. Active partners take part in day-to-day operations of the business, in addition to investing in it. Active partners are entitled to a share of the enterprise's profits. Sleeping partners invest in the business and are entitled to a share of its profits but do not participate in day-to-day operations.
+Limited liability partnership – liability is limited and similar to a partnership except that registration is mandatory and liability is limited. At least two partners are 'designated partners' (equivalent to directors in a company), who manage day-to-day working. Regulated by the union government.
+Companies under the Companies Act 2013 include:
+Private limited company – a company with 2–200 shareholders; shares are held privately and cannot be offered to the public. Have limited liability and registration is mandatory. Regulated by the union government.
+Public limited companies – a company with more than 200 shareholders. Can be listed or unlisted in the share market.
+One-person company – a type of private company which can have only one director and member.
+Unlimited company – a company, similar to a limited company (Ltd, or Pvt Ltd) but where the liability of the members or shareholders is not limited.
+Public sector undertaking (PSU) – alternatively known as public sector enterprise (PSE). It may be a public limited company listed on stock exchanges with a major ownership by a state government, central government, or local government, or it may be an unlisted entity with a major ownership by a state government, central Government, or local government. Some of these entities are formed as business entities through special legislation, where these entities are governed by the statutes of this legislation and may or may not be governed by company laws like a typical business entity.
+Cooperative societies, e.g., Gujarat Co-operative Milk Marketing Federation Ltd. (GCMMF) owner of the Amul brand.
+NGO – A non-governmental organization (NGO), section 8 company, or a non-profit company is a citizen-led organization that functions separately from the government, usually to advance some social cause.
+
+
+=== Malaysia ===
+PLT (Perkongsian Liabiliti Terhad): ≈ LLP
+Bhd. (Berhad): ≈ plc (UK)
+Sdn. Bhd. (Sendirian Berhad): ≈ Ltd. (UK)
+
+
+=== New Zealand ===
+In New Zealand, under the Companies Act 1993, the registered name of a limited liability company must end with "Limited" or "Tāpui".
+
+Ltd (Limited): ≈ plc or Ltd. (UK). Names of limited liability companies that were registered under the Companies Act 1993 (but not those that were registered under the Companies Act 1955) must end with the word "Limited", the words "Tāpui (Limited)", or the suffix "Ltd".
+Such companies can also be registered as a co-operative under the Co-operative Companies Act 1996 provided that they conduct "co-operative activities." These co-operatives are still obligated to issue stock, which may be publicly traded (an example of such publicly traded co-operative is the nation's largest company, Fonterra)
+Look-through company
+
+
+=== Nigeria ===
+Nigeria's Companies and Allied Matters Act 2020 recognizes private and public companies limited by shares, companies limited by guarantee, and unlimited companies it also enables single-member companies.
+
+Private Limited Company (Ltd.): a private company limited by shares
+Public Limited Company (PLC): a public company limited by shares
+Limited by Guarantee (Ltd./Gte.): a company limited by guarantee (non-profit company)
+Unlimited (ULtd.): A company with a share capital, similar to its limited company (Ltd., or PLC.) counterparts, but where the liability of the members or shareholders is not limited
+Limited Liability Partnership (LLP): Only allowed in the state of Lagos, Nigeria.
+Partnership: Arrangement in which parties agree to cooperate to advance their mutual interests.
+
+
+=== Pakistan ===
+Forms of business include:
+
+Sole Proprietorship
+Partnership
+Registered Firms
+Unregistered Firms
+Company
+Company limited by shares
+Public Limited Companies
+Private Limited Companies
+Company limited by guarantee
+Unlimited company
+
+
+=== Singapore ===
+Private Limited Company, Sole Proprietorship and Partnership are the predominant types of business found in Singapore.
+
+
+=== United States ===
+
+In the United States, most legal entities are incorporated under the law of a particular state. The federal government does not generally incorporate entities (and when it does this is normally referred to as "chartering" them), with a few narrow exceptions, either government-sponsored corporations or government-owned corporations.
+Laws on what is considered a legal entity differ between states. In particular, older versions of the Uniform Partnership Act, which remain in force in some states, do not consider general partnerships to be legal entities distinct from their partners while newer versions (referred to as the Revised Unified Partnership Act; RUPA) that have been adopted in other states do consider partnerships to be legal entities. However, even when partnerships are considered legal entities with the right to own property and to be sued under RUPA, they continue to be treated as aggregates of their partners for tax and liability purposes.
+A company is not necessarily incorporated as a legal entity. For example, a company may be a "corporation, partnership, association, joint-stock company, trust, fund, or organized group of persons, whether incorporated or not, and (in an official capacity) any receiver, trustee in bankruptcy, or similar official, or liquidating agent, for any of the foregoing".
+
+
+==== Tax classifications ====
+Those entities existing on the state level have two separate identities: their legal entity type, e.g., partnership, corporation, or LLC, and their tax classification, what they are regarded as for federal income tax purposes. A further way to classify an entity is whether it is a for-profit or nonprofit enterprise, each classification with its own taxonomy and implications on federal income tax law. For-profit entities exist for the purpose of producing a profit for their owners whereas nonprofits exist for any purpose other than profit.
+For federal tax purposes, the Internal Revenue Service has separate entity classification rules, generally depending on whether an entity is a for-profit or non-profit organization. For-profit entities can be collectively regarded as "taxable organizations" while nonprofit entities are collectively regarded as "tax-exempt organizations" or simply "exempt organizations."
+
+
+===== Taxable organizations =====
+Under the Internal Revenue Code, a for-profit entity may be classified as a corporation, a partnership, a cooperative or a disregarded entity. A corporation is taxed as a C corporation unless it elects and meets the requirements to be taxed as an S Corporation. A disregarded entity has one owner (or a married couple as owner) that is not recognized for tax purposes as an entity separate from its owner, so the owner is taxed on the individual level. Types of disregarded entities include single-member LLCs; qualified sub-chapter S subsidiaries and qualified real estate investment trust subsidiaries. A disregarded entity's transparent tax status does not affect its status under state law. For example, for federal tax purposes, a sole-member LLC (SMLLC) is disregarded, so that all its assets and liabilities are treated as owned by its single member. But under state law, an SMLLC can contract in its own name and its owner is generally not personally liable for the debts and obligations of the entity. To be recognized as a cooperative for tax purposes cooperatives must follow certain rules under subchapter T of the Internal Revenue Code.
+
+
+===== Tax exempt organizations =====
+Nonprofit organizations on the state level are exempt from federal income taxation for most types of income. There are two main types of tax exempt organizations under the Internal Revenue Code: 501(c) organizations and 527 organizations. Tax exemption has two components: exemption from income taxation and the allowance of a deduction on the tax returns of donors.
+Section 501(c) encompasses most types of nonprofit entities other than ones engaged substantially in political activity. There are 29 subtypes of 501(c) organizations. For example, section 501(c)(10) includes "domestic fraternal societies, orders, or associations, operating under the lodge system," while section 501(c)(6) includes "business leagues, chambers of commerce, real-estate boards, boards of trade, or professional football leagues" under certain circumstances. The most prevalent type of 501(c)s are 501(c)(3) organizations, known broadly as "charitable organizations," those whose purpose is charitable (i.e., relief from poverty), educational, scientific, religious, or advocatory, among others, as long as such organization does not engage in substantial political activity or inure the benefit of net earnings to shareholders or other individuals. This is the preferred tax status because it is the only 501(c) that obtains both income tax exemption and tax deductible donations. All other 501(c) types only obtain tax exemption.  Section 501(c)(3)s can be further divided into private foundations, public charities, and private operating foundations with private foundations given the least favorable deductibility rate. State-level unincorporated nonprofit associations, charitable trusts, and nonprofit corporations may fall into any one of the 501(c) categories depending on their purpose and the activities they engage in.
+Section 527 organizations, also called "political organizations," are any nonprofit substantially engaged in "political activity," such as election campaigning or lobbying. These are organizations like political parties and election campaign committees, which are often called political action committees (PACs) or super-PACs. These organizations are subject to more stringent regulations than 501(c) organizations and only receive tax exemption; donations to 527s are not deductible. Any type of nonprofit entity existing on the state level will be regarded as a 527 if it substantially engages in political activity.
+
+
+==== Federally chartered ====
+Of the few types of companies that may exist under a federally issued charter, the bulk are banks, credit unions, and similar depository institutions. Such institutions are distinguished from state-chartered banks by including a key word in their formal names. For a bank, the key word is "national". A bank chartered by the Office of the Comptroller of the Currency (OCC) must have the word "national" in its name. A bank chartered by a state cannot have "national" in its name.
+For a savings bank (formerly called a savings and loan association) or credit union, the key word is "federal", and the same rules apply; a federally chartered savings bank or credit union must have the word "federal" in its name, while a state chartered savings bank or credit union cannot have "federal" in its name.
+
+Federal Savings Bank (FSB): formerly called federal savings and loan association
+National Association (NA): a designation used by banks chartered by the Office of the Comptroller of the Currency (OCC)
+National Trust and Savings Association (NT&SA): a less common designation used by national banks
+Federal Credit Union: chartered by the National Credit Union Association (NCUA)
+Many federal governmental units are specially formed public corporations (which, for tax purposes are also generally 501(c)(1) organizations) and government-sponsored enterprises, while some private organizations have received a Congressional charter.
+
+
+==== Incorporated nonfederal entities ====
+
+
+===== Partnerships =====
+Limited partnership (L.P. or LP): a partnership where at least one partner (the general partner, which may itself be an entity or an individual) has unlimited liability for the LP's debts and one or more partners (the limited partners) have limited liability (which means that they are not responsible for the LP's debts beyond the amount they agreed to invest). Limited partners generally do not participate in the management of the entity or its business.
+Limited liability partnership (L.L.P. or LLP): a partnership where a partner's liability for the debts of the partnership is limited except in the case of liability for acts of professional negligence or malpractice. In some states, LLPs may only be formed for purposes of practicing a licensed profession, typically attorneys, accountants and architects. This is often the only form of limited partnership allowed for law firms (as opposed to general partnerships).
+Limited liability limited partnership (L.L.L.P. or LLLP): a combination of LP and LLP, available in some states.
+
+
+===== Limited liability companies =====
+Limited liability company (L.L.C., LLC, L.C., LC, Ltd., or Co.): a form of business whose owners enjoy limited liability, but which is not a corporation. Allowable abbreviations vary by state. Note that in some states Ltd. by itself is not a valid abbreviation for an LLC, because in some states (e.g., Texas), it may denote a corporation instead. See also Series LLC. For U.S. federal tax purposes, in general, an LLC with two or more members is treated as a partnership, and an LLC with one member is treated as a sole proprietorship.
+Professional limited liability company (P.L.L.C. or PLLC): some states do not allow certain professionals to form an LLC that would limit the liability that results from the services professionals provide such as doctors, medical care; lawyers, legal advice; and accountants, accounting services; architects, architectural services; when the company formed offers the services of the professionals. Instead those states allow a PLLC or in the LLC statutes, the liability limitation only applies to the business side, such as creditors of the company, as opposed to the client/customer service side, the level of medical care, legal services, or accounting provided to clients. This is meant to maintain the higher ethical standards that these professionals have committed themselves to by becoming licensed in their profession and to prevent them from being immune (or at least limit their immunity) to malpractice suits.
+Low-profit limited liability company (L3C): a hybrid for-profit and nonprofit entity available in some states. It is an LLC that is allowed to have a primary nonprofit purpose, and a secondary for-profit purpose.
+
+
+===== Corporations =====
+
+
+====== For-profit corporations ======
+Corporation (Corp., Inc., or Ltd.): a legal entity that is owned by shareholders and managed by directors and officers, all of which enjoy limited liability. A corporation can be a public or private company. In some states other suffixes may be used to identify a corporation, such as Ltd., Co./Company, or the Italian term S.p.A. (in Connecticut; see under Italy). Some states that allow the use of "Company" prohibit the use of "and Company", "and Co.", "& Company" or "& Co.". In most states sole proprietorships and partnerships may register a fictitious "doing business as" name with the word "Company" in it. For a full list of allowed designations by state, see the table below.
+Benefit corporation (PBC): a for-profit corporation that includes positive impact on society, workers, the community, and the environment in addition to profit as its legally defined goals, in that the definition of "best interest of the corporation" is specified to include those impacts. Some states require the corporation to have "Public Benefit Corporation" or "PBC" in its name (or a similar designation), while others allow any prefix allowed by a corporation (such as Corp. or Inc.), but require that shareholders, investors, and other parties be informed that the company is a public benefit corporation.
+Professional corporation (PC or P.C.): those corporate entities for which many corporation statutes make special provision, regulating the use of the corporate form by licensed professionals such as attorneys, architects, accountants, and doctors.
+
+
+====== Nonprofit corporations ======
+Nonprofit corporation: a corporation whose primary purpose is to serve a social goal instead of producing a profit for shareholders. As such, nonprofit corporations do not have shareholders but may still have directors and officers which still enjoy limited liability. The naming conventions for nonprofit corporations vary, with naming requirements similar to those of other corporate entities, with some states forbidding names that might mislead the public. Nonprofit corporations are generally divided into three subcategories:
+Public-benefit nonprofit corporation: a nonprofit corporation formed for the purpose of benefitting the public at large, such as charities, educational and research institutions, and hospitals.
+Mutual-benefit nonprofit corporation: a nonprofit corporation formed for the purpose of benefitting its members, such as unions, professional or homeowner's associations, and social clubs.
+Religious corporation: a nonprofit corporation formed for the purpose of practicing or proselytizing a religion, such as an organized congregation or missionary organization.
+
+
+===== Cooperatives =====
+Cooperative (Co-Op, Coop, or CP): a for-profit entity owned and democratically operated by a group of people who share a common economic goal, such as worker cooperatives, agricultural cooperatives, or a utility cooperatives. In most states, a cooperative must have a signifier in its name indicating that it is a cooperative, such as coop, co-op, CP, or cooperative.
+Limited cooperative association (LCA): a for-profit entity owned and democratically operated by a group of people who share a common economic goal but which is chartered to allow for outside investment by non-owner members.
+
+
+== Asia ==
+
+
+=== Azerbaijan ===
+Companies in Azerbaijan are registered and operate in accordance with the Civil Code of the Republic of Azerbaijan and the Law "On State Registration and the State Register of Legal Entities." The registration process is supervised by the Ministry of Economy through the State Tax Service. Both local and foreign individuals or legal entities can establish companies in Azerbaijan, including limited liability companies (LLC), joint-stock companies (JSC), and representative or branch offices.
+
+
+=== Brunei ===
+There are three main types of business entity in Brunei, namely sole proprietorship, partnership, and company.
+A private company contains the term "Sendirian Berhad", meaning "Private Limited" or "Sdn. Bhd." as part of its name; for a public company "Berhad" or "Bhd." is used.
+
+
+=== Cambodia ===
+SP (Sole Proprietorship)
+GP (General Partnership)
+LP (Limited Partnership)
+SM Pte Ltd. (Single Member Private Limited Company):
+Pte Ltd. (Private Limited Company): ≈ [private limited company (Ltd.)] (UK)
+Plc Ltd. (Public Limited Company): ≈ plc (UK)
+PEEC (Public Establishment with Economic characteristics)
+State Company: ≈ plc
+State Joint Venture Company: ≈ plc
+Import Export Co., Ltd
+
+
+=== China ===
+According to the Company Law of the People's Republic of China, companies include limited liability companies and joint-stock limited companies which were founded in mainland China.
+Companies include two types,
+
+Company with limited liability, (有限责任公司): ≈ Ltd. (UK).
+Corporation, corporated company, 股份有限公司 (Gǔfèn Yǒuxiàn Gōngsī): ≈ plc (UK), joint-stock company, corporation.
+Other than companies, ordinary firms include other two types: (See also Partnership (China))
+
+Sole trader 个人独资企业
+Partnership 合伙制企业
+
+
+=== Indonesia ===
+Most of the legal entity types are regulated in a modified version of the original version of the Dutch Burgerlijk Wetboek. Business entities (badan usaha) in Indonesia can be grouped into legal entities (Badan hukum) and non-legal entities (Non Badan Hukum), the latter which are not legal person thus cannot sue or be sued.
+Legal Entities (Badan Hukum)
+
+Yayasan: ≈ stichting (Netherlands), foundation; common type for non-profit NGOs.
+Perkumpulan: ≈ Vereniging (Netherlands), eingetragener Verein (Germany), voluntary association
+Koperasi: ≈ cooperative
+Perseroan Terbatas (PT): ≈ private company limited by shares (UK), besloten vennootschap (Netherlands), LLC; private unlisted company
+Subtypes of PT (different legal form):
+Perseroan Terbuka or PT Tbk. : ≈ public limited company (UK), naamloze vennootschap (Netherlands); listed on the Indonesia Stock Exchange; their name ends with Tbk.
+Perusahaan Perseroan or PT Persero: state-owned PT (both in majority and complete ownership); their name ends with (Persero)
+Perseroan Daerah or PT (Perseroda): region-owned PT (local government shareholding); their name ends with (Perseroda)
+Perusahaan Umum (Perum) ≈ statutory corporation (state-owned enterprise not in PT form)
+Perusahaan Umum Daerah (Perumda): municipality (pemerintah daerah) owned Perum; their name ends with (Perumda)
+Non-Legal Entities (Non Badan Hukum)
+
+Usaha Dagang (UD): ≈ sole proprietorship
+Note: Sometimes this kind of legal entity is called a perusahaan dagang or abbreviated as PD, which sometimes makes confusion with the former name for municipally owned statutory corporations, Perusahaan Daerah, also abbreviated as PD (today they are called Perusahaan Umum Daerah and abbreviated as Perumda).
+Firma (vof, Fa): ≈ general partnership, (Dutch: vennootschap onder firma, known locally as just firma)
+Persekutuan Komanditer (CV or Commanditaire Vennootschap): ≈ limited partnership (US), kommanditgesellschaft (Germany); a more common type for small businesses.
+Persekutuan Perdata (Mts.) (Dutch: maatschap): group practice (of professionals, e.g. doctors, accountants, lawyers); share facilities not profits, members are treated as natural persons for tax and liability purposes.
+Persekutuan Perdata Umum (Dutch: algehele maatschap): for general purpose
+Persekutuan Perdata Khusus (Dutch: bijzondere maatschap): specific purpose
+Persekutuan Keuntungan (Dutch: algehele maatschap van winst): profit-sharing variant
+Badan Layanan Umum (BLU): for state-owned non-profit services like universities, hospitals, or other government agency
+Badan Layanan Umum Daerah (BLUD): local government owned BLU
+
+
+=== Iran ===
+شرکت سهامی عام (Sherkat Sahami Am): ≈ plc (UK), public
+شرکت سهامی خاص (Sherkat Sahami Khas): ≈ plc (UK), private
+شرکت با مسئولیت محدود (Sherkat ba Masouliyat Mahdoud): ≈ Ltd. (UK)
+شرکت مختلط غیر سهامی (Sherkat Mokhtalet Gheyr Sahami): ≈ limited partnership
+شرکت مختلط سهامی (Sherkat Mokhtalet Sahami): mixed joint-stock partnership
+شرکت تضامنی (Sherkat Tazamoni): ≈ general partnership
+شرکت نسبی (Sherkat Nesbi): proportional liability partnership
+شرکت تعاونی تولید و مصرف (Sherkat Ta'avoni Tolid va Masraf): production and consumption cooperative
+
+
+=== Israel ===
+Company (khevra, חברה) – for-profit entity which may engage in any lawful activity. Most companies limit the liability of their shareholders. In that case, the phrase "Limited" or the abbreviation "Ltd." must appear as part of the full name of the company. The term "B.M."/"BM" (בע"מ), literally: by limited liability/warranty, is usually translated as "Ltd." in English and pronounced "ba'AM" in Hebrew. Companies are governed by the Companies Act, 5759-1999 (חוק החברות, תשנ"ט-1999). Few sections are still in force from the Companies Ordinance [New Form], 5743-1983 (פקודת החברות [נוסח חדש], תשמ"ג-1983).
+Private company – any company which is not a public company.
+Public company – any company whose shares are listed on an exchange or have been offered to the public, and are held by the public.
+Charity company (khevra le'to'ellet ha'tzibur, חברה לתועלת הציבור) – company generally governed by the Companies Act, except it is a nonprofit. A charity company must have pre-defined goals, rather than engage in any lawful activity. Some provisions in the Companies Act apply specifically to charity companies. The letters "CC" (חל"צ) must be appended to such company's name.
+Partnership (shutafut, שותפות) – created by default, even without registration, when two or more persons run a business together for profit. Personal liability of partners is not limited, unless they are limited partners of a limited partnership. Partnerships are governed by the Partnerships Ordinance [New Form], 5735-1975 (פקודת השותפויות [נוסח חדש], תשל"ה-1975).
+Cooperative (aguda shitufit, אגודה שיתופית) – entity which may pursue profit, but with certain legal properties meant to facilitate greater participation by each shareholder, or member, in the entity's affairs. Shareholders usually have an additional relationship with the cooperative, such as employees or consumers. This type of entity is found mainly in agriculture (a kibbutz or moshav is often a cooperative), transportation, or certain types of marketing operations associated with agricultural products. Cooperatives are governed by the Cooperatives Ordinance (פקודת האגודות השיתופיות).
+Voluntary association (amuta, עמותה) – nonprofit entity, which must have its goals defined in its founding agreement. Includes, among others, academic institutions, hospitals and various charitable organizations. Voluntary associations are governed by the Voluntary Associations Act, 5740-1980 (חוק העמותות, תש"מ-1980).
+
+
+=== Japan ===
+Japanese company law recognizes several types of companies, with the most common being the Kabushiki Kaisha, similar to a joint-stock company. Another popular form is the Gōdō Kaisha, which resembles a limited liability company. The Companies Act of 2005 established the legal framework for these and other business entities in Japan, regulating their formation, governance, and operation.
+Business corporations are referred to as kaisha (会社) and are formed under the Companies Act of 2005. There are currently (2015) 4 types and each of them has legal personality:
+
+株式会社 (kabushiki gaisha or kabushiki kaisha, "K.K." (usually translated in company names as "Company, Limited"/"Co., Ltd.")) – lit. "stock company", the most typical form of business corporation.
+合同会社 (gōdō gaisha or gōdō kaisha, "G.K.") – lit. "amalgamated company", a close corporation form similar to the American LLC, introduced in 2006
+有限会社 (yūgen gaisha or yūgen kaisha, "Y.K.") – lit. "limited company", a close corporation form for smaller businesses, abolished in 2006 and replaced by G.K. above
+合名会社 (gōmei gaisha or gōmei kaisha, "GMK") – corporation similar to a general partnership
+合資会社 (gōshi gaisha or gōshi kaisha, "GSK") – corporation similar to a limited partnership
+Partnerships are referred to as kumiai (組合). Each of these 4 types has no legal personality though other corporations, which include "kumiai" in their name, have:
+
+任意組合 (nin'i kumiai, "NK") – general partnership (Civil Code)
+匿名組合 (tokumei kumiai, "TK") – anonymous partnership, an investment bilateral contract (Commercial Code, Book 2 Ch.4 Article 535 et seq)
+投資事業有限責任組合 (tōshi jigyō yūgen sekinin kumiai) – limited partnership for investment (Limited Partnership for Investment Act 1998, Rev.2004)
+有限責任事業組合 (yūgen sekinin jigyō kumiai) – similar to a Limited Liability Partnership (Limited Liability Partnership Act of 2005)
+
+
+=== Kazakhstan ===
+АО (Aktsionernoe obschestvo/Акционерное общество): Joint stock company
+ТОО (Tovarishchestvo s ogranichennoy otvetstvennostyu/Товарищество с ограниченной ответственностью): limited liability partnership
+TDO/ТДО (Tovarishchestvo s dopolnitelnoyu otvetstvennostyu/Товарищество с дополнительной ответственностью) Additional liability partnership
+GP/ГП (Gosudarstvenoe predpriyatie/Государственное предприятие): State company
+КТ (Komanditnoe Tovarishchestvo; Командитное товарищество)
+ОО (Obshestvennoe Obedinenie / Общественное объединение) Social association
+PT/ПТ (Polnoe Tovarishchestvo / Полное товарищество) Full partnership
+PtK/ПтК (Potrebibitelskii Kooperativ / Потребительский кооператив)
+PrK/ПрК (Proizvodstvenni Kooperativ / Производственный кооператив)
+РО (Relitioznoe Obedinenie / Религиозное объединение)
+Uchr/Учр (Uchrezhdenie/Учреждение)
+
+
+=== South Korea ===
+Company: In the Korean Commercial Act, a company is a corporation established for commercial activities or other for-profit purposes. A company comes into existence by registering its incorporation at the location of its head office.
+합명회사; 合名會社; hammyeonghoesa : gōmei gaisha (Japan); corporation similar to a general partnership
+합자회사; 合資會社; hapjahoesa : gōshi gaisha (Japan); corporation similar to a limited partnership
+유한책임회사; 有限責任會社; yuhanchaegimhoesa : limited liability company; ≈ gōdō gaisha (Japan)
+주식회사; 株式會社; jusikhoesa ((주) or ㈜ for short) : ≈ kabushiki gaisha (Japan); plc (UK)
+유한회사; 有限會社; yuhanhoesa : ≈ yūgen gaisha/gōdō gaisha (Japan); Ltd. (UK); GmbH (Germany)
+Cooperative: In Korean Framework Act On Cooperatives, a cooperative is a business organization that seeks to improve the rights and interests of its members and contribute to the local community by engaging in cooperative purchasing, production, sales, and provision of goods or services. Cooperatives cannot engage in finance or insurance business.
+협동조합; 協同組合; hyeopdongjohap
+협동조합연합회; 協同組合聯合會; hyeopdongjohabyeonhapoe : It is a federation established to promote the common interests of cooperatives.
+
+
+=== Taiwan (Republic of China) ===
+無限公司 (Unlimited Company)
+有限公司 (Limited Company, yǒuxiàn gōngsī)
+兩合公司 (Limited Partnership)
+股份有限公司 (Public Limited Company or Corporation, gǔfèn yǒuxiàn gōngsī)
+
+
+=== Thailand ===
+บริษัทมหาชนจำกัด, name format บริษัท corporation name จำกัด (มหาชน): plc (UK). Minimum 15 shareholders.
+บริษัทเอกชนจำกัด (name format บริษัท corporation name จำกัด): Ltd. (UK). At least 2 shareholders.
+ห้างหุ้นส่วนจำกัด (name format ห้างหุ้นส่วนจำกัด corporation name): limited partnership There are two kinds of partnership: Limited partnership which has limited liability of the partnership, and unlimited partner which has unlimited liability to the third party for the partner. The unlimited partnership has the right to control the partnership. On the other hand, the limited partnership has no right to make decision in the partnership.
+ห้างหุ้นส่วนสามัญนิติบุคคล (name format ห้างหุ้นส่วน corporation name): general partnership
+
+
+=== Vietnam ===
+Cty TNHH (Công ty trách nhiệm hữu hạn / "Company with Limited Liability"): Limited Liability Company
+Cty TNHH MTV (Công ty trách nhiệm hữu hạn một thành viên/ "Limited Liability Company with a Single member") since 2005
+Cty CP (Công ty cổ phần / "Company with Joint Stock"): Joint Stock Company
+Công ty hợp danh / "Company of Partners": Partnership
+Doanh nghiệp hợp danh / "Enterprise Partnership": Partnership
+DNNN (Doanh nghiệp nhà nước / "Enterprise of the State"): State-Owned Enterprise
+DNTN (Doanh nghiệp tư nhân / "Enterprise Private"): Proprietorship
+DTNN (Doanh nghiệp có vốn đầu tư nước ngoài "Enterprise with Foreign Investment"): Foreign Investment Enterprise
+HTX (Hợp tác xã/ Co-operation)
+Chi nhánh : Branch Company
+Nhóm Cty (Công Ty / "Group Company"): Holding Company
+
+
+== South America ==
+
+
+=== Argentina ===
+S.A. (Sociedad Anónima): ≈ plc (UK)
+S.R.L. (Sociedad de Responsabilidad Limitada): ≈ Ltd. (UK): ≈ limited liability company (USA)
+S.C.S. (Sociedad en Comandita Simple): ≈ limited partnership
+S.C.p.A. (Sociedad en Comandita por Acciones): limited partnership with shares
+Soc.Col. (Sociedad Colectiva): ≈ general partnership (USA)
+S.C.e I. (Sociedad de Capital e Industria)
+S.E. (Sociedad del Estado): ≈ state-owned enterprise
+S.G.R. (Sociedad de Garantía Reciproca)
+S.A.S. (Sociedad por Acciones Simplificada)
+S.A.U. (Sociedad Anónima Unipersonal): ≈ Sole proprietorship
+S.A.I.C.A. (Sociedades anónimas inscritas de capital abierto)
+S.A.C.I. y F. (Sociedad Anónima Comercial Industrial y Financiera)
+S.A.C.I.F.I. (Sociedad Anónima, Comercial, Industrial, Financiera e Inmobiliaria)
+S.A.C.I.F.I. y A. (Sociedad Anónima, Comercial, Industrial, Financiera, Inmobiliaria y Agropecuaria)
+
+
+=== Brazil ===
+Brazil's main company forms are the sociedade limitada - governed by the Civil Code and the sociedade anônima -governed by the Corporations Law.
+
+Sociedade limitada (Ltda.): ≈ Ltd. (UK)
+S.A. (Sociedade anônima): ≈ plc (UK)
+Sociedade simples: ≈ PLLC
+Sociedade em comandita simples: ≈ ordinary limited partnership
+Sociedade em nome coletivo: ≈ general partnership
+Sociedade em conta de participação: ≈ general partnership
+Sociedade em comum: ≈ general partnership
+Cooperativa ≈ cooperative
+Empresa individual (firma individual): ≈ individual proprietorship / sole proprietorship
+Empresa Individual de Responsabilidade Limitada (EIRELI): Same as Ltd., but without partners.
+Micro empreendedor individual: ≈ individual enterprise
+Empresa pública: ≈ Government-owned corporation
+Sociedade de economia mista: ≈ Government-owned corporation
+Associação em sentido estrito (sem finalidade lucrativa): ≈ nonprofit association
+Organização não governamental: ≈ nonprofit association
+Organização da sociedade civil de interesse público: ≈ nonprofit association
+Organização social: ≈ nonprofit association
+Serviços sociais autônomos: ≈ nonprofit association
+Fundação privada: ≈ private foundation
+Fundação pública: ≈ public foundation
+
+
+=== Chile ===
+SpA (Sociedad por acciones): Disregarded entity with shares (sole shareholder)
+SRL (Sociedad de Responsabilidad Limitada) – LLC (Partnership) US purposes
+EIRL (Empresa Individual de Responsabilidad Limitada): individual enterprise with limited liability
+S.A. (Sociedad Anónima): ≈ plc (UK)
+S.C.M. (Sociedad Contractual Minera): one of two types of mining companies in Chile
+S.G.R. (Sociedad de Garantia Reciproca)
+LTDA. (Sociedad de responsabilidad limitada): ≈ Ltd. (UK)
+
+
+=== Colombia ===
+S.A. (Sociedad Anónima): ≈ plc (UK), Corporation (US)
+S.A.S. (Sociedades por Acciones Simplificada): Similar to the French S.A.S (societé par actions simplifiée)
+Ltda. (Sociedad de Responsabilidad Limitada): ≈ Ltd. (UK), LLC (US)
+S.C. (Sociedad Colectiva): General partnership
+S. en C. (Comandita Simple): Limited partnership
+S.C.A. (Comandita por Acciones): Publicly traded partnership
+E.U. (Empresa Unipersonal): Sole proprietorship
+
+
+=== Costa Rica ===
+S.A. (Sociedad Anónima): ≈ plc (UK), Corporation (US)
+S.R.L. or Ltda. (Sociedad de Responsabilidad Limitada): ≈ Ltd. (UK), LLC (US) 
+
+
+=== Dominican Republic ===
+C. por A. (Compañía por Acciones), also abbreviated CXA
+S.A. (Sociedad Anónima): ≈ public limited company
+S.A.S (Sociedad Anónima Simplificada): ≈ [(Simplified public limited company)]
+SRL. (Sociedad de Resposabilidad Limitada): ≈ Limited Liability Company
+EIRL. (Empresa Individual de Responsabilidad Limitada): ≈ [(Sole proprietor Limited Liability Company)]
+Sociedad En Comandita Simple.
+
+
+=== Ecuador ===
+S.A. or C.A. (Sociedad Anónima): ≈ public limited company
+S.A.S. (Sociedad por Acciones Simplificada): public limited company
+Cía. Ltda. (Compañía Limitada): ≈ Limited Liability Company
+EP (Empresa Pública): Legal entity owned by the Government.
+
+
+== Africa ==
+
+
+=== Egypt ===
+The principal forms for private investment include the joint-stock company and the limited liability company, regulated by Law No.159 of 1981 and related investment legislation.
+
+SAE (Sharikat al-Mossahamah) ≈ plc (UK). Minimum capital E£250,000.
+LLC (Limited Liability Company) ≈ Ltd. (UK). No Minimum capital .
+Sharikat Tadamun ≈ شركة تضامن general partnership
+Sharikat Tawssiyah Bassita ≈ شركات توصية بسيطة limited partnership
+Sharikat Tawssiyah Belashom ≈ LLP
+
+
+=== Ethiopia ===
+PLC (Private limited company Amharic ሃላፊነቱ የተወሰነ የግል ማህበር)
+SC (Share company Amharic አክሲዩን ማህበር)
+CS (Cooperative societies Amharic ህብረት ስራ ማህበራት)
+PE or PC (public enterprises or public corporations Amharic የመንግስት ልማት ድርጅቶች or ኮርፖሬሽን)
+
+
+=== Ghana ===
+Sole Proprietorship
+Private Limited By Share
+Private Unlimited By Share
+Private Limited By Guarantee
+Public Unlimited Company
+External Company
+Public Limited Company
+Public Limited By Guarantee
+Partnership
+Subsidiary Business Name
+
+
+=== Kenya ===
+Kenya's Companies Act 2015 provides for private and public companies, including public limited companies. It sets naming and formation rules and consolidates modern company law in Kenya.
+
+
+=== South Africa ===
+Under the Companies Act 2008, South Africa provides for non-profit companies and several profit-company forms: private companies, public companies, personal liability companies, and state-owned companies.
+
+Sole proprietorship
+Business trust
+Partnership
+Companies
+Company limited by guarantee
+Incorporated association not for gain(section 21 company): ≈ nonprofit association.
+Companies having a share capital
+Private company : ≈ private limited company (UK), limited liability company (US); has 1 or more shareholders, one or more directors. The name must end "(Pty) Ltd"; registration number ends /07. Registration number and directors' names must appear on all correspondence.
+Section 53(b) company (unlimited liability company): ≈ professional limited liability company (PLLC) (US)
+Public company (Ltd.): ≈ public limited company (UK), corporation (US); has at least 7 shareholders (unless it is a wholly owned subsidiary of another company) and at least two directors. The company's name must end in "LTD"; its registration number ends in /06.
+CC (Close corporation): Has 1–10 non-corporate members. The name must end with "CC"; registration number ends /23. Registration number and members' names must appear on all correspondence. On 1 May 2011 the new Companies Act (Act 71 of 2008) came into force and disallows any new incorporations under this form.
+
+
+== Europe ==
+
+
+=== European Union and European Economic Area ===
+Directive 2017/1132 consolidates EU company-law measures on incorporation, capital, disclosure and cross-border aspects for limited-liability companies the EU also recognizes the Societas Europaea.
+
+Decentralised EU/Euratom bodies established through secondary legislation
+Agencies, decentralised independent bodies, corporate bodies and joint undertakings of the European Union and the Euratom
+Corporations and foundations registered at Union level (all are juridical persons):
+European Research Infrastructure Consortium (ERIC)
+European political party (Europarty)
+European political foundation. (Eurofoundation)
+Pan-European forms registered at member-state level
+corporations:
+European grouping of territorial cooperation (EGTC)
+Societas cooperativa Europaea (SCE): a European cooperative (Latin for "European Cooperative Society").
+Societas Europaea (SE): a European (Public) Limited Company (Latin for "European Company").
+other partnerships:
+European economic interest grouping (EEIG): an EU legal entity designed to enable cross-border cooperation between companies. It has unlimited liability and is not liable for corporate tax.
+
+
+=== Albania ===
+
+Foreign and domestic investors have a range of options to establish and organize their business in Albania. They can either create and register a business organization or establish and register a branch or representative office.
+Previously, foreign entity registration was handled through the National Registration Center, which had implemented a streamlined "one-stop-shop" system since September 1, 2007. However, on November 26, 2015, the enactment of Law No. 131/2015 led to the formation of the National Business Center (QKB) which aimed to simplify business procedures by centralizing registration and licensing in a single institution. Consequently, the National Registration Center and the National Licensing Center were abolished.
+
+Sh.p.k. (Shoqëri me përgjegjësi të kufizuar); a business entity established by one or several natural or legal persons;
+Sh.A. (Shoqëri Aksionere); a company whose capital is divided into shares signed by its founders;
+Sh.K. (Shoqëri komandite); the liability of at least one partner is limited to the value of their contribution;
+Shoqëri kolektive; the liability of the company's partners before its creditors is unlimited;
+Degë; entities created by a parent company that carry the same legal presence as the company;
+Zyrë e përfaqësimit; business offices where a company's activities can operate from that are not intended to generate revenue.
+
+
+=== Austria ===
+Gen (Genossenschaft; types: Erwerbs- und Wirtschaftsgenossenschaft): ≈ cooperative
+Privatstiftung: ≈ private foundation
+Verein: ≈ nonprofit association
+e.U. (eingetragenes Einzelunternehmen): ≈ sole trader (UK), sole proprietorship (US)
+Kapitalgesellschaften: ≈ corporations (with juridical personality)
+AG (Aktiengesellschaft): ≈ plc (UK). Minimum capital €70,000.
+GmbH (Gesellschaft mit beschränkter Haftung): ≈ Ltd. (UK). Minimum capital €10,000.
+Sparkasse ≈ Mutual savings bank
+Personengesellschaften: ≈ partnerships (without juridical personality)
+non-registered and not considered legal entities:
+stG (stille Gesellschaft): ≈ partnership by estoppel (i.e., no partnership agreement)
+GesbR (Gesellschaft des bürgerlichen Rechts): ≈ partnership by contract (i.e., formed by partnership agreement); statutes and regulations concerning Austrian companies, especially with regards to the companies register (Firmenbuch), do not apply.
+registered legal entities:
+OG (offene Gesellschaft): ≈ general partnership
+KG (Kommanditgesellschaft): ≈ limited partnership
+GmbH & Co. KG: KG in which a GmbH is the general partner.
+Obsolete:
+Erwerbsgesellschaft: small-sized partnerships (not qualifying as OG or KG, respectively. Converted into OGs or KGs as of 1. 1. 2007)
+OEG (Offene Erwerbsgesellschaft): small general partnership
+KEG (Kommanditerwerbsgesellschaft): small limited partnership
+See also help.gv.at Archived 2015-12-26 at the Wayback Machine (Austrian government site, in German)
+
+
+=== Belarus ===
+
+
+=== Belgium ===
+Dutch, French or German names may be used.
+
+Following changes to the Code of Companies and Associations, the term "Private limited liability company" (BVBA/SPRL) automatically became "Private limited company" (BV/SRL), as a part of harmonising legal entity types within the European Union.
+
+
+=== Bosnia and Herzegovina ===
+d.d. (dioničko društvo): ≈ plc (UK) ≈ AG (Germany)
+a.d. (akcionarsko društvo): ≈ plc (UK) ≈ AG (Germany)
+d.n.o. (društvo s neograničenom solidarnom odgovornošću): ≈ general partnership
+d.o.o. (društvo s ograničenom odgovornošću): ≈ Ltd. (UK) ≈ GmbH (Germany)
+k.d. (komanditno društvo): ≈ limited partnership
+s.p. (samostalni preduzetnik): ≈ Sole proprietorship (UK)
+
+
+=== Bulgaria ===
+Bulgarian commercial law recognizes several forms of merchants and commercial companies, including sole traders, general partnerships, limited partnerships, limited liability companies, joint-stock companies, and partnerships limited by shares.
+
+AD / АД (aktsionerno druzhestvo / акционерно дружество): joint-stock company ≈ plc (UK)
+ADSITs / АДСИЦ (aktsionerno druzhestvo sus spetsialna investitsionna tsel / акционерно дружество със специална инвестиционна цел): real estate investment trust
+EAD / ЕАД (ednolichno aktsionerno druzhestvo / еднолично акционерно дружество): single-member joint-stock company
+EOOD / ЕООД (ednolichno druzhestvo s ogranichena otgovornost / еднолично дружество с ограничена отговорност): single-member limited liability company
+ET / ЕТ (ednolichen turgovets / едноличен търговец): sole proprietorship
+OOD / ООД (druzhestvo s ogranichena otgovornost / дружество с ограничена отговорност): ≈ Ltd. (UK)
+KD / КД (komanditno druzhestvo / командитно дружество): ≈ limited partnership
+KDA / КДА (komanditno druzhestvo s aktsii / командитно дружество с акции): partnership limited by shares
+SD / СД (sabiratelno druzhestvo / събирателно дружество): ≈ general partnership
+
+
+=== Croatia ===
+Types of legal person business entities:
+
+d.d. (dioničko društvo): ≈ plc (UK)  ≈ AG (Germany)
+d.o.o. (društvo s ograničenom odgovornošću) is company with limited liability: ≈ Ltd. (UK) or LLC (US); minimum capital: kn 20,000
+j.d.o.o. (jednostavno društvo s ograničenom odgovornošću): simple Ltd.; minimum capital: kn 10 (same liabilities as an Ltd., but has to set aside 25% of annual profit to collect enough equity capital to become a d.o.o.)
+j.t.d. (javno trgovačko društvo): ≈ general partnership
+k.d. (komanditno društvo): ≈ limited partnership
+GIU (gospodarsko interesno udruženje): economic interest grouping
+zadruga: cooperative
+Types of natural person business entities:
+
+obrt: ≈ sole proprietorship; several types: slobodni obrt (free proprietorship), vezani obrt (tied proprietorship), and povlašteni obrt (privileged proprietorship) registered according to profession where tied and privileged types are reserved only for master craftsmen): paušalni obrt (flat-rate proprietorship), obrt-dohodaš (income tax proprietorship), obrt-dobitaš (profits tax proprietorship); these are registered according to the type of taxation; first two are obligated to pay income tax and the last one is obligated to pay profits tax), sezonski obrt (seasonal proprietorship) that runs for a limited number of months during a year.
+ortakluk: partnership of two or more sole proprietors
+slobodna djelatnost: free profession; self-employment but only for certain types of professions: e.g. artists, journalists, lawyers, etc.; freelancing (similar to sole proprietors in their obligations)
+domaća radinost and sporedno zanimanje: home business and side profession; limited forms of self-employment aimed at registering supplementary income from, say, small repairs or hobbies with yearly income limited to 10 average gross salaries (approx. EUR 11,700 in January 2020)
+OPG (obiteljsko poljoprivredno gospodarstvo): family run agricultural business
+Non-profit:
+
+udruga ≈ voluntary association; any form of free and voluntary association of natural or legal persons to accomplish a purpose without intent to acquire profit.
+
+
+=== Cyprus ===
+Ιδιωτική Εταιρεία - LTD
+Δημόσια Εταιρεία - PLC
+Συνεργατικά Πιστωτικά Ιδρύματα - COOP
+Αυτοτελώς εργαζόμενος - SP
+Σωματεία και Ιδρυμάτα - SF
+Οντότητες που διέπονται από το δημόσιο δίκαιο - PUBLaw
+Ταμεία Προνοίας/ Συντάξεως - PF
+Άλλη νομική μορφή - OTH
+
+
+=== Czech Republic ===
+a.s., akc. spol. (Akciová společnost): ≈ plc (UK). Minimum share capital CZK 2 000 000. Must have a supervisory board in addition to the management board.
+Společnost s ručením omezeným, spol. (Společnost s ručením omezeným): ≈ Ltd. (UK) Minimum share capital CZK 1
+v.o.s., veř. obch. spol., a. spol. (veřejná obchodní společnost): ≈ general partnership
+k.s., kom. spol. (komanditní společnost): ≈ limited partnership
+o.p.s. (obecně prospěšná společnost): ≈ One of the legal forms for non-governmental non-profit organizations
+živnost: ≈ Sole proprietorship
+s.p. (státní podnik): ≈ state enterprise
+příspěvková organizace: ≈ subsidized organization
+z.s. (zapsaný spolek): ≈ Voluntary association. Formerly o.s. (Občanské sdružení.)
+
+
+=== Denmark ===
+Enkeltmandsvirksomhed: sole proprietorship
+Forening: ≈ association
+I/S (Interessentskab): ≈ general partnership.
+IVS (Iværksætterselskab): private limited company startup with limited equity capital. Must use 25% of profit to collect enough equity capital to become an ApS.
+ApS (Anpartsselskab): private limited company.
+A/S (Aktieselskab): public limited company.
+K/S (Kommanditselskab): limited partnership
+P/S (Partnerselskab or Kommanditaktieselskab): partnership limited by shares
+A.M.B.A. (Andelsselskab med begrænset ansvar): limited liability co-operative, see Danish cooperative movement
+F.M.B.A. (Forening med begrænset ansvar): limited liability voluntary association.
+S.M.B.A. (Selskab med begrænset ansvar): limited liability company.
+Partsrederi: A form of combined and continued ownership of a merchant vessel.
+Erhvervsdrivende fond: commercial foundation comparable to the German Stiftung
+G/S (Gensidigt selskab): mutual organization
+
+
+=== Estonia ===
+FIE (Füüsilisest isikust ettevõtja): ≈ sole trader (UK), sole proprietorship (US)
+Partnerships:
+UÜ (Usaldusühing): ≈ limited partnership
+TÜ (Täisühing): ≈ general partnership
+Corporations:
+OÜ (Osaühing): ≈ (Ltd.) private limited company (UK), (LLC) limited liability company (US)
+AS (Aktsiaselts): ≈ (PLC) public limited company (UK), corporation (US)
+Tulundusühistu: ≈ commercial association
+MTÜ (Mittetulundusühing) ≈ nonprofit organization
+
+
+=== Finland ===
+General economic entities
+Ay (avoin yhtiö, Swedish: öppet bolag): ≈ general partnership (use optional)
+Ky (kommandiittiyhtiö, Swedish: kommanditbolag, Kb): ≈ limited partnership
+Oy (osakeyhtiö, Swedish: aktiebolag, Ab): ≈ Ltd. (UK). No minimum share capital as of 01.07.2019.
+Oyj (julkinen osakeyhtiö, Swedish: publikt aktiebolag, Abp): ≈ plc (UK)
+osk (osuuskunta, Swedish: andelslag, Anl.): ≈ cooperative
+T:mi (toiminimi), Yksityinen elinkeinonharjoittaja (Swedish: firma/F:ma, enskild näringsidkare): sole proprietorship (use optional)
+The abbreviations are usually in Finnish, but Swedish names may also be used either as is or in combination with Finnish, e.g. Oy Yritys Ab.
+
+Non-profit entities
+rekisteröity yhdistys, abbr. ry (Swedish: förening, abbr. rf): registered association, capable of acting as a legal person
+rekisteröity puolue, abbr. rp Swedish: registrerat parti): registered political party
+säätiö, abbr. rs (Swedish: stiftelse): foundation comparable to the German Stiftung
+uskonnollinen yhdyskunta (Swedish: religionssamfund), religious community
+voluntary associations chartered by statute law (e.g. Finnish Red Cross, National Defence Training Association of Finland, Finnish Bar Association)
+For-profit entities of public law
+valtion liikelaitos (Swedish: statens affärsverk): commercial government agency, expected to fund themselves, but debts directly backed by state funds—distinguished from regular companies where the government owns stock. (See: List of Finnish government enterprises)
+kunnallinen liikelaitos (Swedish: kommunal affärsverk): municipal enterprise, similar as previous but run by a municipality
+paliskunta: a reindeer herding corporation, governed like a stock company except that the "stocks" are reindeer
+Economic entities for special purpose
+asunto-osakeyhtiö (Swedish: bostadsaktiebolag), a limited liability company for the ownership, construction and maintenance of an apartment building
+julkinen keskinäinen vakuutusyhtiö, abbreviated jy (Swedish: publikt ömsesidigt försäkringsbolag), public mutual insurance company
+keskinäinen kiinteistöosakeyhtiö (Swedish: ömsesidiga fastighetsaktiebolag, a limited liability company for the ownership, maintenance and construction of real property.
+keskinäinen vakuutusyhtiö (Swedish: ömsesidigt försäkringsbolag), mutual insurance company
+laivaisännistöyhtiö (Swedish: partrederi), a type of general partnership for the owning of a merchantman
+säästöpankki (Swedish: sparbank), a type of loans and savings association
+Real estate law corporations
+In the corporations of real estate law, the ownership or membership may be vested either in the real property or in a legal or natural person, depending on the corporation type. In many cases, the membership or ownership of such corporation is obligatory for a person or property that fulfils the legal requirements for membership or wishes to engage in certain activities.
+
+keskivedenkorkeuden muuttamista varten perustettu yhteisö (Swedish: Sammanslutning som bildas för höjning av medelvattenståndet), a corporation of water law for the permanent change of the median water level
+ojitusyhteisö (Swedish: dikningssammanslutning), a corporation of water law for the construction and maintenance of ditches
+säännöstely-yhteisö (Swedish: regleringssammanslutning), a corporation of water law for the regulation of water level in a body of water
+tiekunta (Swedish: väglag), a type of limited-liability corporation for the maintenance of private road
+uittoyhteisö (Swedish: flottningssammanslutning), a corporation of water law for timber-floating
+vesioikeudellinen yhteisö (Swedish: vattenrättslig sammanslutning), a corporation of water law for a project that involves economic use of bodies of water
+yhteisalue (Swedish: samfälliga område), a corporation for the maintenance of a real property jointly used by several other properties or persons
+yhteismetsä (Swedish: samfälld skog), a jointly owned forest
+osakaskunta (historically "jakokunta"), a partition unit, i.e. a corporation for maintenance of the commons.
+
+
+=== France ===
+France's widely used forms include the "société par actions simplifiée", "société à responsabilité limitée" and "société anonyme" government guidance sets out their main features and minimum capital and confirms SAS as the most common commercial form.
+
+Micro-entreprise: special framework for minute businesses, a recent addition to French business law -with both revenue and pre-tax net income caps, of which Auto-entrepreneur (below) is a special case
+Freelancers, individual independent contractors:
+Auto-entrepreneur: ≈ self-employed (UK), independent contractor (US), a recent addition to French business law -with both a revenue cap and a specific set of derogatory income tax rates
+Profession libérale: ≈ sole proprietorship such as a medical practice, an enduring entity stemming from the protected status designed for "liberal professions" with unlimited personal liability
+Sociétés d'exercice libéral: the incorporated equivalent of the latter, sole shareholder limited liability being key
+EI (Entreprise individuelle/entreprise en nom personnel):
+Investment funds/companies:
+FCP (Fonds commun de placement): unincorporated investment fund
+SICAF (Société d'investissement à capital fixe): ≈ investment trust (UK); closed-end fund (CEF), closed-end company (US); listed investment company (LIC) (Au)
+SICAV (Société d'investissement à capital variable): ≈ investment company with variable capital (ICVC), open-ended investment company (OEIC) (UK); mutual fund, open-end company (US)
+GIE (Groupement d'intérêt économique): economic interest grouping
+Association: ≈ nonprofit association
+Association non-déclarée: ≈ unincorporated association (UK)
+Association déclarée: ≈ incorporated association (Au)
+Partnerships (société de personnes):
+SEP (Société en participation): ≈ equity partnership
+SPPL (Société en participation de professions libérales)
+Société en participation avec personne morale
+Société en participation entre personnes physiques
+SNC (Société en nom collectif): ≈ general partnership (GP)
+SCS (Société en commandite simple): ≈ limited partnership (LP)
+SCA (Société en commandite par actions): ≈ publicly traded partnership (PTP) (US)
+SCI (Société Civile Immobilière): ≈ French property company (SCI)
+Corporations (société de capitaux):
+share companies (both partnership and company)
+SARL, SàRL (Société à responsabilité limitée): ≈ private limited company (Ltd.) (UK), limited liability company (US)
+EURL (Entreprise unipersonnelle à responsabilité limitée): ≈ single shareholder limited company (SME Pvt) (UK)
+stock companies (société par actions)
+SA (Société anonyme): ≈ public limited company (plc) (UK), Inc. (US/Can)
+SCOP (Société coopérative de production): ≈ cooperative corporation (Can)
+SEM (Société d'économie mixte): ≈ government-owned corporation
+SAS (Société par actions simplifiée): ≈ limited liability company (US, especially in Delaware), unlisted public company (Au), close corporation (CC) (S. Africa), private corporation (Can); often used for subsidiaries; minimum of one director and two members/shareholders; no limit on share capital; liability can be restricted to director; no "one share – one vote" principle
+SASU (U- unipersonnelle): limited liability, sole shareholder Ltd. company (UK) or single member close corporation
+
+
+=== Germany ===
+In Germany, the most common corporate forms include the Gesellschaft mit beschränkter Haftung and the Aktiengesellschaft. The GmbH is a private limited liability company, widely used for small and medium-sized enterprises. The AG is a public limited company used by larger firms and those listed on stock exchanges. German corporate law is governed by the Handelsgesetzbuch. Companies must register with the local commercial register and comply with strict disclosure and accounting standards.
+
+individuals
+Einzelunternehmen: individual entrepreneur ≈ sole trader (UK), sole proprietorship; only professional services, agriculture and forestry as well as small commercial businesses
+Eingetragener Kaufmann (male/both genders)/eingetragene Kauffrau (female) (e.K./e.Kfm./e.Kfr.): registered merchant ≈ sole trader (UK), sole proprietorship (US); individual entrepreneur with commercial business (Handelsgewerbe)
+partnerships (Personengesellschaften)
+Gesellschaft bürgerlichen Rechts (GbR), BGB-Gesellschaft: simple partnership; no minimum capital, two or more partners, unlimited liability of partners, no commercial business (Handelsgewerbe) that is not small.
+nicht-eingetragener Verein: non-registered association; non-commercial/idealistic purposes only; similar to e.V. but lacking juridical personality
+commercial partnerships (Personenhandelsgesellschaften)
+Offene Handelsgesellschaft (OHG): literally "open business company" ≈ general partnership: no minimum capital, unlimited liability of partners; GbR with commercial business (Handelsgewerbe)
+Kommanditgesellschaft (KG) ≈ limited partnership
+In case the general partner is a limited company, the legal form of the general partner, followed by "& Compagnie" (shortened to & Co.), must be included in the name of the company, resulting in combined legal forms such as:
+GmbH & Co. KG: the general partner is a GmbH
+AG & Co. KG: the general partner is an AG
+SE & Co. KG: the general partner is a societas Europaea
+GmbH & Co. OHG: each of the general partners are a GmbH
+The same rule also applies when the general partner is a limited company incorporated outside Germany, for example:
+Limited & Co. KG: the general partner is a UK private company limited by shares
+PLC & Co. KG: the general partner is a UK plc
+ApS & Co. KG: the general partner is a Danish Anpartsselskab
+LLC & Co. KG: the general partner is a US LLC
+Note that when a KG's general partner is a limited company, the resulting form is legally considered as a different subtype of KG
+Partnerschaftsgesellschaft (PartG): partnership company; only for professional services
+Partnerschaftsgesellschaft mit beschränkter Berufshaftung (PartGmbBH): partnership company with limited professional liability ≈ limited liability partnership (US); only for professional services
+Partenreederei: combined and continued ownership of a single merchant vessel; no longer available for new businesses since 24 April 2013.
+corporations (Körperschaften)
+eingetragener Verein (e.V.): incorporated association; non-commercial/idealistic purposes only, commercial business cannot be the main purpose of the e.V.
+altrechtlicher Verein/rechtsfähiger Verein (r.V.): association established before 1 January 1900; extremely rare
+wirtschaftlicher Verein: commercial purpose, established by public grant; rare
+Companies limited by shares (equity) (Kapitalgesellschaften)
+Kommanditgesellschaft auf Aktien (KGaA): ≈ publicly traded partnership (US); although it is a company limited by shares, the KGaA has at least one general partner whose liability is not limited
+As with the KG, the legal form of the general partner, followed by "& Compagnie" (shortened to & Co.), must be included if it is another limited company, resulting in combined legal forms such as:
+GmbH & Co. KGaA: the general partner is a GmbH
+AG & Co. KGaA: the general partner is an AG
+SE & Co. KGaA: the general partner is a societas Europaea
+Note that when a KGaA's general partner is a limited company, the resulting form is legally considered as a different subtype of KGaA
+Gesellschaft mit beschränkter Haftung (GmbH; German: [ˈgeːɛmbeːˌhaː]): company with limited liability ≈ private limited company (Ltd.) (UK), limited liability company (LLC) (US); at least one shareholder; minimum equity €25,000.
+The "mit beschränkter Haftung (mbH)" suffix (German: [ˈɛmbeːˌhaː], "with limited liability") is sometimes added to the name of a firm that already ends in "-gesellschaft" ("company"), e.g., "Mustermann Dental-Handelsgesellschaft mit beschränkter Haftung" ("dental trading company with limited liability"), which would be abbreviated as "Mustermann Dental-Handelsgesellschaft mbH".
+gemeinnützige GmbH (gGmbH); In German tax law, the non-profit GmbH is a limited liability company whose income is used for charitable purposes.
+Unternehmergesellschaft (haftungsbeschränkt) (UG (haftungsbeschränkt)): literally "entrepreneurship company (with limited liability)": identical to GmbH but with a minimum capital of €1 (times the number of shares); part of earnings needs to remain in the company to reach a minimum equity of €25,000; the word haftungsbeschränkt ("with limited liability") may not be abbreviated.
+Aktiengesellschaft (AG): literally "stock company" ≈ public limited company (plc) (UK), Inc. (US); minimum capital €50,000.
+eingetragene Genossenschaft (e.G.): registered cooperative
+Körperschaft des öffentlichen Rechts: corporation under public law; main purpose is non-commercial, part of public administration
+others
+Stiftung ≈ (private) foundation, trust
+Stiftung des öffentlichen Rechts: foundation under public law; main purpose is non-commercial, part of public administration
+Anstalt des öffentlichen Rechts: institution under public law; main purpose is non-commercial, part of public administration
+
+
+=== Greece ===
+A.E. (Anónimi Etaireía / Ανώνυμη Εταιρεία, Α.E.): ≈ plc (UK), minimum capital €25,000
+A.V.E.E. (Anónimi Viomichanikí Emborikí Etaireía / Ανώνυμη Βιομηχανική Εμπορική Εταιρεία, Α.Β.Ε.Ε.)
+E.E. (Eterórrithmi Etaireía / Ετερόρρυθμη Εταιρία, Ε.Ε.): limited partnership
+E.P.E. (Etaireía Periorisménis Efthínis / Εταιρεία Περιορισμένης Ευθύνης, Ε.Π.Ε.): ≈ Ltd. (UK), no minimum capital
+M.E.P.E. (Monoprósopi Etaireía Periorisménis Efthínis / Μονοπρόσωπη Ε.Π.Ε., Μ.Ε.Π.Ε.): type of E.P.E. with a single member
+O.E. (Omórrithmi Etaireía / Ομόρρυθμη Εταιρεία, Ο.Ε.): general partnership
+O.V.E.E. (Omórrithmi Viomichanikí Emborikí Etaireía / Ομόρρυθμη Βιομηχανική Εμπορική Εταιρεία, Ο.Β.Ε.Ε.)
+I.K.E. (Idiotiki Kefalaiouchiki Etaireía / Ιδιωτική Κεφαλαιουχική Εταιρεία) = Private Company, minimum capital=€0. The shares do not take the form just of capital but also warranties, labor offer etc. This form is a composite form between A.E. E.P.E and O.E. which is greatly affected by the Articles of Incorporation.
+atomikís epicheírisis / ατομικής επιχείρησης: sole proprietorship
+Companies of the type "Anónimi Etaireía" would translate this designation into the French translation société anonyme or S.A. in non-Greek languages.
+
+
+=== Hungary ===
+In Hungary, business entities are mainly regulated by the Companies Act of 2006, the Companies Registration Act of 2006 and the new Civil Code of 2013. All companies are required to indicate their type in their name.
+
+
+=== Iceland ===
+
+
+=== Ireland ===
+The situation in Ireland is similar to the United Kingdom below, though without the class Community Interest Company. There were two forms of Company Limited by Guarantee, but only the form without a share capital is now used. Irish names may also be used, such as cpt (cuideachta phoibli theoranta) for plc, and Teo (Teoranta) for Ltd.
+
+Limited Company – Four types:
+Private company limited by shares – If company is wound up, members' liability is limited to the amount, if any, unpaid on the shares they hold. Maximum number of members in Ireland is 99.
+Company limited by guarantee not having a share capital – Public company. Must have at least seven members. Members' liability limited to amount they have undertaken to contribute to company assets. If wound up, liability does not exceed amount specified in memorandum. If a guarantee company does not have a share capital, members are not required to buy shares (such as charities).
+Company limited by guarantee having a share capital – As with a private company if the maximum number of members is 99. Members have liability either for the amount, if any, that is unpaid on the shares they hold, or for the amount they have undertaken to contribute to company assets, in the event that it is wound up.
+A public limited company. Must have at least seven members. Liability is limited to the amount, if any, unpaid on shares they hold. Unlawful to issue any form of prospectus except in compliance with the Companies Acts 1963–2006. Nominal value of Company's allotted share capital must satisfy specified minimums which must be fully paid before company commences business or exercises any borrowing powers.
+Single Member Company – Private company limited by shares or a guarantee company having a share capital, which is incorporated with one member, or whose membership is reduced to one person. Must have at least two directors and one secretary. Sole member can dispense with holding General Meetings including Annual General Meetings.
+Unlimited Company – No limit on liability of members. Creditors may have recourse to shareholders for unpaid liabilities of the company. Must have at least two shareholders.
+Undertakings for Collective Investment in Transferable Securities (UCITS) – Public limited companies formed under EU Regulation and the Companies Acts 1963–2006. Sole object of a UCIT is collective investment in transferable securities of capital raised from the public that operates on the principle of risk-spreading. Central Bank of Ireland must approve all registrations of UCITS.
+A designated activity company (Irish: Cuideachta Ghníomhaíochta Ainmnithe) or DAC is a form of company in Ireland created by the Companies Act 2014.  Like a limited company, designated activity companies have limited liability. Additionally, they may only carry out activities listed in their constitution documents, and so the concept of ultra vires continues to apply to them.
+Irish Section 110 Special Purpose Vehicle (SPV)
+
+
+=== Italy ===
+Forme individuali (Individuals):
+Stabilizzatore (Chief)
+Artigiano (Artisan)
+Lavoratore autonomo (Independent worker)
+Libero professionista (Professional)
+Imprenditore ≈ sole trader (UK), sole proprietorship (US)
+Società di persone (Partnerships):
+S.s. (Società semplice): ≈ general partnership (non commercial)
+S.n.c. (Società in nome collettivo): ≈ general partnership (commercial)
+S.a.s. (Società in accomandita semplice): ≈ limited partnership
+Società di capitali (Corporations):
+S.p.a. (Società per azioni): ≈ plc (UK), corporation (US)
+S.a.p.a. (Società in accomandita per azioni): ≈ publicly traded partnership
+S.c.p.a. (Società consortile per azioni)
+S.c.a.r.l. (Società consortile a responsabilità limitata)
+S.r.l. (Società a responsabilità limitata): ≈ Ltd. (UK), LLC (US)
+S.r.l.s. (Società a responsabilità limitata semplificata):
+Società benefit: ≈ benefit corporation (US)
+Cooperative (Cooperatives):
+S.c.r.l. (Società cooperativa a responsabilità limitata) cooperative limited (liability) company
+
+
+=== Kosovo ===
+Individual Business (B.I.)
+General Partnership (O.P.)
+Partnership (SH.K.M.)
+Limited Liabilities Companies (SH.P.K. Limited Liability)
+Joint Stock Companies (J.S.C., SH.A.)
+Foreign Company ("DEGA NË KOSOVË", "KOSOVO BRANCH")
+Socially owned enterprises
+Public enterprises
+Agricultural cooperatives
+
+
+=== Latvia ===
+SIA (Sabiedrība ar ierobežotu atbildību): ≈ LLC or Ltd. (UK)
+AS or a/s (Akciju sabiedrība): ≈ JSC or plc (UK)
+IK or i/k (Individuālais komersants): ≈ sole proprietorship
+PS (Pilnsabiedrība) ≈ general partnership, joint venture
+KS (Komandītsabiedrība): ≈ limited partnership
+ĀKF (Ārzemju komersanta filiāle): branch of a foreign enterprise
+BO (Bezpeļņas organizācija): ≈ nonprofit organization
+VSIA (Valsts sabiedrība ar ierobežotu atbildību): ≈ state-owned LLC/Ltd.
+VAS (Valsts akciju sabiedrība): ≈ state-owned JSC/plc
+ARB (Arodbiedrība): ≈ trade union
+
+
+=== Liechtenstein ===
+AG: Aktiengesellschaft
+GmbH: Gesellschaft mit beschränkter Haftung
+
+
+=== Lithuania ===
+UAB (Uždaroji akcinė bendrovė): ≈ Ltd. (UK)
+AB (Akcinė bendrovė): ≈ plc (UK)
+VšĮ (Viešoji įstaiga): ≈ non-profit organization
+IĮ (Individuali įmonė): ≈ personal enterprise
+Individuali veikla = sole proprietorship (does not possess legal personality of its own)
+TŪB (Tikroji ūkinė bendrija): ≈ general partnership
+KŪB (Komanditinė ūkinė bendrija): ≈ limited partnership
+MB (Mažoji bendrija) : ≈ Limited liability partnership
+BĮ (Biudžetinė įstaiga): ≈ budgetary institution (government/municipality agency)
+PP (Politinė partija) : ≈ Political Party
+Branch (Filialas) : ≈ Branch office
+
+
+=== Luxembourg ===
+S.A. (Société anonyme): ≈ plc (UK)
+S.A R.L. (Société à responsabilité limitée): ≈ Ltd. (UK)
+Société à responsabilité limitée simplifiée (SARL-S) = simplified limited liability company
+Société en commandite simple (SCS): ≈ limited partnership
+Société en Commandite Spéciale (SCSp): unlike an SCS, an SCSp does not have a legal personality separate from those of its partners; it is formed by an agreement among its partners and allows for more flexible structuring, not having to comply with corporate law requirements
+Société en commandite par actions (SCA): ≈ corporate limited partnership
+SAS (Société par Actions Simplifiée): ≈ simplified joint stock company, offering flexible corporate governance and well-suited for diverse business models.
+SOPARFI (Société de Participations Financières): ≈ non-regulated holding company, primarily used for holding and financing, benefitting from Luxembourg's tax treaties.
+SIF (Specialized Investment Fund): ≈ regulated investment vehicle for institutional and qualified investors.
+RAIF (Reserved Alternative Investment Fund): ≈ unregulated alternative fund structure requiring an authorized AIFM.
+SC (Société Civile): ≈ civil company used mainly for estate planning and holding assets.
+GIE (Groupement d'Intérêt Économique): ≈ economic interest grouping enabling cooperation between companies without merger.
+
+
+=== Malta ===
+Ltd: Limited liability company
+Plc: Public limited liability company
+
+
+=== Netherlands ===
+All non-governmental legal entities are registered on the companies register by the chamber of commerce.
+
+Stichting: ≈ foundation, comparable to German Stiftung. They can run a business but no profit distributions to the founders or board members are allowed.
+mutual societies (associations which are allowed to pay dividends to their members; liability may be unlimited (W.A. – wettelijke aansprakelijkheid), limited (B.A. – beperkte aansprakelijkheid) or exempt (U.A. – uitsluiting van aansprakelijkheid)):
+Coöperatie: ≈ co-operative society
+Onderlinge waarborgmaatschappij: ≈ mutual insurance company
+Vereniging ≈ association. Can run a business, but may not distribute profit among its members.
+vve (Vereniging van Eigenaars) ≈ Homeowner association
+Mts (Maatschap): ≈ group practice (of professionals, e.g. doctors, accountants, lawyers); share facilities not profits, members are treated as natural persons for tax and liability purposes.
+Eenmanszaak: ≈ sole trader (UK), sole proprietorship (US)
+vof (vennootschap onder firma): ≈ GP
+cv (commanditaire vennootschap): ≈ LP
+bv (besloten vennootschap): ≈ Ltd (UK), Ltd. (US). May appear in a company name as the suffix of "B.V.". A bv can be started by an individual (perhaps as the major or only shareholder) or together with partners. Shares cannot be traded publicly. Private liability as owner or director is limited, although financiers may require individual to co-sign loans and in case of mismanagement directors may be personally held accountable.
+nv (naamloze vennootschap): ≈ plc (UK), Corp. (US). May appear in company name as the suffix of "N.V." Minimum issued share capital upon incorporation: €45,000. Literally translated, the title is "nameless company", as shareholders are not formally known as such in company statutes and other legal documents.
+
+
+=== Norway ===
+ASA (Allmennaksjeselskap): ≈ plc (UK). Minimum capital NKr 1,000,000
+AS (Aksjeselskap): ≈ Ltd. (UK). Minimum capital NKr 30,000.
+ANS (Ansvarlig selskap): general partnership with mutual liability
+BA (Selskap med begrenset ansvar): cooperatives and companies created by legislation
+BL (Borettslag): housing share company
+DA (Selskap med delt ansvar): general partnership with apportioned liability
+Enkeltpersonforetak: sole proprietorship
+Etat: state, county or municipal agency
+FKF (Fylkeskommunalt foretak): county enterprise
+HF (helseforetak): subsidiary health enterprise
+IKS (Interkommunalt selskap): inter-municipal enterprise (owners' liability)
+KF (Kommunalt foretak): municipal enterprise (owner's liability)
+KS (Kommandittselskap): ≈ limited partnership
+NUF (Norskregistrert utenlandsk foretak): foreign enterprise registered in Norway
+RHF (regionalt helseforetak): regional health enterprise
+SF (Statsforetak): state enterprise
+Sparebank: savings bank
+Stiftelse: a foundation, comparable to German Stiftung, with capital but without members or shareholders. It is allowed to make a profit, but is more suited for non-commercial purposes.
+UB (Ungdomsbedrift): youth enterprise, only used in education
+
+
+=== Poland ===
+No universal definitions of company and business exist in the Polish law. The usage of the equivalent terms in the Polish legal system may often be confusing because each of them has several different definitions for various purposes.
+Przedsiębiorca ('entrepreneur' or 'undertaking')—known as kupiec ('merchant') until 1964; jednostka gospodarcza ('economic unit') from 1964 to 1988; podmiot gospodarczy ('economic entity') from 1988 to 1997—is the closest equivalent of company understood as an entity. As of January 2021, there are at least thirteen different definitions of entrepreneur/undertaking.
+Przedsiębiorstwo ('enterprise') is defined in the Civil Code as an organized complex of material and non-material components designated to perform economic activity. Therefore, it is equivalent to company understood as a set of assets organized to do business.
+Działalność gospodarcza ('economic activity') is the closest equivalent of business. As of January 2021, there are at least six different definitions of economic activity.
+
+
+=== Portugal ===
+Cooperativa ≈ cooperative: The name of the entity should include the expression "Cooperativa" or "União de Cooperativas" or "Federação de Cooperativas" or "Confederação de Cooperativas" 
+CRL (Cooperativa de Responsabilidade Limitada): limited liability cooperative
+S.A. (Sociedade Anónima): ≈ plc (UK), and these are further classified as:
+S.A., Sociedade Aberta: ≈ publicly traded corporation (literally "open company").
+S.F., Sociedade Fechada: ≈ privately held (closely held) corporation (literally "closed company")
+Lda. (Limitada): ≈ Ltd. (UK), and these might be:
+Unipessoal Lda.: single member company (literally: "Unipersonal Ltd.")
+SGPS (Sociedade Gestora de Participações Sociais): holding company (literally "shareholding management company")
+SUA (Sociedade Unipessoal Anónima): ≈ Sole Proprietorship
+Self-managed collective investment companies 
+SGOIC (Sociedades Gestoras de Organismos de Investimento Coletivo) = Self-managed collective investment management companies
+SIC (Sociedades de Investimento Coletivo) = self-managed collective investment companies
+
+
+=== Romania ===
+Societăți comerciale, abbreviated SC (Companies):
+
+Societăți de persoane (Unincorporated companies, also called Partnerships)
+Societatea în nume colectiv, abbreviated SNC (General Partnership, abbreviated GP)
+Societatea în comandită simplă, abbreviated SCS (Limited Partnership, abbreviated LP)
+Societăți de capitaluri (Incorporated companies, also called Corporations)
+Societatea în comandită pe acțiuni, abbreviated SCA (Company Limited by Shares)
+Societatea pe acțiuni, abbreviated SA (Joint-Stock Company)
+Societăți hibride (Hybrid companies)
+Societate cu răspundere limitată, abbreviated SRL (Limited Liability Company)
+Societatea cu răspundere limitată cu proprietar unic, abbreviated SRL cu proprietar unic
+S.A. (Societate pe Acţiuni): ≈ plc (UK)
+S.C.A. (societate în comandită pe acţiuni): limited partnership with shares
+S.C.S. (societate în comandită simplă): ≈ limited partnership
+S.N.C. (societate în nume colectiv): ≈ general partnership
+S.R.L. (societate cu răspundere limitată): ≈ Ltd. (UK)
+PFA (persoana fizica autorizata): ≈ self-employed (UK) Sole Proprietorship (US)
+O.N.G. (Organizație Non-Guvernamentală): ≈ Non-state pension fund (literally: Non-Governmental Organization) — strictly speaking, ONGs do not exist in Romanian law, they are legally called either associations or foundations. Political parties, trade unions and religious denominations/churches/temples/synagogues/mosques aren't considered ONGs. And "privately managed pension funds" (legal term) are another matter than ONGs.
+
+
+=== Russia ===
+
+In Russia, companies are governed by the Civil Code and federal laws such as the Law on Joint-Stock Companies and the Law on Limited Liability Companies. Common types of corporate entities include the Open Joint-Stock Company, the Closed Joint-Stock Company, and the Limited Liability Company.
+According to the Civil Code of Russian Federation the following corporate entities may be created:
+
+NGO or NPO (Russian: НКО - Некоммерческая организация, romanized: Nekommercheskaya organizatsiya, lit. 'non-commercial organisation'): Nonprofit organization. There are many types of non-profits in Russia; the type depends on the ownership of the assets (NGO Pension Fund, for instance)
+IP (Russian: ИП - Индивидуальный предприниматель, romanized: Individualny predprinimatel', lit. 'individual entrepreneur'): a sole proprietorship; self-employed entrepreneurship.
+
+
+==== Unitary enterprise ====
+GP or GUP (Russian: ГУП - Государственное (унитарное) предприятие, romanized: Gosudarstvennoye (unitarnoye) predpriyatiye): state (unitary) enterprise
+MP or MUP (Russian: МУП - Муниципальное (унитарное) предприятие, romanized: Municipalnoe (unitarnoye) predpriyatiye): municipal (unitary) enterprise
+
+
+==== Joint-stock companies ====
+Joint-stock companies:
+
+LLC (Russian: ООО - Общество с ограниченной ответственностью, romanized: Obschestvo s ogranichennoy otvetstvennostyu): limited liability company (US-like)
+Ltd (Russian: AO - Акционерное общество, romanized: Aktsionernoye obschestvo): private limited company (UK: Ltd), privately held shares (similar to a close corporation, or closely held corporation, in the US) (maximum fifty "owners of capital" (not shareholders); if there are more than fifty "owners of capital", they have a year to transform into a PAO)
+PAO (public PLC) (Russian: ПАО - Публичное акционерное общество, romanized: Publichnoye aktsionernoye obschestvo): PLC (UK), publicly traded shares (similar to a corporation in the US)
+NAO (private PLC) (Russian: NAO - Непубличное акционерное общество, romanized: Nepublichnoye aktsionernoye obschestvo, lit. 'Privately held company')
+
+
+==== Partnerships ====
+Cooperative (Russian: Кооператив, lit. 'cooperative'): these include many types, which differ by the type of activity, e.g. farming or other kind of production
+These are less common:
+
+Prostoye tovarishestvo / Простое товарищество (lit. general partnership)
+Kommanditnoe tovarishestvo / Коммандитное товарищество (lit. limited partnership). These types of business entities are not popular (approximately 0.5% of the total number of business entities in Russia).
+Khozyaystvennoye partnyorstvo (Russian: Хозяйственное партнëрство, lit. 'Business partnership')
+
+
+=== Slovakia ===
+a.s. (Akciová spoločnosť): ≈ plc (UK). Minimum share capital €25,000. Must have a supervisory board in addition to the management board.
+s.r.o., spol. s r.o. (Spoločnosť s ručením obmedzeným): ≈ Ltd. (UK)
+k.s. (Komanditná spoločnosť): ≈ LLP. or Limited liability partnership (UK). Must have at least one "general partner" with unlimited liability.
+v.o.s. (Verejná obchodná spoločnosť): ≈ general partnership or unlimited partnership
+družstvo: ≈ Cooperative
+živnosť: ≈ Sole proprietorship
+
+
+=== Slovenia ===
+d.d. (Delniška družba): ≈ plc (UK)
+d.o.o. (Družba z omejeno odgovornostjo): ≈ Ltd. (UK)
+d.n.o. (Družba z neomejeno odgovornostjo): ≈ Unlimited company (UK)
+k.d. (Komanditna družba): ≈ LP (UK)
+s.p. (Samostojni podjetnik): ≈ Sole proprietorship (UK)
+
+
+=== Spain ===
+C.B. Comunidad de Bienes (partnership)
+S.A. (Sociedad Anónima): ≈ plc (UK), minimum capital €60,101.21
+S.L. (Sociedad Limitada): ≈ Ltd. (UK), minimum capital €3,012
+S.L.N.E. (Sociedad Limitada Nueva Empresa): similar to S.L., it was introduced in 2003 to speed up new company registration (registration can be completed in one day), minimum capital €3,012
+S.A.D. (Sociedad Anónima Deportiva): a limited liability sports corporation
+S.L.L. (Sociedad Limitada Laboral): a labour limited corporation
+S.C. (Sociedad Colectiva): roughly a general partnership
+S.C.P. (Sociedad Civil Privada): ¿?
+S.Cra. (Sociedad Comanditaria): roughly a limited partnership
+S.Com. p. A. (Sociedad Comanditaria por Acciones)
+S.Com p.A.P. (Sociedad Comanditaria por Acciones Profesional)
+S.Coop. (Sociedad Cooperativa): a cooperative that typically is owned and democratically controlled by its workers
+Other initialisations are used for cooperatives; Sociedad Anónima Laboral (SAL); some are region specific e.g. Sociedad Cooperativa Catalana Limitada (SCCL)
+UTE (Unión Temporal de Empresas) ≈ temporary consortium or joint venture
+Venture capital fund:
+SCR (Sociedades de Capital Riesgo)
+FCR (Fondos de Capital Riesgo), FCR-Pyme for SME
+SICC (Sociedades de inversión colectiva de tipo cerrado)
+FICC (Fondos de inversión colectiva de tipo cerrado)
+SGEIC (Sociedades Gestoras de Entidades de Inversión Colectiva de tipo cerrado)
+
+
+=== Sweden ===
+Aktiebolag – AB: a private limited company ≈ Ltd. (UK). The minimum capital is SEK 25,000.
+Publikt aktiebolag – AB (publ): public limited company ≈ plc (UK). The minimum capital is SEK 500,000.
+Bankaktiebolag: joint-stock bank company
+Försäkringsaktiebolag: joint-stock insurance company
+Tjänstepensionsaktiebolag: joint-stock occupational pension company
+Ekonomisk förening – Ek. för.: economic association (minimum three members) ≈ cooperative
+Bostadsrättsförening: condominium/home-owners' association
+Kooperativ hyresrättsförening: home-renters' association
+Bostadsförening: apartment-owners' association (established before 1930)
+Sambruksförening: cooperative farming or gardening association
+Försäkringsförening: insurance association
+Enskild näringsidkare (a.k.a. enskild firma): sole trader
+Handelsbolag – HB: trading partnership
+Kommanditbolag – KB: limited partnership
+Enkelt bolag: regulated partnership between two parts (companies or private persons)
+Ideell förening: non-profit organisation
+Samfällighetsförening: community association
+Stiftelse: foundation, comparable to German Stiftung
+Trossamfund: religious organisation
+Filial: foreign branch
+Bankfilial: foreign bank branch
+Försäkringsfilial: foreign insurance branch
+Sparbank: savings bank
+Medlemsbank: credit union
+Ömsesidigt försäkringsbolag: mutual insurance company
+Ömsesidigt tjänstepensionsbolag: mutual occupational pension company
+Tjänstepensionsförening: occupational pension association
+
+
+=== Turkey ===
+According to Code of Obligations (fifth book of Civil Code) (Act No: 6098):
+
+Adi ortaklık: ≈ Simple partnership (has no legal personality)
+According to the Commercial Code (Act No: 6102):
+Ortaklıklar ≈ Partnerships (unlike the partnerships in Anglo-American law, they also have legal personality like companies)
+
+Koll. Şti. (kolektif şirket): ≈ Collective partnership
+Kom. Şti (komandit şirket): ≈ Commandite partnership: Can be established as simple commandite partnership or as commandite company divided into shares (Sermayesi paylara bölünmüş komandit şirket.).
+Sermaye şirketleri ≈ Companies
+
+A.Ş. / A.O. (Anonim Şirket / Anonim Ortaklık): ≈ Joint-stock company: Minimum capital is TL 250,000. Bearer or registered shares, of a minimum par value of TL 0.01 each. Only type of company that can be publicly traded in Turkish law.
+Ltd. Şti. / L.Ş. / L.O. (Limited şirket / Limited ortaklık) ≈ Limited company: Minimum capital is TL 50,000. Registered shares only, of a minimum par value of TRY 25 each.
+According to the Capital Markets Act (Act No: 6362):
+
+HAAO (Halka Açık Anonim Ortaklık) ≈ Publicly held corporation: This essentially is a special type of A.O. These types of companies can only be established as A.O.'s. When there are no specific rules under Capital Markets legislation, A.O. rules under Turkish Commercial Code will be applied to HAAO's.
+According to the Cooperatives Act (Act No: 1163):
+
+Koop. (kooperatif şirket) ≈ Cooperative
+Other entitites:
+
+(irtibat bürosu): ≈ liaison office
+Şahıs şirketi: ≈ Sole proprietorship
+Şb. (şube): ≈ Branch Office
+
+
+=== Ukraine ===
+DAT/ДАТ (uk:Державне акціонерне товариство /Derzhavne aktsionerne tovarystvo): ≈ plc, national
+FOP/ФОП (uk:Фізична особа-підприємець/ Fizychna osoba pidpryyemets): sole proprietorship
+KT/КТ (uk:Командитне товариство/ Komandytne tovarystvo): ≈ limited partnership
+PT/ПT (uk:Повне товариство/ Povne tovarystvo): ≈ general partnership
+TDV/ТДВ (uk:Товариство з додатковою відповідальністю/ Tovarystvo z dodatkvoiu vidpovidalnistiu): lit. "additional liability company"
+TOV/TOB (uk:Товариство з обмеженою відповідальністю/ Tovarystvo z obmezhenoiu vidpovidalnistiu): ≈ public Ltd. (UK). No minimum capital.
+PP/ПП (uk:Приватне підприємство/ Pryvatne pidpryyemstvo): ≈ private Ltd. (UK). No minimum capital.
+PAT/ПАТ (uk:Публічне акціонерне товариство/ Publichne aktsionerne tovarystvo) (before 29.04.2009 – VAT/uk:ВАТ (Вiдкрите акцiонерне товариство/ Vidkryte aktsionerne tovarystvo)): ≈ plc. Minimum capital – 1250 minimum wages (UAH 7,500,000 as of 27.09.2021).
+PrAT/ПрАТ (uk:Приватне акціонерне товариство/ Prytvatne aktsionerne tovarystvo) (before 29.04.2009 – ZAT/uk:ЗАТ (Закрите акцiонерне товариство/ Zakryte Aktsionerne Tovarystvo)): ≈ plc (UK), private. Minimum capital – same as PAT.
+AT/АТ (uk:Акціонерне товариство/ Aktsionerne tovarystvo): ≈ JSC. Minimum capital – same as PAT.
+Company formation is regulated by the Ukrainian Civil Code and Commercial Code, Law On Business Associations, Law On Joint Stock Companies, Law On Limited Liability Companies and Additional Liability Companies.
+
+
+== Mexico ==
+Mexico's General Law of Commercial Companies recognizes, among other forms, the Sociedad Anónima and the Sociedad por Acciones Simplificada, the latter added by 2016 reforms to facilitate single-shareholder startups.
+
+Business entities according to the "Ley General de Sociedades Mercantiles" (General Law of Commercial Companies)
+Persona Física
+S.A. (Sociedad Anónima): ≈ plc (UK)
+S. de R.L.(Sociedad de Responsabilidad Limitada): ≈ Ltd. (UK)
+Associates name and "y compañía" or Associates name and "y sucesores"(Sociedad en Nombre Colectivo): ≈ general partnership
+S. en C. (Sociedad en Comandita Simple): ≈ limited partnership
+S. en C. por A. (Sociedad en Comandita por Acciones): ≈ master limited partnership
+Note: Any of these entities can be incorporated as a "Capital Variable" entity, in which case has to add the "de C.V." sufix to its company name. Example: "S.A. de C.V.", "S. de R.L. de C.V."
+
+Business entities according to the "Ley del Mercado de Valores" (Stock Market Law)
+S.A.B. (Sociedad Anónima Bursátil)
+S.A.P.I. (Sociedad Anónima Promotora de Inversión)
+
+
+== Oman ==
+SAOG (Société Anonyme Omanaise Générale) Public Joint Stock Company
+SAOC (Société Anonyme Omanaise Close) Closed Joint Stock Company
+
+
+== Peru ==
+S.A. (Sociedad Anónima): ≈ plc (UK)
+Sociedad Anónima Abierta (S.A.A.): To qualify to register as an S.A.A., a company must meet one or more conditions laid down in Article 249 of Peru's General Corporation Law. Those conditions state there must be a primary public offering of shares or convertible bonds in stocks, which are held by more than 750 shareholders, more than 35% of its capital belonging to 175 shareholders, or that all shareholders entitled to vote approve the adjustment to the scheme. The S.A.A. is then audited by the Comisión Nacional Supervisora de Empresas y Valores (CONASEV).
+Sociedad Anónima Cerrada (S.A.C.): These companies must have a minimum of 2 and a maximum of 20 shareholders. These shares can't be registered in the Public Registry.
+
+
+== Philippines ==
+With the exception of homeowners' associations (now regulated by the Department of Human Settlements and Urban Development (DHSUD)), the legal existence of all non-government corporate/juridical entities in the Philippines are contingent on the approval and continuance of registration with either the Securities and Exchange Commission or the Cooperative Development Authority. The earlier is for partnerships, corporations / foundations, investment products (such as bonds and preferred shares), while the latter is for cooperatives.
+
+Corporations:
+Corporation and Incorporated (may be abbrrviated as Corp. and Inc. respectively): ≈ Ltd and plc (UK) or corporation (US) with two or more shareholders and directors.(Prior to the enactment of the 2019 Revised Corporation Code, minimum number of shareholders were 5)
+Government-owned and controlled corporation (GOCC): ≈ Statutory corporation (UK), GSE and FOE (US). Except when legislated otherwise (e.g. Government Service Insurance System and Land Bank of the Philippines), GOCCs use the Corp. and Inc. suffixes as with other corporations.
+At least some which were existing and named as such before the rules were promulgated, were allowed to continue without the suffix , e.g. "Bank of the Philippine Islands", "Philippine National Bank","Union Bank of the Philippines".
+One-person corporation (OPC):  ≈ Ltd and plc (UK) or corporation (US) with sole shareholder and director. Not analogous to LLC (US) as OPCs may not avail of flow-through income taxation.
+Partnerships:
+Company (Co.): ≈ General partnership (UK, US). Historically also used by corporations and other legal entities, such as the Manila Railroad Company. Existing corporations like Manila Broadcasting Company, Meralco, Metrobank still retain this older suffix, but new or renamed corporations must now include either Corp. or Inc. in their legal name to distinguish them from partnerships. This happened to  the Philippine Long Distance Telephone Company after it decided to instead go for the initialism of their previous corporate name, ending up as "PLDT Inc."
+Limited company (Ltd., Ltd. Co.): ≈ Limited partnership (UK, US). Not to be confused with the obsolete private limited company below.
+Limited (liability) partnership (LP, LLP): ≈ Limited partnership and limited liability partnership (UK, US)
+Others:
+Cooperative (Coop.)
+Enterprise (Ent.): Used by some sole proprietorships but are not true legal entities.
+Obsolete:
+Compañía (Cía): For partnerships and other forms of business during the Spanish rule (e.g. Ayala y Compañía).
+Private limited company (Ltd., Co. Ltd., or Co., Ltd.): ≈ Ltd (UK), LLC (US). Initially used during the early American colonial period, it has since been replaced by Corp. and Inc.
+Sociedad anónima (SA, S.A.): Formed under Spanish rule. Replaced by private limited company.
+
+
+== Hybrid legal systems (Islamic) ==
+
+
+=== Saudi Arabia ===
+Private Limited Company ( شركة ذات مسئولية محدودة)
+Joint-Stock company ( شركة مساهمة )
+General Partnership Company ( شركة تضامن )
+Limited Partnership (شركة التوصية البسيطة )
+Foreign Company ( شركة أجنبية )
+Individual Establishment ( مؤسسة فردية )
+Saudi Arabia's new Companies Law modernized company forms and introduced the Simplified Joint Stock Company to support startups and VC activity.
+
+
+=== United Arab Emirates ===
+The UAE's Federal Decree-Law No. 32 of 2021 governs company types. Since 2021 reforms, onshore "mainland" companies in many sectors may be 100% foreign-owned.
+In UAE Free Zones, a Free Zone Establishment (FZE) or Free Zone Company (FZC) is a limited liability company governed by the rules and regulations of the free zone in which it is established.
+
+
+== See also ==
+ISO 20275
+List of official business registers
+
+
+== References ==
+
+
+== External links ==
+"Company Extensions and Security Identifiers". CorporateInformation.com. The Winthrop Corporation. Archived from the original on 2016-11-14. Retrieved 2011-02-16.
+"Search in the Greek General Commercial Register Public Records". Ministry of Development. Archived from the original on 2025-04-07.

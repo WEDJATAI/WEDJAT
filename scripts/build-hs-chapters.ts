@@ -17,8 +17,8 @@ const arg = (name: string): string | undefined => {
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 
-const SRC = arg('src') ?? 'db/trade-corpus/hs/harmonized-system.csv';
-const OUT = arg('out') ?? 'db/trade-corpus/hs/docs';
+const SRC = arg('src') ?? 'scripts/trade-corpus/hs/harmonized-system.csv';
+const OUT = arg('out') ?? 'scripts/trade-corpus/hs/docs';
 
 // ── CSV parsing (RFC-4180 subset: quoted fields, embedded commas/quotes) ─────
 function parseCsv(text: string): string[][] {
@@ -86,6 +86,12 @@ for (const r of [...headings, ...subheadings, ...anomalies]) {
 
 const ROMAN = new Map(chapters.map((c) => [c.hscode, c.section]));
 let written = 0;
+// API title limit is 200 chars — cap chapter doc titles (ch 24/34/86/94 exceed)
+const capTitle = (code: string, desc: string): string => {
+  const full = `HS Chapter ${code} — ${desc}`;
+  if (full.length <= 190) return full;
+  return `HS Chapter ${code} — ${desc.slice(0, 170).replace(/[,;: ]+\S*$/, '')}…`;
+};
 for (const c of chapters) {
   const code = c.hscode;
   const kids = (byChapter.get(code) ?? []).sort((a, b) => a.hscode.localeCompare(b.hscode));
@@ -93,7 +99,7 @@ for (const c of chapters) {
   const title = c.description.replace(/;$/, '');
   const lines: string[] = [];
   lines.push('---');
-  lines.push(`title: "HS Chapter ${code} — ${title}"`);
+  lines.push(`title: "${capTitle(code, title).replace(/"/g, '')}"`);
   lines.push('docType: REFERENCE');
   lines.push('domain: hs');
   lines.push('category: chapter');

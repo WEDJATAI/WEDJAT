@@ -1,0 +1,62 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=International%20Ship%20and%20Port%20Facility%20Security%20Code
+SOURCE-TITLE: International Ship and Port Facility Security Code
+FETCH-METHOD: wiki-api
+====
+The International Ship and Port Facility Security (ISPS) Code is an amendment to the Safety of Life at Sea (SOLAS) Convention (1974/1988) on maritime security including minimum security arrangements for ships, ports and government agencies.  Having come into force in 2004, it prescribes responsibilities to governments, shipping companies, shipboard personnel, and port/facility personnel to "detect security threats and take preventive measures against security incidents affecting ships or port facilities used in international trade."
+
+
+== History ==
+The International Maritime Organization (IMO) states that "The International Ship and Port Facility Security Code (ISPS Code) is a comprehensive set of measures to enhance the security of ships and port facilities, developed in response to the perceived threats to ships and port facilities in the wake of the 9/11 attacks in the United States".  
+Development and implementation were sped up drastically in reaction to the September 11, 2001 attacks and the bombing of the French oil tanker Limburg. The U.S. Coast Guard, as the lead agency in the United States delegation to the IMO, advocated for the measure.  The Code was agreed at a meeting of the 108 signatories to the SOLAS convention in London in December 2002. The measures agreed under the Code were brought into force on July 1, 2004.
+
+
+== Appointed officers ==
+ISPS Code demands that every ship must have a Company Security Officer (CSO) and Port Facility Security Officer (PFSO) that will work alongside the Ship Security Officer (SSO) for security purposes. The CSO takes data from the Ship Security Assessment or Vessel Security Assessment to advise on possible threats that could happen on the ship. He will ensure that the Ship Security Plan (SSP) is maintained in an efficient manner by the SSO.
+Port Facility Security Officer (PFSO) is an officer employed by the port and designated as responsible for the development, implementation, revision, and maintenance of the port facility security plan and liaison with the port authorities, Ship Security Officer (SSO), and Company Security, Officer (CSO).
+The Ship Security Officer has full responsibility of the vessels security with the captain's approval as stated in chapter XI-2/8. The SSO maintains the SSP and conducts regular security inspections to make sure that the appropriate security steps are always taken. The SSO also ensures that the security crew is trained for high security level purposes.
+
+
+=== Scope ===
+The ISPS Code states that it is the sole responsibility of the Company Security Officer (CSO) and Company to approve the Ship Security Officer (SSO). This process must be approved by the administration of the flag state of the ship or verified security organization with approval of the Ship Security Plan or Vessel Security Plan (VSP). The ISPS Code ensures that before the VSP is set in place that Vessel Security Assessments must be taken (VSA). The Vessel Security Plan must address every requirement in the Vessel Security Assessment. The VSP must establish a number of important roles and steps to provide safety for the marine vessel. Therefore, the VSP must include procedures to allow necessary communication that shall be enforced at all times. The VSP has to include procedures that assessed for the performance of daily security protocols. It also must include the assessment of security surveillance equipment systems to detect malfunctioning parts. ISPS code requires that the Vessel Security Plan must have strict procedure and practices for the vital protection of Sensitive Security Information (SSI) that is either in the form of electronic or paper. Observation of procedures has to include timed submissions, and assessments of security reports pertaining to heightened security concerns. ISPS code requests that the VSP maintain an updated inventory of dangerous or hazardous goods and substances that are carried aboard the ship. The location of the goods or substance must be stated in the inventory report.
+The ISPS Code is implemented through chapter XI-2 Special measures to enhance maritime security in the International Convention for the Safety of Life at Sea (SOLAS).
+Regulation XI-2/3 ensures that administrations establish security levels and guarantee the provisions of strict security level data to ships that fly their flag. Ships that are prior to docking in port must immediately comply with all requirements for security levels that are determined by that contracting government. This also pertains to the security level that is established by the Administration for that ship.
+Regulation XI-2/6 makes sure that all ships are equipped and fitted with a Ship Security Alert System. The alarm system works from the ship to administration ashore with transmitted signals that are communicated via satellite. The advanced security alarm system shall send a signal indicating the ship name, location, and the security threat that the ship is undergoing. The ships alarm system may be activated from the navigation bridge by the captain without alarming the crew on-board.
+The Regulation XI-2/8 establishes the main role of the Sea Master, which allows him to maintain order and conduct decisions for the sake of the personnel and security of the ship. Regulations XI-2/8 states that the Sea Master must not be challenged or withheld from completing his duties.
+The Code is a two-part document describing minimum requirements for security of ships and ports.  Part A provides mandatory requirements. Part B provides guidance for implementation. Some contracting governments have elected to also treat Part B as mandatory.
+The ISPS Code applies to ships on international voyages (including passenger ships, cargo ships of 500 GT  and upwards, and mobile offshore drilling units) and the port facilities serving such ships. The Code does not apply to warships, naval auxiliaries, or other ships owned or operated by a contracting government and used only on government non-commercial service.
+
+
+== MARSEC levels ==
+Maritime Security (MARSEC) levels were constructed for quick communication from the ship to the U.S Coast Guard for different levels of threats aboard or ashore. The three security levels listed below are introduced by the ISPS Code.
+MARSEC Level 1 is the normal level that the ship or port facility operates at on a daily basis. Level 1 ensures that security personnel maintain minimum appropriate security 24/7.
+MARSEC Level 2 is a heightened level for a time period during a security risk that has become visible to security personnel. Appropriate additional measures will be conducted during this security level.
+MARSEC Level 3 will include additional security measures for an incident that is forthcoming or has already occurred that must be maintained for a limited time frame. The security measure must be attended to although there might not be a specific target that has yet been identified.
+Security level 3 should be applied only when there is reliable information given for that particular security threat that is probable or at hand. Security level 3 must be set for a timed duration for the identified security incident. Although the security levels will change from security level 1 to security level 2 and to security level 3, it is highly possible for the security levels to change drastically from security level 1 to security level 3.
+
+
+== National implementation ==
+
+
+=== Europe ===
+Europe has enacted the International regulations with EC Regulation (EC) No 725/2004 of the European Parliament and of the Council of 31 March 2004, on enhancing ship and port facility security.
+
+
+=== United Kingdom ===
+The UK has enacted The Ship and Port Facility (Security) Regulations 2004, (S.I.1495 of 2004) these bring the EU regulation 725/2004 into UK law.
+
+
+=== United States ===
+The United States has issued regulations to enact the provisions of the Maritime Transportation Security Act of 2002 and to align domestic regulations with the maritime security standards of SOLAS and the ISPS Code.  These regulations are found in Title 33 of the Code of Federal Regulations, Parts 101 through 107.  Part 104 contains vessel security regulations, including some provisions that apply to foreign ships in US waters.
+
+
+== See also ==
+Supply-chain security
+Port security
+Hostile architecture
+
+
+== References ==
+
+
+== External links ==
+IMO - FAQ on ISPS Code and maritime security

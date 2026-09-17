@@ -1,0 +1,38 @@
+=== France ===
+France's widely used forms include the "société par actions simplifiée", "société à responsabilité limitée" and "société anonyme" government guidance sets out their main features and minimum capital and confirms SAS as the most common commercial form.
+
+Micro-entreprise: special framework for minute businesses, a recent addition to French business law -with both revenue and pre-tax net income caps, of which Auto-entrepreneur (below) is a special case
+Freelancers, individual independent contractors:
+Auto-entrepreneur: ≈ self-employed (UK), independent contractor (US), a recent addition to French business law -with both a revenue cap and a specific set of derogatory income tax rates
+Profession libérale: ≈ sole proprietorship such as a medical practice, an enduring entity stemming from the protected status designed for "liberal professions" with unlimited personal liability
+Sociétés d'exercice libéral: the incorporated equivalent of the latter, sole shareholder limited liability being key
+EI (Entreprise individuelle/entreprise en nom personnel):
+Investment funds/companies:
+FCP (Fonds commun de placement): unincorporated investment fund
+SICAF (Société d'investissement à capital fixe): ≈ investment trust (UK); closed-end fund (CEF), closed-end company (US); listed investment company (LIC) (Au)
+SICAV (Société d'investissement à capital variable): ≈ investment company with variable capital (ICVC), open-ended investment company (OEIC) (UK); mutual fund, open-end company (US)
+GIE (Groupement d'intérêt économique): economic interest grouping
+Association: ≈ nonprofit association
+Association non-déclarée: ≈ unincorporated association (UK)
+Association déclarée: ≈ incorporated association (Au)
+Partnerships (société de personnes):
+SEP (Société en participation): ≈ equity partnership
+SPPL (Société en participation de professions libérales)
+Société en participation avec personne morale
+Société en participation entre personnes physiques
+SNC (Société en nom collectif): ≈ general partnership (GP)
+SCS (Société en commandite simple): ≈ limited partnership (LP)
+SCA (Société en commandite par actions): ≈ publicly traded partnership (PTP) (US)
+SCI (Société Civile Immobilière): ≈ French property company (SCI)
+Corporations (société de capitaux):
+share companies (both partnership and company)
+SARL, SàRL (Société à responsabilité limitée): ≈ private limited company (Ltd.) (UK), limited liability company (US)
+EURL (Entreprise unipersonnelle à responsabilité limitée): ≈ single shareholder limited company (SME Pvt) (UK)
+stock companies (société par actions)
+SA (Société anonyme): ≈ public limited company (plc) (UK), Inc. (US/Can)
+SCOP (Société coopérative de production): ≈ cooperative corporation (Can)
+SEM (Société d'économie mixte): ≈ government-owned corporation
+SAS (Société par actions simplifiée): ≈ limited liability company (US, especially in Delaware), unlisted public company (Au), close corporation (CC) (S. Africa), private corporation (Can); often used for subsidiaries; minimum of one director and two members/shareholders; no limit on share capital; liability can be restricted to director; no "one share – one vote" principle
+SASU (U- unipersonnelle): limited liability, sole shareholder Ltd. company (UK) or single member close corporation
+
+

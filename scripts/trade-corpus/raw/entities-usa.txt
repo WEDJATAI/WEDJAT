@@ -1,0 +1,69 @@
+=== United States ===
+
+In the United States, most legal entities are incorporated under the law of a particular state. The federal government does not generally incorporate entities (and when it does this is normally referred to as "chartering" them), with a few narrow exceptions, either government-sponsored corporations or government-owned corporations.
+Laws on what is considered a legal entity differ between states. In particular, older versions of the Uniform Partnership Act, which remain in force in some states, do not consider general partnerships to be legal entities distinct from their partners while newer versions (referred to as the Revised Unified Partnership Act; RUPA) that have been adopted in other states do consider partnerships to be legal entities. However, even when partnerships are considered legal entities with the right to own property and to be sued under RUPA, they continue to be treated as aggregates of their partners for tax and liability purposes.
+A company is not necessarily incorporated as a legal entity. For example, a company may be a "corporation, partnership, association, joint-stock company, trust, fund, or organized group of persons, whether incorporated or not, and (in an official capacity) any receiver, trustee in bankruptcy, or similar official, or liquidating agent, for any of the foregoing".
+
+
+==== Tax classifications ====
+Those entities existing on the state level have two separate identities: their legal entity type, e.g., partnership, corporation, or LLC, and their tax classification, what they are regarded as for federal income tax purposes. A further way to classify an entity is whether it is a for-profit or nonprofit enterprise, each classification with its own taxonomy and implications on federal income tax law. For-profit entities exist for the purpose of producing a profit for their owners whereas nonprofits exist for any purpose other than profit.
+For federal tax purposes, the Internal Revenue Service has separate entity classification rules, generally depending on whether an entity is a for-profit or non-profit organization. For-profit entities can be collectively regarded as "taxable organizations" while nonprofit entities are collectively regarded as "tax-exempt organizations" or simply "exempt organizations."
+
+
+===== Taxable organizations =====
+Under the Internal Revenue Code, a for-profit entity may be classified as a corporation, a partnership, a cooperative or a disregarded entity. A corporation is taxed as a C corporation unless it elects and meets the requirements to be taxed as an S Corporation. A disregarded entity has one owner (or a married couple as owner) that is not recognized for tax purposes as an entity separate from its owner, so the owner is taxed on the individual level. Types of disregarded entities include single-member LLCs; qualified sub-chapter S subsidiaries and qualified real estate investment trust subsidiaries. A disregarded entity's transparent tax status does not affect its status under state law. For example, for federal tax purposes, a sole-member LLC (SMLLC) is disregarded, so that all its assets and liabilities are treated as owned by its single member. But under state law, an SMLLC can contract in its own name and its owner is generally not personally liable for the debts and obligations of the entity. To be recognized as a cooperative for tax purposes cooperatives must follow certain rules under subchapter T of the Internal Revenue Code.
+
+
+===== Tax exempt organizations =====
+Nonprofit organizations on the state level are exempt from federal income taxation for most types of income. There are two main types of tax exempt organizations under the Internal Revenue Code: 501(c) organizations and 527 organizations. Tax exemption has two components: exemption from income taxation and the allowance of a deduction on the tax returns of donors.
+Section 501(c) encompasses most types of nonprofit entities other than ones engaged substantially in political activity. There are 29 subtypes of 501(c) organizations. For example, section 501(c)(10) includes "domestic fraternal societies, orders, or associations, operating under the lodge system," while section 501(c)(6) includes "business leagues, chambers of commerce, real-estate boards, boards of trade, or professional football leagues" under certain circumstances. The most prevalent type of 501(c)s are 501(c)(3) organizations, known broadly as "charitable organizations," those whose purpose is charitable (i.e., relief from poverty), educational, scientific, religious, or advocatory, among others, as long as such organization does not engage in substantial political activity or inure the benefit of net earnings to shareholders or other individuals. This is the preferred tax status because it is the only 501(c) that obtains both income tax exemption and tax deductible donations. All other 501(c) types only obtain tax exemption.  Section 501(c)(3)s can be further divided into private foundations, public charities, and private operating foundations with private foundations given the least favorable deductibility rate. State-level unincorporated nonprofit associations, charitable trusts, and nonprofit corporations may fall into any one of the 501(c) categories depending on their purpose and the activities they engage in.
+Section 527 organizations, also called "political organizations," are any nonprofit substantially engaged in "political activity," such as election campaigning or lobbying. These are organizations like political parties and election campaign committees, which are often called political action committees (PACs) or super-PACs. These organizations are subject to more stringent regulations than 501(c) organizations and only receive tax exemption; donations to 527s are not deductible. Any type of nonprofit entity existing on the state level will be regarded as a 527 if it substantially engages in political activity.
+
+
+==== Federally chartered ====
+Of the few types of companies that may exist under a federally issued charter, the bulk are banks, credit unions, and similar depository institutions. Such institutions are distinguished from state-chartered banks by including a key word in their formal names. For a bank, the key word is "national". A bank chartered by the Office of the Comptroller of the Currency (OCC) must have the word "national" in its name. A bank chartered by a state cannot have "national" in its name.
+For a savings bank (formerly called a savings and loan association) or credit union, the key word is "federal", and the same rules apply; a federally chartered savings bank or credit union must have the word "federal" in its name, while a state chartered savings bank or credit union cannot have "federal" in its name.
+
+Federal Savings Bank (FSB): formerly called federal savings and loan association
+National Association (NA): a designation used by banks chartered by the Office of the Comptroller of the Currency (OCC)
+National Trust and Savings Association (NT&SA): a less common designation used by national banks
+Federal Credit Union: chartered by the National Credit Union Association (NCUA)
+Many federal governmental units are specially formed public corporations (which, for tax purposes are also generally 501(c)(1) organizations) and government-sponsored enterprises, while some private organizations have received a Congressional charter.
+
+
+==== Incorporated nonfederal entities ====
+
+
+===== Partnerships =====
+Limited partnership (L.P. or LP): a partnership where at least one partner (the general partner, which may itself be an entity or an individual) has unlimited liability for the LP's debts and one or more partners (the limited partners) have limited liability (which means that they are not responsible for the LP's debts beyond the amount they agreed to invest). Limited partners generally do not participate in the management of the entity or its business.
+Limited liability partnership (L.L.P. or LLP): a partnership where a partner's liability for the debts of the partnership is limited except in the case of liability for acts of professional negligence or malpractice. In some states, LLPs may only be formed for purposes of practicing a licensed profession, typically attorneys, accountants and architects. This is often the only form of limited partnership allowed for law firms (as opposed to general partnerships).
+Limited liability limited partnership (L.L.L.P. or LLLP): a combination of LP and LLP, available in some states.
+
+
+===== Limited liability companies =====
+Limited liability company (L.L.C., LLC, L.C., LC, Ltd., or Co.): a form of business whose owners enjoy limited liability, but which is not a corporation. Allowable abbreviations vary by state. Note that in some states Ltd. by itself is not a valid abbreviation for an LLC, because in some states (e.g., Texas), it may denote a corporation instead. See also Series LLC. For U.S. federal tax purposes, in general, an LLC with two or more members is treated as a partnership, and an LLC with one member is treated as a sole proprietorship.
+Professional limited liability company (P.L.L.C. or PLLC): some states do not allow certain professionals to form an LLC that would limit the liability that results from the services professionals provide such as doctors, medical care; lawyers, legal advice; and accountants, accounting services; architects, architectural services; when the company formed offers the services of the professionals. Instead those states allow a PLLC or in the LLC statutes, the liability limitation only applies to the business side, such as creditors of the company, as opposed to the client/customer service side, the level of medical care, legal services, or accounting provided to clients. This is meant to maintain the higher ethical standards that these professionals have committed themselves to by becoming licensed in their profession and to prevent them from being immune (or at least limit their immunity) to malpractice suits.
+Low-profit limited liability company (L3C): a hybrid for-profit and nonprofit entity available in some states. It is an LLC that is allowed to have a primary nonprofit purpose, and a secondary for-profit purpose.
+
+
+===== Corporations =====
+
+
+====== For-profit corporations ======
+Corporation (Corp., Inc., or Ltd.): a legal entity that is owned by shareholders and managed by directors and officers, all of which enjoy limited liability. A corporation can be a public or private company. In some states other suffixes may be used to identify a corporation, such as Ltd., Co./Company, or the Italian term S.p.A. (in Connecticut; see under Italy). Some states that allow the use of "Company" prohibit the use of "and Company", "and Co.", "& Company" or "& Co.". In most states sole proprietorships and partnerships may register a fictitious "doing business as" name with the word "Company" in it. For a full list of allowed designations by state, see the table below.
+Benefit corporation (PBC): a for-profit corporation that includes positive impact on society, workers, the community, and the environment in addition to profit as its legally defined goals, in that the definition of "best interest of the corporation" is specified to include those impacts. Some states require the corporation to have "Public Benefit Corporation" or "PBC" in its name (or a similar designation), while others allow any prefix allowed by a corporation (such as Corp. or Inc.), but require that shareholders, investors, and other parties be informed that the company is a public benefit corporation.
+Professional corporation (PC or P.C.): those corporate entities for which many corporation statutes make special provision, regulating the use of the corporate form by licensed professionals such as attorneys, architects, accountants, and doctors.
+
+
+====== Nonprofit corporations ======
+Nonprofit corporation: a corporation whose primary purpose is to serve a social goal instead of producing a profit for shareholders. As such, nonprofit corporations do not have shareholders but may still have directors and officers which still enjoy limited liability. The naming conventions for nonprofit corporations vary, with naming requirements similar to those of other corporate entities, with some states forbidding names that might mislead the public. Nonprofit corporations are generally divided into three subcategories:
+Public-benefit nonprofit corporation: a nonprofit corporation formed for the purpose of benefitting the public at large, such as charities, educational and research institutions, and hospitals.
+Mutual-benefit nonprofit corporation: a nonprofit corporation formed for the purpose of benefitting its members, such as unions, professional or homeowner's associations, and social clubs.
+Religious corporation: a nonprofit corporation formed for the purpose of practicing or proselytizing a religion, such as an organized congregation or missionary organization.
+
+
+===== Cooperatives =====
+Cooperative (Co-Op, Coop, or CP): a for-profit entity owned and democratically operated by a group of people who share a common economic goal, such as worker cooperatives, agricultural cooperatives, or a utility cooperatives. In most states, a cooperative must have a signifier in its name indicating that it is a cooperative, such as coop, co-op, CP, or cooperative.
+Limited cooperative association (LCA): a for-profit entity owned and democratically operated by a group of people who share a common economic goal but which is chartered to allow for outside investment by non-owner members.
+
+

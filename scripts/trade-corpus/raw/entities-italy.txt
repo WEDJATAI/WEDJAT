@@ -1,0 +1,23 @@
+=== Italy ===
+Forme individuali (Individuals):
+Stabilizzatore (Chief)
+Artigiano (Artisan)
+Lavoratore autonomo (Independent worker)
+Libero professionista (Professional)
+Imprenditore ≈ sole trader (UK), sole proprietorship (US)
+Società di persone (Partnerships):
+S.s. (Società semplice): ≈ general partnership (non commercial)
+S.n.c. (Società in nome collettivo): ≈ general partnership (commercial)
+S.a.s. (Società in accomandita semplice): ≈ limited partnership
+Società di capitali (Corporations):
+S.p.a. (Società per azioni): ≈ plc (UK), corporation (US)
+S.a.p.a. (Società in accomandita per azioni): ≈ publicly traded partnership
+S.c.p.a. (Società consortile per azioni)
+S.c.a.r.l. (Società consortile a responsabilità limitata)
+S.r.l. (Società a responsabilità limitata): ≈ Ltd. (UK), LLC (US)
+S.r.l.s. (Società a responsabilità limitata semplificata):
+Società benefit: ≈ benefit corporation (US)
+Cooperative (Cooperatives):
+S.c.r.l. (Società cooperativa a responsabilità limitata) cooperative limited (liability) company
+
+

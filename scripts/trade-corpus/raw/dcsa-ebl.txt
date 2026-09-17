@@ -1,0 +1,137 @@
+SOURCE-URL: https://dcsa.org/standards/bill-of-lading
+SOURCE-TITLE: Electronic Bill of Lading standard | DCSA
+FETCH-METHOD: reader
+====
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- Electronic Bill of Lading standard | DCSA 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- Our mission Your needs Standards Solutions Newsroom Partner with us About us 
+
+Our mission Your needs Standards Solutions Newsroom Partner with us About us 
+Developer Portal 
+
+# Bill of Lading standard
+
+## Eliminating paper and manual intervention
+
+### The problem
+The Bill of Lading (B/L) is the most important trade document in container shipping. Currently, stakeholders along complex supply chains using original B/Ls (OBLs) must physically courier the original documents to the importer so they can present them at the time of goods collection, which is inefficient, expensive and creates opportunities for fraud. Even with an electronic Telex release for OBLs or paperless Seaway Bills (SWBs), the lack of standard data formats and processes creates confusion that contributes to shipping discrepancies, operational delays, financial losses, and higher costs.   
+
+### The solution
+The DCSA Digital Trade initiative was designed to facilitate universal acceptance and adoption of a standards-based electronic Bill of Lading, applicable to both original Bill of Ladings and Seaway Bills. Using open source Application Programming Interfaces (APIs), DCSA B/L standard enables straight-through processing of B/L data, eliminating paper and manual intervention from B/L processes. Standardised digitalisation of B/L data and processes will help create a more secure, agile and sustainable supply chain ecosystem. DCSA is also working closely with eBL solution providers on technical and legal interoperability to enable seamless digital transfer of original B/Ls across different platforms and stakeholders, which will facilitate the global uptake of B/L standards.  
+
+## The benefits
+Optimise your supply chain with DCSA's Bill of Lading standard, enable frictionless sharing of digitised shipping data and improve efficiency of your shipment documentation and operations. 
+
+Increased efficiency Reduce the time required for the documentation process, enabling more efficient cargo handling and customs clearance. 
+
+Reduced costs Reduce expenses related to printing, handling, storage, and transportation of physical documents. 
+
+Increased accuracy Enhance the overall accuracy of shipping and logistics processes by minimising errors associated with manual data entry, illegible handwriting and lost documents.  
+
+Fraud prevention Enhance the security of shipping documents with digital signatures, encryption technologies and authentication mechanisms to ensure that the information in the B/L is tamper-proof.
+
+Streamlined compliance Adherence to B/L standards can contribute to improved compliance with regulatory requirements.  
+
+Greater supply chain resilience Increase business continuity for supply chain stakeholders by reducing dependency on physical documents that may be susceptible to loss, damage or fraud during transit. 
+
+## Quick links
+
+#### Standard documentation
+
+#### Shipping Glossary
+
+#### The FIT Alliance
+
+### Adoption Guide
+With this guide we aim to support your organisation in adopting the DCSA Bill of lading standard to improve efficiency and communication in your shipping documentation process, using universally adoptable and interoperable IT solutions.
+
+Read more 
+
+### eBL Platform Interoperability
+Explore 
+
+### eBL Platform Interoperability
+Explore 
+
+## $30-40 billion in global trade growth
+In a recent study, McKinsey estimates that if the electronic bill of lading gains 100% adoption across the industry, it could unlock around $18bn in gains for the trade ecosystem through faster document handling and reduced human error (among other improvements) plus $30-40 billion in global trade growth, as digitalisation reduces trade friction.
+
+View the study 100% eBL commitment 
+
+## $30-40 billion in global trade growth
+In a recent study, McKinsey estimates that if the electronic bill of lading gains 100% adoption across the industry, it could unlock around $18bn in gains for the trade ecosystem through faster document handling and reduced human error (among other improvements) plus $30-40 billion in global trade growth, as digitalisation reduces trade friction.
+
+View the study 100% eBL commitment 
+
+## Help Shape the Future of Shipping Standards with DCSA+
+Our standards are built in collaboration with industry leaders to ensure they are practical, scalable, and aligned with the real needs of the global supply chain. Through our DCSA+ shipping programme , your organization can partner up with DCSA and actively contribute to the development of standards like the electronic Bill of Lading and others that are transforming container shipping.
+By joining DCSA+, you’ll have the opportunity to:
+
+- Collaborate directly with DCSA and fellow industry stakeholders
+
+- Co-develop solutions that support digital transformation and interoperability
+
+- Gain early insight into upcoming standards and influence their direction
+
+If you're passionate about driving innovation in global trade, we want to hear from you.
+
+DCSA+ shipping programme 
+
+Your needs 
+- Cargo owners 
+
+- Freight forwarders 
+
+- Ocean carriers 
+
+- Banks 
+
+- Ports 
+
+- Terminals 
+
+- Solution providers 
+
+- Insurers 
+
+Explore 
+- Our mission 
+
+- Your needs 
+
+- Standards 
+
+- Developers 
+
+- Newsroom 
+
+- Get involved 
+
+- About us 
+
+- Our Address 
+
+Connect 
+- 
+
+- 
+
+## Sign up for our newsletter
+
+Privacy policy Cookie policy Support Terms and Conditions Whistleblower system Responsible disclosure policy 
+© DCSA 2026 all rights reserved.

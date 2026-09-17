@@ -1,0 +1,77 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Yang%20Ming%20Marine%20Transport%20Corporation
+SOURCE-TITLE: Yang Ming Marine Transport Corporation
+FETCH-METHOD: wiki-api
+====
+Yang Ming Marine Transport Corporation (Chinese: 陽明海運; pinyin: Yáng Míng Hǎi Yùn) is a Taiwanese container shipping company based in Keelung, Taiwan with official backing from the government of the Republic of China (Taiwan).
+Founded on December 28, 1972, its predecessor can be traced back to the China Merchants Steam Navigation Company, established in Shanghai in 1873. The name "Yang Ming" evokes the meanings of "sun," "sun," and "brightness," and commemorates the renowned Chinese philosopher Wang Yangming.
+It is one of only three container shipping companies in Taiwan, along with Wan Hai Lines and Evergreen Marine Corporation.
+
+
+== History ==
+
+
+=== Before the end of Chinese Civil War ===
+In the 11th year of the Tongzhi reign of the Qing Dynasty (1872), Li Hongzhang, the then-prime minister, ordered Zhu Qi'ang, the General Manager of the Zhejiang Maritime Bureau, to establish the China Merchants Steam Navigation Company in Shanghai. On January 14, 1873, the China Merchants Steam Navigation Company was officially established, becoming China's first self-operated shipping company.
+In 1909, China Merchants Steam Navigation Company was placed under the jurisdiction of the Ministry of Posts and Communications. Following the establishment of the Republic of China, the Nationalist Government of the Republic of China announced in November 1927 that China Merchants Steam Navigation Company would be directly subordinate to the Ministry of Communications . In 1929, the Central Committee of the Kuomintang (KMT) resolved to transfer China Merchants Steam Navigation Company to the Nationalist Government. In 1933, the Central Political Committee of the KMT (Nationalist Party of China) resolved to nationalize China Merchants Steam Navigation Company, renaming it the "State-Owned China Merchants Steam Navigation Company," under the Ministry of Communications. In August 1938, the State-Owned China Merchants Steam Navigation Company was reorganized into the China Merchants Steam Navigation Company.
+
+
+=== After the end of Chinese Civil War ===
+The company was founded in 1972 as a shipping line, but has historical links through its merger with the China Merchants Steam Navigation Company (1872–1995), which dates back to the Qing Dynasty.
+In 1949, China Merchants Steam Navigation Company moved to Taiwan. After the founding of the People's Republic of China, the original China Merchants Steam Navigation Company in mainland China was merged into the Shanghai Maritime Bureau, Guangzhou Maritime Bureau, and China Changjiang Shipping (Group) Company under the Ministry of Communications of the People's Republic of China. On January 15, 1950, China Merchants Steam Navigation Company in Hong Kong announced its defection to the People's Republic of China. Since then, it has been a Chinese-funded enterprise in Hong Kong directly under the Ministry of Communications of the People's Republic of China. This has led to the situation where there are "China Merchants Steam Navigation Company" in Taiwan and Hong Kong, respectively.
+On December 28, 1972, the Republic of China was replaced by the People's Republic of China in the United Nations. In order to prevent the People's Republic of China from forcibly taking over all the assets of China Merchants Steam Navigation Company as "the successor of China", the company invested in Yang Ming Marine Transport Corporation. The initial capital of the company was New Taiwan Dollar of $100 million at the time of its establishment. The first generation of headquarters was located on the 4th to 6th floors of No. 53 Huaining Street, Taipei City. The company also moved most of its departments to Yang Ming Marine Transport Corporation, and gradually became only the management office.
+In May 1990, Yang Ming Marine Transport Corporation established its subsidiary, Guangming Marine Transport Co., Ltd.
+In 1992, Yang Ming Marine Transport Corporation was listed on the Taiwan Stock Exchange with the stock code 2609.
+In March 1995, China Merchants Steam Navigation Company was merged into Yang Ming Marine Transport Corporation, and the China Merchants Steam Navigation Company in Taiwan officially ceased to exist.
+On February 15, 1996, the government's shareholding ratio in Yang Ming Marine Transport Corporation was reduced to 48.9%, marking the completion of its privatization.
+On November 11, 1999, Yang Ming Marine Transport Corporation established its subsidiary, Haohao International Logistics Co., Ltd., with its headquarters in Keelung City.
+On November 20, 2003, Yang Ming Marine Transport Corporation's stock became a component of the Taiwan 50 Index.
+On March 12, 2004, the board of directors of Yang Ming Marine Transport Corporation decided to purchase the “ Nanshan Life Insurance Chongqing Building” at Section 2, Chongqing North Road, Datong District, Taipei City for NT$1.677 billion, mainly to meet the future business development needs of Yang Ming Marine Transport Corporation's Taiwan sales department and its invested subsidiaries. After being purchased by Yang Ming Marine Transport Corporation, the building was renamed “Yang Ming Marine Transport Corporation Chongqing Building”.
+In 2017, Tsai Ing-wen government's National Development Fund of the Executive Yuan participated in Yang Ming Marine Transport Corporation's private placement, subscribing to 100 million shares and becoming the second largest shareholder after ROC's Ministry of Transportation and Communications. In addition, state-owned Taiwan Shipping Corporation  also participated in the capital reduction in the previous year.
+In November 2017, Yang Ming Marine Transport Corporation's board of directors decided to echo and support Tsai Ing-wen government's New Southbound Policy and establish a joint venture with Taiwan Ports Authority in Surabaya, Indonesia, to operate a container terminal and freight forwarding business.
+Yang Ming currently operates 101 container ships up to 14,000 twenty-foot equivalent units (TEU) and 17 bulk carriers.
+In between July and September 2018, Yang Ming agreed to offer a service from the Port of Keelung, Taiwan, to the US for two batches of nearly 20 containers each, containing over 1700 unused nuclear fuel rods, after the Taiwan Power Company decided to close its fourth nuclear plant. Safety concerns for possible leakage of radioactive materials were raised, and the first shipment was attended by over 200 police officers and company officers.
+On 10 March 2019, Yang Ming has welcomed two additional 14,000 TEU vessels in its fleet, YM Warranty and YM Wellspring.
+The ships have been built in Japan at Imabari Shipbuilding, at a cost of nearly $99 million each. The additional tonnage is composed of sisters of the previously delivered YM Wellbeing, YM Wonderland and YM Wisdom.
+In May 2019, under the scope of improving its network, an agreement with the Canadian Pacific Railway was reached to have containers moved by rail from the Port of Vancouver eastbound to all Canada.
+In October 2025, board of directors decided to purchase an entire office tower in Nangkang district, Taipei City, and announced that the group's office space will be comprehensively planned to meet business needs and growth demands through the Yang Ming Marine Transport Corporation Qidu Building (headquarters, Qidu District, Keelung City), Yang Ming Nangang Building (second office), Yang Ming Chongqing Building (Chongqing North Road, Taipei City) and Yang Ming Keelung Building (Xinyi Road, Keelung City).
+On April 3rd, 2026, Yang Ming launched their China-Singapore-Malaysia service. Three vessels travel on a 21-day rotation between Xiamen, Kaohsiung, Shekou, Singapore, and Port Klang.
+
+
+== Subsidiaries ==
+The Yang Ming Group includes a logistics unit (Yes Logistics Corp. and Jing Ming Transport Co.), container terminals in Taiwan, Belgium, Netherlands and the US, as well as stevedoring services (Port of Kaohsiung, Taiwan). Yang Ming's service scope covers over 70 nations with more than 170 service points.
+
+
+== THE Alliance - Premier Alliance ==
+
+Along with Hapag-Lloyd, HMM Co Ltd, and Ocean Network Express, Yang Ming Marine Transport Corporation was a member of THE Alliance. THE Alliance was intended to provide 34 services, directly calling at 81 different ports on a monthly basis. From March 2025, THE Alliance was replaced by Premier Alliance, composed by the same members, excluding Hapag-Lloyd.
+
+
+== Fleet ==
+As of mid-2019, Yang Ming operated a fleet of over 4.2-million-D.W.T / operating capacity 643 thousand TEU, of which container ships are the main service force.
+
+
+== Accidents and incidents ==
+
+
+=== YM Efficiency ===
+On 4 June 2018, the container ship YM Efficiency lost 83 containers at sea due to extreme rough weather conditions close to Australia, New South Wales coast, that made the cargo break their lashing and fall into the waters. A safety warning had to be issued, as despite the fact, that no dangerous goods were discharged into the sea, some medical and surgical items were noted floating and then recovered ashore, polluting a number of beaches.
+
+
+=== YM Mobility ===
+ On 9 August 2024, the container ship YM Mobility caught fire in the port of Ningbo, due to a reported explosion in a container. No one was injured.
+
+
+== See also ==
+List of companies of Taiwan
+Top intermodal container companies list
+Maersk Dubai incident
+YM Museum of Marine Exploration Kaohsiung
+YM Oceanic Culture and Art Museum
+
+
+== References ==
+
+
+== External links ==
+
+Official website

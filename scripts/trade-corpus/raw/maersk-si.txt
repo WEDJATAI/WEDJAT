@@ -1,0 +1,3339 @@
+SOURCE-URL: https://www.maersk.com/support/faqs/how-to-submit-shipping-instructions
+SOURCE-TITLE: How do I submit my Shipping instructions
+FETCH-METHOD: reader
+====
+- 
+
+- 
+
+How do I submit my shipping instructions? | Support | Maersk 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+Cookie management for the best digital experience 
+Our website uses cookies from A.P. Moller-Maersk and its affiliated companies to help make the website navigable, to make it possible to save information that changes the way the website appears, to understand how our visitors interact on the website, to personalize content, and to show you more relevant information about our services by offering features from our partners and share cookies with them.
+
+Withdraw your consent at any time by clicking “Cookie preferences” in the footer on our website. Learn more in our Privacy Notification and Cookie Policy . 
+
+Manage preferences 
+
+Essential only 
+Allow all 
+Save preferences 
+
+Manage preferences 
+
+Essential only 
+Allow all 
+Save preferences 
+
+Privacy Controls 
+Our website uses cookies from A.P. Moller-Maersk and its affiliated companies to help make the website navigable, to make it possible to save information that changes the way the website appears, to understand how our visitors interact on the website, to personalize content, and to show you more relevant information about our services by offering features from our partners and share cookies with them.
+
+Withdraw your consent at any time by clicking “Cookie preferences” in the footer on our website. Learn more in our Privacy Notification and Cookie Policy . 
+
+Essential only 
+Allow all 
+
+Essential 
+
+On 
+
+Essential cookies help make a website navigable by activating basic functions such as page navigation and access to secure website areas. Without these cookies, the website would not be able to work properly.
+
+More details 
+
+Name: 
+PIM-SESSION-ID 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Required for the website to perform properly. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Akamai Technologies 
+
+Data Processor Privacy Policy: 
+https://www.akamai.com/uk/en/privacy-policies 
+
+Name: 
+CookieInformationConfig 
+
+Provider: 
+policy.app.cookieinformation.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+CookieInformationConsent_xxx 
+
+Provider: 
+policy.app.cookieinformation.com 
+
+Purpose: 
+Used to share consent across domains. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+CookieInformationConsent 
+
+Provider: 
+designsystem.maersk.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+CookieConsentPolicy 
+
+Provider: 
+service.force.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Salesforce Commerce Cloud 
+
+Data Processor Privacy Policy: 
+https://www.salesforce.com/eu/company/privacy 
+
+Name: 
+CookieInformationConsent 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+selectedLang 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+Supports the selection of language 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_dd_s 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+15 minutes 
+
+Data Processor: 
+Datadog 
+
+Data Processor Privacy Policy: 
+https://www.datadoghq.com/legal/privacy/ 
+
+Name: 
+country_code 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+LSKey-c$CookieConsentPolicy 
+
+Provider: 
+service.force.com 
+
+Purpose: 
+Supports the integration of a third-party platform on the website. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Salesforce 
+
+Data Processor Privacy Policy: 
+https://www.salesforce.com/eu/company/privacy 
+
+Name: 
+selectedLang 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+Supports the selection of language 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+CookieInformationConsentError 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+opEueMonUID 
+
+Provider: 
+.beta.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_op_jsTiming 
+
+Provider: 
+.beta.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_dd_s 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+15 minutes 
+
+Data Processor: 
+Datadog 
+
+Data Processor Privacy Policy: 
+https://www.datadoghq.com/legal/privacy/ 
+
+Name: 
+CookieInformationConsentError 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+country_code 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+maersk#lang 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+Used for tracking language selection. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+selectedLang 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+Supports the selection of language 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+CookieInformationConsent 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+country_code 
+
+Provider: 
+maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+pr_sec 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+akavpau_prod_book 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Akamai Technologies 
+
+Data Processor Privacy Policy: 
+https://www.akamai.com/uk/en/privacy-policies 
+
+Name: 
+maersk#lang 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+Used for tracking language selection. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+selectedLang 
+
+Provider: 
+maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+CookieInformationConsentError 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_dd_s 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+15 minutes 
+
+Data Processor: 
+Datadog 
+
+Data Processor Privacy Policy: 
+https://www.datadoghq.com/legal/privacy/ 
+
+Name: 
+CookieInformationConsent 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Name: 
+akavpau_prod_beta_book 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Akamai Technologies 
+
+Data Processor Privacy Policy: 
+https://www.akamai.com/uk/en/privacy-policies 
+
+Name: 
+CookieInformationConsentError 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_dd_s 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+14 minutes 
+
+Data Processor: 
+Datadog 
+
+Data Processor Privacy Policy: 
+https://www.datadoghq.com/legal/privacy/ 
+
+Name: 
+selectedLang 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+Supports the selection of language 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+da_intState 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+opEueMonUID 
+
+Provider: 
+.beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+_op_jsTiming 
+
+Provider: 
+.beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/privacy 
+
+Name: 
+CookieInformationConsent 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Cookie Information 
+
+Data Processor Privacy Policy: 
+https://cookieinformation.com/cookie-and-privacy-policy/ 
+
+Functional 
+
+Off 
+On 
+
+Functional cookies make it possible to save information that changes the way the website appears or acts. For instance your preferred language or region.
+
+More details 
+
+Name: 
+xxx#lang 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Sitecore 
+
+Data Processor Privacy Policy: 
+https://www.sitecore.com/trust/privacy-policy 
+
+Name: 
+BrowserId 
+
+Provider: 
+.force.com 
+
+Purpose: 
+Collects information about the users and their activity on the website. The information is used to analyze user behavior and to deliver personalized content. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Salesforce 
+
+Data Processor Privacy Policy: 
+https://www.salesforce.com/eu/company/privacy 
+
+Name: 
+__cf_bm 
+
+Provider: 
+.hcaptcha.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+Cloudflare 
+
+Data Processor Privacy Policy: 
+https://www.cloudflare.com/privacypolicy/ 
+
+Name: 
+__cf_bm 
+
+Provider: 
+.linkedin.com 
+
+Purpose: 
+Supports the website's technical functions. 
+
+Expiry: 
+18 minutes 
+
+Data Processor: 
+Cloudflare 
+
+Data Processor Privacy Policy: 
+https://www.cloudflare.com/privacypolicy/ 
+
+Name: 
+xxx#lang 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Sitecore 
+
+Data Processor Privacy Policy: 
+https://www.sitecore.com/trust/privacy-policy 
+
+Name: 
+xxx#lang 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Sitecore 
+
+Data Processor Privacy Policy: 
+https://www.sitecore.com/trust/privacy-policy 
+
+Name: 
+xxx#lang 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Sitecore 
+
+Data Processor Privacy Policy: 
+https://www.sitecore.com/trust/privacy-policy 
+
+Name: 
+bm_sz 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+4 hours 
+
+Data Processor: 
+Mailchimp 
+
+Data Processor Privacy Policy: 
+https://mailchimp.com/legal/privacy 
+
+Name: 
+_abck 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Required for the website to perform properly. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Akamai Technologies 
+
+Data Processor Privacy Policy: 
+https://www.akamai.com/uk/en/privacy-policies 
+
+Name: 
+xxx#lang 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+Collects information about the users and their activity on the website, which is used to deliver personalized customer service and content. 
+
+Expiry: 
+Session 
+
+Data Processor: 
+Sitecore 
+
+Data Processor Privacy Policy: 
+https://www.sitecore.com/trust/privacy-policy 
+
+Name: 
+ak_bmsc 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Collects information about the website and its contents for reporting and security purposes. 
+
+Expiry: 
+a day 
+
+Data Processor: 
+Akamai Technologies 
+
+Data Processor Privacy Policy: 
+https://www.akamai.com/uk/en/privacy-policies 
+
+Statistical 
+
+Off 
+On 
+
+Statistical cookies help the website owner understand how visitors interact with the website by collecting and reporting information.
+
+More details 
+
+Name: 
+_ga 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Collects anonymous information about the users and their activity on the website for analytics and reporting purposes. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga_xxx 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+Collects anonymous information about the users and their activity on the website for analytics and reporting purposes. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga_xxx 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga_xxx 
+
+Provider: 
+.www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga_xxx 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_ga_xxx 
+
+Provider: 
+.www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Analytics 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Marketing 
+
+Off 
+On 
+
+Marketing cookies are used to track visitors across websites. The intention is to display ads that are relevant and interesting to the individual user and thus more valuable for publishers and third-party advertisers.
+
+More details 
+
+Name: 
+kampyle_userid 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for storing a user ID. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserPercentile 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. Number between 0-1 used for percentage of users targeting. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserSession 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for setting an unique ID for the specific session 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserSessionsCount 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of sessions per user. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleSessionPageCounter 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of pages a user views within a single sessions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+IDE 
+
+Provider: 
+.doubleclick.net 
+
+Purpose: 
+Used for online marketing by collecting information about the users and their activity on the website. The information is used to target advertising to the user across different channels and devices. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Google Marketing Platform 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+lidc 
+
+Provider: 
+.linkedin.com 
+
+Purpose: 
+Supports online marketing by collecting information about the users to promote products through partners and other platforms. 
+
+Expiry: 
+a day 
+
+Data Processor: 
+LinkedIn 
+
+Data Processor Privacy Policy: 
+https://www.linkedin.com/legal/privacy-policy 
+
+Name: 
+li_gc 
+
+Provider: 
+.linkedin.com 
+
+Purpose: 
+Supports online marketing by collecting information about the users to promote products through partners and other platforms. 
+
+Expiry: 
+6 months 
+
+Data Processor: 
+LinkedIn 
+
+Data Processor Privacy Policy: 
+https://www.linkedin.com/legal/privacy-policy 
+
+Name: 
+kampyleUserPercentile 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. Number between 0-1 used for percentage of users targeting. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+bcookie 
+
+Provider: 
+.linkedin.com 
+
+Purpose: 
+Supports online marketing by collecting information about the users to promote products through partners and other platforms. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+LinkedIn 
+
+Data Processor Privacy Policy: 
+https://www.linkedin.com/legal/privacy-policy 
+
+Name: 
+_gcl_au 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+Supports the integration of a third-party platform on the website to deliver targeted advertising. 
+
+Expiry: 
+3 months 
+
+Data Processor: 
+Google 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+kampyleUserSession 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for setting an unique ID for the specific session 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyle_userid 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for storing a user ID. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+TDID 
+
+Provider: 
+.adsrvr.org 
+
+Purpose: 
+Supports the integration of a third-party platform on the website to deliver targeted advertising. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+The Trade Desk 
+
+Data Processor Privacy Policy: 
+https://www.thetradedesk.com/general/privacy 
+
+Name: 
+kampyleSessionPageCounter 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of pages a user views within a single sessions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+TDCPM 
+
+Provider: 
+.adsrvr.org 
+
+Purpose: 
+Supports the integration of a third-party platform on the website to deliver targeted advertising. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+The Trade Desk 
+
+Data Processor Privacy Policy: 
+https://www.thetradedesk.com/general/privacy 
+
+Name: 
+kampyleUserSessionsCount 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of sessions per user. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserPercentile 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. Number between 0-1 used for percentage of users targeting. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+_gcl_au 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Supports the integration of a third-party platform on the website to deliver targeted advertising. 
+
+Expiry: 
+3 months 
+
+Data Processor: 
+Google 
+
+Data Processor Privacy Policy: 
+https://policies.google.com/technologies/partner-sites?hl=en 
+
+Name: 
+_fbp 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+Identifies browsers for the purposes of providing advertising and site analytics services. 
+
+Expiry: 
+3 months 
+
+Data Processor: 
+Facebook 
+
+Data Processor Privacy Policy: 
+https://www.facebook.com/privacy/explanation 
+
+Name: 
+kampyleUserSession 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for setting an unique ID for the specific session 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserSessionsCount 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyle_userid 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for storing a user ID. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleSessionPageCounter 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of pages a user views within a single sessions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampylePageLoadedTimestamp 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. Timestamp indicating when the page was loaded. Used for time on page targeting. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserSession 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for setting an unique ID for the specific session 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleInvitePresented 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserSessionsCount 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of sessions per user. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyleUserPercentile 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. Number between 0-1 used for percentage of users targeting. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+kampyle_userid 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for storing a user ID. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+da_sid 
+
+Provider: 
+.decibelinsight.net 
+
+Purpose: 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+da_sid 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+da_lid 
+
+Provider: 
+.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Name: 
+kampyleSessionPageCounter 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+This cookie is set by the provider Medallia. This cookie is used for counting the number of pages a user views within a single sessions. 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Medallia 
+
+Data Processor Privacy Policy: 
+https://www.medallia.com/privacy-policy/ 
+
+Name: 
+da_lid 
+
+Provider: 
+.decibelinsight.net 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+Maersk 
+
+Data Processor Privacy Policy: 
+https://terms.maersk.com/cookies 
+
+Unclassified 
+
+On 
+
+We are in the process of classifying unclassified cookies together with the providers of the individual cookies.
+
+More details 
+
+Name: 
+msal.cache.encryption 
+
+Provider: 
+designsystem.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+pr_sec 
+
+Provider: 
+.designsystem.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akacd_blue_green_maerskio_prod_mdp 
+
+Provider: 
+mds.maersk.io 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+acw_sc__v2 
+
+Provider: 
+beta.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+an hour 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+_aliyunwaf_test_cookie 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+ssxmod_itna 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+ssxmod_itna2 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+30 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akaalb_nonapitrafficprod 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+cdn_sec_tc 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+35 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+ssxmod_itna2 
+
+Provider: 
+.www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+20 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+ssxmod_itna 
+
+Provider: 
+.www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+20 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+pr_sec 
+
+Provider: 
+.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+acw_tc 
+
+Provider: 
+www.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+35 minutes 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akaalb_nonapitrafficprod 
+
+Provider: 
+www.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+acw_tc 
+
+Provider: 
+accounts.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+an hour 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+cdn_sec_tc 
+
+Provider: 
+accounts.maersk.com.cn 
+
+Purpose: 
+
+Expiry: 
+an hour 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akaalb_nonapitrafficprod 
+
+Provider: 
+beta.maersk.com 
+
+Purpose: 
+
+Expiry: 
+Session 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akacd_IAM_PROD_AM 
+
+Provider: 
+accounts.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Name: 
+akacd_IAM_ACCOUNTS_PROD 
+
+Provider: 
+accounts.maersk.com 
+
+Purpose: 
+
+Expiry: 
+a year 
+
+Data Processor: 
+
+Data Processor Privacy Policy: 
+
+Hide preferences 
+Save preferences 
+
+Skip to content
+
+Skip to footer
+
+Ask Maersk
+
+- 
+
+EN
+
+Back 
+
+English
+
+Español
+
+Français
+
+Deutsch
+
+Italiano
+
+Português (Brasil)
+
+Türkçe
+
+Русский
+
+简体中文
+
+繁體中文
+
+한국어
+
+日本語
+
+Notifications
+
+one
+
+Support
+
+Contact Us
+
+Close menu 
+
+Ask Maersk
+
+Close menu 
+
+EN
+
+Back 
+
+English
+
+Español
+
+Français
+
+Deutsch
+
+Italiano
+
+Português (Brasil)
+
+Türkçe
+
+Русский
+
+简体中文
+
+繁體中文
+
+한국어
+
+日本語
+
+Notifications 
+
+one
+
+Register 
+
+Login
+
+Prices
+
+Book 
+
+Back 
+
+Book
+
+- 
+
+Ocean Transport (Containers)
+
+Full container ocean shipments + inland options
+
+- 
+
+Less-than-Container-Load (LCL)
+
+Small-volume ocean shipments + inland options
+
+- 
+
+Air Freight
+
+Small-volume air freight + inland options
+
+Features
+
+- 
+
+Ship your goods with our easy online booking system
+
+- 
+
+Add Maersk Inland and Customs services for streamlined end-to-end logistics
+
+- 
+
+Protect your cargo with Value Protect and Premium Quality Containers
+
+Register
+
+Login
+
+Schedules
+
+Tracking
+
+Manage 
+
+Back 
+
+Management tools
+
+- 
+
+Hub
+
+An overview of your Maersk products
+
+- 
+
+Manage Bookings
+
+View, track and manage all your bookings and tasks in one place
+
+- 
+
+MyFinance
+
+View, pay and dispute invoices
+
+- 
+
+MyCustoms
+
+Add and manage your customs products
+
+- 
+
+Captain Peter™
+
+Visibility of your in transit reefer goods
+
+- 
+
+Case Management
+
+Manage your open cases with Maersk
+
+- 
+
+Supply Chain Platform
+
+Control, manage and monitor your supply chains
+
+- 
+
+Order Secure Paper
+
+Order paper for printing Bills of Lading
+
+- 
+
+Allocations
+
+View and manage your allocations
+
+- 
+
+Data Integrations
+
+Streamline your B2B data transfers
+
+- 
+
+Container Tare Weight
+
+Enter your container number to find tare weight and all relevant details
+
+New features
+
+- 
+
+View bookings, see latest tracking details, BL status updates and pending tasks
+
+- 
+
+Purchase additional free time and inland delivery after booking
+
+- 
+
+Track changes across all your bookings from one place
+
+Register
+
+Login
+
+Services 
+
+View all Logistics Services 
+
+Back 
+
+- 
+Transport
+
+- 
+
+Ocean Transport
+
+Ship with stable rates and assured space
+
+- 
+
+Inland Transport
+
+Move containers between ports and inland
+
+- 
+
+Less-than-Container Load (LCL)
+
+Ship small-volume cargo via ocean
+
+- 
+
+Air Freight
+
+Fly your cargo for faster arrival
+
+- 
+
+Maersk Ground Freight Transport
+
+Full Truckload and Less-than-Truckload
+
+- 
+Store
+
+- 
+
+Warehousing
+
+Store goods for end-to-end distribution
+
+- 
+
+Depot
+
+Pit stops for your cargo
+
+- 
+
+Cold Storage
+
+Facilities to ensure unbroken cold chains
+
+- 
+Clear & Protect
+
+- 
+
+Maersk Customs Services
+
+Simplify global customs with local expertise
+
+- 
+
+Cargo Risk Management
+
+Protect your cargo from the unexpected
+
+- 
+Logistics Management
+
+- 
+
+Digital Services
+
+Meet your logistics needs in a few clicks
+
+- 
+
+Maersk E-Commerce
+
+Ship directly from factory to consumer
+
+- 
+
+Cold Chain Logistics
+
+Timely delivery of refrigerated cargo
+
+- 
+
+Lead Logistics
+
+Specialised logistics partner services
+
+- 
+
+Maersk Project Logistics
+
+Large-scale industrial projects
+
+- 
+
+Decarbonising Logistics
+
+Get visibility and reduce GHG emissions 
+
+- 
+By Industry
+
+- 
+
+FMCG
+
+- 
+
+Fashion & Lifestyle
+
+- 
+
+Retail
+
+- 
+
+Chemicals
+
+- 
+
+Automotive
+
+- 
+
+Technology
+
+- 
+
+Pharma & Healthcare
+
+- 
+
+Perishables
+
+- 
+
+Solutions
+
+- 
+
+View all logistics services 
+
+Inland Transport
+
+Move your cargo seamlessly by road, rail, or barge to your key inland destinations.
+
+Our Services 
+
+Company 
+
+Back 
+
+- 
+Help
+
+- 
+
+Why Maersk?
+
+- 
+
+Get Started With Maersk
+
+- 
+
+Local Information
+
+- 
+
+Support
+
+- 
+
+Contact Us
+
+- 
+Resources
+
+- 
+
+News & Advisories
+
+- 
+
+Events
+
+- 
+
+Logistics Insights
+
+- 
+
+Logistics Explained
+
+- 
+Quick Links
+
+- 
+
+Digital Services
+
+- 
+
+MyFinance
+
+- 
+
+Emissions Studio
+
+- 
+
+Data Integrations
+
+- 
+
+Captain Peter
+
+- 
+
+Container Sales
+
+- 
+
+Download Maersk App
+
+- 
+
+Supply Chain Platform
+
+- 
+
+All Transportation Services
+
+- 
+
+All Supply Chain Services
+
+- 
+About
+
+- 
+
+Careers
+
+- 
+
+About Us
+
+- 
+
+Investors
+
+- 
+
+Procurement
+
+- 
+
+Press
+
+- 
+
+Sustainability
+
+- 
+
+Maersk Growth
+
+Featured
+
+- 
+
+#### Accelerate your cargo’s journey with seamless inland transport connections
+
+Learn more
+
+- 
+
+#### Clear borders confidently with our expert customs services
+
+Learn more
+
+Talk to an expert
+
+Subscribe to newsletter
+
+#### Clear borders confidently with our expert customs services
+
+Learn more
+
+#### Stay ahead of demand with our scalable warehousing and distribution services
+
+Learn more
+
+Talk to an expert
+
+Subscribe for newsletter
+
+Prices
+
+Book
+
+Close menu 
+
+Book
+
+- 
+
+Ocean Transport (Containers)
+
+Full container ocean shipments + inland options
+
+- 
+
+Less-than-Container-Load (LCL)
+
+Small-volume ocean shipments + inland options
+
+- 
+
+Air Freight
+
+Small-volume air freight + inland options
+
+Features
+
+- 
+
+Ship your goods with our easy online booking system
+
+- 
+
+Add Maersk Inland and Customs services for streamlined end-to-end logistics
+
+- 
+
+Protect your cargo with Value Protect and Premium Quality Containers
+
+Register
+
+Login
+
+Schedules
+
+Tracking
+
+Manage
+
+Close menu 
+
+Management tools
+
+- 
+
+Hub
+
+An overview of your Maersk products
+
+- 
+
+Manage Bookings
+
+View, track and manage all your bookings and tasks in one place
+
+- 
+
+MyFinance
+
+View, pay and dispute invoices
+
+- 
+
+MyCustoms
+
+Add and manage your customs products
+
+- 
+
+Captain Peter™
+
+Visibility of your in transit reefer goods
+
+- 
+
+Case Management
+
+Manage your open cases with Maersk
+
+- 
+
+Supply Chain Platform
+
+Control, manage and monitor your supply chains
+
+- 
+
+Order Secure Paper
+
+Order paper for printing Bills of Lading
+
+- 
+
+Allocations
+
+View and manage your allocations
+
+- 
+
+Data Integrations
+
+Streamline your B2B data transfers
+
+- 
+
+Container Tare Weight
+
+Enter your container number to find tare weight and all relevant details
+
+New features
+
+- 
+
+View bookings, see latest tracking details, BL status updates and pending tasks
+
+- 
+
+Purchase additional free time and inland delivery after booking
+
+- 
+
+Track changes across all your bookings from one place
+
+Register
+
+Login
+
+Services
+
+Close menu 
+
+- 
+Transport
+
+- 
+
+Ocean Transport
+
+Ship with stable rates and assured space
+
+- 
+
+Inland Transport
+
+Move containers between ports and inland
+
+- 
+
+Less-than-Container Load (LCL)
+
+Ship small-volume cargo via ocean
+
+- 
+
+Air Freight
+
+Fly your cargo for faster arrival
+
+- 
+
+Maersk Ground Freight Transport
+
+Full Truckload and Less-than-Truckload
+
+- 
+Store
+
+- 
+
+Warehousing
+
+Store goods for end-to-end distribution
+
+- 
+
+Depot
+
+Pit stops for your cargo
+
+- 
+
+Cold Storage
+
+Facilities to ensure unbroken cold chains
+
+- 
+Clear & Protect
+
+- 
+
+Maersk Customs Services
+
+Simplify global customs with local expertise
+
+- 
+
+Cargo Risk Management
+
+Protect your cargo from the unexpected
+
+- 
+Logistics Management
+
+- 
+
+Digital Services
+
+Meet your logistics needs in a few clicks
+
+- 
+
+Maersk E-Commerce
+
+Ship directly from factory to consumer
+
+- 
+
+Cold Chain Logistics
+
+Timely delivery of refrigerated cargo
+
+- 
+
+Lead Logistics
+
+Specialised logistics partner services
+
+- 
+
+Maersk Project Logistics
+
+Large-scale industrial projects
+
+- 
+
+Decarbonising Logistics
+
+Get visibility and reduce GHG emissions 
+
+- 
+By Industry
+
+- 
+
+FMCG
+
+- 
+
+Fashion & Lifestyle
+
+- 
+
+Retail
+
+- 
+
+Chemicals
+
+- 
+
+Automotive
+
+- 
+
+Technology
+
+- 
+
+Pharma & Healthcare
+
+- 
+
+Perishables
+
+- 
+
+Solutions
+
+- 
+
+View all logistics services 
+
+Inland Transport
+
+Move your cargo seamlessly by road, rail, or barge to your key inland destinations.
+
+Our Services 
+
+Company
+
+Close menu 
+
+- 
+Help
+
+- 
+
+Why Maersk?
+
+- 
+
+Get Started With Maersk
+
+- 
+
+Local Information
+
+- 
+
+Support
+
+- 
+
+Contact Us
+
+- 
+Resources
+
+- 
+
+News & Advisories
+
+- 
+
+Events
+
+- 
+
+Logistics Insights
+
+- 
+
+Logistics Explained
+
+- 
+Quick Links
+
+- 
+
+Digital Services
+
+- 
+
+MyFinance
+
+- 
+
+Emissions Studio
+
+- 
+
+Data Integrations
+
+- 
+
+Captain Peter
+
+- 
+
+Container Sales
+
+- 
+
+Download Maersk App
+
+- 
+
+Supply Chain Platform
+
+- 
+
+All Transportation Services
+
+- 
+
+All Supply Chain Services
+
+- 
+About
+
+- 
+
+Careers
+
+- 
+
+About Us
+
+- 
+
+Investors
+
+- 
+
+Procurement
+
+- 
+
+Press
+
+- 
+
+Sustainability
+
+- 
+
+Maersk Growth
+
+Featured
+
+- 
+
+#### Accelerate your cargo’s journey with seamless inland transport connections
+
+Learn more
+
+- 
+
+#### Clear borders confidently with our expert customs services
+
+Learn more
+
+Talk to an expert
+
+Subscribe to newsletter
+
+Register 
+
+Login
+
+- 
+
+Home
+
+- 
+
+...
+
+- 
+
+Support
+
+- 
+
+Website guide
+
+- 
+
+Support
+
+- 
+
+Website guide
+
+## 
+How do I submit my Shipping instructions?
+
+Shipping Instruction
+
+Share
+
+LinkedIn
+
+Facebook
+
+X.com
+
+WeChat
+
+Email
+
+Copy link
+
+2:16
+
+In order to load your container(s), we need certain information to create a bill of lading and submit information to customs authorities and export, transhipment and import. The deadlines for submitting a Shipping Instruction can be seen in the Overview and Binder tabs.
+
+If your shipment was created as a duplicate of a previous shipment, all of the details will be copied into the Shipping Instruction.
+
+- Click Account located at the top right corner of the home page and Login .
+
+- Click on Manage in the top menu and select Shipment Overview - Export .
+
+- Click Pending task on Shipment Overview and select Submit to view the list of bookings with missing Shipping Instruction or view the Overview page in Shipment Binder.
+
+- Click Submit shipping instruction .
+
+- In some scenarios you will encounter a new experience for shipping instructions. Please check the next section for more details.
+
+### How to submit a shipping instruction (new experience)?
+
+This guide will walk you through on how to use the new shipping instructions experience. This new experience currently has limited capability for now however over time will start supporting all other scenarios. Presently it supports:
+
+- Shipment with maximum 200 containers with single cargo description
+
+- New features live
+
+- Shipment with multiple cargo description up to 20 (coming soon upto 40 cargo description)
+
+- Split/multiple upto 5 bill of lading per shipment (coming soon upto 40 splits)
+
+- New Amendment page with new experience of Instant amended draft
+
+#### Navigation:
+
+- There is no change in navigation to start the SI process. You will be able to navigate from Shipment overview or Shipment binder, as it is today. 
+
+- When there is a scenario not supported by the new experience you will be automatically navigated to the classic experience.
+
+#### Document page:
+
+You will see a page with options. Here you will make a choice depending on your needs. Select below options:
+
+- Clicking Split/part/combine tab– if you want to combine multiple bookings, split a booking more than 5 bills of lading or have more than 20 multiple cargo descriptions. This will then direct you to the classic SI journey.
+
+- Clicking create split button after above step– Up to Maximum 5 bill of lading option is now available on New Shipping Instruction Journey
+
+### How to complete shipping instructions (new experience)?
+
+Below are the steps to be followed to navigate to shipping instructions (new experience) :
+
+- Document 
+
+- Party 
+
+- Payer 
+
+- Cargo 
+
+- VGM 
+
+- Review 
+
+Was this information useful?
+
+Yes
+
+No
+
+## Related FAQs
+
+I have not received my Bill of Lading? 
+Have a general question about your Shipping Instructions? 
+Having trouble on our website submitting your shipping instructions? 
+How can I amend my Bill of Lading? 
+How can I amend the cargo weight/description on my Bill of Lading? 
+How can I check if I have a general enquiry about my Bill of Lading? 
+How can I check if I have a release enquiry about my Bill of Lading? 
+How can I request my Bill of Lading? 
+How can I request original Bill of Lading paper? 
+How do I access my Shipping instructions? 
+How do I amend my Bill of Lading? 
+How do I change any incorrect details on my Bill of Lading? 
+
+## FAQ topics
+
+Products and Services
+
+Cargo
+
+Documentation
+
+Finance
+
+Website guides
+
+Pre-Booking
+
+Booking
+
+Post-Booking
+
+Arrival
+
+## Shipping glossaries
+
+View all 
+
+## 
+New to Maersk.com?
+
+Find everything you need to start your logistics journey with us.
+
+Get started 
+
+### 
+Reach out to us
+
+### 
+Talk to us
+
+Initiate a live chat with support
+
+Start a chat 
+
+### 
+Case Management
+
+Raise, manage and track your cases
+
+Raise a case 
+
+### 
+Find your local office
+
+Select country/region
+
+This field is required
+
+Find
+
+Plan & Book
+
+- 
+
+Prices
+
+- 
+
+Book
+
+- 
+
+Container Tracking
+
+- 
+
+Vessel Schedules
+
+Help
+
+- 
+
+Local Offices & Information
+
+- 
+
+Support
+
+- 
+
+Contact Us
+
+Logistics Services
+
+- 
+
+Ocean Transport
+
+- 
+
+Maersk Customs Services
+
+- 
+
+Inland Transport
+
+- 
+
+Lead Logistics
+
+- 
+
+Warehousing
+
+- 
+
+Air Freight
+
+- 
+
+E-Commerce Logistics
+
+- 
+
+Less-than-Container Load (LCL)
+
+- 
+
+Cold Chain Logistics
+
+- 
+
+Maersk Project Logistics
+
+- 
+
+Depot
+
+- 
+
+Cold Storage
+
+- 
+
+Maersk Ground Freight Transport
+
+- 
+
+Decarbonising Logistics
+
+- 
+
+Value Protect
+
+- 
+
+View all 
+
+Resources
+
+- 
+
+News & Advisories
+
+- 
+
+Industry Sectors
+
+- 
+
+Insights
+
+- 
+
+Logistics Explained
+
+Quick Links
+
+- 
+
+MyFinance
+
+- 
+
+Maersk App
+
+- 
+
+Data Integrations
+
+- 
+
+Captain Peter
+
+- 
+
+Emissions Studio
+
+About
+
+- 
+
+Careers
+
+- 
+
+About Us
+
+- 
+
+Investors
+
+- 
+
+Procurement
+
+- 
+
+Container Sales
+
+- 
+
+Press
+
+- 
+
+Sustainability
+
+- 
+
+Accessibility
+
+- 
+
+Maersk Growth
+
+© A.P. Moller - Maersk
+
+Follow our journey. #AllTheWay 
+
+LinkedIn
+
+Facebook
+
+YouTube
+
+X
+
+Instagram
+
+Terms & conditions
+
+Whistleblower
+
+Data Privacy Notification
+
+Cookie policy
+
+Cookie preferences
+
+Brand protection
+
+Unsolicited Submissions Policy
+
+Talk to an expert
+
+Find local offices & information
+
+Subscribe to our newsletter

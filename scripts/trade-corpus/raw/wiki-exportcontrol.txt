@@ -1,0 +1,116 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Export%20control
+SOURCE-TITLE: Export control
+FETCH-METHOD: wiki-api
+====
+Export control is legislation that regulates the export of goods, software and technology. Some items could potentially be useful for purposes that are contrary to the interest of the exporting country. These items are considered to be controlled. The export of controlled item is  regulated to restrict the harmful use of those items. Many governments implement export controls. Typically, legislation lists and classifies the controlled items, classifies the destinations, and requires exporters to apply for a licence to a local government department.
+
+
+== History ==
+The United States has had export controls since the American Revolution, although the modern export control regimes can be traced back to the Trading with the Enemy Act of 1917. A significant piece of legislation was the Export Control Act of 1940 which inter alia aimed to restrict shipments of material to pre-war Japan.  In the United Kingdom, the Import, Export and Customs Power (Defence) Act of 1939 was the main legislation prior to World War II.
+Post WWII, the Coordinating Committee for Multilateral Export Controls (CoCom) was founded in 1948, and continued until 1994.  It was an early Multilateral export control regime.
+
+
+== Principles ==
+In most export control regimes, legislation lists the items which are deemed 'controlled', and lists the destinations to which exports are restricted in some way. The lists of what is controlled often arise from some harmonised regime.
+
+
+=== Classification ===
+Goods may be classified using a various classification systems. The United States uses the Export Control Classification Number (ECCN), India uses the Special Chemicals, Organisms, Materials, Equipment and Technologies (SCOMET) list and Japan uses Ministry of Economy, Trade and Industry (METI) lists.
+Some items may be categorised as "designed or modified for military use", some as dual use, and some will not be export controlled. Dual use means that the device has both a civilian and a military purpose.
+In several jurisdictions, classifications distinguish between goods, equipment, materials, software and technology; the last two being often considered intangible. Classifications may also be by destination purpose, including cryptography, laser, sonar and torture equipment.
+
+
+=== Destination ===
+An exporting country will consider the impact of its export control policy on its relationships with other countries. Sometimes countries will have trade agreements or arrangements with a group of other countries, which may specify that licences are not required for certain goods. For example, within the EU, licences are not required for shipping civilian goods to other member states; however, licences are required for restricted, military goods.
+The exporting country's legislation will demand certain handling for goods in different classifications to destination countries.  This could include:
+
+The destination is barred from receiving the goods. This could be because of economic sanctions, or because the export would be against the interests of the country, or for other reasons for example because of human rights concerns.  Exports of that class of goods to that destination is not be permitted.
+Shipping the goods may require licences from the government.  The government has legislation that requires certain items to be scrutinised, perhaps because of the item type, perhaps because of the destination, so there is opportunity for decision making based on policies.  While some policies are published, the fine-grained detail may be subject to national security restrictions and based on intelligence. A goal of the legislation is to push exports that are close to the threshold through scrutiny, so a decision can be made by the exporter's government based on unpublished or partially-published criteria.  The outcome of a licence application could be:
+No licence required - the consideration of the exported item versus the destination was not controlled.  This could even be while some jurisdictions request scrutiny for particular items, or for particular destinations
+Licence granted - the government has concluded that the shipment will not significantly harm national interests, partner nations' interests, human rights, or other criteria
+Licence denied - the government concludes that this shipment is contrary to national interests etc.
+The export of the items is without concern, with and that class of goods can be shipped without impediment from export control legislation.
+The end user of the goods or some broker will typically be declared, and similar restrictions apply as to countries.
+Some individuals or entities may be listed, so that even if the item could normally be exported to the country without a licence, additional restrictions apply for that individual or entity.
+
+
+=== Licence ===
+For any given item being exported, the categorisations will typically lead to different treatments for a given destination, e.g. 'No Licence Required' (NLR) or 'Licence Required'.
+If a licence is required for the item, to the destination, the licence issuer will require information as part of the licence application, typically including:
+
+name, address, business number (e.g. EORI) of the exporter
+technical details of the exported item, possibly including product documentation, part numbers and likely uses
+value of the item and quantity to be shipped.  This can be difficult to assess with intangibles (i.e. software or technology)
+actual purpose of the item, often with a declaration to this effect from the intended recipient, and assurances that the items will not be used elsewhere.
+shipment route, consignee addresses, brokers, agents and other involved third parties.
+The  declaration from end user could be an End User Undertaking (EUU), an End User Statement (EUS) or an End-user certificate. These EUUs will typically include intended use, and make assurances as to the applications for the goods, e.g. not to be used within missiles.
+Licences can subsequently be obtained from the appropriate government department in the exporter's jurisdiction.
+A licence will usually have some terms, such as:
+
+obtain and keep EUUs from every destination organisation. (Applies to open-type licences; standard-type licences may require submission of the EUU at the time of licence application.)
+include the licence number with the shipping documentation
+include some text with the documentation accompanying the item
+notify some authorities and make the item available for inspection prior to shipment
+keep a records of the shipment, and anticipate a potential audit by an enforcement agency — a record keeping requirement
+report the shipments made to some authority within some period — a reporting requirement.
+
+
+=== Administration and enforcement ===
+The process of classification, assessment, licensing, and then confirming the compliance with the licence terms is typically handled by government agency in the exporting country.  These include BAFA (The Federal Office of Economics and Export Control) in Germany, BIS (and E2C2) in US, ECJU in UK.
+
+
+== Circumvention ==
+During the development of the Lockheed SR-71 Blackbird supersonic spy plane, the US used 'Third-world countries and bogus operations' in order to obtain sufficient ore to create the titanium for the aircraft.
+
+
+== Worldwide ==
+
+
+=== Organisations for harmonisation of controlled items ===
+These are known as Multilateral export control regimes
+
+Australia Group (AG)
+Chemical Weapons Convention (CWC)
+Missile Technology Control Regime (MTCR)
+Nuclear Suppliers Group (NSG)
+Wassenaar Arrangement (WA)
+Zangger Committee
+The regimes mean that supporting nations will tend to have similar classifications in their individual legislation.  It reduces the administrative load on each of the nations.  The harmonised regimes reduce the opportunity for 'tourism' where a particular country is chosen for its lax controls pertaining to some particular item.  Even with the harmonised regimes, some countries choose to augment with additional classification, e.g. the USA with its 'xx99x' ECCN classifications in their Commerce Control List.
+
+
+== United States of America ==
+There are several agencies regulating exports in the US.
+
+Directorate of Defense Trade Controls (DDTC) enforces the International Traffic in Arms Regulations (ITAR), which deals with military equipment and similar
+Office of Foreign Assets Control (OFAC) deals with programmes of sanctions against various entities
+Bureau of Industry and Security (BIS), and particularly the Office of Export Enforcement, enforces Export Administration Regulations (EAR), which cover exports in general. BIS also runs the web-based licensing system, SNAP-R.
+Other government bodies involved in export control include the Export Enforcement Coordination Center (E2C2) of Homeland Security Investigations.
+Companies engaging in export may be required to establish an Export Management and Compliance Program.
+There are some particular treatments for cryptographic exports, where the NSA may require separate notification of intent to publish cryptographic software. 
+
+
+== European Union ==
+The export control legislation applying in the EU is Council EU Regulation 2021/821, which came in to force 2021-09-09.  This recast the previous legislation 428/2009. The regulation demands that authorisations are required for exports of sensitive items to certain places.
+Competent authorities in each EU member state provide the licensing service, e.g. BAFA in Germany, SBDU in France and UAMA in Italy.
+Organisations performing exports should have an Internal Compliance Programme (ICP).
+The "dual use" regime was established in 2000.
+
+
+== United Kingdom ==
+The principal legislation is the retained EU regulation 428/2009 which still applies with amendments, because of the EU Withdrawal Act.  This regulation is harmonised with the Export Control Order.  The newer 'recast' EU regulation 2021/821 does not apply to mainland Britain since that comes after Brexit.   There is the similar-sounding Export Control Act of 2002 which grants powers to the Secretary of State to impose such rules and this still applies.
+Since Brexit, the Northern Ireland Protocol keeps Northern Ireland within the UK customs territory, but de facto means Northern Ireland is aligned with the EU customs. Consequently exports from Northern Ireland are subject to the EU regulations, including the new EU regulation 2021/821.  No export licences are required for movement of dual-use goods between Great Britain and Northern Ireland.  The Windsor Framework doesn't appear to impact export control.
+The export classifications are declared in the UK strategic export control lists.
+It is administered by the Export Control Joint Unit (ECJU), part of the Department for Business and Trade, with a web-based administration system SPIRE.  (A new system LITE is being phased in since 2021, with a public beta for SIELs only from September 2024.)  ECJU also manage enforcement and audit of licence compliance.  It is recommended that companies involved in exports nominate staff, conduct training, keep records, perform internal audits and commit to compliance.
+Licences include Standard Individual Export Licences (SIEL), Open Individual Export Licences (OIEL) and  Open General Export Licences (OGEL) also known as General Export Authorisation (GEA), formerly known before 2013 as an Open General Licence (OGL).
+Enforcement of UK export controls is a separate responsibility and sits within HM Revenue and Customs (HMRC).
+In July 2026, HMRC announced its largest ever fine for breaches of export controls, with Airbus paying a settlement of £6.4 million following a two-year investigation into export control violations. The investigation focused on anomalies over the cross-border transfer of parts for the A400M military airlifter that came to light during an audit in 2022.
+
+
+== See also ==
+Arms control
+CITES
+FDI screening
+Sanitary and phytosanitary (SPS) measures
+
+
+== References ==

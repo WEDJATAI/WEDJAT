@@ -1,0 +1,26 @@
+=== Turkey ===
+According to Code of Obligations (fifth book of Civil Code) (Act No: 6098):
+
+Adi ortaklık: ≈ Simple partnership (has no legal personality)
+According to the Commercial Code (Act No: 6102):
+Ortaklıklar ≈ Partnerships (unlike the partnerships in Anglo-American law, they also have legal personality like companies)
+
+Koll. Şti. (kolektif şirket): ≈ Collective partnership
+Kom. Şti (komandit şirket): ≈ Commandite partnership: Can be established as simple commandite partnership or as commandite company divided into shares (Sermayesi paylara bölünmüş komandit şirket.).
+Sermaye şirketleri ≈ Companies
+
+A.Ş. / A.O. (Anonim Şirket / Anonim Ortaklık): ≈ Joint-stock company: Minimum capital is TL 250,000. Bearer or registered shares, of a minimum par value of TL 0.01 each. Only type of company that can be publicly traded in Turkish law.
+Ltd. Şti. / L.Ş. / L.O. (Limited şirket / Limited ortaklık) ≈ Limited company: Minimum capital is TL 50,000. Registered shares only, of a minimum par value of TRY 25 each.
+According to the Capital Markets Act (Act No: 6362):
+
+HAAO (Halka Açık Anonim Ortaklık) ≈ Publicly held corporation: This essentially is a special type of A.O. These types of companies can only be established as A.O.'s. When there are no specific rules under Capital Markets legislation, A.O. rules under Turkish Commercial Code will be applied to HAAO's.
+According to the Cooperatives Act (Act No: 1163):
+
+Koop. (kooperatif şirket) ≈ Cooperative
+Other entitites:
+
+(irtibat bürosu): ≈ liaison office
+Şahıs şirketi: ≈ Sole proprietorship
+Şb. (şube): ≈ Branch Office
+
+

@@ -1,0 +1,15 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Commercial%20invoice
+SOURCE-TITLE: Commercial invoice
+FETCH-METHOD: wiki-api
+====
+When used in foreign trade, a commercial invoice is a customs document. It is used as a customs declaration provided by the person or corporation that is exporting an item across international borders. Although there is no standard format, the document must include a few specific pieces of information such as the parties involved in the shipping transaction, the goods being transported, the country of manufacture, and the Harmonized System codes for those goods. A commercial invoice must often include a statement certifying that the invoice is true, and a signature.
+A commercial invoice is used to calculate tariffs, international commercial terms, and is commonly used for customs purposes.  Commercial Invoices are generally not needed for shipments between EU Countries—just between EU Countries and non-EU Countries.
+Commercial invoices in European countries are not normally for payment. The definitive invoice for payment usually has only the words "invoice". This invoice can also be used as a commercial invoice if additional information is disclosed. Beginning in 2018, European Invoices must be electronic for use in public procurement as laid out in Directive 2014/55/EU.
+A sample commercial invoice format
+
+
+== See also ==
+Recommendation No. 06: Aligned Invoice Layout Key for International Trade (UN/CEFACT; 2000; 7 pages) ID: ECE/TRADE/148; Topic: Trade Facilitation and e-Business
+
+
+== References ==

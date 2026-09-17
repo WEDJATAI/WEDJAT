@@ -1,0 +1,41 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Pre-shipment%20inspection
+SOURCE-TITLE: Pre-shipment inspection
+FETCH-METHOD: wiki-api
+====
+Pre-shipment inspection (also preshipment inspection or PSI) is a part of supply chain management and an important quality control method for checking the quality of goods clients buy from suppliers.
+PSI helps ensure that production complies with the governing specification, contract, or purchase order. A final random inspection (FRI) checks finished products, often when at least 80% of an order has been produced and export-packed. Samples are selected at random, according to standards and procedures.
+A higher form of the PSI is called expediting, in which the dates of delivery and the production are included in the control.
+
+
+== Process ==
+Re-shipment acceptance sampling, involving inspection, and acceptance testing, may be agreed upon between a buyer, a supplier, and a bank, and it can be used to initiate payment under a letter of credit. A PSI can be performed at different stages before shipment, such as checking the total amount of goods and packing, controlling the quality or consistency of goods, checking of all documentation, as for example test reports, packaging list, or verification of compliance with standards of the destination country like ASME, CE mark and import duties.
+
+
+=== Random selection ===
+At the 80 percent completion point, random pieces are pulled.  The goal is 8 and 2: for every ten products, two are allowed defects.  If There are more, and the entire batch may be pulled.
+ANSI / ASQC Z1.4 (ISO 2859-1) is the international standard for the inspection process. The Acceptable Quality Limit, AQL, is previously determined by agreement of importer and manufacturer and is a necessary part of the contractual agreement.
+
+
+== Inspection companies ==
+There are two types of PSI companies:
+
+Free-market companies which are privately owned, selling their services to the market. Risks involved might be, especially if it is a smaller company, that the company is paid by the manufacturer and working in its interest.
+State owned inspection companies: only very few companies operating on the market are state-owned or partly state-owned.
+
+
+== Termination on the PSI requirement ==
+PSI increases burdens and costs in international trade and can be counter-productive for the country of importation and its traders.
+Several countries are considering termination on the use of inspection companies' service, following upon WTO Agreement on Trade Facilitation
+
+Article 10.5 Pre-shipment Inspection :
+5.1. Members shall not require the use of pre-shipment inspections in relation to tariff classification and customs valuation.
+In 1988, United Nations Economic Commission for Europe, Recommendation No.18 - Recommended Measure 8.2 “Discouragement of Pre-Shipment Inspection” was adopted. This was then adopted in 1999, in UNECE Recommendation No. 27, which "encourages using the WTO instrument regarding pre-shipment inspections (PSI) where such inspections are considered necessary as an interim measure, while discouraging the practice of PSI in general."
+
+
+== References ==
+
+"Customs use of inspection companies". World Customs Organization (2015).
+
+
+== External links ==
+"General description of PSI in German export journal" (PDF). tuev-hessen.de. Retrieved 2010-08-27.

@@ -1,0 +1,12 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Yang%20Ming
+SOURCE-TITLE: Yang Ming
+FETCH-METHOD: wiki-api
+====
+Yang Ming may refer to:
+
+Mat Yeung or Yang Ming (born 1981), Hong Kong television actor
+Yang Ming (kickboxer), Chinese kickboxer
+National Yang-Ming University, university in Taipei, Taiwan
+Wang Yangming, Ming dynasty neo-Confucian and bureaucrat
+Yang Ming Marine Transport Corporation, Taiwanese shipping company
+Yangmingshan, national park in Taiwan

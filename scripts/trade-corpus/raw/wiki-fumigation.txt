@@ -1,0 +1,59 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Fumigation
+SOURCE-TITLE: Fumigation
+FETCH-METHOD: wiki-api
+====
+Fumigation is a method of pest control or the removal of harmful microorganisms by completely filling an area with gaseous pesticides, or fumigants, to suffocate or poison the pests within. It is used to control pests in buildings (structural fumigation), soil, grain, and produce. Fumigation is also used during the processing of goods for import  or export to prevent the transfer of exotic organisms.
+Structural fumigation targets pests inside buildings (usually residences), including pests that inhabit the physical structure itself, such as woodborers and drywood termites. Commodity fumigation, on the other hand, is also to be conducted inside a physical structure, such as a storage unit, but it aims to eliminate pests from infesting physical goods, usually food products, by killing pests within the container which will house them.
+Each fumigation lasts for a certain duration. This is because after spraying the pesticides, or fumigants, only the pests around are eradicated.
+
+
+== Process ==
+Fumigation generally involves the following phases: first, humans are evacuated from the area intended for fumigation and the area covered to create a sealed environment. Next, the fumigant is released into the space to be fumigated. The space is held for a set period while the fumigant gas percolates through the space and acts on/kills any infestation in the area. Finally, the space is ventilated so that the poisonous gases are allowed to escape from the space, rendering it safe for humans to enter. If successful, the fumigated area is now safe and pest free.
+
+
+== Tent fumigation ==
+Structural fumigation techniques differ from building to building. In a residential setting, a "rubber" tent or tents, typically made of plastic coated canvas material, may be placed over the entire structure while the pesticides are being released into the vacant structure. This process is called tent fumigation, or "tenting". The sealed tent contains the poisonous gases and prevents them from escaping into the environment. This process is commonly used for the treatment of drywood termites and/or bedbugs, using sulfuryl fluoride as the pesticide (sulfuryl fluoride is a naturally occurring gas, used in much higher concentration than found in the natural atmosphere, and which leaves no physical residue). The fumigated structure can be re-occupied after the tent has been removed and the pesticide has dissipated to a safe level, with no need for physical cleaning.
+
+
+== Operating theatres ==
+Fumigation of hospital rooms with high concentrations of toxic chemicals has been proposed to reduce microbial agents on hospital surfaces and to control surgical site infections. Formaldehyde fumigation has long been an accepted method for areas where microbiological cleanliness is required. Fumigation with formaldehyde vapor is the recognized and most commonly used method because it is a cost-effective procedure. However, alternative methods are sought due to safety and efficacy concerns. Vaporized hydrogen peroxide is a dry gaseous method that has been used as a reliable alternative for aseptic processing isolators, and more recently, for room/facility decontamination. Hydrogen peroxide and silver in solution and diluted in water is a non-toxic and low cost agent. For example, to fumigate a 1000 ft3 (~28.32  m3) area, a 20% solution (200 mL of solution in 1000 mL demineralized water) would be sprayed via fogger for 30 minutes. Fogging may be done at a rate of up to 130 mL/minute and the contact time should be at least one hour.
+
+
+== Chemicals ==
+At the heart of this technology is the use of chemicals.  Ideally, these chemicals kill or passivate the targeted creatures without harming others.  Usually such a feat is impossible, so fumigation is conducted in the absence of humans.
+
+
+=== Discontinued or rarely used ===
+Many chemicals have been discontinued owing to safety issues.
+
+Ethylene dibromide, carcinogenic
+Methallyl chloride, carcinogenic
+dazomet (methyl isothiocyanate precursor)
+DBCP, reproductive toxin
+formaldehyde, carcinogenic and explosive
+hydrogen cyanide, extremely toxic
+iodoform, expensive vs methyl bromide
+methyl isocyanate, extremely toxic
+
+
+== Safety ==
+Fumigation is a hazardous operation. Generally it is a legal requirement that the operator who carries out the fumigation operation holds official certification to perform the fumigation, as the chemicals used are toxic to most forms of life, including humans.
+Post operation ventilation of the area is a critical safety aspect of fumigation. It is important to distinguish between the pack or source of the fumigant gas and the environment which has been fumigated. While the fumigant pack may be safe and spent, the space will still hold the fumigant gas until it has been ventilated.
+
+
+== See also ==
+ISPM 15
+FAO Fumigation Manual
+Health and safety guidance for employers and technicians carrying out fumigation operations (‘Contains public sector information published by the Health and Safety Executive and licensed under the Open Government Licence’)
+
+
+== Early publication ==
+W. G. Johnson, Fumigation Methods (New York, 1902)
+
+
+== References ==
+
+
+== External links ==
+
+National Pesticide Information Center

@@ -1,0 +1,100 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Zim%20Integrated%20Shipping%20Services
+SOURCE-TITLE: ZIM (shipping company)
+FETCH-METHOD: wiki-api
+====
+Zim Integrated Shipping Services Ltd., commonly known as ZIM (Hebrew: צים, tsim; a biblical word meaning "a fleet of ships", Numbers 24:24), is a publicly held Israeli international cargo shipping company, and one of the top 20 global carriers. The company's headquarters are in Haifa, Israel; Founded in 1945, ZIM has traded on the New York Stock Exchange since 2021. From 1948 to 2004, it traded as ZIM Israel Navigation Company.
+In February 2026 the company was sold to Germany's Hapag-Lloyd for $4.2 billion.
+
+
+== History ==
+
+
+=== 20th century ===
+
+
+==== 1940s ====
+ZIM was founded on June 7, 1945, as the ZIM Palestine Navigation Company Ltd (Hebrew: צים חברת השיט הארץ-ישראלית בע״מ), by the Jewish Agency, the Israel Maritime League and the Histadrut (General Federation of Laborers in the Land of Israel). The first ship  was purchased in partnership with Harris and Dixon (based in London) in 1947. This vessel was refurbished, renamed SS Kedma, and sailed to the future state of Israel in the summer of 1947. After the State of Israel was established in 1948, the company was renamed ZIM Israel Navigation Company Ltd. During its first years, its main task was transporting hundreds of thousands of immigrants to the emerging state. Some of the other ships that had been used for clandestine immigration before the establishment of Israel as a state were confiscated by the British Mandate authorities and later joined the company's fleet. The company continued to purchase more ships, among them were SS Negba, SS Artza and SS Galila.
+During Israel’s War of Independence (1947-1949), the company was the sole maritime connection with the State of Israel, supplying food, freight and military equipment.
+
+
+==== 1950s ====
+In 1953, some of the money from the reparations agreement between Israel and West Germany was allocated to the purchase and construction of new ships. The SS Bergensfjord,  renamed Jerusalem, sailed the Israel-New York route, Another ship purchased with reparations money was the SS Theodor Herzl.
+The company took delivery of its first new vessels, the 9800 ton passenger-cargo liners SS Israel and SS Zion - later known as SS Dolphin IV, in 1955 and 1956, respectively.
+1957 saw the delivery of two more new ocean liners, the 10,000 ton sister ships SS Jerusalem and SS Theodor Herzl, followed by the more modest, 7,800 ton SS Moledet in 1961, which featured an all-Tourist Class layout, targeted principally to American tourists looking for affordable transportation to the Holy Land.
+ZIM was invited in 1957 by the Government of Ghana to assist the setting up and management of a national shipping line. Black Star Line was formed with a 40% participation by ZIM and principally operated cargo services from West Africa. A similar joint venture - Burma Five Star Line - was made with the Burmese Government in 1959.
+
+
+==== 1960s ====
+In 1950s and 1960s, ZIM concentrated on passenger ships, alongside a constant expansion of the cargo shipping business. Passenger liners were a common means of international transport before the emergence of cheap air transport, and pleasure cruises were also popular. ZIM sailed the Mediterranean Sea, as well as having regular routes to the United States. Some of its ships cruised to the Caribbean during the winter. 1964 saw the completion of the 25,000 ton ocean liner SS Shalom, which turned out to be a failure, marking the end of the ZIM passenger shipping era.
+Due to rising airline competition and the market failure of the expensive new Shalom, passenger services were gradually phased out between 1966 and 1969, as ZIM refocused on cargo shipping. Jerusalem was chartered out to British-based P&O Cruises in 1966 to become their Miami, then sold entirely in 1968. The sisters Israel and Zion were both sold in 1966, while the expensive, new Shalom was retired and sold in 1967. Theodor Herzl and Moledet completed ZIM's final transatlantic passenger sailings during 1969 and were sold off, marking the end of the company's passenger division.
+During the 1960s, ZIM started to turn its focus to cargo ships, and obtained several special-purpose vessels, including refrigerated ships and oil tankers. ZIM transported crude oil from Iran to Israel and oil byproducts from Israel to Europe.
+
+
+==== 1970s ====
+In the 1970s, ZIM expanded into the container shipping business. ZIM ordered six such ships, and gradually made this its main line of business.
+
+
+==== 1980s ====
+In 1981, one of the company's ships, Mezada, was lost at sea.  ZIM went through a lull in maritime shipping at the beginning of the 1980s.
+
+
+==== 1990s ====
+ZIM built 15 more ships in Germany in the 1990s. At this time, the ownership of ZIM was divided between the Israeli government and Israel Corporation.
+
+
+=== 21st century ===
+
+
+==== 2000s ====
+In 2004, the Israel Corporation (which is controlled by the Ofer Brothers Group) purchased 49% of ZIM's shares held by the Israeli government, becoming the sole owner of the company. The new official name after privatization became ZIM Integrated Shipping Services. The purchase deal for about five hundred million New Israeli Shekels was severely criticized by the press and the State Comptroller of Israel as being undervalued and becoming just another flag of convenience company. In 2007, ZIM sold its maritime logistics and forwarding services subsidiary NewLog to UTi Worldwide.
+In 2008, ZIM planned to launch an initial public offering and selling 25% of its shares on the Hong Kong Stock Exchange, but due to the onset of the global economic crisis it was called off. In 2009, ZIM required a cash injection of $450 million by the Ofer family and debt restructuring  following the world's container shipping downturn.
+
+
+==== 2010s ====
+In 2010, ZIM regained profitability and in early 2011 ZIM renewed its plans for a flotation on the Hong Kong Stock Exchange, but again had to postpone it due to the economic downturn and the drop in container shipping rates.
+In 2014, unloading of a ZIM ship at the Port of Oakland was delayed by anti-Israel protesters. Longshoremen declined to load the ship out of safety concerns, taking no position on the underlying dispute, but unloaded the ship after their safety was assured. Other protests in Los Angeles and  Tacoma, Washington failed to stop the unloading of cargo from ZIM ships. A second demonstration bypassed Oakland for Los Angeles when longshoremen, not participating in the protest, refused to unload the ship after being physically threatened and their vehicles blocked when they tried to report for work. Protesters' claim they impacted ZIM's shipping schedule was denied by the company, and the local Jewish Community Council denounced the "hateful" rhetoric of the demonstrators.
+In July 2014, by which time the company was almost wholly owned by Israel Corporation, ZIM was restructured with 68% of the group's shares owned by its creditors and bondholders, and 32% retained by Israel Corporation, and starting early 2015 by Kenon Holdings, a spin-off company of Israel Corporation. In mid-to-late 2015, plans to revive an initial public offering were implemented. ZIM debuted on the New York Stock Exchange in January 2021, with the backing of Citigroup, Goldman Sachs, and Barclays.
+
+
+==== 2020s ====
+In March 2021, ZIM reported the biggest profit in its 75-year history.
+In December 2023 the Malaysian Government rescinded its permit for ZIM to use their ports, responding to "Israel's actions that ignore basic humanitarian principles and violate international law" in the Gaza war.
+The company experienced two chartered vessel incidents in September 2025. First, on September 9, about 75 containers fell from boxship Mississippi at Pier G of the Port of Long Beach. Two weeks later, another ship, MV Colorado, suffered a fire, as it embarked on a Pacific crossing, en route to the Port of Los Angeles, and was diverted to Busan, South Korea.
+Since going public in 2021, ZIM's valuation has been volatile, a condition exasperated by the repercussions of the Gaza war and underlying market conditions. In December 2025, the board confirmed that it was considering options up to and including the sale of ZIM, initiating a flurry of purchase speculation, particularly from Hapag-Lloyd. The potential sale of the company was complicated by the Israeli government's share in ZIM, and the company's national security importance to Israel. A potential purchase by Hapag-Lloyd has been the subject of particular consternation in Israel, due to the interests of Arab states in Hapag.
+In 2024, a criminal complaint was filed against ZIM alleging that the company illegally trafficked weapons out of the port of Antwerp and Liège airport.
+In February 2026, Hapag-Lloyd signed a deal to purchase ZIM for $4.2 billion. Under the agreement, Hapag-Lloyd was to sell ZIM's Israeli operations to the FIMI private equity fund. Following the announcement of the acquisition, employees of ZIM Integrated Shipping Services launched strike actions that disrupted port operations, including the suspension of some loading and unloading activities. As of March 2026, the deal has not gone through. It is still awaiting approval by the Israeli Government Companies Authority. Maersk has offered a deal to purchase ZIM should the Hapag-Lloyd purchase fall through. Stockholders representing 97% of the shares in Zim, equivalent to 57.2M shares, voted in favor of the deal. In June 2026, Haaretz reported that Hapag-Lloyd had hired former Israel Defense Forces Chief of Staff Gabi Ashkenazi to help advance its acquisition of ZIM. The report said that the deal was still awaiting approval from Israel's Ministry of Defense because of the government's "golden share" in the company.
+
+
+== Operational statistics ==
+Annual turnover 2018: $3.2 billion
+TEU's Carried in 2018: 2,914,000 million
+Total TEU Capacity (owned and chartered vessels): 344,460 TEU's
+Containers: over 547,000 TEUs of various types
+About 70 vessels, 13 fully or partly owned
+Ports of Call: 180 throughout the world, with 10 strategically located hubs
+Services: Over 70 lines and services, mostly on a weekly, fixed-day basis, covering all major trade routes with regional connections
+Employees: ~4200
+Regional Headquarters: Haifa, Israel; Norfolk, Virginia, U.S.; Liverpool, UK; Hamburg, Germany; Hong Kong
+Agents: ZIM has more than 170 offices and representatives in over 100 countries throughout the world
+
+
+== Fleet ==
+
+
+== Former Passenger Fleet ==
+
+
+== See also ==
+Israel Corporation
+Zodiac Maritime
+Edmond Wilhelm Brillant
+Top container shipping companies
+
+
+== References ==
+
+
+== External links ==
+Official website 
+Zim Israel Navigation Company Ltd.: The Fifty-Years Success Story of a Shipping Company, 1945–1995 by Chaim Bar-Tikva. Haifa, 1996
+The Test of Maritime Sovereignty: The Establishment of the Zim National Shipping Company and the Purchase of the Kedmah, 1945–1952 by Kobi Cohen-Hattab. Israel Studies, Volume 20, Number 2, Summer 2015, pp. 110–134, Indiana University Press

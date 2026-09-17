@@ -1,0 +1,62 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=International%20Maritime%20Dangerous%20Goods%20Code
+SOURCE-TITLE: International Maritime Dangerous Goods Code
+FETCH-METHOD: wiki-api
+====
+IMDG Code or International Maritime Dangerous Goods Code is accepted by MSC (Maritime Safety Committee) as an international guideline to the safe transportation or shipment of dangerous goods or hazardous materials by water on vessel. IMDG Code is intended to protect crew members and to prevent marine pollution in the safe transportation of hazardous materials by vessel. From its initial adoption in 1965 to 2004, the IMDG Code was recommendations for the safe transport of dangerous goods. Following a 2002 resolution, most sections of the IMDG Code became mandatory under the International Convention for the Safety of Life at Sea (SOLAS) from 1 January 2004.
+
+
+== Format ==
+Since 1998, editions of the IMDG Code are published in two volumes, with an additional supplemental volume. Volume 1 contains Parts 1-2 and 4-7. Volume 2 contains Part 3.
+
+Part 1 - General Provisions, Definitions and Training
+Part 2 - Classification
+Part 3 - Dangerous Goods List and Limited Quantity Exceptions
+Part 4 - Packing and Tank Provisions
+Part 5 - Consignment Procedures
+Part 6 - Construction and Testing of Packages, Intermediate Bulk Containers (IBCs), Large Packagings, Portable Tanks, Multiple-Element Gas Containers (MEGCs) and Road Tank Vehicles
+Part 7 Provisions Concerning Transport Operations
+The decision to reformat the IMDG Code was made in 1996, as part of an effort to improve readability and user friendlessness of the document, and make the formatting similar to the UN Recommendations on the Transport of Dangerous Goods ("Orange Book").
+The Code classifieds dangerous goods according to a variety of classes. For example, IMDG Class 7 cargoes are radioactive and nuclear power cargoes/fuels, including waste products that are governed in accordance with the associated INF Code.
+
+
+== IMDG Cargo Classes ==
+Dangerous cargoes are categorised by types and related characteristics under the following cargo classes:
+
+Class 1 – Explosives
+Class 2 – Gases
+Class 3 – Flammable Liquids
+Class 4 – Flammable Solids
+Class 5 – Oxidizing Substances and Organic Peroxides
+Class 6 – Toxic and Infectious Substances
+Class 7 – Radioactive Material
+Class 8 – Corrosive Substances
+Class 9 – Miscellaneous Dangerous Substances
+
+
+== Basis for national regulations ==
+It is recommended to governments for adoption or for use as the basis for national regulations and is mandatory in conjunction with the obligations of the members of the United Nations under the International Convention for the Safety of Life at Sea (SOLAS) and the International Convention for the Prevention of Pollution from Ships (MARPOL 73/78).
+It is intended for use not only by the mariner but also by all those involved in industries and services connected with shipping. Contains advice on terminology, packaging, labeling, placarding, markings, stowage, segregation, handling, and emergency response.  The HNS Convention covers hazardous and noxious substances that are included in the IMDG code.
+In Viet Nam according to Clause 2, Article 3 of Decree 34/2024/ND-CP, dangerous goods (dangerous goods) are goods containing dangerous substances that when transported on roads or inland waterways have the potential to cause harm to life, human health, environment, safety and national security.
+
+
+== Updates ==
+The Code is updated and maintained by a sub-Committee of the International Maritime Organization, the Sub-Committee on Carriage of Cargoes and Containers (CCC), every 2 years. Prior to 2013 the Carriage of Dangerous Goods, Solid Cargoes and Containers (DSC) sub-committee had responsibility for the Code.
+IMDG Code updates occur every even numbered year, with the following odd numbered year as a transition period where compliance can be with either the prior regulations or the upcoming regulations. On 1 January of the following even numbered year, compliance with the new regulations becomes mandatory. An exception to this pattern occurred in 2022. Due to delays related to the COVID-19 pandemic, the mandatory compliance date for the 2020 Edition of the IMDG Code was delayed to 1 June 2022.
+For example, 2022 Edition with Amendments 41-22, could be used voluntarily starting on 1 January 2023; became mandatory on 1 January 2024 until 31 December 2024. On 1 January 2025, either the 2022 Edition or the 2024 Edition, with Amendment 42-24 could be used. On 1 January 2026, the 2024 Edition becomes mandatory, with the 2022 Edition no longer being acceptable for compliance.
+
+
+== Bibliography ==
+International Maritime Organization (1990). International Maritime Dangerous Goods Code (1990 Consolidated ed.). International Maritime Organization. ISBN 9789280142419.
+International Maritime Organization (2006). International Maritime Dangerous Goods Code (2006 ed.). International Maritime Organization. ISBN 9789280142143.
+International Maritime Organization (2008). International Maritime Dangerous Goods Code (2008 ed.). International Maritime Organization. ISBN 9789280142419.
+
+
+== References ==
+
+
+== External links ==
+IMO Website: IMDG Code Archived 2015-09-14 at the Wayback Machine
+US Office of Hazardous Materials Safety
+IMO: Carriage of chemicals by ship
+The codes as an Open Knowledge foundation dataset
+Free IMDG Code resources including free introduction and summary of recent changes

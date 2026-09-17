@@ -1,0 +1,145 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Hapag-Lloyd
+SOURCE-TITLE: Hapag-Lloyd
+FETCH-METHOD: wiki-api
+====
+Hapag-Lloyd AG (German pronunciation: [ˈhaːpak ˌlɔɪ̯t]) is a German international shipping and container transportation company, the 5th-largest in the world by total TEU capacity. It was formed in 1970 through a merger of two German maritime transportation companies.
+
+
+== History ==
+The company was formed on 1 September 1970, by the merger of Hamburg-American Line (HAPAG), founded in 1847, and Norddeutscher Lloyd (known in English as North German Lloyd), which was formed in 1857.
+Since its formation, Hapag-Lloyd has seen changes among its shareholders and has also undergone a number of mergers with other companies. For instance, Hapag-Lloyd was completely acquired by, and became a subsidiary of TUI AG (Hanover) in 1998. This transition was followed by TUI selling a majority stake of Hapag-Lloyd to private investors in Hamburg in 2009 and further sales in 2012. Other important events in the history of the company include Hapag-Lloyd's acquisition of CP Ships in 2005 as well as Hapag-Lloyd's merger with the container business of CSAV in 2014, and United Arab Shipping Company in 2017.
+
+
+=== HAPAG ===
+
+The Hamburg-Amerikanische Packetfahrt-Actien-Gesellschaft for shipping across the Atlantic Ocean was founded in Hamburg. In 1912, HAPAG built the first of their "Big Three" ocean liners; the Imperator, followed by its twin Vaterland. A third ship, Bismarck, was under construction at the outbreak of World War I and was completed after the war for White Star Line as the Majestic. These were the first liners to exceed 50,000 gross register tons and 900 feet (274 m) in length. During World War I, the majority of HAPAG's fleet of 175 ships were wiped out, and most of the surviving ships (including the "Big Three") had to be turned over to the winning side as war reparations. After the war's end, HAPAG rebuilt its fleet with much smaller ships than before the war.
+
+
+=== Norddeutscher Lloyd ===
+
+Norddeutscher Lloyd (NDL) was formed in 1857 in the City-State of Bremen, offering passenger and cargo transportation between Bremen and New York, with an emphasis on emigration to the United States. Service started in June 1858 with the Bremen, the first of four steamships, and the company established its American base at Hoboken, New Jersey. NDL eventually built a large fleet of ships that carried many thousands of emigrants westwards, with around 218,000 passengers transported across the Atlantic in 1913 alone.
+The outbreak of World War I resulted in the internment of 32 vessels in US ports, a status later changed to confiscation when the US entered the war in 1917. Likewise, its Hoboken base was confiscated and turned over to the US Navy, which used it as a transshipping point for the duration of the war. As with HAPAG, the NDL ships surviving the war were eventually confiscated as reparation, leaving the company to start over from scratch.
+US operations were resumed in 1922, when NDL was able to purchase its former base from the United States Alien Property Administrator. NDL took delivery of new liners Bremen and Europa in 1929–30.
+During World War II, NDL repeated its World War I experience, with some parts of its fleet again being interned at the outbreak of the war, while a number of vessels remained under NDL control. One such exception was the Bremen, which raced across the Atlantic, and achieved protection at Murmansk in 1939, before eventually making a dash for Bremerhaven, where she was ultimately destroyed by a fire in 1941.
+Passenger service resumed in 1954 with the Gripsholm formerly belonging to the Swedish American Line (the ship was renamed to MS Berlin only the following year). Later two other second-hand ships, SS Bremen (formerly Pasteur) and MS Europa (formerly Swedish American Line's Kungsholm), were purchased.
+NDL attained several speed records over the years. Notable among them was the record for the run between Southampton and New York of eight days in 1881, which was set by the Elbe; and the record for the fastest transatlantic crossing set by the new Bremen in 1929 (see Blue Riband).
+
+
+=== Hapag-Lloyd ===
+
+Hapag and NDL continued to compete until they established a joint-venture container line. The "Hapag-Lloyd Container Line", founded in 1967 and operating from 1968 onward, was established to share the huge investments related to the containerisation of the fleets. The two companies finally merged on 1 September 1970, under the name Hapag-Lloyd.
+Hapag-Lloyd was acquired in 1998 by Preussag AG (since 2002 named TUI AG (Hanover), a tourism conglomerate, and became its fully owned subsidiary in 2002.
+In August 2008, TUI announced an intention to sell its entire stake in Hapag-Lloyd shipping activities before the end of that year. Industry speculation predicted a sale price of approximately US$5.9 billion.
+In October 2019, Hapag-Lloyd acquired a 10 percent stake in Container Terminal 3 (TC3) of the Tangier Med 2 port in Morocco.
+In April 2022, Hapag-Lloyd acquired a participation in JadeWeserPort Wilhelmshaven, taking ownership of a 30 percent stake in Container Terminal Wilhelmshaven (CTW) and a 50 percent stake in Rail Terminal Wilhelmshaven (RTW).
+On 12 January 2023, Hapag-Lloyd acquired a 49% minority stake in Spinelli Group, an Italian terminal and transport operator. Around three months later, on 19 April 2023, Hapag-Lloyd also acquired a 40% stake in J M Baxi Ports & Logistics Limited (JMBPL), a terminal and inland transport service provider in India.
+In August 2023, it was announced Hapag-Lloyd had acquired SM SAAM's terminal business and related logistics services in the Americas. Since then, Hapag-Lloyd's business activities have been divided into the segments of Liner Shipping on the one hand and Terminal & Infrastructure on the other. The Terminal & Infrastructure division has been operating under the brand name "Hanseatic Global Terminals" since July 2024. It is a fully owned but independent stand-alone business unit based in Rotterdam.
+Also in 2023, Hapag-Lloyd and the Brazilian shipping and waterway logistics company Norsul set up a new joint venture called "Norcoast". Based on a 50-50 partnership, Norcoast started offering container cabotage and feeder services in Brazilian ports in the first quarter of 2024.
+In January 2024, it was announced that Hapag-Lloyd, together with Maersk, would launch a long-term operational cooperation under the name Gemini Cooperation in February 2025; Hapag-Lloyd simultaneously announced that it would leave “THE Alliance” in January 2025. After full implementation the new cooperation comprised around 340 ships with a combined capacity of about 3.7 million standard containers (TEU). Of these, Maersk was to provide 60% and Hapag-Lloyd 40%.
+In January 2026, the complete takeover of the Florida International Terminal in Port Everglades by Rotterdam-based Hapag Lloyd subsidiary Hanseatic Global Terminals was announced. The company had already held a stake in the port since 2023. The transaction was finalized in April 2026.
+In February 2026 Hapag-Lloyd announced its acquisition of Israeli shipping company ZIM, for $4.2 billion.
+
+
+== Corporate affairs ==
+
+
+=== Business trends ===
+In the 2024 financial year, Hapag-Lloyd generated revenue of €19.1 billion. During the same financial year, 16,905 employees worked for the group.
+
+
+=== Ownership ===
+As of September 2025, the largest shareholders are:
+
+
+== Mergers and acquisitions ==
+
+
+=== CP Ships Limited ===
+On 21 August 2005, TUI AG agreed to acquire the Canadian business CP Ships Limited for €1.7 billion (US$2.0 billion) in cash. The deal, which was approved by the boards of both CP Ships, TUI, and the shareholders, was a success, and made the combined fleet the fifth-largest by capacity in the worldwide container shipping market.
+
+
+=== Hamburg Süd ===
+In late 2012, Hapag-Lloyd announced it was considering the possibility of a merger with its smaller compatriot Hamburg Süd. The merger plans were scotched when Hamburg Süd's shareholders and owners did not reach an agreement with the Hapag-Lloyd stakeholders. After this event, Hamburg Süd remained a private, independent company until December 2016, when the container transport division of Danish logistics and energy company Maersk, announced it would purchase Hamburg Süd.
+
+
+=== Compañía Sud Americana de Vapores (CSAV) ===
+In 2014, Hapag-Lloyd took over the container business of Chile's Compañía Sud Americana de Vapores SA (CSAV), with the latter becoming a major shareholder of Hapag-Lloyd. This made Hapag-Lloyd the fourth-largest container-shipping company in the world at the time.
+
+
+=== United Arab Shipping Company (UASC) ===
+In April 2016, Hapag-Lloyd announced it was in merger talks with the United Arab Shipping Company (UASC). The merger was agreed upon later in 2016, and the integration between the two companies was completed in 2017. At the time of the merger, UASC was reported to be the world's 10th largest liner shipping company, with a fleet of 56 ships and a market share of 2.7 percent. As a result of the merger, Hapag-Lloyd strengthened its position as the world's fifth-largest container transporter in terms of vessel capacity, ahead of Taiwan's Evergreen Line. As a result of the merger, the former shareholders of UASC would become the largest shareholder in the new entity, whilst Hapag-Lloyd would absorb all operations and assets of UASC.
+
+Historically United Arab Shipping Company was jointly established in July 1976 by the six shareholding governments of the Arab states of the Gulf (Bahrain, Iraq, Kuwait, Qatar, Saudi Arabia and UAE). Originally based in Kuwait, its corporate headquarters then moved to Dubai during the Iraqi conflict, and only some departments were moved back after the war.
+The UASC fleet operated more than 45 services, connecting the Middle East to Europe, the Mediterranean, Indian Sub-continent, Far East, West Africa and the Americas. Its network covered over 220 ports, offering containerized and conventional cargo shipping by a fleet of 58 owned and chartered vessels. On 29 June 2016, UASC's six shareholding states voted unanimously to approve the proposed merger. The deal gave a relative valuation of the two businesses at 72 percent for Hapag-Lloyd and 28 percent for UASC. At the time of the merger, UASC was 51 percent owned by Qatar and 35 percent owned by Saudi Arabia government, with the remainder held by other Arab states.
+
+
+=== NileDutch Transport & Shipping ===
+In March 2021, Hapag-Lloyd announced the acquisition of Nile Dutch Investments B.V., a leading container service provider to and from West Africa. The transaction was effectively closed on 8 July 2021.
+
+
+=== Deutsche Afrika-Linien ===
+On 1 June 2022, Hapag-Lloyd closed the acquisition of the container liner business of German carrier Deutsche Afrika-Linien (DAL), another Africa specialist, operating with liner services between Europe, South Africa and the Indian Ocean.
+
+
+== Container transportation ==
+
+Hapag-Lloyd transports containerized cargo on several major trade routes around the world. It has a prominent market presence and brand recognition in Latin America, Middle East, trans-Atlantic, and trans-Pacific trades, among others.
+Until January 2025, Hapag-Lloyd was the largest member of the Transport High Efficiency vessel-slot sharing alliance ("THE Alliance"), which was created in April 2017 and also included Taiwan's Yang Ming Line, Korea's HMM and the Japanese carrier Ocean Network Express (ONE). THE Alliance covered East-Westbound trades with 255 container ships and 29 services.
+Today, Hapag-Lloyd AG and the Danish Maersk A/S are partners in the Gemini cooperation. It launched operations in February 2025.
+
+
+== Fleet ==
+Some emblematic group's vessels are:
+MS München (1972)
+Tokio Express (1973)
+Yantian Express (2012), formerly Shanghai Express (2002)
+Houston Express (2005)
+Savannah Express (2005)
+Colombo Express (2005)
+Kyoto Express (2005)
+Chicago Express (2006)
+Osaka Express (2007)
+Tsingtao Express (2007)
+Hong Kong Express (2013)
+
+
+== Former business ==
+
+
+=== Hapag-Lloyd Kreuzfahrten ===
+Hapag-Lloyd Kreuzfahrten later named Hapag-Lloyd Cruises was a former cruise ship subsidiary of Hapag-Lloyd AG. In  2008, TUI AG integrated Hapag-Lloyd Kreuzfahrten. It was renamed Hapag-Lloyd Cruises in 2016. In 2020, Hapag-Lloyd Kreuzfahrten was sold to TUI Cruises, a joint venture between TUI and Royal Caribbean.
+
+
+=== Airline activities ===
+Hapag-Lloyd founded the charter airline Hapag-Lloyd Flug in 1972, buying a few Boeing 727s to fly its cruise passengers from Germany to the cruises' ports of call. The airline eventually added some regular passenger flights as well. Hapag-Lloyd Flug used the IATA code HF and became a directly owned subsidiary of Preussag AG (now renamed as TUI Group) in 1999.
+
+
+== Accidents and incidents ==
+
+
+=== Colombo Express ===
+On 29 September 2014, the container ship Colombo Express was involved in a collision with the container ship Maersk Tanjong, and sustained a 20-metre (65 ft) dent to its left side and caused delays to traffic through the Suez Canal.
+
+
+== See also ==
+
+List of largest container shipping companies
+724 Hapag
+
+
+== References ==
+
+
+== Further reading ==
+Susanne Wiborg and Klaus Wiborg: The World Ist Our Oyster – 150 Years of Hapag-Lloyd 1847–1997. Hapag-Lloyd AG (ed.), Hamburg 1997.
+Kai-Axel Aanderud: 175 Jahre Hapag-Lloyd – 175 Years of Hapag-Lloyd 1847–2022: Vom Auswandererschiff zum Megacarrier – From emigrant ship to megacarrier. Hamburg: Koehler. 2022. ISBN 978-3-7822-1500-8.
+
+
+== External links ==
+
+Hapag-Lloyd
+Hapag-Lloyd Cruises
+TUI AG (Hanover)
+Hamburg American Line History and Ephemera GG Archives
+List of NDL ships with pictures
+North German Lloyd History and Ephemera GG Archives

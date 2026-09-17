@@ -1,0 +1,10 @@
+=== Saudi Arabia ===
+Private Limited Company ( شركة ذات مسئولية محدودة)
+Joint-Stock company ( شركة مساهمة )
+General Partnership Company ( شركة تضامن )
+Limited Partnership (شركة التوصية البسيطة )
+Foreign Company ( شركة أجنبية )
+Individual Establishment ( مؤسسة فردية )
+Saudi Arabia's new Companies Law modernized company forms and introduced the Simplified Joint Stock Company to support startups and VC activity.
+
+

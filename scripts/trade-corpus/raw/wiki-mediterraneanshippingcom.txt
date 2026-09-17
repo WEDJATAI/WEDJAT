@@ -1,0 +1,171 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Mediterranean%20Shipping%20Company
+SOURCE-TITLE: Mediterranean Shipping Company
+FETCH-METHOD: wiki-api
+====
+Mediterranean Shipping Company S.A., branded as MSC, is an international shipping line part of MSC Group. It was founded by Italian entrepreneur Gianluigi Aponte and his wife Rafaela Aponte-Diamant in Italy in 1970. The company is owned by the Aponte-Diamant family with its headquarters in the suburb of Champel, Geneva, Switzerland, since 1978. It is the world's largest container shipping company by both fleet size and cargo capacity, controlling 21.2% of global container capacity as of November 2025.
+As of September 2025, MSC operates about 900 cargo vessels with an intake capacity of 7,000,000 twenty-foot equivalent units (TEU). MSC subsidiaries operate rail freight transport in Portugal and Spain, cruise ships, and cargo aircraft.
+The company is independent and wholly owned by the Aponte-Diamant family under the leadership of Diego Aponte. Diego was appointed president and CEO by his father and company founder Gianluigi in October 2014. In December 2020, Soren Toft became MSC chief executive officer.
+
+
+== History ==
+
+Mediterranean Shipping Company was founded in Naples in 1970 as a private company by seafaring captain Gianluigi Aponte and Rafaela Aponte-Diamant, when they bought their first ship, Patricia, followed by Rafaela, with which Aponte began a shipping line operating between the Mediterranean and Somalia. The line subsequently expanded through the purchase of second-hand cargo ships. By 1977, the company operated services to northern Europe, Africa and the Indian Ocean.
+In 1978, the headquarters was established in Geneva, Switzerland. The expansion continued through the 1980s; by the end of the decade, MSC operated ships to North America and Australia.
+
+In 1988, MSC entered the cruise business by buying the liner Monterey. In 1989, they purchased Lauro Lines. The new company was named StarLauro Cruises and had 2 ships, Monterey and Achille Lauro. In 1994, the company ordered its first newly constructed container ships, which were delivered beginning in 1996 with MSC Alexa. They were built by Italian shipbuilder, Fincantieri. In 1995, StarLauro Cruises was renamed MSC Cruises.
+
+In October 2014, Diego Aponte (son of MSC founder Gianluigi Aponte) was named president and chief executive of MSC, taking over from his father who was named group executive chairman. Gianluigi Aponte would continue to oversee all group related activities as well as supporting Diego in shaping the future of MSC. In December 2014, the MSC shipping line were ranked number 6 in Lloyd's List of Top 100 Most Influential People in Shipping.
+In January 2015, MSC launched the world largest container ship, MSC Oscar, with a capacity of 19,224 TEU. Built by Daewoo Shipbuilding & Marine Engineering and registered in Panama, it joined the Albatross service in January as part of the 2M VSA (Vessel Sharing Agreement between Maersk Line and MSC). In June 2015 Maersk and MSC signed a vessel-sharing agreement on the Asia-Europe, trans-Pacific and trans-Atlantic trades. The agreement is referred to as the 2M Alliance. The 2M Alliance includes 185 vessels with an estimated capacity of 2.1 million TEU, deployed on 21 strings.
+In February 2017, MSC purchased a 49% stake into Messina Line, an Italian shipping Line founded in Genoa, Italy in 1929, specialised in intra Mediterranean short sea, and Europe to East and West Africa routes. The company owns 8 Roll-on/roll-off vessels and a Terminal in Genoa port, on top of a container fleet of 65,000 TEU.
+In October 2018, MSC decided to charter out the only two car carriers in its fleet (MSC Immacolata and MSC Cristiana) to Grimaldi Group, replacing them on the service towards West Africa with two Messina Line – ConRO vessels: MSC Cobalto (formerly Jolly Cobalto) and MSC Titanio (formerly Jolly Titanio).
+The swap of these ships, that were previously deployed on MSC Adriatic Trade in between the ports of Trieste and İzmir, results in view of a tighter collaboration between MSC and Messina Line.
+In July 2019, MSC launched the largest container ship in the world at the time, the 23,756 TEU MSC Gülsün, built by Samsung Heavy Industries.
+In December 2020, Søren Toft became MSC Chief Executive Officer. Søren Toft is the first person outside the Aponte family to become CEO. He would report directly to Diego Aponte, MSC Group President, and Gianluigi Aponte, founder and MSC Group Chairman. Søren Toft also became a member of the board of directors of Terminal Investment Ltd.
+
+In January 2021, MSC was awarded the "Maritime Sustainability Passport" (MSP) Certificate and Seal by the North American Marine Environment Protection Association (NAMEPA). NAMEPA's co-founder/executive director Carleen Lyden Walker stated that "By qualifying for NAMEPA's Maritime Sustainability Passport, MSC has demonstrated its commitment to stewardship of the environment, care for its employees, and responsible corporate governance".
+In April 2021, MSC launched a special shipping service to help the distribution of pharmaceutical products during the COVID-19 pandemic. In August 2021, Gary Keville Transport Limited obtained temporary High Court order lifting an embargo preventing it from collecting and delivering containers from Dublin port. In December 2021, MSC was reported to offer at least 5.7 billion euros for Bolloré Africa Logistics, a subsidiary of the Bolloré Logistics. Later in December 2022, it was announced MSC had completed the acquisition of Bolloré Africa Logistics.
+In December 2021, MSC acquired a 67% stake in the Brazilian domestic carrier Log-In Logistica.
+On 6 January 2022, MSC became the largest container shipping company in the world, surpassing Maersk, in terms of TEU capacity, according to the latest Alphaliner's figures.
+In 2022, MSC launched a cargo airline, MSC Air Cargo.
+In March 2023, the company broke the record of biggest container ship in the world two times in a row by receiving the 24,116 TEU MSC Tessa mega container ship on 10 March and the 24,345 TEU MSC Irina mega container ship on 13 March.
+In October 2023, MSC acquired a 50% stake in Italian passenger rail group NTV.
+In March 2024, it was announced the MSC subsidiary Shipping Agencies Services (SAS) had reached agreement to acquire a 42% stake in the Lyon headquartered air and sea transport engineering and overseas forwarding and logistics company, Clasquin Group. That same month MSC acquired the Il Secolo XIX newspaper group.
+In June 2024, MSC took a 15% stake in Genoa airport.
+In July 2024, MSC complete its $698 million acquisition of Norway’s Gram Car Carriers.
+In September 2024, subsidiary company Medlog acquired UK based haulier, Maritime Transport.
+In October 2024, MSC acquired 56.47% of the Brazilian port and maritime logistics operator Wilson Sons.
+In November 2024, MSC acquired 49.9% of Hamburger Hafen und Logistik AG, the Hamburg port main terminal operator.
+In early 2025, as part of a strategic alliance, MSC agreed to acquire a 49% stake in Spanish towage company Bolude Towage through the contribution of its subsidiary MedTug.
+Also in 2025, MSC launched iReefer, a digital container monitoring platform, to provide customers with live data on temperature, humidity, and other conditions for refrigerated cargo. MSC stated that the platform was intended to support efficiency and "traceability" in the transport of perishable goods.
+In April 2026, it was announced that the Aponte family had completed a transfer of ownership of the company from founder Gianluigi Aponte to his two children, Diego Aponte and Alexa Aponte Vago. Similar to their parents, the heirs are Italian nationals and Swiss residents, and hold leadership roles with Diego, who serves as Group President, and Alexa, who serves as Group Chief Financial Officer. Gianluigi Aponte will remain as Executive Chairman.
+
+
+== Operations ==
+
+MSC operates 524 offices in 155 countries with its headquarters in Geneva, Switzerland and has over 200,000 employees. MSC's shipping line sails on more than 215 trade routes, calling at over 500 ports. As of August 2023, it operates vessels with a capacity of up to 24,346 TEU, including the world's largest container ships such as MSC Turkiye and MSC Michel Cappellini.
+
+
+=== MSC Cruises ===
+Since 1989, MSC has owned the holiday cruise division MSC Cruises.
+MSC Cruises is the third-largest cruise company in the world, after Carnival Corporation & plc and Royal Caribbean Group, with a 10% share of all passengers carried in 2025.
+
+
+=== Medway ===
+In 2015, MSC started train operations by taking over the cargo division of Comboios de Portugal, and operates container trains over the Iberian peninsula. Its rail operations have later expanded to Italy and beyond, under the name Medway.
+In October 2023, MSC acquired a 50% stake in Italo.
+
+
+=== MSC Air Cargo ===
+
+In late 2022, MSC launched a virtual cargo airline under the MSC Air Cargo brand, ordering four Boeing 777F cargo aircraft; revenue flights commenced in December 2022 and the second aircraft was delivered in July 2023. Although MSC owns the aircraft and they are painted in MSC livery, they are operated under contract by Atlas Air.
+In August 2023, MSC announced the purchase of a majority share of Italian cargo carrier AlisCargo Airlines, which began flights in 2021 and previously operated four Boeing 777 freighters. AlisCargo suspended operations and voluntarily withdrew its air operator's certificate (AOC) in 2022 due to declining air cargo rates, which made freighter operation increasingly uneconomical, along with the expiration of a temporary European Union Aviation Safety Agency rule allowing cargo carriage on the main decks of passenger aircraft. AlisCargo had a new 777F scheduled for delivery in 2024 and applied for a new AOC; once the new aircraft and the AOC were obtained, MSC said that AlisCargo would be merged into MSC Air Cargo, and MSC Air Cargo will operate flights independently from Atlas Air.
+In May 2024, MSC Air Cargo announced that it had taken delivery of the fifth 777F and that independent operations would soon commence under the new Italian AOC.
+In March 2026, MSC took delivery of its third Italian-registered Boeing 777-200 freighter, growing the company's fleet to a total of seven aircraft. This delivery coincides with the expansion of the company’s Italian network. Alongside the already operational hub in Milan Malpensa, MSC Air Cargo is preparing to launch intercontinental cargo services from Rome Fiumicino.
+
+
+=== TiL ===
+Terminal Investment Ltd. (TiL),  is the port operator 70% owned by the Mediterranean Shipping Co, 20% by Global Infrastructure Partners and 10% by GIC. It manages 45 port terminals on behalf of MSC.
+
+
+== Fleet ==
+
+Other ships:
+
+
+== Aircraft ==
+
+
+== 2M Alliance: Maersk SeaLand/MSC ==
+2M Alliance was a Maersk SeaLand and MSC vessel-sharing agreement (VSA) launched in 2015 to ensure competitive and cost-efficient operations on the Asia-Europe, trans-Pacific and trans-Atlantic trades. The arrangement included a series of slot exchanges and slot purchases on east–west routes, also involved Maersk Line and MSC taking over a number of charters and operations of vessels chartered to HMM. The 2M Alliance included 185 vessels with an estimated capacity of 2.1 million TEU, deployed on 21 strings. The 2M arrangement had a minimum term of 10 years with a 2-year notice period of termination. On 25 January 2023, CEO Vincent Clerc of A. P. Moller – Maersk and CEO Soren Toft of MSC announced in a joint press statement that the two shipping lines would terminate the 2M Alliance in January 2025.
+
+
+== Incidents ==
+
+
+=== MSC Carla ===
+On 24 November 1997, the container ship MSC Carla encountered heavy weather and broke apart northeast of Azores in the North Atlantic Ocean, when on route to Boston, United States, from Le Havre, France. The 34 crew members were air-lifted by helicopter to safety. The fore part sank over a period of five days. The stern was towed to Spain where it was scrapped. In 1984, the previous owners of MSC Carla (her name was Nihon at that time) lengthened the ship by 15 metres (49 ft 3 in). This was accomplished by cutting the vessel in two and welding in a lengthening module. The structural failure was at the forward end of the new mid-body. The design and installation of the new structure by the shipyard was found to have been faulty.
+
+
+=== MSC Napoli ===
+
+On 18 January 2007, the container ship MSC Napoli was abandoned in the English Channel due to European storm Kyrill after severe gale-force winds and huge waves caused serious damage to MSC Napoli's hull, including a crack in one side and a flooded engine room. All 26 crew were picked up from their lifeboat by Sea King helicopters of the Royal Navy's Fleet Air Arm and taken to Royal Naval Air Station Culdrose in Cornwall. On 19 January 2007, the ship was taken under tow but because of the ship's deteriorating condition it was decided to beach the ship at Branscombe. On 9 July 2007 the MSC Napoli was refloated, but was immediately re-beached as a crack measuring 3 meters (9.8 ft) was found in the vessel's hull, running down both sides and through the keel. The decision was made to break the ship up near Branscombe beach.
+
+
+=== MSC Nikita ===
+On 29 August 2009, the container ship MSC Nikita was involved in a collision with Nirint Pride off the Port of Rotterdam and was breached in the engine room. She was towed to Rotterdam for emergency repairs and subsequently declared a total loss. There were no casualties.
+
+
+=== MSC Chitra ===
+On 7 August 2010, the container ship MSC Chitra was involved in a collision with the bulk carrier Khalijia II while leaving Jawaharlal Nehru Port east of Mumbai in Navi Mumbai's Raigad district, India. Khalijia II had ripped into MSC Chitra's port side, creating three major dents in its hull and the engine room gradually flooded. After collision the MSC Chitra listed heavily and was grounded 8 km (5.0 mi) outside of the port. The captain and 32 crew members were evacuated. On 17 April 2011, after the ship was declared a total loss, MSC Chitra was scuttled by Titan Maritime approximately 385 miles (620 km) off the coast of Mumbai.
+
+
+=== MSC Zoe ===
+
+On 1 January 2019, whilst on a voyage from Portugal to Bremerhaven carrying more than 8,000 containers, MSC Zoe encountered severe weather causing her to roll violently. 345 containers went overboard into the North Sea near the Wadden islands off the Dutch coast. Of these, 297 containers were lost north of the Dutch island Ameland, and the remaining 48 containers were found some hours later north of the German island Borkum.
+
+
+=== MSC Messina ===
+
+On 24 June 2021, the container ship MSC Messina caught fire in the midway of the Indian Ocean halfway between Sri Lanka and Malacca Strait. The fire broke in the engine room of the ship, at 480 nautical miles (890 km; 550 mi) away from the Great Basses Reef Lighthouse, Kirinda.
+
+
+=== MSC Danit ===
+
+On 16 October 2021, the container ship MSC Danit was boarded in the Port of Long Beach by the United States Coast Guard and National Transportation Safety Board marine casualty investigators. They were investigating an undersea pipeline that appeared to have been damaged by a ship's anchor and recently spilled oil onto the beaches of Orange County. MSC and ship owner, Dordellas Finance Corporation, and others were designated as parties of interest in the investigation.
+
+
+=== MSC Palatium III ===
+On 15 December 2023, during the Gaza war, MSC Palatium III was damaged in a missile attack by Houthi movement insurgents in Yemen as she transited the Red Sea. She turned around and exited the area. In a statement the next day, MSC said that the ship had been taken out of service, there were no injuries to the crew, and that the company would cease routing vessels through the Red Sea due to the danger of further Houthi attacks. MSC Palatium III had been sailing under the Liberian flag and was not Israeli-owned, so it was not clear why she was attacked, but a U.S. intelligence analyst told the Associated Press that the ship may have been deliberately targeted because MSC had cooperated with the Israeli government.
+
+
+=== MSC Aries ===
+
+On 13 April 2024 in the Gulf of Oman, off the Emirati port city of Fujairah, the Iranian Revolutionary Guard Corps Navy boarded and seized container ship MSC Aries, claiming she was "violating maritime laws". She was flying the ensign of Portugal. MSC Aries is leased by MSC from Gortal Shipping Inc., an affiliate of Zodiac Maritime (ZM). The 25 crew aboard includes 17 Indian nationals, Filipinos, Pakistanis, a Russian and an Estonian. Iran has similarly attacked vessels and seized ships amidst persistent political issues since 2019. On 3 May 2024, Iranian Foreign Minister Hossein Amirabdollahian announced that captain and crew had been released, while the vessel remained held by Iran.
+
+
+=== MSC Vera Cruz ===
+On 24 April 2024, the Madeira-flagged cargo ship MSC Vera Cruz, while about 72 nautical miles (133 km; 83 mi) southeast of Djibouti, was unsuccessfully fired upon, in tandem with U.S.-flagged container ship Maersk Yorktown, by Iranian-backed Houthi militants, who claimed responsibility.
+
+
+=== MSC Gina and MSC Diego ===
+In May 2024, the two ships MSC Gina and MSC Diego were attacked by Houthi rebels in the Red Sea. There was little damage done.
+The former also had a similar incident in the previous month.
+
+
+=== MSC Tavvishi ===
+In June 2024, Houthi rebels fired missiles at MSC Tavvishi and a couple of other ships, as they were sailing on the Red Sea.
+
+
+=== MSC Baltic III ===
+On 15 February 2025, MSC Baltic III ran aground close to the Lark Harbour shoreline along the west coast of Newfoundland after losing power in stormy weather. The 22 crew members were airlifted by Canadian Armed Forces members from 103 Search and Rescue Squadron.  On 25 February the Canadian Coast Guard assessment of the hull has confirmed significant breaches and there was evidence that seawater is beginning to enter the ship.
+
+
+=== MSC Levante F ===
+On 1 March 2025, while in port at Odessa, Ukraine, MSC Levante F was targeted by two Russian Iskander-M missiles. The missiles missed their target and struck the bulk carrier Super Sarkas that was loading 21,000 tonnes of corn and soya. The container ship sustained minor damage, such as broken portholes, mainly from the impact of the shock wave, and left the port safely.
+
+
+=== MSC Elsa 3 ===
+
+On 24 May 2025, Liberian-flagged container ship MSC Elsa 3 capsized off the Kerala coast in India. The vessel was carrying 640 containers, including 13 with hazardous materials such as calcium carbide, and over 450 metric tonnes of marine fuel. All crew members were rescued by the Indian Navy and Coast Guard.
+
+
+=== MSC Francesca and MSC Epaminondas (aka Epimonidas) IRGC seizure ===
+On April 22, 2026, two cargo ships, MSC Francesca (IMO: 9401116) and MSC Epaminondas (IMO 9153862) were seized by the Islamic Revolutionary Guard Corps (IRGC) while crossing the Strait of Hormuz. Eight Epaminondas crew members were released in June 2026. MSC Francesca is Panama-flagged and operated by MSC. MSC Epaminondas is Liberia-flagged and managed by Greek shipper Techomar Group.
+
+
+== Drug cartel smuggling ==
+
+A shipment of cocaine was captured in the 2019 Philadelphia Packer Marine Terminal cocaine seizure that totalled 20 tons, with a street value of US$1.3 billion. That ship, MSC Gayane, was seized by U.S. Customs and Border Protection due to the scale of the smuggling. The company denied that it intentionally facilitated this, and stated that the wrongdoing was carried out by a small number of employees who had been corrupted or coerced by drug cartels. US and European authorities concluded that the Balkan gangs responsible control more than half of the cocaine flowing into Europe, and had infiltrated MSC's crews over a decade of effort.
+
+
+== See also ==
+
+List of largest container shipping companies
+
+
+== References ==
+
+
+== External links ==
+ Media related to Mediterranean Shipping Company at Wikimedia Commons
+Official website

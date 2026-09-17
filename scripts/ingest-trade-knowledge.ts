@@ -36,7 +36,7 @@ const arg = (name: string): string | undefined => {
 const has = (name: string): boolean => process.argv.includes(`--${name}`);
 
 const APP = arg('app') ?? 'http://localhost:3000';
-const ROOT = 'db/trade-corpus';
+const ROOT = 'scripts/trade-corpus';
 const DRY_RUN = has('dry-run');
 const CONNECT = !has('no-connect');
 const DOMAINS_ARG = arg('domain') ?? 'all';
@@ -312,6 +312,10 @@ async function main(): Promise<void> {
             title: d.title,
             docType: d.docType,
             content: d.content,
+            // The API maps `version` → BlueprintVersion: a corpus-wide shared
+            // version keeps all docs on ONE CURRENT row (per-doc versions
+            // supersede each other and strand earlier docs — Task 30 lesson).
+            version: CORPUS_VERSION,
             documentVersion: CORPUS_VERSION,
           });
           results.push({ title: d.title, jobId: r.jobId, duplicate: r.duplicate });

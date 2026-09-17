@@ -1,0 +1,38 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Manifest%20%28transportation%29
+SOURCE-TITLE: Manifest (transportation)
+FETCH-METHOD: wiki-api
+====
+A manifest, customs manifest or cargo document is a document listing the cargo, passengers, and crew of a ship, aircraft, or vehicle,  for the use of customs and other officials. Where such a list is limited to identifying passengers, it is a passenger manifest or passenger list or bag manifest; conversely, a list limited to identifying cargo is a cargo manifest or cargo list, or a container manifest for cargo in a container. The manifest may be used by people having an interest in the transport to ensure that passengers and cargo listed as having been placed on board the transport at the beginning of its passage continue to be on board when it arrives at its destination.This document, made up generally by the ship's broker, from the contents of the bills of lading, contains a specification of the nature and quantity of the cargo laden, and is generally attested officially, and in some countries notarially. The prize laws seldom mention this paper; nor is it general; but yet of essential importance in case of search, as well for belligerents, as for neutrals in procuring a speedy dismissal. It is usual to require it at the custom house. (p301)In this way, a cargo manifest is like a passport except that it is used for goods instead of (or in addition to) persons; the manifest is evidence to the nationality of the goods, the absence of contraband, and that property belonging to belligerents is not laden on board of the vessel.
+Vessels are under no legal obligation to carry a manifest, and indeed is only necessary for neutral vessels in times of war.
+
+
+== Cargo manifest versus bill of lading ==
+A cargo manifest and a bill of lading may carry similar information and the concepts are not always clearly distinguished. In some cases, a single document may serve both purposes. In general, a bill of lading serves as a legal instrument focusing on and documenting such issues as ownership, whereas a cargo manifest is often more concerned with physical aspects of the cargo, such as weight and size. When the cargo is being shipped by several different shipping companies on the same vessel, there will usually be separate bills of lading for each company, but only a single consolidated cargo manifest. On the other hand, if the cargo contains dangerous goods, there may be a separate dangerous cargo manifest. A manifest can be exchanged for commercial purposes, for example the freight manifest exchanged between two liner agents in the departure and the arrival ports. The manifest can also be prepared for regulatory purposes, specifically the customs manifest which needs to be sent to customs when arriving in the first port in a country. The difference in information on the customs manifest and the freight manifest is usually marginal, but the legal status of the two documents is completely different.
+
+
+== Uses ==
+
+
+=== Customs and excise ===
+Customs authorities may require cargo-carrying vessels or vehicles to provide information on the cargo manifest such as its consignor, consignee, quantity of goods, origin, destination and value.
+
+
+=== International travel ===
+Immigration authorities may require passenger-carrying vessels or vehicles to provide a passenger manifest listing information such as names and ports of embarkation and disembarkation.
+
+
+=== Disasters ===
+In case of disasters, passenger manifests may be helpful in identifying casualties and notifying families of passengers. Cargo manifests can support insurance claims for lost goods.
+
+
+=== Archaeology ===
+Manifests can be useful tools for archaeology. For example, researchers used old ship's manifests to recreate the available amenities in their restoration of the historic Custom House in Monterey, California, which was built in 1827 by Mexican authorities and remains the oldest surviving government building on the West Coast.
+
+
+== See also ==
+
+Passenger name record, a document recording the transit of an individual passenger (computer reservation system for air travel)
+Shipping list, a document accompanying an individual package
+
+
+== References ==

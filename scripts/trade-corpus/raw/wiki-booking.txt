@@ -1,0 +1,20 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Booking
+SOURCE-TITLE: Booking
+FETCH-METHOD: wiki-api
+====
+Booking may refer to:
+
+Making an appointment for a meeting or gathering, as part of event planning/scheduling
+The intake or admission process into a prison or psychiatric facility
+Booking (manhwa), a Korean comics anthology magazine published by Haksan
+Booking (professional wrestling), the laying out of the plot before a professional wrestling match
+An accounting system a.k.a. double-entry bookkeeping system
+Booking (clubbing), the practise of forced socialisation in South Korean clubs
+Booking Holdings, American company
+Booking.com, a website for arranging hotel reservations
+Booking, scheduling services performed by a talent agent
+In professional sports, the noting of a player's name in a referee's book, the player having been shown a penalty card
+
+
+== See also ==
+Book (disambiguation)

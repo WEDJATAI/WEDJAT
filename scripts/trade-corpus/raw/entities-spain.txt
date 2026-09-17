@@ -1,0 +1,23 @@
+=== Spain ===
+C.B. Comunidad de Bienes (partnership)
+S.A. (Sociedad Anónima): ≈ plc (UK), minimum capital €60,101.21
+S.L. (Sociedad Limitada): ≈ Ltd. (UK), minimum capital €3,012
+S.L.N.E. (Sociedad Limitada Nueva Empresa): similar to S.L., it was introduced in 2003 to speed up new company registration (registration can be completed in one day), minimum capital €3,012
+S.A.D. (Sociedad Anónima Deportiva): a limited liability sports corporation
+S.L.L. (Sociedad Limitada Laboral): a labour limited corporation
+S.C. (Sociedad Colectiva): roughly a general partnership
+S.C.P. (Sociedad Civil Privada): ¿?
+S.Cra. (Sociedad Comanditaria): roughly a limited partnership
+S.Com. p. A. (Sociedad Comanditaria por Acciones)
+S.Com p.A.P. (Sociedad Comanditaria por Acciones Profesional)
+S.Coop. (Sociedad Cooperativa): a cooperative that typically is owned and democratically controlled by its workers
+Other initialisations are used for cooperatives; Sociedad Anónima Laboral (SAL); some are region specific e.g. Sociedad Cooperativa Catalana Limitada (SCCL)
+UTE (Unión Temporal de Empresas) ≈ temporary consortium or joint venture
+Venture capital fund:
+SCR (Sociedades de Capital Riesgo)
+FCR (Fondos de Capital Riesgo), FCR-Pyme for SME
+SICC (Sociedades de inversión colectiva de tipo cerrado)
+FICC (Fondos de inversión colectiva de tipo cerrado)
+SGEIC (Sociedades Gestoras de Entidades de Inversión Colectiva de tipo cerrado)
+
+

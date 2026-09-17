@@ -1,0 +1,792 @@
+SOURCE-URL: https://www.trade.gov/education/export-documentation
+SOURCE-TITLE: 404
+FETCH-METHOD: curl
+====
+- 
+
+- 
+
+404 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+- 
+
+Skip to main content
+
+An official website of the United States government   Here’s how you know    
+
+Official websites use .gov 
+A .gov website belongs to an official government organization in the United States.
+
+Secure .gov websites use HTTPS 
+A lock ( ) or https:// means you’ve safely connected to the .gov website.
+
+- 
+
+For U.S. Businesses 
+
+- 
+
+Export Solutions 
+
+- 
+Overview 
+
+- 
+Get Ready to Export 
+
+- 
+Exporter Resources 
+
+- 
+Client Success Stories 
+
+- 
+Events and Webinars 
+
+- 
+
+Research Center 
+
+- 
+Overview 
+
+- 
+Visual Data Center 
+
+- 
+Research by Industry 
+
+- 
+Research By Country 
+
+- 
+Research By Region 
+
+- 
+Trade Data and Analysis 
+
+- 
+Public APIs 
+
+- 
+
+Regulations & Agreements 
+
+- 
+Overview 
+
+- 
+U.S. Export Regulations 
+
+- 
+Foreign Regulations 
+
+- 
+Trade Agreements 
+
+- 
+
+Resolve a Trade Problem 
+
+- 
+Overview 
+
+- 
+Resolve a Foreign Trade Barrier 
+
+- 
+U.S. Antidumping & Countervailing Duties 
+
+- 
+Facing a Foreign AD/CVD or Safeguard Investigation 
+
+- 
+Fight Unfair Foreign Trade Subsidies 
+
+- 
+Industry Monitoring & Analysis 
+
+- 
+Protect Your Intellectual Property 
+
+- 
+Advocating for U.S. Business Abroad 
+
+- 
+
+Attend an Event 
+
+- 
+Overview 
+
+- 
+Trade Event Search 
+
+- 
+Network & Learn at Events 
+
+- 
+Meet Buyers at Events 
+
+- 
+Trade Missions 
+
+- 
+Services for Trade Event Organizers 
+
+- 
+Foreign Direct Investment Attraction Events 
+
+- 
+
+Let Our Experts Help 
+
+- 
+Overview 
+
+- 
+New Exporter Services 
+
+- 
+Experienced Exporter Services 
+
+- 
+Event Organizer Services 
+
+- 
+Associations & EDO Services 
+
+- 
+Rural Company Services 
+
+- 
+Foreign-Trade Zones 
+
+- 
+Partner with ITA 
+
+- 
+
+BuyUSA 
+
+- 
+
+Overview 
+
+- 
+
+Find a Supplier - Textiles and Apparel 
+
+- 
+
+Invest in the USA 
+
+- 
+
+Make Connections 
+
+- 
+
+- 
+Upcoming Events 
+
+- 
+SelectUSA Investment Summit 
+
+- 
+Find Economic Development Organization 
+
+- 
+Find Federal Agencies 
+
+- 
+Find Service Providers 
+
+- 
+
+Our Programs 
+
+- 
+
+- 
+SelectUSA Tech 
+
+- 
+Select Global Women in Tech (SGWIT) 
+
+- 
+Investment Advisory Council (IAC) 
+
+- 
+Interagency Investment Working Group (IIWG) 
+
+- 
+
+Research Center 
+
+- 
+
+- 
+Investor Guide 
+
+- 
+Industry Overview Hub 
+
+- 
+Workforce Development 
+
+- 
+Fact Sheets 
+
+- 
+Reports and Publications 
+
+- 
+Online Data Tools 
+
+- 
+
+Let Our Experts Help 
+
+- 
+
+- 
+About Select USA 
+
+- 
+Services 
+
+- 
+Contact Us 
+
+- 
+
+Additional Resources 
+
+- 
+
+- 
+State Business Incentives Database 
+
+- 
+Careers and Internships 
+
+- 
+
+News 
+
+- 
+
+About Us 
+
+- 
+
+Contact Us 
+
+- 
+
+Search ITA 
+
+Search 
+
+Menu 
+
+- 
+
+Search ITA 
+
+Search 
+
+- 
+
+For U.S. Businesses 
+
+- 
+
+Export Solutions 
+
+- 
+Overview 
+
+- 
+Get Ready to Export 
+
+- 
+Exporter Resources 
+
+- 
+Client Success Stories 
+
+- 
+Events and Webinars 
+
+- 
+
+Research Center 
+
+- 
+Overview 
+
+- 
+Visual Data Center 
+
+- 
+Research by Industry 
+
+- 
+Research By Country 
+
+- 
+Research By Region 
+
+- 
+Trade Data and Analysis 
+
+- 
+Public APIs 
+
+- 
+
+Regulations & Agreements 
+
+- 
+Overview 
+
+- 
+U.S. Export Regulations 
+
+- 
+Foreign Regulations 
+
+- 
+Trade Agreements 
+
+- 
+
+Resolve a Trade Problem 
+
+- 
+Overview 
+
+- 
+Resolve a Foreign Trade Barrier 
+
+- 
+U.S. Antidumping & Countervailing Duties 
+
+- 
+Facing a Foreign AD/CVD or Safeguard Investigation 
+
+- 
+Fight Unfair Foreign Trade Subsidies 
+
+- 
+Industry Monitoring & Analysis 
+
+- 
+Protect Your Intellectual Property 
+
+- 
+Advocating for U.S. Business Abroad 
+
+- 
+
+Attend an Event 
+
+- 
+Overview 
+
+- 
+Trade Event Search 
+
+- 
+Network & Learn at Events 
+
+- 
+Meet Buyers at Events 
+
+- 
+Trade Missions 
+
+- 
+Services for Trade Event Organizers 
+
+- 
+Foreign Direct Investment Attraction Events 
+
+- 
+
+Let Our Experts Help 
+
+- 
+Overview 
+
+- 
+New Exporter Services 
+
+- 
+Experienced Exporter Services 
+
+- 
+Event Organizer Services 
+
+- 
+Associations & EDO Services 
+
+- 
+Rural Company Services 
+
+- 
+Foreign-Trade Zones 
+
+- 
+Partner with ITA 
+
+- 
+
+BuyUSA 
+
+- 
+
+Overview 
+
+- 
+
+Find a Supplier - Textiles and Apparel 
+
+- 
+
+Invest in the USA 
+
+- 
+
+Make Connections 
+
+- 
+
+- 
+Upcoming Events 
+
+- 
+SelectUSA Investment Summit 
+
+- 
+Find Economic Development Organization 
+
+- 
+Find Federal Agencies 
+
+- 
+Find Service Providers 
+
+- 
+
+Our Programs 
+
+- 
+
+- 
+SelectUSA Tech 
+
+- 
+Select Global Women in Tech (SGWIT) 
+
+- 
+Investment Advisory Council (IAC) 
+
+- 
+Interagency Investment Working Group (IIWG) 
+
+- 
+
+Research Center 
+
+- 
+
+- 
+Investor Guide 
+
+- 
+Industry Overview Hub 
+
+- 
+Workforce Development 
+
+- 
+Fact Sheets 
+
+- 
+Reports and Publications 
+
+- 
+Online Data Tools 
+
+- 
+
+Let Our Experts Help 
+
+- 
+
+- 
+About Select USA 
+
+- 
+Services 
+
+- 
+Contact Us 
+
+- 
+
+Additional Resources 
+
+- 
+
+- 
+State Business Incentives Database 
+
+- 
+Careers and Internships 
+
+- 
+
+News 
+
+- 
+
+About Us 
+
+- 
+
+Contact Us 
+
+- 
+Home 
+
+- 
+404 
+
+# 404
+
+| 
+
+ 
+| 
+## Page Not Found
+Oops, it seems you’ve wandered into uncharted territory on Trade.gov.  We’re sorry for the inconvenience. 
+Our Ongoing Journey to Enhance Your Trade Experience 
+While you’re here, know that we’re tirelessly improving our digital presence to make your trade journey smoother and more fruitful. 
+ 
+|
+
+## Let's get you back on track
+
+Top Markets
+
+Review top export market rankings and discover leading markets for export success
+
+Review Top Markets
+
+SelectUSA
+
+Facilitating job-creating business investment into the United States
+
+Explore SelectUSA
+
+Country Commercial Guides
+
+Market conditions, opportunities, regulations, and business customs prepared at U.S. embassies
+
+Discover Commercial Guides
+
+Data & Analysis
+
+The latest data, tools, and reports produced by our trade specialists
+
+See Data & Analysis
+
+Careers
+
+We help U.S. businesses win around the world and want you to be a part of it
+
+Search Careers
+
+Market Intelligence
+
+Get the latest updates on opportunities identified by our trade professionals in more than 70 overseas markets
+
+Explore International Markets
+
+## Other Options
+
+- Return to our Homepage - Start fresh and explore what the International Trade Administration has to offer.
+
+- Try our Site Search - See if you can find what you’re looking for.
+
+## Stay Informed
+Follow us on LinkedIn for updates and trade insights.
+ 
+We’re committed to making your trade experience exceptional! Thanks for your patience as we continue to enhance our digital home.
+ 
+Error code: 404
+
+× 
+
+## Global Business Navigator Chatbot Beta 
+Welcome to the Global Business Navigator, an artificial intelligence (AI) Chatbot from the International Trade Administration (ITA). This tool, currently in beta version testing, is designed to provide general information on the exporting process and the resources available to assist new and experienced U.S. exporters. The Chatbot, developed using Microsoft’s Azure AI services, is trained on ITA’s export-related content and aims to quickly get users the information they need. The Chatbot is intended to make the benefits of exporting more accessible by understanding non-expert language, idiomatic expressions, and foreign languages. 
+
+### Limitations
+As a beta product, the Chatbot is currently being tested and its responses may occasionally produce inaccurate or incomplete information. The Chatbot is trained to decline out of scope or inappropriate requests. The Chatbot’s knowledge is limited to the public information on the Export Solutions web pages of Trade.gov, which covers a wide range of topics on exporting. While it cannot provide responses specific to a company’s product or a specific foreign market, its reference pages will guide you to other relevant government resources and market research. Always double-check the Chatbot’s responses using the provided references or by visiting the Export Solutions web pages on Trade.gov. Do not use its responses as legal or professional advice. Inaccurate advice from the Chatbot would not be a defense to violating any export rules or regulations.
+
+### Privacy
+The Chatbot does not collect information about users and does not use the contents of users’ chat history to learn new information. All feedback is anonymous. Please do not enter personally identifiable information (PII), sensitive, or proprietary information into the Chatbot. Your conversations will not be connected to other interactions or accounts with ITA. Conversations with the Chatbot may be reviewed to help ITA improve the tool and address harmful, illegal, or otherwise inappropriate questions.
+
+### Translation
+The Chatbot supports a wide range of languages. Because the Chatbot is trained in English and responses are translated, you should verify the translation. For example, the Chatbot may have difficulty with acronyms, abbreviations, and nuances in a language other than English.
+
+Privacy Program | Information Quality Guidelines | Accessibility 
+
+## Footer
+
+- 
+For U.S. Businesses 
+
+- 
+Export Solutions 
+
+- 
+Research Center 
+
+- 
+Regulations & Agreements 
+
+- 
+Resolve a Trade Problem 
+
+- 
+Attend an Event 
+
+- 
+News & Highlights 
+
+- 
+Let Our Experts Help 
+
+- 
+BuyUSA 
+
+- 
+Find a Supplier - Textiles & Apparel 
+
+- 
+Invest in the U.S. 
+
+- 
+Make Connections 
+
+- 
+Our Programs 
+
+- 
+Research Center 
+
+- 
+Let Our Experts Help 
+
+- 
+Additional Resources 
+
+- 
+About Us 
+
+- 
+Contact Us 
+
+- 
+Careers 
+
+- 
+Data & API 
+
+- 
+Site Map 
+
+International Trade Administration
+
+U.S. Department of Commerce 
+
+1401 Constitution Ave NW
+
+Washington, DC 20230
+
+Connect With ITA 
+
+- 
+
+Twitter 
+
+- 
+
+Facebook 
+
+- 
+
+YouTube 
+
+- 
+
+LinkedIn 
+
+The  International Trade Administration ,  U.S. Department of Commerce , manages this global trade site to provide access to ITA information on promoting trade and investment, strengthening the competitiveness of U.S. industry, and ensuring fair trade and compliance with trade laws and agreements. External links to other Internet sites should not be construed as an endorsement of the views or privacy policies contained therein. This site contains PDF documents. A  PDF reader  is available from Adobe Systems Incorporated.
+
+USA.gov  |  FOIA  |  Privacy Program  |  Disclaimer  |  Information Quality Guidelines |  Accessibility 
+
+× 
+
+## Global Business Navigator Chatbot Beta 
+Welcome to the Global Business Navigator, an artificial intelligence (AI) Chatbot from the International Trade Administration (ITA). This tool, currently in beta version testing, is designed to provide general information on the exporting process and the resources available to assist new and experienced U.S. exporters. The Chatbot, developed using Microsoft’s Azure AI services, is trained on ITA’s export-related content and aims to quickly get users the information they need. The Chatbot is intended to make the benefits of exporting more accessible by understanding non-expert language, idiomatic expressions, and foreign languages. 
+
+### Limitations
+As a beta product, the Chatbot is currently being tested and its responses may occasionally produce inaccurate or incomplete information. The Chatbot is trained to decline out of scope or inappropriate requests. The Chatbot’s knowledge is limited to the public information on the Export Solutions web pages of Trade.gov, which covers a wide range of topics on exporting. While it cannot provide responses specific to a company’s product or a specific foreign market, its reference pages will guide you to other relevant government resources and market research. Always double-check the Chatbot’s responses using the provided references or by visiting the Export Solutions web pages on Trade.gov. Do not use its responses as legal or professional advice. Inaccurate advice from the Chatbot would not be a defense to violating any export rules or regulations.
+
+### Privacy
+The Chatbot does not collect information about users and does not use the contents of users’ chat history to learn new information. All feedback is anonymous. Please do not enter personally identifiable information (PII), sensitive, or proprietary information into the Chatbot. Your conversations will not be connected to other interactions or accounts with ITA. Conversations with the Chatbot may be reviewed to help ITA improve the tool and address harmful, illegal, or otherwise inappropriate questions.
+
+### Translation
+The Chatbot supports a wide range of languages. Because the Chatbot is trained in English and responses are translated, you should verify the translation. For example, the Chatbot may have difficulty with acronyms, abbreviations, and nuances in a language other than English.
+
+Privacy Program | Information Quality Guidelines | Accessibility

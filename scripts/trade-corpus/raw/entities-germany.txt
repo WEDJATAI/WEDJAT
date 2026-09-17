@@ -1,0 +1,50 @@
+=== Germany ===
+In Germany, the most common corporate forms include the Gesellschaft mit beschränkter Haftung and the Aktiengesellschaft. The GmbH is a private limited liability company, widely used for small and medium-sized enterprises. The AG is a public limited company used by larger firms and those listed on stock exchanges. German corporate law is governed by the Handelsgesetzbuch. Companies must register with the local commercial register and comply with strict disclosure and accounting standards.
+
+individuals
+Einzelunternehmen: individual entrepreneur ≈ sole trader (UK), sole proprietorship; only professional services, agriculture and forestry as well as small commercial businesses
+Eingetragener Kaufmann (male/both genders)/eingetragene Kauffrau (female) (e.K./e.Kfm./e.Kfr.): registered merchant ≈ sole trader (UK), sole proprietorship (US); individual entrepreneur with commercial business (Handelsgewerbe)
+partnerships (Personengesellschaften)
+Gesellschaft bürgerlichen Rechts (GbR), BGB-Gesellschaft: simple partnership; no minimum capital, two or more partners, unlimited liability of partners, no commercial business (Handelsgewerbe) that is not small.
+nicht-eingetragener Verein: non-registered association; non-commercial/idealistic purposes only; similar to e.V. but lacking juridical personality
+commercial partnerships (Personenhandelsgesellschaften)
+Offene Handelsgesellschaft (OHG): literally "open business company" ≈ general partnership: no minimum capital, unlimited liability of partners; GbR with commercial business (Handelsgewerbe)
+Kommanditgesellschaft (KG) ≈ limited partnership
+In case the general partner is a limited company, the legal form of the general partner, followed by "& Compagnie" (shortened to & Co.), must be included in the name of the company, resulting in combined legal forms such as:
+GmbH & Co. KG: the general partner is a GmbH
+AG & Co. KG: the general partner is an AG
+SE & Co. KG: the general partner is a societas Europaea
+GmbH & Co. OHG: each of the general partners are a GmbH
+The same rule also applies when the general partner is a limited company incorporated outside Germany, for example:
+Limited & Co. KG: the general partner is a UK private company limited by shares
+PLC & Co. KG: the general partner is a UK plc
+ApS & Co. KG: the general partner is a Danish Anpartsselskab
+LLC & Co. KG: the general partner is a US LLC
+Note that when a KG's general partner is a limited company, the resulting form is legally considered as a different subtype of KG
+Partnerschaftsgesellschaft (PartG): partnership company; only for professional services
+Partnerschaftsgesellschaft mit beschränkter Berufshaftung (PartGmbBH): partnership company with limited professional liability ≈ limited liability partnership (US); only for professional services
+Partenreederei: combined and continued ownership of a single merchant vessel; no longer available for new businesses since 24 April 2013.
+corporations (Körperschaften)
+eingetragener Verein (e.V.): incorporated association; non-commercial/idealistic purposes only, commercial business cannot be the main purpose of the e.V.
+altrechtlicher Verein/rechtsfähiger Verein (r.V.): association established before 1 January 1900; extremely rare
+wirtschaftlicher Verein: commercial purpose, established by public grant; rare
+Companies limited by shares (equity) (Kapitalgesellschaften)
+Kommanditgesellschaft auf Aktien (KGaA): ≈ publicly traded partnership (US); although it is a company limited by shares, the KGaA has at least one general partner whose liability is not limited
+As with the KG, the legal form of the general partner, followed by "& Compagnie" (shortened to & Co.), must be included if it is another limited company, resulting in combined legal forms such as:
+GmbH & Co. KGaA: the general partner is a GmbH
+AG & Co. KGaA: the general partner is an AG
+SE & Co. KGaA: the general partner is a societas Europaea
+Note that when a KGaA's general partner is a limited company, the resulting form is legally considered as a different subtype of KGaA
+Gesellschaft mit beschränkter Haftung (GmbH; German: [ˈgeːɛmbeːˌhaː]): company with limited liability ≈ private limited company (Ltd.) (UK), limited liability company (LLC) (US); at least one shareholder; minimum equity €25,000.
+The "mit beschränkter Haftung (mbH)" suffix (German: [ˈɛmbeːˌhaː], "with limited liability") is sometimes added to the name of a firm that already ends in "-gesellschaft" ("company"), e.g., "Mustermann Dental-Handelsgesellschaft mit beschränkter Haftung" ("dental trading company with limited liability"), which would be abbreviated as "Mustermann Dental-Handelsgesellschaft mbH".
+gemeinnützige GmbH (gGmbH); In German tax law, the non-profit GmbH is a limited liability company whose income is used for charitable purposes.
+Unternehmergesellschaft (haftungsbeschränkt) (UG (haftungsbeschränkt)): literally "entrepreneurship company (with limited liability)": identical to GmbH but with a minimum capital of €1 (times the number of shares); part of earnings needs to remain in the company to reach a minimum equity of €25,000; the word haftungsbeschränkt ("with limited liability") may not be abbreviated.
+Aktiengesellschaft (AG): literally "stock company" ≈ public limited company (plc) (UK), Inc. (US); minimum capital €50,000.
+eingetragene Genossenschaft (e.G.): registered cooperative
+Körperschaft des öffentlichen Rechts: corporation under public law; main purpose is non-commercial, part of public administration
+others
+Stiftung ≈ (private) foundation, trust
+Stiftung des öffentlichen Rechts: foundation under public law; main purpose is non-commercial, part of public administration
+Anstalt des öffentlichen Rechts: institution under public law; main purpose is non-commercial, part of public administration
+
+

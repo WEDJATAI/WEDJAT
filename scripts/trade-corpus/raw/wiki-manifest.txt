@@ -1,0 +1,58 @@
+SOURCE-URL: https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext&format=json&redirects=1&titles=Manifest
+SOURCE-TITLE: Manifest
+FETCH-METHOD: wiki-api
+====
+Manifest may refer to:
+
+
+== Computing ==
+Manifest file, a metadata file that enumerates files in a program or package
+Manifest (CLI), a metadata text file for CLI assemblies
+
+
+== Events ==
+Manifest (convention), a defunct anime festival in Melbourne, Australia
+Manifest (urban arts festival), put on by Columbia College Chicago, in Illinois, US
+
+
+== Film and television ==
+Manifest: The Chryzinium Era, a 2017 American short film
+Manifest (TV series), a 2018 American drama series
+"Manifest" (Luke Cage), a television episode
+
+
+== Music ==
+Manifest (band), a Turkish girl group
+
+
+=== Albums ===
+Manifest (Amaranthe album), 2020
+Manifest (Impaled Nazarene album), 2007
+Manifest (Linda Sundblad album), 2010
+Manifest!, by Friends, 2012
+Manifest, by Chessie, 2008
+
+
+=== Songs ===
+"Manifest", by Andrew Bird from My Finest Work Yet, 2019
+"Manifest", by the Fugees from The Score, 1996
+"Manifest", by Gang Starr from No More Mr. Nice Guy, 1989
+"Manifest", by Kerber from Ljudi i bogovi, 1988
+"Manifest", by Sepultura from Chaos A.D., 1993
+"Manifest", by Starset from Divisions, 2019
+
+
+== Other uses ==
+Manifest (transportation), a document listing the cargo, passengers, and crew of a vehicle
+Manifest, Louisiana, US, an unincorporated area
+Democracy Manifest, Queensland police incident
+Manifest Destiny, the concept that drove American Westward expansion
+
+
+== See also ==
+Manafest, Canadian musician
+Manifesta, a European contemporary arts biennale
+Manifestation (disambiguation)
+Manifesto (disambiguation)
+All pages with titles beginning with Manifest
+All pages with titles containing Manifest

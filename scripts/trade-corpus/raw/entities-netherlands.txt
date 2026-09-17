@@ -1,0 +1,17 @@
+=== Netherlands ===
+All non-governmental legal entities are registered on the companies register by the chamber of commerce.
+
+Stichting: ≈ foundation, comparable to German Stiftung. They can run a business but no profit distributions to the founders or board members are allowed.
+mutual societies (associations which are allowed to pay dividends to their members; liability may be unlimited (W.A. – wettelijke aansprakelijkheid), limited (B.A. – beperkte aansprakelijkheid) or exempt (U.A. – uitsluiting van aansprakelijkheid)):
+Coöperatie: ≈ co-operative society
+Onderlinge waarborgmaatschappij: ≈ mutual insurance company
+Vereniging ≈ association. Can run a business, but may not distribute profit among its members.
+vve (Vereniging van Eigenaars) ≈ Homeowner association
+Mts (Maatschap): ≈ group practice (of professionals, e.g. doctors, accountants, lawyers); share facilities not profits, members are treated as natural persons for tax and liability purposes.
+Eenmanszaak: ≈ sole trader (UK), sole proprietorship (US)
+vof (vennootschap onder firma): ≈ GP
+cv (commanditaire vennootschap): ≈ LP
+bv (besloten vennootschap): ≈ Ltd (UK), Ltd. (US). May appear in a company name as the suffix of "B.V.". A bv can be started by an individual (perhaps as the major or only shareholder) or together with partners. Shares cannot be traded publicly. Private liability as owner or director is limited, although financiers may require individual to co-sign loans and in case of mismanagement directors may be personally held accountable.
+nv (naamloze vennootschap): ≈ plc (UK), Corp. (US). May appear in company name as the suffix of "N.V." Minimum issued share capital upon incorporation: €45,000. Literally translated, the title is "nameless company", as shareholders are not formally known as such in company statutes and other legal documents.
+
+
