@@ -1,0 +1,1529 @@
+{
+  "probedAt": "2026-09-18T14:08:41.016Z",
+  "instance": "libsql://wasl-fortleem.aws-us-east-1.turso.io",
+  "tables": [
+    {
+      "name": "AppLock",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "pinHash",
+          "type": "TEXT"
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "BroadcastChannel",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "TEXT"
+        },
+        {
+          "name": "ownerId",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "subscriberCount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "BroadcastMessage",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "channelId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "BroadcastSubscriber",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "channelId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "subscribedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Business",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "ownerId",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "category",
+          "type": "TEXT"
+        },
+        {
+          "name": "registrationDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "taxDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "idDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "rejectionReason",
+          "type": "TEXT"
+        },
+        {
+          "name": "verifiedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "hiddenPhone",
+          "type": "TEXT"
+        },
+        {
+          "name": "hidePhone",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "defaultProtectMessages",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "BusinessGroup",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "businessId",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "TEXT"
+        },
+        {
+          "name": "visibility",
+          "type": "TEXT"
+        },
+        {
+          "name": "category",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdBy",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "BusinessMember",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "businessId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "role",
+          "type": "TEXT"
+        },
+        {
+          "name": "invitedBy",
+          "type": "TEXT"
+        },
+        {
+          "name": "joinedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ChatFolder",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "color",
+          "type": "TEXT"
+        },
+        {
+          "name": "icon",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Commit",
+      "rows": 1,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "creatorId",
+          "type": "TEXT"
+        },
+        {
+          "name": "counterpartyId",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "title",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "TEXT"
+        },
+        {
+          "name": "amount",
+          "type": "REAL"
+        },
+        {
+          "name": "currency",
+          "type": "TEXT"
+        },
+        {
+          "name": "deadline",
+          "type": "TEXT"
+        },
+        {
+          "name": "conditions",
+          "type": "TEXT"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "fairnessScore",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fairnessNote",
+          "type": "TEXT"
+        },
+        {
+          "name": "hash",
+          "type": "TEXT"
+        },
+        {
+          "name": "creatorSigned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "counterpartySigned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "creatorSignedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "counterpartySignedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "completedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Conversation",
+      "rows": 3,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "isGroup",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "avatar",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdBy",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "DisappearingSetting",
+      "rows": 1,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "FolderConversation",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "folderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "addedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ForwardRequest",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "requesterId",
+          "type": "TEXT"
+        },
+        {
+          "name": "targetConversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "respondedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Message",
+      "rows": 47,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "replyToId",
+          "type": "TEXT"
+        },
+        {
+          "name": "commitId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderLabel",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderLabelColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderAvatarPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "fromPhone",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "protected",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "edited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "pinned",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "MessageEdit",
+      "rows": 1,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "editedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Participant",
+      "rows": 10,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "joinedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "lastReadAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "muted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "archived",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "PhoneNumber",
+      "rows": 10,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "number",
+          "type": "TEXT"
+        },
+        {
+          "name": "label",
+          "type": "TEXT"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Poll",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "question",
+          "type": "TEXT"
+        },
+        {
+          "name": "options",
+          "type": "TEXT"
+        },
+        {
+          "name": "multiChoice",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "anonymous",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdBy",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "PollVote",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "pollId",
+          "type": "TEXT"
+        },
+        {
+          "name": "optionId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Reaction",
+      "rows": 2,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "emoji",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ReceiptSplit",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "creatorId",
+          "type": "TEXT"
+        },
+        {
+          "name": "title",
+          "type": "TEXT"
+        },
+        {
+          "name": "totalAmount",
+          "type": "REAL"
+        },
+        {
+          "name": "currency",
+          "type": "TEXT"
+        },
+        {
+          "name": "splitCount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ReceiptSplitParticipant",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "splitId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "amount",
+          "type": "REAL"
+        },
+        {
+          "name": "paid",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ScheduledMessage",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "scheduledFor",
+          "type": "DATETIME"
+        },
+        {
+          "name": "sent",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "sentAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ScreenshotAttempt",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "reporterId",
+          "type": "TEXT"
+        },
+        {
+          "name": "kind",
+          "type": "TEXT"
+        },
+        {
+          "name": "note",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ServiceProvider",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "ownerId",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "officialName",
+          "type": "TEXT"
+        },
+        {
+          "name": "registrationNumber",
+          "type": "TEXT"
+        },
+        {
+          "name": "taxNumber",
+          "type": "TEXT"
+        },
+        {
+          "name": "countryCode",
+          "type": "TEXT"
+        },
+        {
+          "name": "registrationDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "idDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "livenessVideoPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "livenessVerified",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "rejectionReason",
+          "type": "TEXT"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verifiedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "verifiedBy",
+          "type": "TEXT"
+        },
+        {
+          "name": "canBroadcast",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "contactPhone",
+          "type": "TEXT"
+        },
+        {
+          "name": "contactEmail",
+          "type": "TEXT"
+        },
+        {
+          "name": "website",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ServiceProviderMessage",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "providerId",
+          "type": "TEXT"
+        },
+        {
+          "name": "title",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "imagePath",
+          "type": "TEXT"
+        },
+        {
+          "name": "countryCode",
+          "type": "TEXT"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "priority",
+          "type": "INTEGER"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ServiceProviderMessageDismissed",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "dismissedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ServiceProviderMessageRead",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "readAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "StarredMessage",
+      "rows": 1,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "messageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Story",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "type",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "bgColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "expiresAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "StoryView",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "storyId",
+          "type": "TEXT"
+        },
+        {
+          "name": "userId",
+          "type": "TEXT"
+        },
+        {
+          "name": "viewedAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "Thread",
+      "rows": 1,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "parentMessageId",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "ThreadMessage",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "threadId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "TimeCapsule",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "unlockAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "opened",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "rows": 18,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "username",
+          "type": "TEXT"
+        },
+        {
+          "name": "password",
+          "type": "TEXT"
+        },
+        {
+          "name": "name",
+          "type": "TEXT"
+        },
+        {
+          "name": "email",
+          "type": "TEXT"
+        },
+        {
+          "name": "phone",
+          "type": "TEXT"
+        },
+        {
+          "name": "about",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatar",
+          "type": "TEXT"
+        },
+        {
+          "name": "avatarColor",
+          "type": "TEXT"
+        },
+        {
+          "name": "online",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "idDocPath",
+          "type": "TEXT"
+        },
+        {
+          "name": "verifiedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "lastSeen",
+          "type": "DATETIME"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "updatedAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "defaultProtectMessages",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "privacyAlwaysAllow",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "ghostMode",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hideLastSeen",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "WhisperMessage",
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT"
+        },
+        {
+          "name": "conversationId",
+          "type": "TEXT"
+        },
+        {
+          "name": "senderId",
+          "type": "TEXT"
+        },
+        {
+          "name": "content",
+          "type": "TEXT"
+        },
+        {
+          "name": "expiresAt",
+          "type": "DATETIME"
+        },
+        {
+          "name": "read",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATETIME"
+        }
+      ]
+    }
+  ],
+  "tableCount": 36,
+  "totalRows": 95,
+  "distributions": {
+    "message.type": [
+      {
+        "value": "text",
+        "count": 44
+      },
+      {
+        "value": "system",
+        "count": 2
+      },
+      {
+        "value": "commit",
+        "count": 1
+      }
+    ],
+    "message.status": [
+      {
+        "value": "read",
+        "count": 28
+      },
+      {
+        "value": "sent",
+        "count": 19
+      }
+    ],
+    "message.protected": [
+      {
+        "value": "null",
+        "count": 33
+      },
+      {
+        "value": "false",
+        "count": 14
+      }
+    ],
+    "commit.status": [
+      {
+        "value": "pending",
+        "count": 1
+      }
+    ],
+    "commit.type": [
+      {
+        "value": "price",
+        "count": 1
+      }
+    ],
+    "commit.currency": [
+      {
+        "value": "SAR",
+        "count": 1
+      }
+    ],
+    "commit.counterpartySigned": [
+      {
+        "value": "false",
+        "count": 1
+      }
+    ],
+    "conversation.isGroup": [
+      {
+        "value": "group",
+        "count": 2
+      },
+      {
+        "value": "direct",
+        "count": 1
+      }
+    ],
+    "business.status": [],
+    "business.verified": [],
+    "user.verified": [
+      {
+        "value": "false",
+        "count": 10
+      },
+      {
+        "value": "true",
+        "count": 8
+      }
+    ],
+    "user.ghostMode": [
+      {
+        "value": "false",
+        "count": 18
+      }
+    ],
+    "user.defaultProtectMessages": [
+      {
+        "value": "false",
+        "count": 18
+      }
+    ],
+    "story.expiresWindow": []
+  },
+  "scalars": {
+    "users.total": 18,
+    "users.withAbout": 6,
+    "phonenumbers.total": 10,
+    "messages.total": 47,
+    "messages.edited": 1,
+    "messages.pinned": 1,
+    "messages.avgLength": 31,
+    "commits.fullySigned": 0,
+    "commits.withDeadline": 0,
+    "commits.avgAmount": 100,
+    "business.total": 0,
+    "businessmembers.total": 0,
+    "broadcastchannels.total": 0,
+    "broadcastsubscribers.total": 0,
+    "stories.total": 0,
+    "polls.total": 0,
+    "timecapsules.total": 0,
+    "threads.total": 1,
+    "whispermessages.total": 0,
+    "receiptsplits.total": 0,
+    "scheduledmessages.total": 0,
+    "reactions.total": 2
+  },
+  "windows": {
+    "message.createdAt": {
+      "from": "2026-09-12T11:36:33",
+      "to": "2026-09-16T16:35:07"
+    },
+    "user.createdAt": {
+      "from": "2026-09-11T21:45:45",
+      "to": "2026-09-12T18:19:42"
+    }
+  }
+}
